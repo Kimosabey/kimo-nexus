@@ -4,29 +4,33 @@ export default function CaseStudyPage() {
     return (
         <div className="relative z-10 flex flex-col min-h-screen bg-background-dark text-off-white font-display selection:bg-primary selection:text-white">
             {/* Top Navigation */}
-            <nav className="sticky top-0 z-50 w-full border-b border-white/5 bg-background-dark/80 backdrop-blur-md">
+            <nav className="sticky top-0 z-50 w-full border-b border-white/5 bg-onyx/80 backdrop-blur-md">
                 <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
-                    <div className="flex items-center gap-4 text-white">
-                        <div className="size-6 text-primary">
-                            <span className="material-symbols-outlined text-2xl">grid_view</span>
+                    <Link href="/" className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-primary rounded flex items-center justify-center text-white font-bold tracking-tighter">
+                            MK
                         </div>
-                        <Link href="/" className="text-white text-lg font-bold tracking-widest uppercase">Kimo Nexus | Engineer</Link>
-                    </div>
+                        <div className="hidden md:block w-px h-4 bg-white/20 mx-2"></div>
+                        <span className="hidden md:block text-sm text-gray-400 font-medium tracking-wide">FULL STACK HYBRID ENGINEER</span>
+                    </Link>
                     <div className="hidden md:flex flex-1 justify-end gap-8 items-center">
-                        <div className="flex items-center gap-9">
-                            <Link className="text-silver hover:text-white text-sm font-medium transition-colors" href="/#projects">Work</Link>
-                            <Link className="text-silver hover:text-white text-sm font-medium transition-colors" href="/#about">About</Link>
-                            <Link className="text-silver hover:text-white text-sm font-medium transition-colors" href="/#contact">Contact</Link>
+                        <div className="flex items-center gap-6">
+                            <Link className="text-sm text-gray-400 hover:text-white transition-colors" href="/#about">About</Link>
+                            <Link className="text-sm text-gray-400 hover:text-white transition-colors" href="/#skills">Skills</Link>
+                            <Link className="text-sm text-gray-400 hover:text-white transition-colors" href="/#projects">Projects</Link>
+                            <Link className="text-sm text-gray-400 hover:text-white transition-colors" href="/blog">Blog</Link>
                         </div>
-                        <button className="flex items-center justify-center overflow-hidden rounded-lg h-9 px-5 bg-primary hover:bg-primary/80 transition-all text-white text-xs font-bold uppercase tracking-wider shadow-[0_0_10px_rgba(22,22,156,0.5)]">
-                            <span className="truncate">Resume</span>
-                        </button>
+                        <Link className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm font-medium transition-all text-white flex items-center gap-2 group" href="/#contact">
+                            <span>Contact</span>
+                            <span className="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+                        </Link>
                     </div>
                     <div className="md:hidden text-white">
                         <span className="material-symbols-outlined">menu</span>
                     </div>
                 </div>
             </nav>
+
 
             <main className="flex flex-col items-center">
                 {/* Hero Section */}
@@ -185,19 +189,21 @@ export default function CaseStudyPage() {
                 </section>
 
                 {/* Footer */}
-                <footer className="w-full border-t border-white/5 bg-background-dark py-12">
+                <footer className="w-full border-t border-white/5 bg-onyx py-12">
                     <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-                        <div className="flex items-center gap-2">
-                            <span className="material-symbols-outlined text-primary">bolt</span>
-                            <span className="text-sm font-bold uppercase tracking-widest text-white">Kimo Nexus</span>
-                        </div>
+                        <Link href="/" className="flex items-center gap-2">
+                            <div className="w-8 h-8 bg-primary rounded flex items-center justify-center text-white font-bold tracking-tighter">
+                                MK
+                            </div>
+                            <span className="text-sm font-bold uppercase tracking-widest text-white">MK Systems</span>
+                        </Link>
                         <div className="flex gap-8">
-                            <Link className="text-xs text-silver/50 hover:text-white uppercase tracking-wider transition-colors" href="#">LinkedIn</Link>
-                            <Link className="text-xs text-silver/50 hover:text-white uppercase tracking-wider transition-colors" href="#">GitHub</Link>
-                            <Link className="text-xs text-silver/50 hover:text-white uppercase tracking-wider transition-colors" href="#">Twitter</Link>
+                            <Link className="text-xs text-silver/50 hover:text-white uppercase tracking-wider transition-colors" href="https://linkedin.com">LinkedIn</Link>
+                            <Link className="text-xs text-silver/50 hover:text-white uppercase tracking-wider transition-colors" href="https://github.com">GitHub</Link>
+                            <Link className="text-xs text-silver/50 hover:text-white uppercase tracking-wider transition-colors" href="https://twitter.com">Twitter</Link>
                         </div>
                         <div className="text-xs text-silver/30 font-mono">
-                            © 2023 ENGINEERING PORTFOLIO
+                            © 2024 MK SYSTEMS
                         </div>
                     </div>
                 </footer>

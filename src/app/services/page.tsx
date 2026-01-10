@@ -5,24 +5,29 @@ export default function ServicesPage() {
         <div className="relative z-10 flex flex-col min-h-screen w-full bg-background-dark text-slate-100 font-display selection:bg-white selection:text-black">
             {/* Services Header */}
             <header className="flex items-center justify-between border-b border-white/5 px-6 py-4 md:px-12 backdrop-blur-md sticky top-0 z-50 bg-background-dark/80">
-                <div className="flex items-center gap-3 text-white">
-                    <div className="size-6 flex items-center justify-center rounded bg-white text-black">
-                        <span className="material-symbols-outlined !text-[18px] font-bold">terminal</span>
+                <Link href="/" className="flex items-center gap-2">
+                    <div className="w-8 h-8 bg-primary rounded flex items-center justify-center text-white font-bold tracking-tighter">
+                        MK
                     </div>
-                    <Link href="/" className="text-white text-lg font-bold tracking-tight uppercase">J. Doe Engineering</Link>
-                </div>
+                    <div className="hidden md:block w-px h-4 bg-white/20 mx-2"></div>
+                    <span className="hidden md:block text-sm text-gray-400 font-medium tracking-wide">FULL STACK HYBRID ENGINEER</span>
+                </Link>
                 <nav className="hidden md:flex flex-1 justify-end gap-8 items-center">
-                    <div className="flex items-center gap-8 mr-4">
-                        <Link className="text-neutral-400 text-sm font-medium hover:text-white transition-colors" href="/#projects">Work</Link>
-                        <Link className="text-neutral-400 text-sm font-medium hover:text-white transition-colors" href="#">Services</Link>
-                        <Link className="text-neutral-400 text-sm font-medium hover:text-white transition-colors" href="/#about">About</Link>
+                    <div className="flex items-center gap-6 mr-4">
+                        <Link className="text-sm font-medium text-gray-400 hover:text-white transition-colors" href="/#about">About</Link>
+                        <Link className="text-sm font-medium text-gray-400 hover:text-white transition-colors" href="/#skills">Skills</Link>
+                        <Link className="text-sm font-medium text-gray-400 hover:text-white transition-colors" href="/#projects">Projects</Link>
+                        <Link className="text-sm font-medium text-white transition-colors" href="/services">Services</Link>
                     </div>
-                    <button className="flex items-center justify-center rounded h-9 px-5 bg-white text-black text-sm font-bold tracking-wide hover:bg-neutral-200 transition-colors">
-                        Contact
-                    </button>
+                    <Link className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm font-medium transition-all text-white flex items-center gap-2 group" href="/#contact">
+                        <span>Contact</span>
+                        <span className="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+                    </Link>
                 </nav>
+                <button className="md:hidden text-white">
+                    <span className="material-symbols-outlined">menu</span>
+                </button>
             </header>
-
             <main className="flex-grow flex flex-col items-center w-full px-4 sm:px-6 lg:px-8 py-12 md:py-20">
                 {/* Hero Section */}
                 <div className="w-full max-w-7xl flex flex-col items-center text-center mb-20 space-y-6">
@@ -193,13 +198,15 @@ export default function ServicesPage() {
                 </div>
             </main>
 
-            <footer className="w-full border-t border-white/5 py-8 mt-12 bg-black">
-                <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-xs text-neutral-600 font-mono">
-                    <p>© 2024 J. Doe Engineering. All rights reserved.</p>
-                    <div className="flex gap-6 mt-4 md:mt-0">
-                        <Link className="hover:text-white transition-colors" href="#">Twitter</Link>
-                        <Link className="hover:text-white transition-colors" href="#">GitHub</Link>
-                        <Link className="hover:text-white transition-colors" href="#">LinkedIn</Link>
+            <footer className="border-t border-white/5 mt-12 bg-background-dark py-12">
+                <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div className="text-gray-400 text-sm">
+                        © 2024 MK Systems. All rights reserved.
+                    </div>
+                    <div className="flex gap-6">
+                        <Link className="text-gray-400 hover:text-white transition-colors" href="#">Twitter</Link>
+                        <Link className="text-gray-400 hover:text-white transition-colors" href="#">LinkedIn</Link>
+                        <Link className="text-gray-400 hover:text-white transition-colors" href="#">GitHub</Link>
                     </div>
                 </div>
             </footer>

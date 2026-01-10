@@ -8,23 +8,23 @@ export default function BlogListingPage() {
             {/* Navigation */}
             <header className="relative z-50 w-full border-b border-white/5 bg-background-dark/80 backdrop-blur-md">
                 <div className="max-w-[1440px] mx-auto px-6 h-16 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                        <div className="size-8 flex items-center justify-center text-primary">
-                            <span className="material-symbols-outlined text-3xl">terminal</span>
+                    <Link href="/" className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-primary rounded flex items-center justify-center text-white font-bold tracking-tighter">
+                            MK
                         </div>
-                        <Link href="/" className="text-xl font-bold tracking-tight">DevPortfolio</Link>
-                    </div>
-                    <nav className="hidden md:flex items-center gap-8">
-                        <Link className="text-sm font-medium text-gray-400 hover:text-white transition-colors" href="/#projects">Work</Link>
+                        <div className="hidden md:block w-px h-4 bg-white/20 mx-2"></div>
+                        <span className="hidden md:block text-sm text-gray-400 font-medium tracking-wide">FULL STACK HYBRID ENGINEER</span>
+                    </Link>
+                    <nav className="hidden md:flex items-center gap-6">
                         <Link className="text-sm font-medium text-gray-400 hover:text-white transition-colors" href="/#about">About</Link>
-                        <Link className="text-sm font-medium text-white transition-colors" href="/blog">Insights</Link>
-                        <Link className="text-sm font-medium text-gray-400 hover:text-white transition-colors" href="/#contact">Contact</Link>
+                        <Link className="text-sm font-medium text-gray-400 hover:text-white transition-colors" href="/#skills">Skills</Link>
+                        <Link className="text-sm font-medium text-gray-400 hover:text-white transition-colors" href="/#projects">Projects</Link>
+                        <Link className="text-sm font-medium text-white transition-colors" href="/blog">Blog</Link>
                     </nav>
-                    <div className="flex items-center gap-4">
-                        <button className="p-2 rounded-full hover:bg-white/5 text-gray-400 hover:text-white transition-colors">
-                            <span className="material-symbols-outlined text-[20px]">search</span>
-                        </button>
-                    </div>
+                    <Link className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm font-medium transition-all text-white flex items-center gap-2 group" href="/#contact">
+                        <span>Contact</span>
+                        <span className="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+                    </Link>
                 </div>
             </header>
 
@@ -205,12 +205,12 @@ export default function BlogListingPage() {
             <footer className="border-t border-white/5 mt-12 bg-background-dark py-12">
                 <div className="max-w-[1440px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
                     <div className="text-gray-400 text-sm">
-                        © 2024 DevPortfolio. All rights reserved.
+                        © 2024 MK Systems. All rights reserved.
                     </div>
                     <div className="flex gap-6">
-                        <Link className="text-gray-400 hover:text-white transition-colors" href="#">GitHub</Link>
                         <Link className="text-gray-400 hover:text-white transition-colors" href="#">Twitter</Link>
                         <Link className="text-gray-400 hover:text-white transition-colors" href="#">LinkedIn</Link>
+                        <Link className="text-gray-400 hover:text-white transition-colors" href="#">GitHub</Link>
                     </div>
                 </div>
             </footer>

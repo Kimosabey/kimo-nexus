@@ -8,24 +8,27 @@ export default function BlogPostPage() {
 
             {/* Top Navigation */}
             <nav className="fixed top-0 w-full z-40 bg-background-dark/90 backdrop-blur-md border-b border-white/10">
-                {/* Progress Bar (Static visualization) */}
                 <div className="absolute top-0 left-0 h-[2px] w-full bg-[#333]">
-                    <div className="h-full bg-gradient-to-r from-gray-600 via-silver to-gray-600 w-[35%] shadow-[0_0_10px_rgba(192,192,192,0.5)]"></div>
+                    <div className="h-full bg-gradient-to-r from-gray-500 via-white to-gray-400 w-[35%] shadow-[0_0_10px_rgba(192,192,192,0.5)]"></div>
                 </div>
                 <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-3 group cursor-pointer">
-                        <div className="size-6 text-white bg-primary/20 rounded flex items-center justify-center border border-primary/30 group-hover:bg-primary/40 transition-colors">
-                            <span className="material-symbols-outlined text-[16px]">terminal</span>
+                    <Link href="/" className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-primary rounded flex items-center justify-center text-white font-bold tracking-tighter">
+                            MK
                         </div>
-                        <span className="font-display font-bold text-lg tracking-tight text-white group-hover:text-primary transition-colors">ALEX.DEV</span>
+                        <div className="hidden md:block w-px h-4 bg-white/20 mx-2"></div>
+                        <span className="hidden md:block text-sm text-gray-400 font-medium tracking-wide">FULL STACK HYBRID ENGINEER</span>
                     </Link>
-                    <div className="hidden md:flex items-center gap-8">
-                        <Link className="font-display text-sm font-medium text-gray-400 hover:text-white transition-colors" href="/#projects">Work</Link>
-                        <Link className="font-display text-sm font-medium text-gray-400 hover:text-white transition-colors" href="/blog">Writing</Link>
+                    <div className="hidden md:flex items-center gap-6">
+                        <Link className="text-sm font-medium text-gray-400 hover:text-white transition-colors" href="/#about">About</Link>
+                        <Link className="text-sm font-medium text-gray-400 hover:text-white transition-colors" href="/#skills">Skills</Link>
+                        <Link className="text-sm font-medium text-gray-400 hover:text-white transition-colors" href="/#projects">Projects</Link>
+                        <Link className="text-sm font-medium text-white" href="/blog">Blog</Link>
                     </div>
-                    <button className="font-display text-xs font-bold uppercase tracking-wider px-4 py-2 border border-white/20 rounded hover:bg-white/5 transition-colors text-white">
-                        Contact
-                    </button>
+                    <Link className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm font-medium transition-all text-white flex items-center gap-2 group" href="/#contact">
+                        <span>Contact</span>
+                        <span className="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+                    </Link>
                 </div>
             </nav>
 
@@ -174,11 +177,13 @@ export default function BlogPostPage() {
 
             <footer className="border-t border-white/10 bg-background-dark py-12 relative z-10">
                 <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div className="flex items-center gap-2">
-                        <div className="size-5 bg-white rounded-full"></div>
-                        <span className="font-display font-bold text-white">ALEX.DEV</span>
-                    </div>
-                    <p className="text-xs font-display text-gray-600">© 2023 Alex Developer. All rights reserved.</p>
+                    <Link href="/" className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-primary rounded flex items-center justify-center text-white font-bold tracking-tighter">
+                            MK
+                        </div>
+                        <span className="text-sm font-bold uppercase tracking-widest text-white">MK Systems</span>
+                    </Link>
+                    <p className="text-xs font-display text-gray-600">© 2024 MK Systems. All rights reserved.</p>
                 </div>
             </footer>
         </div>
