@@ -15,35 +15,38 @@ import { projects, Project } from "@/lib/projects";
 function Preloader() {
   return (
     <motion.div
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
-      className="fixed inset-0 z-[999] bg-[#050505] flex items-center justify-center pointer-events-none"
+      initial={{ clipPath: "inset(0% 0 0% 0)" }}
+      exit={{ clipPath: "inset(0% 0 100% 0)", transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
+      className="fixed inset-0 z-[999] bg-[#050505] flex items-center justify-center p-4"
     >
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center justify-center relative w-full h-full max-w-[500px]">
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-          transition={{ duration: 0.8 }}
-          className="text-3xl md:text-5xl font-black text-white tracking-tight font-display mb-8"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="relative"
         >
-          HARSHAN AIYAPPA
+          <h1 className="text-5xl md:text-8xl font-black text-white tracking-tighter mb-2 mix-blend-difference z-10 relative">
+            HARSHAN
+          </h1>
+          <h1 className="text-5xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600 tracking-tighter absolute top-0 left-0 -z-10 blur-xl opacity-50 animate-pulse">
+            HARSHAN
+          </h1>
         </motion.div>
-        <div className="w-48 h-[2px] bg-white/10 rounded-full overflow-hidden relative">
+
+        <div className="w-full h-[1px] bg-white/10 overflow-hidden mt-12 relative">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: "100%" }}
             transition={{ duration: 1.5, ease: "easeInOut" }}
-            className="h-full bg-primary absolute top-0 left-0"
+            className="absolute top-0 left-0 h-full bg-white shadow-[0_0_20px_white]"
           />
         </div>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="mt-4 text-primary/80 text-xs font-mono uppercase tracking-[0.2em] animate-pulse"
-        >
-          NEXUS OS v2.0
-        </motion.div>
+
+        <div className="mt-4 flex items-center justify-between w-full text-[10px] font-mono text-gray-400 uppercase tracking-widest">
+          <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-primary rounded-full animate-ping" /> SYSTEM LOADING</span>
+          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }}>SHUTTER_V2.0</motion.span>
+        </div>
       </div>
     </motion.div>
   )
