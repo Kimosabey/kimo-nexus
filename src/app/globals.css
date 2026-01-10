@@ -5,21 +5,31 @@
   --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-noto-sans), ui-serif, Georgia, serif;
 
-  --color-primary: #16169c;
-  --color-primary-light: #2020df;
-  --color-primary-dark: #1919b3;
-  --color-background-light: #f6f6f8;
-  --color-background-dark: #050505;
-  --color-onyx: #000000;
-  --color-charcoal: #1c1c26;
-  --color-surface-dark: #121214;
-  --color-glass-surface: rgba(255, 255, 255, 0.03);
-  --color-glass-border: rgba(255, 255, 255, 0.1);
-  --color-chrome: #E5E5E5;
-  --color-silver: #C0C0C0;
-  --color-off-white: #E0E0E0;
-  --color-ghost: #F9FAFB;
-  --color-slate: #888888;
+  /* Colors from profile image - Grayscale Palette */
+  --color-background-dark: #131313;
+  /* cod-gray - main bg */
+  --color-surface-dark: #2f2f2f;
+  /* mine-shaft - cards */
+  --color-emperor: #525152;
+  /* emperor - borders */
+  --color-boulder: #7c7c7c;
+  /* boulder - muted text */
+  --color-shady-lady: #a7a6a7;
+  /* shady-lady - secondary text */
+  --color-silver: #cacaca;
+  /* silver - light text */
+  --color-seashell: #f1f1f1;
+  /* seashell - primary text */
+
+  /* Accent color for UI/UX (subtle blue for accessibility) */
+  --color-primary: #6b7bff;
+  /* softer blue that works with grayscale */
+  --color-primary-light: #8a97ff;
+  --color-primary-dark: #4d5edb;
+
+  /* Glass effect colors */
+  --color-glass-surface: rgba(47, 47, 47, 0.4);
+  --color-glass-border: rgba(202, 202, 202, 0.1);
 
   --animate-stagger-in: stagger-in 0.8s ease-out forwards;
   --animate-fade-up: fade-up 1s ease-out forwards;
@@ -53,23 +63,23 @@
 /* Utilities */
 @layer utilities {
   .glass-card {
-    background: rgba(20, 20, 23, 0.4);
+    background: rgba(47, 47, 47, 0.4);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(202, 202, 202, 0.08);
   }
 
   .glass-card:hover {
-    background: rgba(30, 30, 35, 0.6);
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 30px -10px rgba(22, 22, 156, 0.15);
+    background: rgba(82, 81, 82, 0.6);
+    border-color: rgba(202, 202, 202, 0.2);
+    box-shadow: 0 0 30px -10px rgba(107, 123, 255, 0.15);
   }
 
   .text-glow {
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    text-shadow: 0 0 20px rgba(241, 241, 241, 0.1);
   }
 
   .bg-dot-grid {
-    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(202, 202, 202, 0.1) 1px, transparent 1px);
     background-size: 24px 24px;
   }
 }

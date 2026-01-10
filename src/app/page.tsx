@@ -1,4 +1,7 @@
+"use client";
 import Link from "next/link";
+import { ArrowDown, ArrowRight, Cpu, Eye, Zap, Server, Brain, Database, Palette, Github, Linkedin, Twitter, Mail } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Home() {
   return (
@@ -15,14 +18,14 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-8">
             <div className="hidden md:flex items-center gap-6">
-              <Link className="text-sm text-gray-400 hover:text-white transition-colors" href="#about">About</Link>
-              <Link className="text-sm text-gray-400 hover:text-white transition-colors" href="#skills">Skills</Link>
-              <Link className="text-sm text-gray-400 hover:text-white transition-colors" href="#projects">Projects</Link>
+              <a className="text-sm text-gray-400 hover:text-white transition-colors" href="#about">About</a>
+              <a className="text-sm text-gray-400 hover:text-white transition-colors" href="#skills">Skills</a>
+              <a className="text-sm text-gray-400 hover:text-white transition-colors" href="#experience">Experience</a>
             </div>
-            <Link className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm font-medium transition-all text-white flex items-center gap-2 group" href="#contact">
+            <a className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm font-medium transition-all text-white flex items-center gap-2 group" href="#contact">
               <span>Contact</span>
-              <span className="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
-            </Link>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            </a>
           </div>
         </div>
       </nav>
@@ -33,8 +36,18 @@ export default function Home() {
           {/* Ambient Glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px] pointer-events-none opacity-40"></div>
 
-          <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div className="flex flex-col gap-6 z-10 order-2 lg:order-1">
+          <motion.div
+            className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.div
+              className="flex flex-col gap-6 z-10 order-2 lg:order-1"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 w-fit">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -50,13 +63,13 @@ export default function Home() {
                 Highly driven Full Stack Software Engineer with 4+ years of hands-on experience, crafting scalable web applications using React, Node.js, and Python. Pioneering R&D in AI and speech technologies (TTS, ASR, NLP).
               </p>
               <div className="flex flex-wrap gap-4 mt-4">
-                <button className="px-8 py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2">
-                  View Architecture
-                  <span className="material-symbols-outlined text-[20px]">arrow_downward</span>
-                </button>
-                <button className="px-8 py-3 bg-transparent border border-white/20 text-white font-semibold rounded-lg hover:bg-white/5 transition-colors">
-                  Download Resume
-                </button>
+                <a href="#projects" className="px-8 py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition-all hover:scale-105 flex items-center gap-2">
+                  View Projects
+                  <ArrowDown className="w-5 h-5" />
+                </a>
+                <a href="#contact" className="px-8 py-3 bg-transparent border border-white/20 text-white font-semibold rounded-lg hover:bg-white/5 transition-all hover:scale-105">
+                  Get In Touch
+                </a>
               </div>
               <div className="flex items-center gap-8 mt-8 pt-8 border-t border-white/10">
                 <div className="flex flex-col">
@@ -72,7 +85,7 @@ export default function Home() {
                   <span className="text-xs text-gray-500 uppercase tracking-wider">Students Mentored</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             <div className="relative h-[500px] w-full flex items-end justify-center order-1 lg:order-2 group">
               {/* Photo Back Glow */}
@@ -86,7 +99,7 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent mix-blend-overlay"></div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </section>
 
         {/* Philosophy Section (About) */}
@@ -103,8 +116,8 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Card 1 */}
             <div className="glass-card p-8 rounded-xl flex flex-col gap-4 group">
-              <div className="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 text-white group-hover:bg-primary/20 group-hover:border-primary/50 transition-colors">
-                <span className="material-symbols-outlined">memory</span>
+              <div className="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 text-white group-hover:bg-primary/20 group-hover:border-primary/50 transition-all duration-300">
+                <Brain className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-white">AI & Speech Tech</h3>
               <p className="text-sm text-gray-400 leading-relaxed">
@@ -113,8 +126,8 @@ export default function Home() {
             </div>
             {/* Card 2 */}
             <div className="glass-card p-8 rounded-xl flex flex-col gap-4 group">
-              <div className="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 text-white group-hover:bg-primary/20 group-hover:border-primary/50 transition-colors">
-                <span className="material-symbols-outlined">visibility_off</span>
+              <div className="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 text-white group-hover:bg-primary/20 group-hover:border-primary/50 transition-all duration-300">
+                <Eye className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-white">Stealth Design</h3>
               <p className="text-sm text-gray-400 leading-relaxed">
@@ -123,8 +136,8 @@ export default function Home() {
             </div>
             {/* Card 3 */}
             <div className="glass-card p-8 rounded-xl flex flex-col gap-4 group">
-              <div className="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 text-white group-hover:bg-primary/20 group-hover:border-primary/50 transition-colors">
-                <span className="material-symbols-outlined">speed</span>
+              <div className="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 text-white group-hover:bg-primary/20 group-hover:border-primary/50 transition-all duration-300">
+                <Zap className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-white">Performance First</h3>
               <p className="text-sm text-gray-400 leading-relaxed">
@@ -143,7 +156,7 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <div className="relative z-10">
                 <div className="flex items-center justify-between mb-6">
-                  <span className="p-2 rounded bg-white/10 border border-white/10 material-symbols-outlined text-white">dns</span>
+                  <Server className="w-6 h-6 text-white" />
                   <span className="text-xs font-bold text-white/40 border border-white/20 px-2 py-1 rounded">CORE</span>
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-2">Full Stack Development</h3>
@@ -163,7 +176,7 @@ export default function Home() {
             </div>
             {/* Skill Box */}
             <div className="glass-card rounded-xl p-6 flex flex-col justify-between group hover:border-white/30 transition-colors">
-              <div className="text-white mb-4 material-symbols-outlined text-3xl opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all">psychology</div>
+              <Brain className="w-8 h-8 text-white mb-4 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" />
               <div>
                 <h4 className="text-lg font-bold text-white">AI & NLP</h4>
                 <p className="text-xs text-gray-500 mt-1">TTS, ASR, NLP (SpaCy), Prompt Engineering</p>
@@ -171,7 +184,7 @@ export default function Home() {
             </div>
             {/* Skill Box */}
             <div className="glass-card rounded-xl p-6 flex flex-col justify-between group hover:border-white/30 transition-colors">
-              <div className="text-white mb-4 material-symbols-outlined text-3xl opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all">cloud_queue</div>
+              <Database className="w-8 h-8 text-white mb-4 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" />
               <div>
                 <h4 className="text-lg font-bold text-white">Data & APIs</h4>
                 <p className="text-xs text-gray-500 mt-1">PostgreSQL, MongoDB, REST APIs, Redux Toolkit</p>
@@ -184,7 +197,7 @@ export default function Home() {
                 <p className="text-xs text-gray-500 mt-1 max-w-[200px]">Tailwind, MUI, Shadcn, ApexCharts, Echarts, D3.js</p>
               </div>
               <div className="h-16 w-16 rounded-full border-2 border-dashed border-white/20 animate-[spin_10s_linear_infinite] flex items-center justify-center">
-                <span className="material-symbols-outlined text-white">palette</span>
+                <Palette className="w-8 h-8 text-white" />
               </div>
             </div>
           </div>
@@ -257,7 +270,7 @@ export default function Home() {
         </section>
 
         {/* Experience Timeline */}
-        <section className="w-full max-w-3xl px-6 py-24">
+        <section className="w-full max-w-3xl px-6 py-24" id="experience">
           <h2 className="text-2xl font-bold text-white mb-12 text-center">Career Trajectory</h2>
           <div className="relative pl-8 border-l border-white/10 space-y-12">
             {/* Role 1 */}
@@ -312,9 +325,15 @@ export default function Home() {
             <div className="mt-20 flex flex-col md:flex-row justify-between items-center gap-6 pt-10 border-t border-white/5 text-gray-500 text-sm">
               <p>© 2024 MK Systems. All rights reserved.</p>
               <div className="flex gap-6">
-                <Link className="hover:text-white transition-colors" href="https://twitter.com/harshan_aiyappa" target="_blank">Twitter</Link>
-                <Link className="hover:text-white transition-colors" href="https://linkedin.com/in/harshan-aiyappa" target="_blank">LinkedIn</Link>
-                <Link className="hover:text-white transition-colors" href="https://github.com/Kimosabey" target="_blank">GitHub</Link>
+                <Link className="hover:text-white transition-colors flex items-center gap-2" href="https://twitter.com/harshan_aiyappa" target="_blank">
+                  <Twitter className="w-4 h-4" /> Twitter
+                </Link>
+                <Link className="hover:text-white transition-colors flex items-center gap-2" href="https://linkedin.com/in/harshan-aiyappa" target="_blank">
+                  <Linkedin className="w-4 h-4" /> LinkedIn
+                </Link>
+                <Link className="hover:text-white transition-colors flex items-center gap-2" href="https://github.com/Kimosabey" target="_blank">
+                  <Github className="w-4 h-4" /> GitHub
+                </Link>
               </div>
             </div>
           </div>
