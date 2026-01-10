@@ -274,9 +274,9 @@ export default function Home() {
             <motion.div className="relative h-[500px] w-full flex items-center justify-center order-1 lg:order-2" initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.2 }}>
               <div className="relative w-[400px] h-[500px] group">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary to-purple-600 rounded-3xl blur-[80px] opacity-30 group-hover:opacity-50 transition-all duration-700"></div>
-                <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 ease-out z-10" style={{ backgroundImage: "url('/profile.webp')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80"></div>
-                  <div className="absolute bottom-0 left-0 p-8 w-full"><p className="font-mono text-xs text-primary mb-1">CURRENTLY BUILDING</p><p className="text-white font-bold text-xl">Next-Gen AI Agents</p></div>
+                <div className="relative w-full h-full rounded-2xl overflow-hidden grayscale hover:grayscale-0 transition-all duration-700 ease-out z-10" style={{ backgroundImage: "url('/profile.webp')", backgroundSize: 'cover', backgroundPosition: 'center', maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)' }}>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 via-transparent to-transparent"></div>
+                  <div className="absolute bottom-4 left-0 p-8 w-full"><p className="font-mono text-xs text-primary mb-1">CURRENTLY BUILDING</p><p className="text-white font-bold text-xl">Next-Gen AI Agents</p></div>
                 </div>
               </div>
             </motion.div>
@@ -380,19 +380,29 @@ export default function Home() {
             <h2 className="text-4xl font-bold text-white">Professional Evolution</h2>
           </div>
 
-          <div className="space-y-12 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-white/10 before:to-transparent">
+          <div className="space-y-12 relative">
+            {/* Neural Spine Line - animated gradient */}
+            <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-white/10 -translate-x-1/2">
+              <motion.div
+                initial={{ height: "0%" }}
+                whileInView={{ height: "100%" }}
+                transition={{ duration: 2, ease: "linear" }}
+                className="w-full bg-gradient-to-b from-primary via-purple-500 to-primary box-shadow-[0_0_20px_#6b7bff]"
+              />
+            </div>
+
             {[
               {
                 role: "Product Engineer (Full Stack & AI)",
                 company: "Lingotran Pvt. Ltd.",
                 period: "Jan 2023 - Present (~3 Years)",
-                desc: "Driving R&D for next-generation speech interfaces, integrating proprietary NLP and Neural Voice models. Architecting Python/Node.js microservices and leading sprint delivery as Scrum Lead."
+                desc: "Driving R&D for next-generation speech interfaces. Integrating proprietary NLP/Neural Voice models. Architecting Python/Node.js microservices."
               },
               {
                 role: "Full Stack Engineer",
                 company: "Veriteam Software Solutions",
                 period: "Feb 2021 – Jul 2022 (~1.5 Years)",
-                desc: "Delivered enterprise CMS ecosystems including 'Tabedaar' (Admin/Merchant Dashboards) and 'Zeus Biotech' (Order Management). Built standalone FinTech solutions for Chit Funds and scaled engineering capacity by creating 35+ academic projects."
+                desc: "Delivered enterprise CMS ecosystems including 'Tabedaar' and 'Zeus Biotech'. Scaled engineering capacity by 35+ academic projects."
               },
               {
                 role: "Master of Computer Applications",
@@ -403,25 +413,31 @@ export default function Home() {
             ].map((job, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active"
+                initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50, filter: "blur(10px)" }}
+                whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                viewport={{ margin: "-100px" }}
+                transition={{ duration: 0.8, type: "spring" }}
+                className={`relative flex items-center justify-between md:justify-normal ${i % 2 === 0 ? 'md:flex-row-reverse' : ''} group`}
               >
-                {/* Dot */}
-                <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white/20 bg-[#0a0a0c] shadowshrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 group-hover:border-primary transition-colors">
-                  <div className="w-3 h-3 bg-primary rounded-full animate-pulse"></div>
+                {/* Neural Node Dot */}
+                <div className="absolute left-5 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#0a0a0c] border border-primary z-10 shadow-[0_0_15px_rgba(107,123,255,0.5)] group-hover:scale-150 transition-transform duration-500">
+                  <div className="absolute inset-0 bg-primary rounded-full animate-ping opacity-20"></div>
                 </div>
 
-                {/* Content */}
-                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 transition-all shadow-lg">
-                  <div className="flex justify-between items-center mb-2">
-                    <h3 className="font-bold text-white text-lg">{job.role}</h3>
-                    <span className="text-xs font-mono text-primary bg-primary/10 px-2 py-1 rounded">{job.period}</span>
+                {/* Content Card with Glass/Holo effect */}
+                <div className={`w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-6 rounded-2xl border border-white/5 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-primary/30 transition-all duration-300 relative overflow-hidden group-hover:shadow-[0_0_30px_rgba(107,123,255,0.1)] ${i % 2 === 0 ? 'md:mr-auto' : 'md:ml-auto'}`}>
+                  {/* Scanline */}
+                  <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-primary/5 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-1000"></div>
+
+                  <div className="flex flex-col mb-2">
+                    <h3 className="font-bold text-white text-xl tracking-tight">{job.role}</h3>
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className="text-primary font-mono text-xs uppercase tracking-wider">{job.company}</span>
+                      <span className="w-1 h-1 bg-white/20 rounded-full"></span>
+                      <span className="text-white/40 text-xs font-mono">{job.period}</span>
+                    </div>
                   </div>
-                  <div className="text-sm font-medium text-gray-400 mb-4">{job.company}</div>
-                  <p className="text-gray-400 text-sm leading-relaxed">{job.desc}</p>
+                  <p className="text-gray-400 text-sm leading-relaxed border-l-2 border-white/10 pl-4 mt-4">{job.desc}</p>
                 </div>
               </motion.div>
             ))}

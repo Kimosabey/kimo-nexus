@@ -28,9 +28,9 @@ const config: Config = {
                 "chrome": "#E2E2E2",
             },
             fontFamily: {
-                "display": ["var(--font-space-grotesk)", "Inter", "sans-serif"],
-                "body": ["var(--font-noto-sans)", "Inter", "sans-serif"],
-                "mono": ["Fira Code", "monospace"],
+                "display": ["var(--font-sans)", "sans-serif"],
+                "body": ["var(--font-sans)", "sans-serif"],
+                "mono": ["var(--font-mono)", "monospace"],
             },
             backgroundImage: {
                 'dot-grid': 'radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px)',
