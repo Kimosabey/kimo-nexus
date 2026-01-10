@@ -81,8 +81,7 @@ export default function Home() {
               {/* Main Image with "Cutout" feel */}
               <div
                 className="relative z-10 w-full h-full max-w-[400px] grayscale contrast-125 bg-cover bg-top bg-no-repeat rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/10"
-                data-alt="Professional portrait of a senior engineer in black and white, minimalist style"
-                style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuB3iK6OTI0WQew3EpF6KusbIMmi5tX8o3yCVolvp8-LJALz1sRplrDUGymz_I5W2mgC8ckE9DDW3hCV0l36RoGiuMb_e03TP9K3aiQYW7P4E7_KBkZYErlXatrIrudkFAqH3tVD5T266PhJqmq2S43FGNR2zsxwAwESuUivVczOoFWDIeTXdULWA7JdfrRbirb6FqdIzkQd0-F9JQRgZDEgWCkwOV63PaafzUcFnbqybG3ikSyurzVVDVa4Y_2RwIc1v7roZJAb1g')" }}
+                style={{ backgroundImage: "url('/profile.webp')" }}
               >
                 <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent mix-blend-overlay"></div>
               </div>
