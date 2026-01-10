@@ -43,11 +43,11 @@ export default function Home() {
                 <span className="text-xs font-medium text-gray-300 uppercase tracking-widest">Available for Architecture</span>
               </div>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1] text-glow">
-                I design &amp; build <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">Hybrid AI Systems</span>
+                Full Stack Engineer <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">& AI Innovator</span>
               </h1>
               <p className="text-lg text-gray-400 max-w-xl leading-relaxed font-light">
-                Senior Full Stack Hybrid Engineer specializing in scalable architecture and machine learning integration. Crafting calm, expensive digital experiences that perform.
+                Highly driven Full Stack Software Engineer with 4+ years of hands-on experience, crafting scalable web applications using React, Node.js, and Python. Pioneering R&D in AI and speech technologies (TTS, ASR, NLP).
               </p>
               <div className="flex flex-wrap gap-4 mt-4">
                 <button className="px-8 py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2">
@@ -60,16 +60,16 @@ export default function Home() {
               </div>
               <div className="flex items-center gap-8 mt-8 pt-8 border-t border-white/10">
                 <div className="flex flex-col">
-                  <span className="text-2xl font-bold text-white">8+</span>
+                  <span className="text-2xl font-bold text-white">4+</span>
                   <span className="text-xs text-gray-500 uppercase tracking-wider">Years Exp</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-2xl font-bold text-white">100%</span>
-                  <span className="text-xs text-gray-500 uppercase tracking-wider">Delivery Rate</span>
+                  <span className="text-2xl font-bold text-white">35+</span>
+                  <span className="text-xs text-gray-500 uppercase tracking-wider">Projects Led</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-2xl font-bold text-white">24ms</span>
-                  <span className="text-xs text-gray-500 uppercase tracking-wider">Avg Latency</span>
+                  <span className="text-2xl font-bold text-white">200+</span>
+                  <span className="text-xs text-gray-500 uppercase tracking-wider">Students Mentored</span>
                 </div>
               </div>
             </div>
@@ -106,9 +106,9 @@ export default function Home() {
               <div className="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 text-white group-hover:bg-primary/20 group-hover:border-primary/50 transition-colors">
                 <span className="material-symbols-outlined">memory</span>
               </div>
-              <h3 className="text-xl font-bold text-white">Hybrid Systems</h3>
+              <h3 className="text-xl font-bold text-white">AI & Speech Tech</h3>
               <p className="text-sm text-gray-400 leading-relaxed">
-                Seamless integration of Large Language Models into traditional web stacks. I architect bridges between deterministic code and probabilistic AI outputs.
+                Pioneering R&D in AI tools and speech algorithms including TTS, ASR, and NLP with SpaCy. Advanced prompt engineering to enhance voice capabilities and data intelligence.
               </p>
             </div>
             {/* Card 2 */}
@@ -146,12 +146,12 @@ export default function Home() {
                   <span className="p-2 rounded bg-white/10 border border-white/10 material-symbols-outlined text-white">dns</span>
                   <span className="text-xs font-bold text-white/40 border border-white/20 px-2 py-1 rounded">CORE</span>
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-2">Full Stack Architecture</h3>
-                <p className="text-gray-400 text-sm mb-6">End-to-end system design focusing on microservices, event-driven architectures, and high-availability clusters.</p>
+                <h3 className="text-2xl font-bold text-white mb-2">Full Stack Development</h3>
+                <p className="text-gray-400 text-sm mb-6">Expert in React.js, Next.js, Node.js, Python, and TypeScript. Building scalable web applications with modern UI frameworks and RESTful APIs.</p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1 text-xs rounded-full bg-black/50 border border-white/20 text-gray-300">Next.js</span>
+                  <span className="px-3 py-1 text-xs rounded-full bg-black/50 border border-white/20 text-gray-300">React.js</span>
                   <span className="px-3 py-1 text-xs rounded-full bg-black/50 border border-white/20 text-gray-300">Node.js</span>
-                  <span className="px-3 py-1 text-xs rounded-full bg-black/50 border border-white/20 text-gray-300">Rust</span>
+                  <span className="px-3 py-1 text-xs rounded-full bg-black/50 border border-white/20 text-gray-300">Python</span>
                   <span className="px-3 py-1 text-xs rounded-full bg-black/50 border border-white/20 text-gray-300">PostgreSQL</span>
                 </div>
               </div>
@@ -165,23 +165,23 @@ export default function Home() {
             <div className="glass-card rounded-xl p-6 flex flex-col justify-between group hover:border-white/30 transition-colors">
               <div className="text-white mb-4 material-symbols-outlined text-3xl opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all">psychology</div>
               <div>
-                <h4 className="text-lg font-bold text-white">AI Engineering</h4>
-                <p className="text-xs text-gray-500 mt-1">PyTorch, LangChain, OpenAI API, Vector DBs</p>
+                <h4 className="text-lg font-bold text-white">AI & NLP</h4>
+                <p className="text-xs text-gray-500 mt-1">TTS, ASR, NLP (SpaCy), Prompt Engineering</p>
               </div>
             </div>
             {/* Skill Box */}
             <div className="glass-card rounded-xl p-6 flex flex-col justify-between group hover:border-white/30 transition-colors">
               <div className="text-white mb-4 material-symbols-outlined text-3xl opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all">cloud_queue</div>
               <div>
-                <h4 className="text-lg font-bold text-white">Cloud Infra</h4>
-                <p className="text-xs text-gray-500 mt-1">AWS, Docker, Kubernetes, Terraform</p>
+                <h4 className="text-lg font-bold text-white">Data & APIs</h4>
+                <p className="text-xs text-gray-500 mt-1">PostgreSQL, MongoDB, REST APIs, Redux Toolkit</p>
               </div>
             </div>
             {/* Skill Box Wide */}
             <div className="md:col-span-2 glass-card rounded-xl p-6 flex flex-row items-center justify-between group hover:border-white/30 transition-colors">
               <div className="flex flex-col justify-center h-full">
-                <h4 className="text-lg font-bold text-white">UI/UX Engineering</h4>
-                <p className="text-xs text-gray-500 mt-1 max-w-[200px]">Tailwind, Framer Motion, WebGL, Shader programming</p>
+                <h4 className="text-lg font-bold text-white">UI/UX & Data Viz</h4>
+                <p className="text-xs text-gray-500 mt-1 max-w-[200px]">Tailwind, MUI, Shadcn, ApexCharts, Echarts, D3.js</p>
               </div>
               <div className="h-16 w-16 rounded-full border-2 border-dashed border-white/20 animate-[spin_10s_linear_infinite] flex items-center justify-center">
                 <span className="material-symbols-outlined text-white">palette</span>
@@ -264,36 +264,36 @@ export default function Home() {
             <div className="relative">
               <span className="absolute -left-[37px] top-1 h-4 w-4 rounded-full bg-primary ring-4 ring-black"></span>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                <h3 className="text-xl font-bold text-white">Senior Hybrid Engineer</h3>
-                <span className="text-xs font-mono text-gray-400 bg-white/5 px-2 py-1 rounded">2021 — Present</span>
+                <h3 className="text-xl font-bold text-white">Software Engineer – Full Stack</h3>
+                <span className="text-xs font-mono text-gray-400 bg-white/5 px-2 py-1 rounded">Jan 2023 — Present</span>
               </div>
-              <p className="text-primary text-sm font-medium mb-2">TechCorp AI Solutions</p>
+              <p className="text-primary text-sm font-medium mb-2">Lingotran Pvt. Ltd.</p>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Leading a team of 8 engineers building the next generation of generative AI tools. Architected the core inference engine reducing costs by 40%.
+                Spearheaded full-stack development with React.js, Node.js, and Python. Pioneered R&D in AI tools and speech technologies (TTS, ASR, NLP). Led frontend development with responsive UIs and data dashboards. Served as Scrum Leader, mentoring junior engineers.
               </p>
             </div>
             {/* Role 2 */}
             <div className="relative">
               <span className="absolute -left-[37px] top-1 h-4 w-4 rounded-full bg-gray-600 ring-4 ring-black"></span>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                <h3 className="text-xl font-bold text-white">Full Stack Developer</h3>
-                <span className="text-xs font-mono text-gray-400 bg-white/5 px-2 py-1 rounded">2018 — 2021</span>
+                <h3 className="text-xl font-bold text-white">Software Engineer – Full Stack</h3>
+                <span className="text-xs font-mono text-gray-400 bg-white/5 px-2 py-1 rounded">Feb 2021 — Jul 2022</span>
               </div>
-              <p className="text-gray-300 text-sm font-medium mb-2">Innovate Fintech</p>
+              <p className="text-gray-300 text-sm font-medium mb-2">Veriteam Software Solutions</p>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Developed secure, high-throughput payment gateways. Migrated legacy monoliths to microservices on AWS Lambda.
+                Developed full-stack applications using MVC architecture, Node.js, Express.js, Python, Next.js, and React. Engineered multiple CMS platforms including Admin & Merchant dashboards. Mentored 200+ students and guided 35+ academic projects.
               </p>
             </div>
             {/* Role 3 */}
             <div className="relative">
               <span className="absolute -left-[37px] top-1 h-4 w-4 rounded-full bg-gray-800 ring-4 ring-black"></span>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                <h3 className="text-xl font-bold text-white">Frontend Engineer</h3>
-                <span className="text-xs font-mono text-gray-400 bg-white/5 px-2 py-1 rounded">2016 — 2018</span>
+                <h3 className="text-xl font-bold text-white">Education</h3>
+                <span className="text-xs font-mono text-gray-400 bg-white/5 px-2 py-1 rounded">2017 — 2020</span>
               </div>
-              <p className="text-gray-300 text-sm font-medium mb-2">Creative Agency X</p>
+              <p className="text-gray-300 text-sm font-medium mb-2">Master of Computer Applications (MCA)</p>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Built award-winning interactive websites using WebGL and GSAP. Focused on performance optimization and accessibility.
+                The NIE College, Mysore | 8.2 CGPA. Specialized in software engineering, web technologies, and system design.
               </p>
             </div>
           </div>
@@ -306,15 +306,15 @@ export default function Home() {
             <p className="text-gray-400 mb-10 max-w-lg mx-auto">
               Currently accepting select projects for Q3. If you have an engineering challenge that requires precision and scale, reach out.
             </p>
-            <a className="inline-flex h-12 items-center justify-center rounded-lg bg-primary px-8 text-sm font-bold text-white transition-transform hover:scale-105 hover:bg-primary/90" href="mailto:hello@example.com">
-              hello@mk-engineer.com
+            <a className="inline-flex h-12 items-center justify-center rounded-lg bg-primary px-8 text-sm font-bold text-white transition-transform hover:scale-105 hover:bg-primary/90" href="mailto:harshan.aiyappa@gmail.com">
+              harshan.aiyappa@gmail.com
             </a>
             <div className="mt-20 flex flex-col md:flex-row justify-between items-center gap-6 pt-10 border-t border-white/5 text-gray-500 text-sm">
               <p>© 2024 MK Systems. All rights reserved.</p>
               <div className="flex gap-6">
-                <Link className="hover:text-white transition-colors" href="#">Twitter</Link>
-                <Link className="hover:text-white transition-colors" href="#">LinkedIn</Link>
-                <Link className="hover:text-white transition-colors" href="#">GitHub</Link>
+                <Link className="hover:text-white transition-colors" href="https://twitter.com/harshan_aiyappa" target="_blank">Twitter</Link>
+                <Link className="hover:text-white transition-colors" href="https://linkedin.com/in/harshan-aiyappa" target="_blank">LinkedIn</Link>
+                <Link className="hover:text-white transition-colors" href="https://github.com/Kimosabey" target="_blank">GitHub</Link>
               </div>
             </div>
           </div>
