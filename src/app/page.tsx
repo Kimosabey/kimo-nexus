@@ -257,7 +257,7 @@ export default function Home() {
                 </motion.span>
               </h1>
               <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }} className="text-lg text-gray-400 max-w-xl leading-relaxed font-light border-l-2 border-primary/50 pl-6">
-                Senior Full Stack Engineer combining <span className="text-white font-medium">~4.5 years</span> of architectural depth with cutting-edge R&D in <span className="text-white font-medium">Generative AI</span>, Voice Synthesis, and Distributed Systems.
+                Senior Full Stack Engineer combining <span className="text-white font-medium">nearly 5 years</span> of architectural depth with cutting-edge R&D in <span className="text-white font-medium">Generative AI</span>, Voice Synthesis, and Distributed Systems.
               </motion.p>
               <div className="flex flex-wrap gap-4 mt-2">
                 <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="#projects" className="px-8 py-4 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-all flex items-center gap-3 shadow-[0_0_40px_-10px_rgba(107,123,255,0.5)]">Explore Work <ArrowDown className="w-5 h-5 animate-bounce" /></motion.a>
@@ -283,18 +283,85 @@ export default function Home() {
               <span className="text-primary font-mono text-sm tracking-widest uppercase mb-4 block">Philosophy</span>
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">Forging complexity into <span className="text-gray-500">simplicity</span>.</h2>
               <p className="text-gray-400 text-lg leading-relaxed mb-8">
-                Senior Full Stack Engineer combining ~4.5 years of architectural depth with cutting-edge R&D in Generative AI, Voice Synthesis (TTS/ASR), and Distributed Systems.
+                Senior Full Stack Engineer combining nearly 5 years of architectural depth with cutting-edge R&D in Generative AI, Voice Synthesis (TTS/ASR), and Distributed Systems.
               </p>
               <div className="flex gap-4 mt-8"><Terminal className="w-6 h-6 text-white/50" /><Code2 className="w-6 h-6 text-white/50" /><Cpu className="w-6 h-6 text-white/50" /></div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {[{ icon: Brain, title: "Neural Audio", desc: "Architecting next-gen TTS & ASR pipelines." }, { icon: Server, title: "Scalable Systems", desc: "Building fault-tolerant React/Node architectures." }, { icon: Zap, title: "Data Intelligence", desc: "Crafting high-performance insight dashboards." }, { icon: Eye, title: "Tech Leadership", desc: "Driving agile velocity & engineering mentorship." }].map((feature, i) => (
-                <div key={i} className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/30 hover:bg-white/10 transition-all group">
-                  <feature.icon className="w-8 h-8 text-primary mb-4 group-hover:scale-110 transition-transform" />
-                  <h3 className="text-white font-bold text-lg mb-2">{feature.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">{feature.desc}</p>
+              {/* Animated Features Grid */}
+              {/* Animated Brain (Neural Audio) */}
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/30 hover:bg-white/10 transition-all group">
+                <div className="w-10 h-10 mb-4 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-primary">
+                    <motion.path
+                      initial={{ pathLength: 0 }}
+                      whileInView={{ pathLength: 1 }}
+                      transition={{ duration: 1.5, ease: "easeInOut" }}
+                      d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"
+                    />
+                    <motion.path
+                      initial={{ pathLength: 0 }}
+                      whileInView={{ pathLength: 1 }}
+                      transition={{ duration: 1.5, ease: "easeInOut", delay: 0.2 }}
+                      d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"
+                    />
+                  </svg>
                 </div>
-              ))}
+                <h3 className="text-white font-bold text-lg mb-2">Neural Audio</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">Architecting next-gen TTS & ASR pipelines.</p>
+              </div>
+
+              {/* Animated Server (Scalable Systems) */}
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/30 hover:bg-white/10 transition-all group">
+                <div className="w-10 h-10 mb-4 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-primary">
+                    <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+                    <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+                    <motion.line x1="6" y1="6" x2="6.01" y2="6" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 0.8, repeat: Infinity }} />
+                    <motion.line x1="6" y1="18" x2="6.01" y2="18" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 0.8, repeat: Infinity, delay: 0.4 }} />
+                  </svg>
+                </div>
+                <h3 className="text-white font-bold text-lg mb-2">Scalable Systems</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">Building fault-tolerant React/Node architectures.</p>
+              </div>
+
+              {/* Animated Zap (Data Intelligence) */}
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/30 hover:bg-white/10 transition-all group">
+                <div className="w-10 h-10 mb-4 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-primary">
+                    <motion.polygon
+                      initial={{ pathLength: 0, fill: "rgba(255, 255, 255, 0)" }}
+                      whileInView={{ pathLength: 1, fill: "currentColor" }}
+                      transition={{ duration: 0.5, ease: "backOut" }}
+                      points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-white font-bold text-lg mb-2">Data Intelligence</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">Crafting high-performance insight dashboards.</p>
+              </div>
+
+              {/* Animated Eye (Tech Leadership) */}
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/30 hover:bg-white/10 transition-all group">
+                <div className="w-10 h-10 mb-4 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-primary">
+                    <motion.path
+                      initial={{ pathLength: 0 }}
+                      whileInView={{ pathLength: 1 }}
+                      transition={{ duration: 1 }}
+                      d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"
+                    />
+                    <motion.circle
+                      cx="12" cy="12" r="3"
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      transition={{ type: "spring", delay: 0.5 }}
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-white font-bold text-lg mb-2">Tech Leadership</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">Driving agile velocity & engineering mentorship.</p>
+              </div>
             </div>
           </div>
         </section>
