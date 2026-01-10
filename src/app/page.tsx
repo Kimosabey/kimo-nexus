@@ -16,6 +16,7 @@ import {
   SiFramer, SiGit, SiMongodb, SiRedis
 } from 'react-icons/si';
 import LogoLoop from "@/components/ui/LogoLoop";
+import Logo from "@/components/ui/Logo";
 
 // --- Components ---
 
@@ -323,8 +324,9 @@ export default function Home() {
           className="pointer-events-auto flex items-center gap-2 p-1.5 pr-2 bg-[#0a0a0c]/80 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl shadow-primary/10"
         >
           {/* Logo / Home */}
-          <a href="#" className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-primary to-primary-dark rounded-full text-white font-bold font-mono tracking-tighter shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
-            HA
+          {/* Logo / Home */}
+          <a href="#" className="flex items-center justify-center w-12 h-12 rounded-full hover:scale-105 transition-transform group">
+            <Logo className="w-10 h-10" />
           </a>
 
           {/* Nav Links */}
