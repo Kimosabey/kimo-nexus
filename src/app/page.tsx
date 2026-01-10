@@ -161,6 +161,16 @@ function ProjectCard({ project, index, isDimmed, onHover }: { project: Project, 
         style={{ backgroundImage: `url('${project.image}')` }}
       />
 
+      {/* Upcoming / Blueprint Badge */}
+      {project.upcoming && (
+        <div className="absolute top-4 right-4 z-30">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 rounded-full text-[10px] font-mono tracking-widest font-bold backdrop-blur-md">
+            <span className="w-1.5 h-1.5 rounded-full bg-yellow-500 animate-pulse" />
+            BUILDING
+          </span>
+        </div>
+      )}
+
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/95 to-background-dark/40 z-10" />
 
@@ -172,7 +182,9 @@ function ProjectCard({ project, index, isDimmed, onHover }: { project: Project, 
               {project.category}
             </span>
             <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0">
-              <a href={project.repoUrl} target="_blank" className="p-2 bg-white text-black rounded-full hover:scale-110 transition-transform"><Github className="w-4 h-4" /></a>
+              {!project.upcoming && (
+                <a href={project.repoUrl} target="_blank" className="p-2 bg-white text-black rounded-full hover:scale-110 transition-transform"><Github className="w-4 h-4" /></a>
+              )}
             </div>
           </div>
           <h3 className="text-2xl md:text-3xl font-bold text-white group-hover:text-primary transition-colors">{project.title}</h3>
@@ -188,10 +200,18 @@ function ProjectCard({ project, index, isDimmed, onHover }: { project: Project, 
               <span className="text-xs font-mono text-gray-500 px-2 py-1">+{project.techStack.length - 4}</span>
             )}
           </div>
-          <div className="mt-6 flex items-center gap-2 text-white font-medium text-sm group/btn cursor-pointer">
-            <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
-            <span className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 mobile-show">View Code</span>
-          </div>
+          {!project.upcoming ? (
+            <a href={project.repoUrl} target="_blank" className="mt-6 flex items-center gap-2 text-white font-medium text-sm group/btn cursor-pointer inline-block">
+              <span className="flex items-center gap-2">
+                <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
+                <span className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 mobile-show">View Code</span>
+              </span>
+            </a>
+          ) : (
+            <div className="mt-6 flex items-center gap-2 text-gray-600 font-mono text-xs cursor-default">
+              <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 tracking-widest">[ ACCESS RESTRICTED ]</span>
+            </div>
+          )}
         </div>
       </div>
 
