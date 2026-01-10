@@ -38,54 +38,52 @@ function Preloader() {
 
   return (
     <motion.div
-      initial={{ opacity: 1 }}
-      exit={{
-        scale: 30,
-        opacity: 0,
-        filter: "blur(20px)",
-        transition: { duration: 0.8, ease: "easeIn" }
-      }}
-      className="fixed inset-0 z-[999] bg-[#050505] flex items-center justify-center overflow-hidden"
+      className="fixed inset-0 z-[999] flex items-center justify-center pointer-events-none"
     >
-      <div className="relative flex flex-col items-center justify-center w-full h-full">
+      {/* Left Shutters */}
+      <motion.div
+        initial={{ x: 0 }}
+        exit={{ x: "-100%" }}
+        transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+        className="absolute left-0 top-0 w-1/2 h-full bg-[#050505] z-0 border-r border-white/10"
+      />
+      {/* Right Shutters */}
+      <motion.div
+        initial={{ x: 0 }}
+        exit={{ x: "100%" }}
+        transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+        className="absolute right-0 top-0 w-1/2 h-full bg-[#050505] z-0 border-l border-white/10"
+      />
+
+      {/* Content */}
+      <motion.div
+        initial={{ opacity: 1 }}
+        exit={{ opacity: 0, scale: 0.9, filter: "blur(10px)", transition: { duration: 0.5 } }}
+        className="relative z-10 flex flex-col items-center justify-center w-full"
+      >
+        <h1 className="text-4xl md:text-7xl font-black text-white tracking-widest font-mono mix-blend-difference mb-12 text-center px-4 relative">
+          {displayText}
+          <div className="absolute -inset-4 bg-primary/20 blur-xl -z-10 opacity-50 animate-pulse"></div>
+        </h1>
+
+        <div className="w-64 md:w-96 h-[2px] bg-white/10 rounded-full overflow-hidden relative">
+          <motion.div
+            initial={{ width: 0 }}
+            animate={{ width: "100%" }}
+            transition={{ duration: 3.2, ease: "easeInOut" }}
+            className="absolute top-0 left-0 h-full bg-primary shadow-[0_0_15px_#6b7bff]"
+          />
+        </div>
+
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-col items-center z-10"
+          transition={{ delay: 0.5 }}
+          className="mt-6 font-mono text-xs text-primary/60 tracking-[0.3em] uppercase"
         >
-          {/* Scramble Text */}
-          <h1 className="text-4xl md:text-7xl font-black text-white tracking-widest font-mono mix-blend-difference mb-12 text-center px-4 relative">
-            {displayText}
-            <div className="absolute -inset-4 bg-primary/20 blur-xl -z-10 opacity-50 animate-pulse"></div>
-          </h1>
-
-          {/* Progress Bar */}
-          <div className="w-64 md:w-96 h-[2px] bg-white/10 rounded-full overflow-hidden relative">
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: "100%" }}
-              transition={{ duration: 3.2, ease: "easeInOut" }}
-              className="absolute top-0 left-0 h-full bg-primary shadow-[0_0_15px_#6b7bff]"
-            />
-          </div>
-
-          {/* Status Text */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="mt-6 font-mono text-xs text-primary/60 tracking-[0.3em] uppercase"
-          >
-            Decryption_Sequence_Active
-          </motion.div>
+          Decryption_Sequence_Active
         </motion.div>
-
-        {/* Background Vortex/Starfield cues */}
-        <div className="absolute inset-0 z-0 opacity-20">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-primary/30 to-purple-500/30 rounded-full blur-[100px] animate-pulse"></div>
-        </div>
-      </div>
+      </motion.div>
     </motion.div>
   )
 }
