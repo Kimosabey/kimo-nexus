@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Outfit, JetBrains_Mono } from "next/font/google";
+import { Rajdhani, Outfit, JetBrains_Mono } from "next/font/google"; // Swapped Space_Grotesk for Rajdhani
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import { cn } from "@/lib/utils";
@@ -14,10 +14,10 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const rajdhani = Rajdhani({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
   weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-rajdhani",
 });
 
 export const metadata: Metadata = {
@@ -39,7 +39,7 @@ export default function RootLayout({
         className={cn(
           outfit.variable,
           jetbrainsMono.variable,
-          spaceGrotesk.variable,
+          rajdhani.variable,
           "antialiased bg-background-dark text-white overflow-x-hidden selection:bg-primary selection:text-white font-sans"
         )}
       >

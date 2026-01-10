@@ -2,7 +2,7 @@
 
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-rajdhani), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-noto-sans), ui-serif, Georgia, serif;
 
   /* Colors from profile image - Grayscale Palette */
@@ -118,25 +118,43 @@
   mask-image: radial-gradient(circle at center, black, transparent 80%);
   pointer-events: none;
 }
+
 /* Modern Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(107, 123, 255, 0.5); }
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(107, 123, 255, 0.5);
+}
 
 /* Lenis Smooth Scroll */
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
   height: auto;
 }
+
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
 }
+
 .lenis.lenis-smooth [data-lenis-prevent] {
   overscroll-behavior: contain;
 }
+
 .lenis.lenis-stopped {
   overflow: hidden;
 }
+
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }

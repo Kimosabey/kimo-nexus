@@ -28,7 +28,7 @@ const config: Config = {
                 "chrome": "#E2E2E2",
             },
             fontFamily: {
-                "display": ["var(--font-sans)", "sans-serif"],
+                "display": ["var(--font-rajdhani)", "sans-serif"],
                 "body": ["var(--font-sans)", "sans-serif"],
                 "mono": ["var(--font-mono)", "monospace"],
             },
