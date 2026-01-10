@@ -9,6 +9,12 @@ import {
 import { motion, useScroll, useTransform, useSpring, AnimatePresence, useMotionValue } from "framer-motion";
 import Image from "next/image";
 import { projects, Project } from "@/lib/projects";
+import {
+  SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiNodedotjs, SiPython,
+  SiPostgresql, SiDocker, SiAmazonwebservices, SiTensorflow, SiPytorch, SiOpenai,
+  SiFramer, SiGit, SiMongodb, SiRedis
+} from 'react-icons/si';
+import LogoLoop from "@/components/ui/LogoLoop";
 
 // --- Components ---
 
@@ -230,6 +236,25 @@ function ProjectCard({ project, index, isDimmed, onHover }: { project: Project, 
 
 // --- Main Page ---
 
+const techLogos = [
+  { node: <SiReact />, title: "React" },
+  { node: <SiNextdotjs />, title: "Next.js" },
+  { node: <SiTypescript />, title: "TypeScript" },
+  { node: <SiTailwindcss />, title: "Tailwind" },
+  { node: <SiFramer />, title: "Frame Motion" },
+  { node: <SiNodedotjs />, title: "Node.js" },
+  { node: <SiPython />, title: "Python" },
+  { node: <SiTensorflow />, title: "TensorFlow" },
+  { node: <SiPytorch />, title: "PyTorch" },
+  { node: <SiOpenai />, title: "OpenAI" },
+  { node: <SiPostgresql />, title: "PostgreSQL" },
+  { node: <SiMongodb />, title: "MongoDB" },
+  { node: <SiRedis />, title: "Redis" },
+  { node: <SiDocker />, title: "Docker" },
+  { node: <SiAmazonwebservices />, title: "AWS" },
+  { node: <SiGit />, title: "Git" },
+];
+
 export default function Home() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
@@ -366,6 +391,18 @@ export default function Home() {
               </div>
             </motion.div>
           </motion.div>
+        </section>
+
+        {/* --- Tech Stack Infinite Loop --- */}
+        <section className="py-16 border-t border-white/5 bg-black/20 backdrop-blur-sm relative overflow-hidden">
+          <div className="absolute inset-0 bg-primary/5 blur-[100px] pointer-events-none" />
+          <div className="container mx-auto px-6 mb-8 text-center">
+            <span className="text-xs font-mono text-gray-500 tracking-widest uppercase">[ TECHNICAL_MATRIX_LOADED ]</span>
+          </div>
+          <LogoLoop logos={techLogos} speed={40} direction="left" />
+          <div className="mt-8">
+            <LogoLoop logos={techLogos} speed={40} direction="right" />
+          </div>
         </section>
 
         {/* Philosophy */}
