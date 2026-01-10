@@ -1,60 +1,76 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-noto-sans), ui-serif, Georgia, serif;
+
+  --color-primary: #16169c;
+  --color-primary-light: #2020df;
+  --color-primary-dark: #1919b3;
+  --color-background-light: #f6f6f8;
+  --color-background-dark: #050505;
   --color-onyx: #000000;
-  --color-graphite: #0A0A0A;
-  --color-charcoal-glass: rgba(18, 18, 18, 0.40);
+  --color-charcoal: #1c1c26;
+  --color-surface-dark: #121214;
+  --color-glass-surface: rgba(255, 255, 255, 0.03);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
   --color-chrome: #E5E5E5;
+  --color-silver: #C0C0C0;
+  --color-off-white: #E0E0E0;
   --color-ghost: #F9FAFB;
   --color-slate: #888888;
-  --color-deep-grey: #1A1A1A;
 
   --animate-stagger-in: stagger-in 0.8s ease-out forwards;
   --animate-fade-up: fade-up 1s ease-out forwards;
-  
+  --animate-spin-slow: spin 10s linear infinite;
+
   @keyframes stagger-in {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
+
   @keyframes fade-up {
-    0% { opacity: 0; transform: translateY(40px) scale(0.95); }
-    100% { opacity: 1; transform: translateY(0) scale(1); }
+    0% {
+      opacity: 0;
+      transform: translateY(40px) scale(0.95);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
-}
-
-/* Base Styles */
-:root {
-  --background: var(--color-onyx);
-  --foreground: var(--color-ghost);
-}
-
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
-  overflow-x: hidden;
 }
 
 /* Utilities */
 @layer utilities {
   .glass-card {
-    background: var(--color-charcoal-glass);
+    background: rgba(20, 20, 23, 0.4);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(229, 229, 229, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
   }
-  
+
   .glass-card:hover {
-    border-color: var(--color-chrome);
+    background: rgba(30, 30, 35, 0.6);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 30px -10px rgba(22, 22, 156, 0.15);
   }
 
   .text-glow {
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
   }
 
-  .chrome-border {
-    border: 1px solid var(--color-chrome);
+  .bg-dot-grid {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
 }
 
