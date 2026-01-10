@@ -8,44 +8,11 @@ export type Project = {
     demoUrl?: string;
     image: string;
     featured?: boolean;
-    highlight: string; // New field for flow tooltip
+    highlight: string;
     upcoming?: boolean;
 };
 
 export const projects: Project[] = [
-    {
-        id: "token-forge",
-        title: "TokenForge",
-        category: "Identity / Sec",
-        description: "Next-gen distributed authentication provider supporting OIDC/OAuth2. Features high-speed session management via Redis fan-out.",
-        techStack: ["NestJS", "OIDC", "Redis", "Docker"],
-        repoUrl: "https://github.com/Kimosabey/token-forge",
-        image: "/projects/token-forge.png",
-        highlight: "Auth: Distributed OIDC",
-        upcoming: true
-    },
-    {
-        id: "telemetry-lakehouse",
-        title: "TelemetryLakehouse",
-        category: "Big Data / Java",
-        description: "Enterprise-scale data ingestion pipeline built with Spring Boot. Streams millions of events to ClickHouse for real-time analytics.",
-        techStack: ["Java (Spring)", "ClickHouse", "Kafka", "Protobuf"],
-        repoUrl: "https://github.com/Kimosabey/telemetry-lakehouse",
-        image: "/projects/telemetry-lakehouse.png",
-        highlight: "Data: High Throughput",
-        upcoming: true
-    },
-    {
-        id: "ring-route",
-        title: "RingRoute",
-        category: "Distributed / Go",
-        description: "High-concurrency request router using Consistent Hashing rings. Ensures zero-rebalancing node failures for stateful workloads.",
-        techStack: ["Go (Fiber)", "Consistent Hashing", "gRPC"],
-        repoUrl: "https://github.com/Kimosabey/ring-route",
-        image: "/projects/ring-route.png",
-        highlight: "Algo: Consistent Hash",
-        upcoming: true
-    },
     {
         id: "chronicle-ledge",
         title: "ChronicleLedger",
@@ -168,5 +135,39 @@ export const projects: Project[] = [
         repoUrl: "https://github.com/Kimosabey/kimo-nexus",
         image: "/profile.webp",
         highlight: "UI: Framer Motion",
+    },
+    // --- Upcoming Projects (The Lab) ---
+    {
+        id: "token-forge",
+        title: "TokenForge",
+        category: "Identity / Sec",
+        description: "Next-gen distributed authentication provider supporting OIDC/OAuth2. Features high-speed session management via Redis fan-out.",
+        techStack: ["NestJS", "OIDC", "Redis", "Docker"],
+        repoUrl: "https://github.com/Kimosabey/token-forge",
+        image: "/projects/token-forge.png",
+        highlight: "Auth: Distributed OIDC",
+        upcoming: true
+    },
+    {
+        id: "telemetry-lakehouse",
+        title: "TelemetryLakehouse",
+        category: "Big Data / Java",
+        description: "Enterprise-scale data ingestion pipeline built with Spring Boot. Streams millions of events to ClickHouse for real-time analytics.",
+        techStack: ["Java (Spring)", "ClickHouse", "Kafka", "Protobuf"],
+        repoUrl: "https://github.com/Kimosabey/telemetry-lakehouse",
+        image: "/projects/telemetry-lakehouse.png",
+        highlight: "Data: High Throughput",
+        upcoming: true
+    },
+    {
+        id: "ring-route",
+        title: "RingRoute",
+        category: "Distributed / Go",
+        description: "High-concurrency request router using Consistent Hashing rings. Ensures zero-rebalancing node failures for stateful workloads.",
+        techStack: ["Go (Fiber)", "Consistent Hashing", "gRPC"],
+        repoUrl: "https://github.com/Kimosabey/ring-route",
+        image: "/projects/ring-route.png",
+        highlight: "Algo: Consistent Hash",
+        upcoming: true
     },
 ];

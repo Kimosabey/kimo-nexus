@@ -34,8 +34,9 @@ export const Logo = ({ className = "w-10 h-10" }: { className?: string }) => (
             <motion.circle
                 cx="50" cy="50" r="0"
                 fill="white"
-                animate={{ r: [0, 6, 4], opacity: [0, 1, 1] }}
-                transition={{ duration: 0.8, delay: 1, type: "spring" }}
+                initial={{ r: 0, opacity: 0 }}
+                animate={{ r: 5, opacity: 1 }}
+                transition={{ delay: 1, type: "spring", stiffness: 300, damping: 15 }}
             />
         </svg>
     </div>
