@@ -13,39 +13,77 @@ import { projects, Project } from "@/lib/projects";
 // --- Components ---
 
 function Preloader() {
+  const [displayText, setDisplayText] = useState("");
+  const targetText = "HARSHAN AIYAPPA";
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    let iteration = 0;
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%&";
+
+    interval = setInterval(() => {
+      setDisplayText(prev =>
+        targetText.split("").map((letter, index) => {
+          if (index < iteration) return targetText[index];
+          return characters[Math.floor(Math.random() * characters.length)];
+        }).join("")
+      );
+
+      if (iteration >= targetText.length) clearInterval(interval);
+      iteration += 1 / 3;
+    }, 30);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <motion.div
-      initial={{ clipPath: "inset(0% 0 0% 0)" }}
-      exit={{ clipPath: "inset(0% 0 100% 0)", transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
-      className="fixed inset-0 z-[999] bg-[#050505] flex items-center justify-center p-4"
+      initial={{ opacity: 1 }}
+      exit={{
+        scale: 30,
+        opacity: 0,
+        filter: "blur(20px)",
+        transition: { duration: 0.8, ease: "easeIn" }
+      }}
+      className="fixed inset-0 z-[999] bg-[#050505] flex items-center justify-center overflow-hidden"
     >
-      <div className="flex flex-col items-center justify-center relative w-full h-full max-w-[500px]">
+      <div className="relative flex flex-col items-center justify-center w-full h-full">
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="relative"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="flex flex-col items-center z-10"
         >
-          <h1 className="text-5xl md:text-8xl font-black text-white tracking-tighter mb-2 mix-blend-difference z-10 relative">
-            HARSHAN
+          {/* Scramble Text */}
+          <h1 className="text-4xl md:text-7xl font-black text-white tracking-widest font-mono mix-blend-difference mb-12 text-center px-4 relative">
+            {displayText}
+            <div className="absolute -inset-4 bg-primary/20 blur-xl -z-10 opacity-50 animate-pulse"></div>
           </h1>
-          <h1 className="text-5xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600 tracking-tighter absolute top-0 left-0 -z-10 blur-xl opacity-50 animate-pulse">
-            HARSHAN
-          </h1>
+
+          {/* Progress Bar */}
+          <div className="w-64 md:w-96 h-[2px] bg-white/10 rounded-full overflow-hidden relative">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 3.2, ease: "easeInOut" }}
+              className="absolute top-0 left-0 h-full bg-primary shadow-[0_0_15px_#6b7bff]"
+            />
+          </div>
+
+          {/* Status Text */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="mt-6 font-mono text-xs text-primary/60 tracking-[0.3em] uppercase"
+          >
+            Decryption_Sequence_Active
+          </motion.div>
         </motion.div>
 
-        <div className="w-full h-[1px] bg-white/10 overflow-hidden mt-12 relative">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: "100%" }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-            className="absolute top-0 left-0 h-full bg-white shadow-[0_0_20px_white]"
-          />
-        </div>
-
-        <div className="mt-4 flex items-center justify-between w-full text-[10px] font-mono text-gray-400 uppercase tracking-widest">
-          <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-primary rounded-full animate-ping" /> SYSTEM LOADING</span>
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }}>SHUTTER_V2.0</motion.span>
+        {/* Background Vortex/Starfield cues */}
+        <div className="absolute inset-0 z-0 opacity-20">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-primary/30 to-purple-500/30 rounded-full blur-[100px] animate-pulse"></div>
         </div>
       </div>
     </motion.div>
@@ -203,7 +241,7 @@ export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2000);
+    const timer = setTimeout(() => setIsLoading(false), 3500); // 3.5s cinematic intro
     const handleMouseMove = (e: MouseEvent) => setMousePosition({ x: e.clientX, y: e.clientY });
     window.addEventListener("mousemove", handleMouseMove);
     return () => {
