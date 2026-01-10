@@ -181,7 +181,7 @@ function ProjectCard({ project, index, isDimmed, onHover }: { project: Project, 
             <span className="inline-block px-3 py-1 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-xs font-mono text-primary mb-4 shadow-sm">
               {project.category}
             </span>
-            <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0">
+            <div className="flex gap-2 opacity-100 translate-y-0 md:opacity-0 md:translate-y-2 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-300">
               {!project.upcoming && (
                 <a href={project.repoUrl} target="_blank" className="p-2 bg-white text-black rounded-full hover:scale-110 transition-transform"><Github className="w-4 h-4" /></a>
               )}
@@ -204,7 +204,7 @@ function ProjectCard({ project, index, isDimmed, onHover }: { project: Project, 
             <a href={project.repoUrl} target="_blank" className="mt-6 flex items-center gap-2 text-white font-medium text-sm group/btn cursor-pointer inline-block">
               <span className="flex items-center gap-2">
                 <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
-                <span className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 mobile-show">View Code</span>
+                <span className="opacity-100 translate-x-0 md:opacity-0 md:-translate-x-2 md:group-hover:opacity-100 md:group-hover:translate-x-0 transition-all duration-300">View Code</span>
               </span>
             </a>
           ) : (
