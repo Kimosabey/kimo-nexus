@@ -1,23 +1,22 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter, Noto_Sans } from "next/font/google";
+import { Space_Grotesk, Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import { cn } from "@/lib/utils";
 
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
+
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space-grotesk",
-  weight: ["300", "400", "500", "600", "700"],
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
-
-const notoSans = Noto_Sans({
-  subsets: ["latin"],
-  variable: "--font-noto-sans",
   weight: ["300", "400", "500", "600", "700"],
 });
 
@@ -38,9 +37,9 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
+          outfit.variable,
+          jetbrainsMono.variable,
           spaceGrotesk.variable,
-          inter.variable,
-          notoSans.variable,
           "antialiased bg-background-dark text-white overflow-x-hidden selection:bg-primary selection:text-white font-sans"
         )}
       >

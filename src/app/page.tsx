@@ -11,7 +11,7 @@ import { projects, Project } from "@/lib/projects";
 
 // --- Components ---
 
-function ProjectCard({ project, index }: { project: Project, index: number }) {
+function ProjectCard({ project, index, isDimmed, onHover }: { project: Project, index: number, isDimmed?: boolean, onHover?: (index: number | null) => void }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -33,8 +33,14 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
     y.set(clientY);
   };
 
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (onHover) onHover(index);
+  };
+
   const handleMouseLeave = () => {
     setIsHovered(false);
+    if (onHover) onHover(null);
     x.set(0);
     y.set(0);
   };
@@ -46,15 +52,15 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.05 }}
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
       style={{
-        rotateX: isHovered ? rotateX : 0,
-        rotateY: isHovered ? rotateY : 0,
+        rotateX: isHovered && !isDimmed ? rotateX : 0,
+        rotateY: isHovered && !isDimmed ? rotateY : 0,
         transformStyle: "preserve-3d",
       }}
-      className={`group relative rounded-3xl overflow-hidden border border-white/10 bg-[#0a0a0c] transition-all duration-200 ease-out min-h-[24rem] md:min-h-auto ${project.featured ? 'md:col-span-2' : ''}`}
+      className={`group relative rounded-3xl overflow-hidden border bg-[#0a0a0c] transition-all duration-500 ease-out min-h-[24rem] md:min-h-auto ${project.featured ? 'md:col-span-2' : ''} ${isDimmed ? 'opacity-30 blur-sm scale-95 border-white/5 grayscale saturate-0' : 'opacity-100 scale-100 border-white/10 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/20 z-10'}`}
     >
       {/* 3D Content Container */}
       <div style={{ transform: "translateZ(50px)" }} className="absolute inset-0 pointer-events-none" />
@@ -151,6 +157,7 @@ export default function Home() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -440,7 +447,15 @@ export default function Home() {
             <div><span className="text-primary font-mono text-sm tracking-widest uppercase mb-2 block">Portfolio</span><h2 className="text-4xl md:text-6xl font-bold text-white">Selected Works</h2></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[400px]">
-            {projects.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}
+            {projects.map((project, index) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                index={index}
+                isDimmed={hoveredProject !== null && hoveredProject !== index}
+                onHover={setHoveredProject}
+              />
+            ))}
           </div>
         </section>
 
