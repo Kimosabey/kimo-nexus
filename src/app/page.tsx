@@ -17,83 +17,34 @@ function Preloader() {
     <motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
-      className="fixed inset-0 z-[999] bg-[#050505] flex flex-col items-center justify-center pointer-events-none overflow-hidden"
+      className="fixed inset-0 z-[999] bg-[#050505] flex items-center justify-center pointer-events-none"
     >
-      {/* Name Reveal Scene */}
-      <div className="relative mb-12">
-        {/* Masked Container that expands with the bike */}
+      <div className="flex flex-col items-center">
         <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: "auto" }}
-          transition={{ duration: 2, ease: "easeInOut" }}
-          className="overflow-hidden whitespace-nowrap border-r-2 border-primary/50 pr-4"
+          initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          transition={{ duration: 0.8 }}
+          className="text-3xl md:text-5xl font-black text-white tracking-tight font-display mb-8"
         >
-          <h1 className="text-4xl md:text-7xl font-black text-white tracking-tighter uppercase relative z-10" style={{ textShadow: "0 0 30px rgba(107,123,255,0.6)" }}>
-            Harshan <span className="text-primary-light">Aiyappa</span>
-          </h1>
+          HARSHAN AIYAPPA
         </motion.div>
-        <div className="absolute -bottom-4 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-      </div>
-
-      {/* The Track & Bike */}
-      <div className="relative w-full max-w-[600px] h-[2px] bg-white/5 rounded-full px-4">
-        {/* The Bike Group - Connected to Progress */}
-        <motion.div
-          className="absolute top-1/2 left-0 z-20"
-          initial={{ left: "0%" }}
-          animate={{ left: "100%" }}
-          transition={{ duration: 2, ease: "easeInOut" }}
-          style={{ x: "-100%", y: "-100%" }} // Positioned above line, trailing end
-        >
-          {/* Detailed TRON Bike SVG */}
-          <svg width="80" height="40" viewBox="0 0 80 40" fill="none" className="filter drop-shadow-[0_0_20px_#6b7bff]">
-            {/* Back Wheel */}
-            <motion.g animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.5, ease: "linear" }} style={{ originX: "15px", originY: "30px" }}>
-              <circle cx="15" cy="30" r="8" stroke="#6b7bff" strokeWidth="2.5" />
-              <circle cx="15" cy="30" r="3" fill="#fff" />
-              <path d="M15 22v16M7 30h16" stroke="#6b7bff" strokeWidth="1" opacity="0.6" />
-            </motion.g>
-
-            {/* Front Wheel */}
-            <motion.g animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.5, ease: "linear" }} style={{ originX: "65px", originY: "30px" }}>
-              <circle cx="65" cy="30" r="8" stroke="#6b7bff" strokeWidth="2.5" />
-              <circle cx="65" cy="30" r="3" fill="#fff" />
-              <path d="M65 22v16M57 30h16" stroke="#6b7bff" strokeWidth="1" opacity="0.6" />
-            </motion.g>
-
-            {/* Chassis Body */}
-            <path d="M15 30 L30 15 L55 18 L65 30" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M30 15 L40 22 L55 18" fill="#6b7bff" opacity="0.8" />
-
-            {/* Rider Streamline */}
-            <path d="M25 20 Q40 5 55 18" stroke="white" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-
-          {/* Engine Flare Trail */}
+        <div className="w-48 h-[2px] bg-white/10 rounded-full overflow-hidden relative">
           <motion.div
-            className="absolute top-[20px] right-full w-32 h-[2px] bg-gradient-to-l from-primary via-blue-400 to-transparent blur-[1px]"
-            animate={{ opacity: [0.6, 1, 0.6], scaleX: [0.9, 1.1, 0.9] }}
-            transition={{ repeat: Infinity, duration: 0.2 }}
+            initial={{ width: 0 }}
+            animate={{ width: "100%" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            className="h-full bg-primary absolute top-0 left-0"
           />
-        </motion.div>
-
-        {/* Progress Fill */}
+        </div>
         <motion.div
-          initial={{ width: "0%" }}
-          animate={{ width: "100%" }}
-          transition={{ duration: 2, ease: "easeInOut" }}
-          className="h-full bg-gradient-to-r from-transparent via-primary to-white box-shadow-[0_0_15px_#6b7bff]"
-        />
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="mt-4 text-primary/80 text-xs font-mono uppercase tracking-[0.2em] animate-pulse"
+        >
+          NEXUS OS v2.0
+        </motion.div>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-        className="mt-8 font-mono text-primary/60 text-xs tracking-[0.3em]"
-      >
-        SYSTEM_ENGAGED
-      </motion.div>
     </motion.div>
   )
 }
