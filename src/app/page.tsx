@@ -6,9 +6,10 @@ import {
   Cpu, Eye, Zap, Server, Brain, Database, Palette,
   Github, Linkedin, Twitter, Terminal, Code2, Globe
 } from "lucide-react";
-import { motion, useScroll, useTransform, useSpring, AnimatePresence, useMotionValue } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, AnimatePresence, useMotionValue, useMotionTemplate } from "framer-motion";
 import Image from "next/image";
 import { projects, Project } from "@/lib/projects";
+import Lenis from 'lenis';
 import {
   SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiNodedotjs, SiPython,
   SiPostgresql, SiDocker, SiAmazonwebservices, SiTensorflow, SiPytorch, SiOpenai,
@@ -97,23 +98,22 @@ function Preloader() {
 function ProjectCard({ project, index, isDimmed, onHover }: { project: Project, index: number, isDimmed?: boolean, onHover?: (index: number | null) => void }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
-  // 3D Tilt State
+  // 3D Tilt & Spotlight State (Optimized with MotionValues)
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const rotateX = useTransform(y, [0, 400], [5, -5]); // Reverse axis for natural tilt
   const rotateY = useTransform(x, [0, 600], [-5, 5]);
 
+  // Dynamic Styles
+  const spotlightBg = useMotionTemplate`radial-gradient(600px circle at ${x}px ${y}px, rgba(107, 123, 255, 0.08), transparent 40%)`;
+  const borderBeam = useMotionTemplate`radial-gradient(1.5px circle at ${x}px ${y}px, rgba(107, 123, 255, 0.8) 0%, transparent 100%)`;
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    const clientX = e.clientX - rect.left;
-    const clientY = e.clientY - rect.top;
-
-    setMousePos({ x: clientX, y: clientY });
-    x.set(clientX);
-    y.set(clientY);
+    x.set(e.clientX - rect.left);
+    y.set(e.clientY - rect.top);
   };
 
   const handleMouseEnter = () => {
@@ -149,11 +149,9 @@ function ProjectCard({ project, index, isDimmed, onHover }: { project: Project, 
       <div style={{ transform: "translateZ(50px)" }} className="absolute inset-0 pointer-events-none" />
 
       {/* Dynamic Cursor Spotlight Background */}
-      <div
+      <motion.div
         className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"
-        style={{
-          background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(107, 123, 255, 0.08), transparent 40%)`
-        }}
+        style={{ background: spotlightBg }}
       />
 
       {/* Background Image (Infographic) */}
@@ -206,8 +204,9 @@ function ProjectCard({ project, index, isDimmed, onHover }: { project: Project, 
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
             className="absolute pointer-events-none z-50 bg-primary text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-[0_0_20px_rgba(107,123,255,0.4)] backdrop-blur-md border border-white/20 whitespace-nowrap hidden md:block"
             style={{
-              left: mousePos.x,
-              top: mousePos.y - 40,
+              left: x,
+              top: y,
+              y: -40, // Offset Y 
               x: "-50%"
             }}
           >
@@ -217,10 +216,10 @@ function ProjectCard({ project, index, isDimmed, onHover }: { project: Project, 
       </AnimatePresence>
 
       {/* Border Beam Effect */}
-      <div
+      <motion.div
         className="absolute inset-0 z-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         style={{
-          background: `radial-gradient(1.5px circle at ${mousePos.x}px ${mousePos.y}px, rgba(107, 123, 255, 0.8) 0%, transparent 100%)`,
+          background: borderBeam,
           maskImage: 'linear-gradient(black, black) content-box, linear-gradient(black, black)',
           maskComposite: 'exclude',
           WebkitMaskComposite: 'xor',
@@ -229,7 +228,7 @@ function ProjectCard({ project, index, isDimmed, onHover }: { project: Project, 
         }}
       >
         <div className="w-full h-full bg-transparent rounded-3xl" />
-      </div>
+      </motion.div>
     </motion.article>
   );
 }
@@ -264,12 +263,21 @@ export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Initialize Lenis Smooth Scroll
+    const lenis = new Lenis();
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
     const timer = setTimeout(() => setIsLoading(false), 3500); // 3.5s cinematic intro
     const handleMouseMove = (e: MouseEvent) => setMousePosition({ x: e.clientX, y: e.clientY });
     window.addEventListener("mousemove", handleMouseMove);
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       clearTimeout(timer);
+      lenis.destroy();
     }
   }, []);
 
@@ -278,7 +286,7 @@ export default function Home() {
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      transition: { delay: i * 0.03 + 2.2, duration: 0.5, ease: "easeOut" } // Delayed for loader
+      transition: { delay: i * 0.03 + 3.8, duration: 0.5, ease: "easeOut" as const } // Synced with 3.5s loader + 0.3s buffer
     })
   };
 
@@ -355,9 +363,9 @@ export default function Home() {
         {/* Hero */}
         <section ref={heroRef} className="min-h-screen w-full flex items-center justify-center px-6 pt-20 pb-10 relative overflow-hidden">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px] pointer-events-none animate-pulse"></div>
-          <motion.div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}>
+          <motion.div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut", delay: 3.5 }}>
             <div className="flex flex-col gap-8 order-2 lg:order-1">
-              <motion.div initial={{ opacity: 0, width: 0 }} animate={{ opacity: 1, width: "auto" }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 w-fit backdrop-blur-md">
+              <motion.div initial={{ opacity: 0, width: 0 }} animate={{ opacity: 1, width: "auto" }} transition={{ delay: 3.6, duration: 0.8 }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 w-fit backdrop-blur-md">
                 <div className="relative flex h-2 w-2"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span><span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span></div>
                 <span className="text-xs font-mono font-medium text-green-400/80 uppercase tracking-widest">System Online</span>
               </motion.div>
@@ -369,19 +377,19 @@ export default function Home() {
                     </motion.span>
                   ))}
                 </div>
-                <motion.span initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5, duration: 0.8 }} className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-primary-dark">
+                <motion.span initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 4.2, duration: 0.8 }} className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-primary-dark">
                   Digital Minds
                 </motion.span>
               </h1>
-              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }} className="text-lg text-gray-400 max-w-xl leading-relaxed font-light border-l-2 border-primary/50 pl-6">
+              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 4.4, duration: 0.8 }} className="text-lg text-gray-400 max-w-xl leading-relaxed font-light border-l-2 border-primary/50 pl-6">
                 Senior Full Stack Engineer combining <span className="text-white font-medium">nearly 5 years</span> of architectural depth with cutting-edge R&D in <span className="text-white font-medium">Generative AI</span>, Voice Synthesis, and Distributed Systems.
               </motion.p>
-              <div className="flex flex-wrap gap-4 mt-2">
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 4.6, duration: 0.8 }} className="flex flex-wrap gap-4 mt-2">
                 <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="#projects" className="px-8 py-4 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-all flex items-center gap-3 shadow-[0_0_40px_-10px_rgba(107,123,255,0.5)]">Explore Work <ArrowDown className="w-5 h-5 animate-bounce" /></motion.a>
                 <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="https://github.com/Kimosabey" target="_blank" className="px-8 py-4 bg-white/5 border border-white/10 text-white font-bold rounded-xl hover:bg-white/10 transition-all flex items-center gap-3 backdrop-blur-md"><Github className="w-5 h-5" /> GitHub Profile</motion.a>
-              </div>
+              </motion.div>
             </div>
-            <motion.div className="relative h-[500px] w-full flex items-center justify-center order-1 lg:order-2" initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.2 }}>
+            <motion.div className="relative h-[500px] w-full flex items-center justify-center order-1 lg:order-2" initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 3.8, duration: 1.2 }}>
               <div className="relative w-[400px] h-[500px] group">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary to-purple-600 rounded-3xl blur-[80px] opacity-30 group-hover:opacity-50 transition-all duration-700"></div>
                 <div className="relative w-full h-full rounded-2xl overflow-hidden grayscale hover:grayscale-0 transition-all duration-700 ease-out z-10" style={{ backgroundImage: "url('/profile.webp')", backgroundSize: 'cover', backgroundPosition: 'center', maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)' }}>
@@ -391,6 +399,7 @@ export default function Home() {
               </div>
             </motion.div>
           </motion.div>
+
         </section>
 
         {/* --- Tech Stack Infinite Loop --- */}
