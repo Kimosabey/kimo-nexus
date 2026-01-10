@@ -68,7 +68,7 @@ function Preloader() {
         exit={{ opacity: 0, scale: 0.9, filter: "blur(10px)", transition: { duration: 0.5 } }}
         className="relative z-10 flex flex-col items-center justify-center w-full"
       >
-        <h1 className="text-4xl md:text-7xl font-black text-white tracking-widest font-mono mix-blend-difference mb-12 text-center px-4 relative">
+        <h1 className="text-2xl md:text-7xl font-black text-white tracking-widest font-mono mix-blend-difference mb-12 text-center px-4 relative">
           {displayText}
           <div className="absolute -inset-4 bg-primary/20 blur-xl -z-10 opacity-50 animate-pulse"></div>
         </h1>
