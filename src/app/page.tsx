@@ -7,9 +7,68 @@ import {
   Github, Linkedin, Twitter, Terminal, Code2, Globe
 } from "lucide-react";
 import { motion, useScroll, useTransform, useSpring, AnimatePresence, useMotionValue } from "framer-motion";
+import Image from "next/image";
 import { projects, Project } from "@/lib/projects";
 
 // --- Components ---
+
+function Preloader() {
+  return (
+    <motion.div
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
+      className="fixed inset-0 z-[999] bg-[#050505] flex items-center justify-center pointer-events-none"
+    >
+      <div className="flex flex-col items-center relative w-full max-w-[300px]">
+        {/* Rider Animation */}
+        <div className="w-full relative h-12 mb-2">
+          <motion.div
+            className="absolute top-0"
+            initial={{ left: "0%" }}
+            animate={{ left: "100%" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            style={{ x: "-50%" }}
+          >
+            {/* Futuristic Bike Icon */}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-primary filter drop-shadow-[0_0_15px_#6b7bff] -rotate-6">
+              <circle cx="18.5" cy="17.5" r="3.5" />
+              <circle cx="5.5" cy="17.5" r="3.5" />
+              <path d="M15 6h-5a1 1 0 0 0-1 1v3.5" />
+              <path d="M9 17.5V14h9.5" />
+              <path d="M7 10.5h10" />
+              <motion.path d="M4 17.5 h-2" animate={{ opacity: [0, 1, 0], x: [-10, -2, -10] }} transition={{ repeat: Infinity, duration: 0.2 }} strokeOpacity="0.5" />
+            </svg>
+            {/* Speed Lines */}
+            <motion.div
+              className="absolute top-1/2 right-full w-20 h-0.5 bg-gradient-to-l from-primary to-transparent"
+              style={{ y: "-50%" }}
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={{ opacity: 1, scaleX: 1 }}
+              transition={{ delay: 0.2 }}
+            />
+          </motion.div>
+        </div>
+
+        <div className="w-full h-[2px] bg-white/10 rounded-full overflow-hidden relative">
+          <motion.div
+            initial={{ width: 0 }}
+            animate={{ width: "100%" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            className="h-full bg-primary absolute top-0 left-0"
+          />
+        </div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="mt-4 text-primary/80 text-xs font-mono uppercase tracking-[0.2em] animate-pulse"
+        >
+          NEXUS OS v2.0
+        </motion.div>
+      </div>
+    </motion.div>
+  )
+}
 
 function ProjectCard({ project, index, isDimmed, onHover }: { project: Project, index: number, isDimmed?: boolean, onHover?: (index: number | null) => void }) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -158,12 +217,17 @@ export default function Home() {
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2000);
     const handleMouseMove = (e: MouseEvent) => setMousePosition({ x: e.clientX, y: e.clientY });
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      clearTimeout(timer);
+    }
   }, []);
 
   const textVariants = {
@@ -171,7 +235,7 @@ export default function Home() {
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      transition: { delay: i * 0.03, duration: 0.5, ease: "easeOut" }
+      transition: { delay: i * 0.03 + 2.2, duration: 0.5, ease: "easeOut" } // Delayed for loader
     })
   };
 
@@ -182,6 +246,9 @@ export default function Home() {
 
   return (
     <>
+      <AnimatePresence mode="wait">
+        {isLoading && <Preloader />}
+      </AnimatePresence>
       <motion.div className="fixed top-0 left-0 right-0 h-1 bg-primary z-[100] origin-left" style={{ scaleX }} />
       <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-[100] mix-blend-overlay filter contrast-120 brightness-100">
         <svg className="w-full h-full"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.6" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#noiseFilter)" /></svg>
@@ -393,7 +460,7 @@ export default function Home() {
 
             {[
               {
-                role: "Product Engineer (Full Stack & AI)",
+                role: "Full Stack, AI, Hybrid Engineer",
                 company: "Lingotran Pvt. Ltd.",
                 period: "Jan 2023 - Present (~3 Years)",
                 desc: "Driving R&D for next-generation speech interfaces. Integrating proprietary NLP/Neural Voice models. Architecting Python/Node.js microservices."
