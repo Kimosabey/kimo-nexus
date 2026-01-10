@@ -68,7 +68,7 @@ function Preloader() {
         exit={{ opacity: 0, scale: 0.9, filter: "blur(10px)", transition: { duration: 0.5 } }}
         className="relative z-10 flex flex-col items-center justify-center w-full"
       >
-        <h1 className="text-2xl md:text-7xl font-black text-white tracking-widest font-mono mix-blend-difference mb-12 text-center px-4 relative">
+        <h1 className="text-2xl md:text-7xl font-display font-black text-white tracking-widest mix-blend-difference mb-12 text-center px-4 relative">
           {displayText}
           <div className="absolute -inset-4 bg-primary/20 blur-xl -z-10 opacity-50 animate-pulse"></div>
         </h1>
@@ -424,7 +424,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             <div>
               <span className="text-primary font-mono text-sm tracking-widest uppercase mb-4 block">Philosophy</span>
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">Forging complexity into <span className="text-gray-500">simplicity</span>.</h2>
+              <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-6 leading-tight">Forging complexity into <span className="text-gray-500">simplicity</span>.</h2>
               <p className="text-gray-400 text-lg leading-relaxed mb-8">
                 Senior Full Stack Engineer combining nearly 5 years of architectural depth with cutting-edge R&D in Generative AI, Voice Synthesis (TTS/ASR), and Distributed Systems.
               </p>
@@ -513,7 +513,7 @@ export default function Home() {
         <section className="w-full max-w-4xl px-6 py-20 mx-auto" id="experience">
           <div className="text-center mb-16">
             <span className="text-primary font-mono text-sm tracking-widest uppercase mb-2 block">Career Trajectory</span>
-            <h2 className="text-4xl font-bold text-white">Professional Evolution</h2>
+            <h2 className="text-4xl font-display font-bold text-white">Professional Evolution</h2>
           </div>
 
           <div className="space-y-12 relative">
@@ -538,7 +538,7 @@ export default function Home() {
                 role: "Full Stack Engineer",
                 company: "Veriteam Software Solutions",
                 period: "Feb 2021 – Jul 2022 (~1.5 Years)",
-                desc: "Delivered enterprise CMS ecosystems including 'Tabedaar' and 'Zeus Biotech'. Scaled engineering capacity by 35+ academic projects."
+                desc: "Delivered enterprise CMS ecosystems including 'Tabedaar' and 'Zeus Biotech'. Scaled engineering capacity by 35+ academic projects and client projects."
               },
               {
                 role: "Master of Computer Applications",
@@ -566,7 +566,7 @@ export default function Home() {
                   <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-primary/5 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-1000"></div>
 
                   <div className="flex flex-col mb-2">
-                    <h3 className="font-bold text-white text-xl tracking-tight">{job.role}</h3>
+                    <h3 className="font-display font-bold text-white text-xl tracking-tight">{job.role}</h3>
                     <div className="flex items-center gap-2 mt-1">
                       <span className="text-primary font-mono text-xs uppercase tracking-wider">{job.company}</span>
                       <span className="w-1 h-1 bg-white/20 rounded-full"></span>
@@ -596,7 +596,7 @@ export default function Home() {
         {/* Projects Grid */}
         <section className="w-full max-w-[1400px] px-6 py-32" id="projects">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-            <div><span className="text-primary font-mono text-sm tracking-widest uppercase mb-2 block">Portfolio</span><h2 className="text-4xl md:text-6xl font-bold text-white">Selected Works</h2></div>
+            <div><span className="text-primary font-mono text-sm tracking-widest uppercase mb-2 block">Portfolio</span><h2 className="text-4xl md:text-6xl font-display font-bold text-white">Selected Works</h2></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[400px]">
             {projects.map((project, index) => (
@@ -616,7 +616,7 @@ export default function Home() {
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[100px] bg-primary/10 blur-[50px] pointer-events-none"></div>
           <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-            <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tight">Let's create <br /> the <span className="text-primary italic">future</span>.</h2>
+            <h2 className="text-5xl md:text-7xl font-display font-bold text-white mb-8 tracking-tight">Let's create <br /> the <span className="text-primary italic">future</span>.</h2>
             <a className="inline-flex h-14 items-center justify-center rounded-full bg-white px-10 text-base font-bold text-black transition-all hover:scale-105 hover:shadow-[0_0_40px_-5px_white]" href="mailto:harshan.aiyappa@gmail.com">harshan.aiyappa@gmail.com</a>
             <div className="mt-24 flex flex-col md:flex-row justify-between items-center gap-6 pt-10 border-t border-white/5 text-gray-500 text-sm">
               <p className="font-mono">© 2026 Harshan Aiyappa.</p>
