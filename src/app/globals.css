@@ -68,8 +68,10 @@
 /* Utilities */
 @layer utilities {
   .font-signature {
-    font-family: "Kaushan Script", cursive;
-    font-weight: 400;
+    font-family: var(--font-rajdhani);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
   }
 
   .glass-card {
