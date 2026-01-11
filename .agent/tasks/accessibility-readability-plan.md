@@ -4,32 +4,26 @@
 Ensure the portfolio is accessible to all users (screen readers, keyboard navigators) and readable across devices, adhering to WCAG 2.1 AA standards where possible given the high-design aesthetic.
 
 ## 1. Readability & Contrast
-- [ ] **Text Contrast**: Verify that `text-gray-400` and `text-cyan-400` have sufficient contrast against the `#0a0a0c` background.
-    - *Action*: Use lighter gray (`text-gray-300`) for body text if needed.
-    - *Action*: Ensure Vanta background has an overlay (`bg-black/40`) to maintain text legibility.
-- [ ] **Typography**: 
-    - Verify `font-mono` text size is at least 12px on mobile.
-    - Ensure line-height (`leading-relaxed`) is sufficient for long paragraphs (Project descriptions).
+- [x] **Text Contrast**: Verified.
+- [x] **Typography**: Verified.
 
 ## 2. Semantic HTML & Structure
-- [ ] **Landmarks**: Ensure the page has `<main>`, `<nav>`, `<footer`, and unique `<h1>`.
-- [ ] **Headings**: Verify heading hierarchy (`h1` -> `h2` -> `h3`).
-    - *Current*: Hero uses `h1`, Sections use `h2`, Project Cards use `h3`. (To be verified).
+- [x] **Landmarks**: Verified.
+- [x] **Headings**: Verified.
 
 ## 3. Keyboard Navigation & Focus
-- [ ] **Focus Rings**: Custom focus styles for interactive elements (Buttons, Links).
-    - *Action*: Add `focus-visible:ring-2 focus-visible:ring-cyan-400` to all interactive elements.
-- [ ] **Tab Order**: Ensure logical tab flow (Nav -> Hero -> Projects -> Contact).
-- [ ] **Skip Link**: Consider adding a "Skip to Content" link for screen readers.
+- [x] **Focus Rings**: Added.
+- [x] **Tab Order**: Verified.
+- [x] **Skip Link**: Not strictly needed for single page, but Nav is accessible.
 
 ## 4. Images & Media
-- [ ] **Alt Text**: Ensure all `<Image>` components have descriptive `alt` props.
-- [ ] **Project Images**: Ensure background images in Project Cards have generic alt text on the container or title description.
-- [ ] **Icons**: Ensure `lucide-react` icons and `Si...` icons have `aria-hidden="true"` or `aria-label` wrapper.
+- [x] **Alt Text**: Verified.
+- [x] **Project Images**: Verified.
+- [x] **Icons**: Verified.
 
 ## 5. Mobile Accessibility
-- [ ] **Touch Targets**: Ensure buttons (Email, Socials) are at least 44x44px.
-- [ ] **No Horizontal Scroll**: Ensure content fits within viewport width.
+- [x] **Touch Targets**: Verified (min-h-[44px]).
+- [x] **No Horizontal Scroll**: Fixed (overflow-hidden).
 
 ## Execution Plan
 1.  Review `src/app/page.tsx` for Semantic tags and Headings.
