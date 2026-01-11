@@ -605,22 +605,27 @@ export default function Home() {
           </div>
 
           {/* Domains of Expertise Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 md:mt-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16 md:mt-24">
             {[
               {
-                title: "Full Stack Architecture",
+                title: "Frontend & User Experience",
+                icon: Palette,
+                skills: ["React / Next.js", "Shadcn / Chakra UI", "Tailwind CSS", "Framer Motion", "D3.js / Data Viz"]
+              },
+              {
+                title: "Backend & Microservices",
                 icon: Server,
-                skills: ["React / Next.js", "Node.js / Express", "FastAPI / Flask", "PostgreSQL / Mongo", "Shadcn / Chakra UI"]
+                skills: ["Node.js / Express", "FastAPI / Flask", "PostgreSQL / Mongo", "Redis / Varnish", "BullMQ / RabbitMQ"]
               },
               {
-                title: "AI & R&D Strategy",
+                title: "AI & Innovation Strategy",
                 icon: Brain,
-                skills: ["Generative AI (LLMs)", "Voice Tech (TTS/ASR)", "LangChain / RAG", "Python Ecosystem", "System Design"]
+                skills: ["Generative AI (LLMs)", "Voice Tech (TTS/ASR)", "LangChain / RAG", "Python Ecosystem", "System Architecture"]
               },
               {
-                title: "Data Engineering",
+                title: "Data & Infrastructure",
                 icon: Database,
-                skills: ["Data Visualization", "Analytics Pipelines", "ETL Architectures", "Scrum Leadership", "Cloud Native (AWS)"]
+                skills: ["Airflow / ETL Pipelines", "Kafka / Event Streaming", "Docker / Containerization", "Prometheus / Grafana", "Cloud Native / AWS"]
               }
             ].map((domain, i) => (
               <motion.div
