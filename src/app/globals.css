@@ -5,6 +5,9 @@
   --font-display: var(--font-rajdhani), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-noto-sans), ui-serif, Georgia, serif;
 
+  --font-rajdhani: 'Rajdhani', sans-serif;
+  --font-sacramento: 'Sacramento', cursive;
+
   /* Colors from profile image - Grayscale Palette */
   --color-background-dark: #131313;
   /* cod-gray - main bg */

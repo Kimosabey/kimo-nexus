@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { Rajdhani, Outfit, JetBrains_Mono } from "next/font/google"; // Swapped Space_Grotesk for Rajdhani
+import { Rajdhani, Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import { cn } from "@/lib/utils";
+
+
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -34,13 +36,14 @@ export default function RootLayout({
     <html lang="en" className="dark scroll-smooth">
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Momo+Signature&display=swap" rel="stylesheet" />
       </head>
       <body
         className={cn(
           outfit.variable,
           jetbrainsMono.variable,
           rajdhani.variable,
-          "antialiased bg-background-dark text-white overflow-x-hidden selection:bg-primary selection:text-white font-sans"
+          "font-signature antialiased bg-background-dark text-white overflow-x-hidden selection:bg-primary selection:text-white font-sans"
         )}
       >
         {/* Background Texture from HTML */}

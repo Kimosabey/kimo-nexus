@@ -1,45 +1,25 @@
-"use client";
-import { motion } from "framer-motion";
-
 export const Logo = ({ className = "w-10 h-10" }: { className?: string }) => (
     <div className={`relative flex items-center justify-center ${className}`}>
-        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-            {/* Concept: Clear Geometric HA Monogram */}
-
-            {/* Letter H (White) */}
-            <motion.path
-                d="M20 25 V75 M45 25 V75 M20 50 H45"
+        <svg viewBox="0 0 70 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+            {/* H - Bold Geometric */}
+            <path
+                d="M10 8 V32 M26 8 V32 M10 20 H26"
                 stroke="white"
-                strokeWidth="8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 0.8, ease: "easeInOut" }}
+                strokeWidth="5"
+                strokeLinecap="square"
             />
 
-            {/* Letter A (Primary Blue) */}
-            <motion.path
-                d="M60 75 L75 25 L90 75 M65 55 H85"
+            {/* A - Bold Geometric side-by-side */}
+            <path
+                d="M40 32 L48 8 L56 32"
                 stroke="var(--color-primary)"
-                strokeWidth="8"
-                strokeLinecap="round"
+                strokeWidth="5"
+                strokeLinecap="square"
                 strokeLinejoin="round"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.3, ease: "easeInOut" }}
-                style={{ stroke: "#6b7bff" }}
             />
+            <path d="M43 23 H53" stroke="var(--color-primary)" strokeWidth="5" strokeLinecap="square" />
 
-            {/* Decorative Dot (Nexus point) */}
-            <motion.circle
-                cx="75" cy="15" r="3"
-                fill="var(--color-primary)"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 1, type: "spring" }}
-                style={{ fill: "#6b7bff" }}
-            />
+            {/* Tech Dot removed */}
         </svg>
     </div>
 );
