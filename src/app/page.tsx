@@ -18,6 +18,7 @@ import {
 import LogoLoop from "@/components/ui/LogoLoop";
 import ProjectCard from "@/components/ProjectCard";
 import Header from "@/components/Header";
+import Testimonials from "@/components/Testimonials";
 import dynamic from 'next/dynamic';
 
 // Lazy load Vanta for better performance

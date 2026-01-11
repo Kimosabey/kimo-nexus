@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import { Project } from '@/lib/projects';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const ProjectCard = memo(({ project, index }: { project: Project, index: number }) => {
     const [showTooltip, setShowTooltip] = useState(false);
@@ -81,60 +82,45 @@ const ProjectCard = memo(({ project, index }: { project: Project, index: number 
                 transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
             />
 
-            {/* PREMIUM TOOLTIP - Desktop Only */}
-            <AnimatePresence>
-                {showTooltip && (
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9, y: 10 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: 10 }}
-                        transition={{ duration: 0.3, ease: 'easeOut' }}
-                        className="hidden md:block absolute top-4 right-4 z-30 pointer-events-none"
-                    >
-                        <div className="relative px-4 py-3 bg-[#0a0a0c]/95 backdrop-blur-xl border border-cyan-400/30 rounded-2xl shadow-[0_8px_32px_rgba(0,212,255,0.25)]">
-                            {/* Glow Effect */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 to-teal-500/10 rounded-2xl blur-md -z-10" />
+            {/* PREMIUM TOOLTIP via Radix UI Library */}
+            <TooltipProvider delayDuration={0}>
+                <Tooltip open={showTooltip}>
+                    <TooltipTrigger asChild>
+                        <div className="absolute top-6 right-6 w-1 h-1 bg-transparent pointer-events-none" />
+                    </TooltipTrigger>
 
-                            {/* Content */}
-                            <motion.div
-                                className="flex flex-col gap-2"
-                                initial="hidden"
-                                animate="visible"
-                                variants={{
-                                    hidden: { opacity: 0 },
-                                    visible: {
-                                        opacity: 1,
-                                        transition: {
-                                            staggerChildren: 0.1
-                                        }
-                                    }
-                                }}
+                    <AnimatePresence>
+                        {showTooltip && (
+                            <TooltipContent
+                                side="left"
+                                align="start"
+                                sideOffset={10}
+                                className="hidden md:block bg-[#0a0a0c]/95 backdrop-blur-xl border border-cyan-400/30 rounded-2xl shadow-[0_8px_32px_rgba(0,212,255,0.25)] p-0"
                             >
                                 <motion.div
-                                    className="flex items-center gap-2"
-                                    variants={{
-                                        hidden: { opacity: 0, x: -10 },
-                                        visible: { opacity: 1, x: 0 }
-                                    }}
+                                    initial={{ opacity: 0, scale: 0.9, x: 10 }}
+                                    animate={{ opacity: 1, scale: 1, x: 0 }}
+                                    exit={{ opacity: 0, scale: 0.9, x: 10 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="relative px-4 py-3"
                                 >
-                                    <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-                                    <span className="text-xs font-mono text-white font-bold">{project.techStack.length} Technologies</span>
-                                </motion.div>
+                                    {/* Content */}
+                                    <div className="flex flex-col gap-2">
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                                            <span className="text-xs font-mono text-white font-bold">{project.techStack.length} Technologies</span>
+                                        </div>
 
-                                <motion.div
-                                    className="text-[10px] font-mono text-gray-400"
-                                    variants={{
-                                        hidden: { opacity: 0, x: -10 },
-                                        visible: { opacity: 1, x: 0 }
-                                    }}
-                                >
-                                    {project.upcoming ? '🔨 In Development' : '✨ Production Ready'}
+                                        <div className="text-[10px] font-mono text-gray-400">
+                                            {project.upcoming ? '🔨 In Development' : '✨ Production Ready'}
+                                        </div>
+                                    </div>
                                 </motion.div>
-                            </motion.div>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                            </TooltipContent>
+                        )}
+                    </AnimatePresence>
+                </Tooltip>
+            </TooltipProvider>
 
             <div className="relative z-10 p-5 md:p-6 lg:p-8 flex flex-col h-full justify-end">
                 <div className="mb-auto"></div>

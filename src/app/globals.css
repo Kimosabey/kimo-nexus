@@ -63,16 +63,15 @@
       transform: translateY(0) scale(1);
     }
   }
-
-  /* Custom Font Classes */
-  .font-signature {
-    font-family: "Momo Signature", cursive;
-    font-weight: 400;
-  }
 }
 
 /* Utilities */
 @layer utilities {
+  .font-signature {
+    font-family: "Kaushan Script", cursive;
+    font-weight: 400;
+  }
+
   .glass-card {
     background: rgba(47, 47, 47, 0.4);
     backdrop-filter: blur(12px);
