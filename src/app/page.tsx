@@ -33,19 +33,31 @@ const USE_VANTA_BACKGROUND = true; // ✨ ENABLED
 
 
 function Preloader() {
-  const [progress, setProgress] = useState(0);
+  const [ended, setEnded] = useState(false);
+  const progressTextRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(timer);
-          return 100;
-        }
-        return prev + 2;
-      });
-    }, 20);
-    return () => clearInterval(timer);
+    // Animate progress without triggering React re-renders (Performance Optimization)
+    const startTime = Date.now();
+    const duration = 2000; // 2s duration matching branding timer
+
+    const updateProgress = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min((elapsed / duration) * 100, 100);
+
+      if (progressTextRef.current) {
+        progressTextRef.current.textContent = `${Math.floor(progress)}%`;
+      }
+
+      if (progress < 100) {
+        requestAnimationFrame(updateProgress);
+      } else {
+        setEnded(true);
+      }
+    };
+
+    const animationFrame = requestAnimationFrame(updateProgress);
+    return () => cancelAnimationFrame(animationFrame);
   }, []);
 
   return (
@@ -58,14 +70,14 @@ function Preloader() {
       <div className="w-64 space-y-2">
         <div className="flex justify-between text-xs text-cyan-400/80 uppercase tracking-widest">
           <span>Wave_Initialize</span>
-          <span>{progress}%</span>
+          <span ref={progressTextRef}>0%</span>
         </div>
         <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
           <motion.div
             className="h-full bg-cyan-400 shadow-[0_0_10px_#00d4ff]"
-            initial={{ width: 0 }}
-            animate={{ width: `${progress}%` }}
-            transition={{ ease: "linear" }}
+            initial={{ width: "0%" }}
+            animate={{ width: "100%" }}
+            transition={{ duration: 2, ease: "linear" }}
           />
         </div>
         <div className="text-[10px] text-cyan-300/60 pt-2 text-center">
