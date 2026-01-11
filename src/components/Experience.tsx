@@ -6,27 +6,27 @@ import { Briefcase, GraduationCap, Calendar } from 'lucide-react';
 const experience = [
     {
         type: 'work',
-        role: "Senior Full Stack Engineer",
-        company: "TechFlow Systems",
-        period: "2023 - Present",
-        description: "Architecting distributed AI systems using Next.js and Python. Reduced cloud costs by 40% via serverless optimization.",
-        skills: ["Next.js", "AWS", "Python", "System Design"]
+        role: "Senior Full Stack & AI Engineer",
+        company: "Lingotran Pvt. Ltd.",
+        period: "Jan 2023 - Present",
+        description: "Spearheading R&D for voice-first platforms (TTS/ASR) and LangChain-powered AI assistants. Architecting scalable microservices using Python & Node.js while leading core feature delivery.",
+        skills: ["Target: Hybrid AI", "LangChain", "Next.js", "Python", "TTS/ASR"]
     },
     {
         type: 'work',
-        role: "Full Stack Developer",
-        company: "Nexus Creative",
-        period: "2021 - 2023",
-        description: "Led the frontend migration to React 18. Implemented real-time collaboration features for 50k+ users.",
-        skills: ["React", "TypeScript", "WebSocket", "Redis"]
+        role: "Full Stack Engineer",
+        company: "Veriteam Software Solutions",
+        period: "Feb 2021 - Jul 2022",
+        description: "Delivered enterprise CMS ecosystems and scalable web platforms. Led Scrum teams and mentored 200+ junior developers/students, fostering a culture of continuous learning.",
+        skills: ["React", "Node.js", "System Design", "Mentorship", "PostgreSQL"]
     },
     {
         type: 'education',
-        role: "B.Tech in Computer Science",
-        company: "University of Technology",
-        period: "2017 - 2021",
-        description: "Specialized in Artificial Intelligence and Distributed Systems. Graduated with Honors.",
-        skills: ["AI/ML", "Algorithms", "Data Structures"]
+        role: "Master of Computer Applications",
+        company: "The NIE College, Mysore",
+        period: "2017 - 2020",
+        description: "Specialized in Advanced Algorithms and Distributed Computing. Awarded Distinction (8.2 CGPA).",
+        skills: ["Distributed Systems", "AI/ML", "Algorithms"]
     }
 ];
 

@@ -580,56 +580,28 @@ export default function Home() {
               />
             </div>
 
-            {[
-              {
-                role: "Full Stack, AI, Hybrid Engineer",
-                company: "Lingotran Pvt. Ltd.",
-                period: "Jan 2023 - Present (~3 Years)",
-                desc: "Driving R&D for next-generation speech interfaces. Integrating proprietary NLP/Neural Voice models. Architecting Python/Node.js microservices."
-              },
-              {
-                role: "Full Stack Engineer",
-                company: "Veriteam Software Solutions",
-                period: "Feb 2021 – Jul 2022 (~1.5 Years)",
-                desc: "Delivered enterprise CMS ecosystems including 'Tabedaar' and 'Zeus Biotech'. Scaled engineering capacity by 35+ academic projects and client projects."
-              },
-              {
-                role: "Master of Computer Applications",
-                company: "The NIE College, Mysore",
-                period: "2017 - 2020",
-                desc: "Specialized in Advanced Algorithms and Distributed Computing. Graduated with Distinction (8.2 CGPA)."
-              }
-            ].map((job, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30, filter: "blur(10px)" }}
-                whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                viewport={{ margin: "-100px" }}
-                transition={{ duration: 0.8, type: "spring" }}
-                className={`relative flex flex-col md:flex-row items-start md:items-center justify-between md:justify-normal ${i % 2 === 0 ? 'md:flex-row-reverse' : ''} group`}
-              >
-                {/* Neural Node Dot */}
-                <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-3 h-3 md:w-4 md:h-4 rounded-full bg-[#0a0a0c] border border-primary z-10 shadow-[0_0_15px_rgba(107,123,255,0.5)] group-hover:scale-150 transition-transform duration-500">
-                  <div className="absolute inset-0 bg-cyan-400/20 rounded-full animate-ping opacity-20"></div>
+            <div className="space-y-6">
+              <h3 className="text-2xl font-bold text-white mb-2 font-display">
+                Architecting <span className="text-cyan-400">Intelligent Systems</span>
+              </h3>
+              <p className="text-gray-400 leading-relaxed">
+                I’m a <strong>Full Stack & AI Engineer</strong> with 4+ years of experience building scalable, intelligent, and user-focused web applications. My expertise lies in bridging the gap between robust backend architectures (Node.js, Python) and intuitive, high-performance frontends (React, Next.js).
+              </p>
+              <p className="text-gray-400 leading-relaxed">
+                Beyond code, I specialize in <strong>Voice Tech (TTS/ASR)</strong> and <strong>Generative AI</strong> integration, transforming complex algorithms into meaningful product features. I believe in building with clarity, shipping with speed, and empowering teams through mentorship and collaboration.
+              </p>
+              <div className="flex items-center gap-4 pt-4">
+                <div className="flex flex-col">
+                  <span className="text-3xl font-bold text-white font-display">200+</span>
+                  <span className="text-xs text-cyan-400 uppercase tracking-widest">Developers Mentored</span>
                 </div>
-
-                {/* Content Card with Glass/Holo effect */}
-                <div className={`w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-6 rounded-2xl border border-white/5 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-cyan-400/30 transition-all duration-300 relative overflow-hidden group-hover:shadow-[0_0_30px_rgba(0,212,255,0.1)] ${i % 2 === 0 ? 'md:mr-auto' : 'md:ml-auto'}`}>
-                  {/* Scanline */}
-                  <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-cyan-400/5 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-1000"></div>
-
-                  <div className="flex flex-col mb-2">
-                    <h3 className="font-display font-bold text-white text-xl tracking-tight">{job.role}</h3>
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="text-cyan-400 font-mono text-xs uppercase tracking-wider">{job.company}</span>
-                      <span className="w-1 h-1 bg-white/20 rounded-full"></span>
-                      <span className="text-white/40 text-xs font-mono">{job.period}</span>
-                    </div>
-                  </div>
-                  <p className="text-gray-400 text-sm leading-relaxed border-l-2 border-white/10 pl-4 mt-4">{job.desc}</p>
+                <div className="w-px h-10 bg-white/10" />
+                <div className="flex flex-col">
+                  <span className="text-3xl font-bold text-white font-display">35+</span>
+                  <span className="text-xs text-cyan-400 uppercase tracking-widest">Projects Delivered</span>
                 </div>
-              </motion.div>
-            ))}
+              </div>
+            </div>
           </div>
 
           <div className="flex justify-center mt-12">

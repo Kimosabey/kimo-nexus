@@ -6,22 +6,40 @@ import Image from 'next/image';
 
 const recommendations = [
     {
-        name: "Alex Johnson",
-        role: "CTO @ TechFlow",
-        image: "/avatars/alex.jpg", // Placeholder
-        text: "Harshan is a rare breed of engineer who understands both deep systems architecture and premium user experience. His work on our core platform was transformative."
+        name: "Aniruddha Bagal",
+        role: "SDE @ Examic Edtech | GitHub Campus Expert",
+        image: "/avatars/aniruddha.jpg",
+        text: "I witnessed first-hand his ability to translate complex business requirements into scalable solutions. Harshan’s greatest strength is his mentorship; his code reviews were always insightful learning opportunities. A rare talent for foreseeing bottlenecks before they become issues."
     },
     {
-        name: "Sarah Chen",
-        role: "Product Lead @ NexusAI",
-        image: "/avatars/sarah.jpg", // Placeholder
-        text: "A visionary developer. Harshan doesn't just write code; he crafts digital ecosystems. His attention to detail in AI integration is unmatched."
+        name: "Deepak Somayya Mathanda",
+        role: "Digital Marketing & SEO Specialist",
+        image: "/avatars/deepak.jpg",
+        text: "One of the most dedicated and versatile full stack developers I’ve met. His ability to turn complex ideas into real-world applications is impressive. A natural team player who leads with empathy and mentors generously."
     },
     {
-        name: "David Miller",
-        role: "Senior Engineer @ CloudScale",
-        image: "/avatars/david.jpg", // Placeholder
-        text: "Working with Harshan was a masterclass in clean architecture. He builds systems that are not only performant but incredibly scalable."
+        name: "Yamini Rajkumar",
+        role: "HR Specialist @ Recruitment & L&D",
+        image: "/avatars/yamini.jpg",
+        text: "Harshan is a talented and reliable software developer with strong problem-solving skills and a collaborative approach. Highly recommended!"
+    },
+    {
+        name: "Raghav S",
+        role: "Market Research Analyst",
+        image: "/avatars/raghav.jpg",
+        text: "The analytics dashboard he built reflected the kind of developer he is: thoughtful, user-centric, and impactful. He balances technical depth with clarity and simplicity. Humble, curious, and incredibly grounded."
+    },
+    {
+        name: "Kaushik N D",
+        role: "Database Developer & ETL Engineer",
+        image: "/avatars/kaushik.jpg",
+        text: "Exceptional full stack developer who proved invaluable to our success. His ability to architect scalable solutions and seamlessly transition between frontend and backend is remarkable. A true team player with excellent communication."
+    },
+    {
+        name: "S Kumar Dhananjaya",
+        role: "Associate SW Engineer @ Examic EdTech",
+        image: "/avatars/dhananjaya.jpg",
+        text: "Harshan is a rare combination of technical brilliance and a positive, solution-driven mindset. His deep expertise as a Full-Stack Developer and eagerness to take ownership made him an incredible asset to the team."
     }
 ];
 
