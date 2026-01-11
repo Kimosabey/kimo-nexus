@@ -458,7 +458,7 @@ export default function Home() {
           <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center relative" style={{ perspective: '1200px' }}>
             {/* Text Content - 3D Perspective Enhanced */}
             <motion.div
-              className="flex flex-col gap-6 md:gap-8 order-2 lg:order-1 text-center lg:text-left relative z-20"
+              className="flex flex-col gap-6 md:gap-8 order-2 lg:order-1 text-center lg:text-left relative z-20 will-change-transform"
               initial={{ opacity: 0, rotateY: -15, z: -50 }}
               animate={{ opacity: 1, rotateY: 0, z: 0 }}
               transition={{ delay: 0.8, duration: 1.2, ease: 'easeOut' }}
