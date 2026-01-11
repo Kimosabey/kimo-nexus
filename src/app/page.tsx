@@ -360,7 +360,7 @@ export default function Home() {
         </motion.div>
       </nav>
 
-      <main className="relative z-10 flex flex-col items-center w-full bg-background-dark">
+      <main className="relative z-10 flex flex-col items-center w-full bg-background-dark overflow-hidden">
         {/* Optional Vanta Waves Background */}
         {USE_VANTA_BACKGROUND ? (
           <VantaWaves onLoaded={() => setIsVantaReady(true)}>
@@ -488,7 +488,7 @@ export default function Home() {
               </motion.div>
 
               <motion.h1
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tighter text-white leading-[0.95] flex flex-col uppercase"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tighter text-white leading-[0.95] flex flex-col uppercase break-words"
                 style={{ transform: 'translateZ(30px)' }}
               >
                 <motion.span initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2 }}>Architecting</motion.span>

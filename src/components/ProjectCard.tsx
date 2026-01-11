@@ -17,7 +17,7 @@ const ProjectCard = memo(({ project, index }: { project: Project, index: number 
             transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
             onMouseEnter={() => setShowTooltip(true)}
             onMouseLeave={() => setShowTooltip(false)}
-            className="group relative flex flex-col justify-end overflow-hidden bg-[#0a0a0c] border border-white/5 hover:border-cyan-400/40 transition-all duration-700 min-h-[400px] md:min-h-[450px] lg:h-[500px] will-change-transform"
+            className="group relative flex flex-col justify-end overflow-hidden bg-[#0a0a0c] border border-white/5 hover:border-cyan-400/40 transition-all duration-700 min-h-[360px] md:min-h-[450px] lg:h-[500px] will-change-transform"
             style={{
                 borderRadius: '24px 24px 32px 32px', // Modern asymmetric squircle
             }}
