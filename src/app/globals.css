@@ -24,11 +24,13 @@
   --color-seashell: #f1f1f1;
   /* seashell - primary text */
 
-  /* Accent color for UI/UX (subtle blue for accessibility) */
-  --color-primary: #6b7bff;
-  /* softer blue that works with grayscale */
-  --color-primary-light: #8a97ff;
-  --color-primary-dark: #4d5edb;
+  /* Accent color for UI/UX (Ocean Theme) */
+  --color-primary: #00d4ff;
+  /* cyan-400 */
+  --color-primary-light: #22d3ee;
+  /* cyan-400 */
+  --color-primary-dark: #0f766e;
+  /* teal-700 */
 
   /* Glass effect colors */
   --color-glass-surface: rgba(47, 47, 47, 0.4);
@@ -74,7 +76,7 @@
   .glass-card:hover {
     background: rgba(82, 81, 82, 0.6);
     border-color: rgba(202, 202, 202, 0.2);
-    box-shadow: 0 0 30px -10px rgba(107, 123, 255, 0.15);
+    box-shadow: 0 0 30px -10px rgba(0, 212, 255, 0.15);
   }
 
   .text-glow {
@@ -137,7 +139,7 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(107, 123, 255, 0.5);
+  background: rgba(0, 212, 255, 0.5);
 }
 
 /* Lenis Smooth Scroll */
