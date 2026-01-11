@@ -46,7 +46,7 @@ const ProjectCard = memo(({ project, index }: { project: Project, index: number 
                     src={project.image}
                     alt={project.title}
                     fill
-                    className="object-cover opacity-95 md:opacity-90 group-hover:opacity-75 transition-opacity duration-500"
+                    className="object-cover object-top opacity-95 md:opacity-90 group-hover:opacity-75 transition-opacity duration-500"
                     priority={index < 2}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
