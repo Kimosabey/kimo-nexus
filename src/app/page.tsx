@@ -9,7 +9,6 @@ import {
 import { motion, useScroll, useTransform, useSpring, AnimatePresence, useMotionValue, useMotionTemplate } from "framer-motion";
 import Image from "next/image";
 import { projects, Project } from "@/lib/projects";
-import Lenis from 'lenis';
 import {
   SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiNodedotjs, SiPython,
   SiPostgresql, SiDocker, SiAmazonwebservices, SiTensorflow, SiPytorch, SiOpenai,
@@ -141,19 +140,6 @@ export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Initialize Lenis Smooth Scroll
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      wheelMultiplier: 1,
-    });
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
     // Minimum branding time (2s)
     const brandingTimer = setTimeout(() => setMinTimeElapsed(true), 2000);
 
@@ -166,7 +152,7 @@ export default function Home() {
       window.removeEventListener("mousemove", handleMouseMove);
       clearTimeout(brandingTimer);
       clearTimeout(safetyTimer);
-      lenis.destroy();
+      clearTimeout(safetyTimer);
     }
   }, []);
 
