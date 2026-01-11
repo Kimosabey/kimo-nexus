@@ -19,18 +19,19 @@ const ProjectCard = memo(({ project, index }: { project: Project, index: number 
             onMouseLeave={() => setShowTooltip(false)}
             className="group relative flex flex-col justify-end overflow-hidden bg-[#0a0a0c] border border-white/5 hover:border-cyan-400/40 transition-all duration-700 min-h-[360px] md:min-h-[450px] lg:h-[500px] will-change-transform"
             style={{
-                borderRadius: '24px 24px 32px 32px', // Modern asymmetric squircle
+                borderRadius: '40px 8px 40px 8px', // Liquid Leaf / Ocean Wave Shape
             }}
             whileHover={{
                 y: -8,
-                boxShadow: '0_24px_48px_rgba(0,212,255,0.2), 0_0_80px_rgba(0,212,255,0.15), 0_0_1px_rgba(255,255,255,0.2)'
+                boxShadow: '0_24px_48px_rgba(0,212,255,0.2), 0_0_80px_rgba(0,212,255,0.15), 0_0_1px_rgba(255,255,255,0.2)',
+                borderRadius: '48px 12px 48px 12px' // Morphing effect on hover
             }}
         >
             {/* Animated Gradient Border */}
             <motion.div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                 style={{
-                    borderRadius: '24px 24px 32px 32px',
+                    borderRadius: 'inherit', // Inherit from parent
                     background: 'linear-gradient(135deg, #00d4ff, #00ffcc, #14b8a6, transparent)',
                     padding: '1px',
                     WebkitMaskImage: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
@@ -59,7 +60,7 @@ const ProjectCard = memo(({ project, index }: { project: Project, index: number 
                 whileHover={{ x: '200%' }}
                 transition={{ duration: 1, ease: 'easeInOut' }}
                 style={{
-                    borderRadius: '24px 24px 32px 32px',
+                    borderRadius: 'inherit',
                 }}
             />
 
@@ -68,7 +69,7 @@ const ProjectCard = memo(({ project, index }: { project: Project, index: number 
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none mix-blend-overlay"
                 style={{
                     background: 'radial-gradient(circle at 50% 50%, rgba(0,212,255,0.15), rgba(20,184,166,0.1), transparent)',
-                    borderRadius: '24px 24px 32px 32px',
+                    borderRadius: 'inherit',
                 }}
                 animate={{
                     background: [
@@ -88,7 +89,7 @@ const ProjectCard = memo(({ project, index }: { project: Project, index: number 
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 10 }}
                         transition={{ duration: 0.3, ease: 'easeOut' }}
-                        className="hidden md:block absolute top-4 left-4 z-30 pointer-events-none"
+                        className="hidden md:block absolute top-4 right-4 z-30 pointer-events-none"
                     >
                         <div className="relative px-4 py-3 bg-[#0a0a0c]/95 backdrop-blur-xl border border-cyan-400/30 rounded-2xl shadow-[0_8px_32px_rgba(0,212,255,0.25)]">
                             {/* Glow Effect */}
