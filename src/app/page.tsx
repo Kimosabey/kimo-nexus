@@ -747,18 +747,18 @@ export default function Home() {
               >
                 {/* Neural Node Dot */}
                 <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-3 h-3 md:w-4 md:h-4 rounded-full bg-[#0a0a0c] border border-primary z-10 shadow-[0_0_15px_rgba(107,123,255,0.5)] group-hover:scale-150 transition-transform duration-500">
-                  <div className="absolute inset-0 bg-primary rounded-full animate-ping opacity-20"></div>
+                  <div className="absolute inset-0 bg-cyan-400/20 rounded-full animate-ping opacity-20"></div>
                 </div>
 
                 {/* Content Card with Glass/Holo effect */}
-                <div className={`w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-6 rounded-2xl border border-white/5 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-primary/30 transition-all duration-300 relative overflow-hidden group-hover:shadow-[0_0_30px_rgba(107,123,255,0.1)] ${i % 2 === 0 ? 'md:mr-auto' : 'md:ml-auto'}`}>
+                <div className={`w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-6 rounded-2xl border border-white/5 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-cyan-400/30 transition-all duration-300 relative overflow-hidden group-hover:shadow-[0_0_30px_rgba(0,212,255,0.1)] ${i % 2 === 0 ? 'md:mr-auto' : 'md:ml-auto'}`}>
                   {/* Scanline */}
-                  <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-primary/5 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-1000"></div>
+                  <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-cyan-400/5 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-1000"></div>
 
                   <div className="flex flex-col mb-2">
                     <h3 className="font-display font-bold text-white text-xl tracking-tight">{job.role}</h3>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-primary font-mono text-xs uppercase tracking-wider">{job.company}</span>
+                      <span className="text-cyan-400 font-mono text-xs uppercase tracking-wider">{job.company}</span>
                       <span className="w-1 h-1 bg-white/20 rounded-full"></span>
                       <span className="text-white/40 text-xs font-mono">{job.period}</span>
                     </div>
@@ -775,7 +775,7 @@ export default function Home() {
               whileTap={{ scale: 0.95 }}
               href="/resume.pdf"
               target="_blank"
-              className="px-8 py-3 bg-white text-black font-bold rounded-full flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] transition-shadow"
+              className="px-8 py-3 bg-white text-black font-bold rounded-full flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
               <ArrowDown className="w-4 h-4" />
               Download Resume
@@ -788,7 +788,7 @@ export default function Home() {
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-4 md:gap-6">
             <div className="max-w-2xl">
-              <span className="text-primary font-mono text-xs md:text-sm tracking-widest uppercase mb-3 md:mb-4 block">Portfolio</span>
+              <span className="text-cyan-400 font-mono text-xs md:text-sm tracking-widest uppercase mb-3 md:mb-4 block">Portfolio</span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white leading-tight">Selected Works</h2>
             </div>
             <div className="hidden md:block pb-2">
@@ -816,7 +816,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
             <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold text-white mb-6 md:mb-8 tracking-tight leading-tight">Let's create <br className="hidden md:block" /> the <span className="text-cyan-400 italic">future</span>.</h2>
             <a
-              className="inline-flex min-h-[52px] md:min-h-[56px] lg:min-h-[60px] items-center justify-center rounded-full bg-gradient-to-r from-cyan-400 to-teal-500 hover:from-cyan-500 hover:to-teal-600 px-6 md:px-8 lg:px-10 text-sm md:text-base font-bold text-[#0a0a0c] transition-all hover:scale-105 hover:shadow-[0_0_40px_-5px_rgba(0,212,255,0.6)]"
+              className="inline-flex min-h-[52px] md:min-h-[56px] lg:min-h-[60px] items-center justify-center rounded-full bg-gradient-to-r from-cyan-400 to-teal-500 hover:from-cyan-500 hover:to-teal-600 px-6 md:px-8 lg:px-10 text-sm md:text-base font-bold text-[#0a0a0c] transition-all hover:scale-105 hover:shadow-[0_0_40px_-5px_rgba(0,212,255,0.6)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               href="mailto:harshan.aiyappa@gmail.com"
               aria-label="Email me"
             >
@@ -831,7 +831,7 @@ export default function Home() {
                 {[{ name: "X (Twitter)", url: "https://x.com/HarshanAiyappa", icon: Twitter }, { name: "LinkedIn", url: "https://linkedin.com/in/harshan-aiyappa", icon: Linkedin }, { name: "GitHub", url: "https://github.com/Kimosabey", icon: Github }].map((social) => (
                   <a
                     key={social.name}
-                    className="hover:text-cyan-300 transition-colors flex items-center gap-2 group min-h-[48px] -m-2 p-2"
+                    className="hover:text-cyan-300 transition-colors flex items-center gap-2 group min-h-[48px] -m-2 p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-lg"
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
