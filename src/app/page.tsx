@@ -779,9 +779,9 @@ export default function Home() {
               >
                 <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
                   <motion.div
-                    className="w-1 h-6 md:h-8 bg-gradient-to-b from-cyan-400 to-teal-500"
-                    initial={{ height: 0 }}
-                    whileInView={{ height: { base: 24, md: 32 } }}
+                    className="w-1 h-6 md:h-8 bg-gradient-to-b from-cyan-400 to-teal-500 origin-top"
+                    initial={{ scaleY: 0 }}
+                    whileInView={{ scaleY: 1 }}
                     transition={{ duration: 0.5 }}
                   />
                   <span className="text-cyan-400 font-mono text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] uppercase">
@@ -807,9 +807,9 @@ export default function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
               {/* Animated Features Grid */}
               {/* Animated Brain (Neural Audio) */}
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/30 hover:bg-white/10 transition-all group">
-                <div className="w-10 h-10 mb-4 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-primary">
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-cyan-400/30 hover:bg-white/10 transition-all group">
+                <div className="w-10 h-10 mb-4 bg-cyan-400/10 rounded-lg flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-cyan-400">
                     <motion.path
                       initial={{ pathLength: 0 }}
                       whileInView={{ pathLength: 1 }}
@@ -829,9 +829,9 @@ export default function Home() {
               </div>
 
               {/* Animated Server (Scalable Systems) */}
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/30 hover:bg-white/10 transition-all group">
-                <div className="w-10 h-10 mb-4 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-primary">
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-cyan-400/30 hover:bg-white/10 transition-all group">
+                <div className="w-10 h-10 mb-4 bg-cyan-400/10 rounded-lg flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-cyan-400">
                     <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
                     <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
                     <motion.line x1="6" y1="6" x2="6.01" y2="6" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 0.8, repeat: Infinity }} />
@@ -843,9 +843,9 @@ export default function Home() {
               </div>
 
               {/* Animated Zap (Data Intelligence) */}
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/30 hover:bg-white/10 transition-all group">
-                <div className="w-10 h-10 mb-4 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-primary">
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-cyan-400/30 hover:bg-white/10 transition-all group">
+                <div className="w-10 h-10 mb-4 bg-cyan-400/10 rounded-lg flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-cyan-400">
                     <motion.polygon
                       initial={{ pathLength: 0, fill: "rgba(255, 255, 255, 0)" }}
                       whileInView={{ pathLength: 1, fill: "currentColor" }}
@@ -859,9 +859,9 @@ export default function Home() {
               </div>
 
               {/* Animated Eye (Tech Leadership) */}
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/30 hover:bg-white/10 transition-all group">
-                <div className="w-10 h-10 mb-4 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-primary">
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-cyan-400/30 hover:bg-white/10 transition-all group">
+                <div className="w-10 h-10 mb-4 bg-cyan-400/10 rounded-lg flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-cyan-400">
                     <motion.path
                       initial={{ pathLength: 0 }}
                       whileInView={{ pathLength: 1 }}

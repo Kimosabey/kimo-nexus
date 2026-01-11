@@ -25,7 +25,9 @@ export default function VantaWaves({ children }: { children: React.ReactNode }) 
         const initVanta = async () => {
             try {
                 // Lazy load THREE.js and Vanta
+                // @ts-ignore
                 THREE = await import('three');
+                // @ts-ignore
                 const VantaWavesModule = await import('vanta/dist/vanta.waves.min');
                 VANTA = VantaWavesModule.default;
 
