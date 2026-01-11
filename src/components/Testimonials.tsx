@@ -52,13 +52,16 @@ export default function Testimonials() {
                 <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-teal-500/10 rounded-full blur-[80px]" />
             </div>
 
-            <div className="container mx-auto px-4 md:px-6">
+            <div className="container mx-auto px-4 md:px-6 max-w-7xl">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
+                    <span className="text-cyan-400 font-mono text-xs md:text-sm tracking-widest uppercase mb-3 block">
+                        // TRUST_SIGNAL
+                    </span>
                     <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-4">
                         Endorsed by <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-400">Peers & Innovators</span>
                     </h2>

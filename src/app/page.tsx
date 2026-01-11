@@ -604,6 +604,49 @@ export default function Home() {
             </div>
           </div>
 
+          {/* Domains of Expertise Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 md:mt-24">
+            {[
+              {
+                title: "Full Stack Architecture",
+                icon: Server,
+                skills: ["React / Next.js", "Node.js / Express", "FastAPI / Flask", "PostgreSQL / Mongo", "Shadcn / Chakra UI"]
+              },
+              {
+                title: "AI & R&D Strategy",
+                icon: Brain,
+                skills: ["Generative AI (LLMs)", "Voice Tech (TTS/ASR)", "LangChain / RAG", "Python Ecosystem", "System Design"]
+              },
+              {
+                title: "Data Engineering",
+                icon: Database,
+                skills: ["Data Visualization", "Analytics Pipelines", "ETL Architectures", "Scrum Leadership", "Cloud Native (AWS)"]
+              }
+            ].map((domain, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-cyan-400/30 transition-all group"
+              >
+                <div className="w-12 h-12 bg-cyan-400/10 rounded-lg flex items-center justify-center mb-4 text-cyan-400 group-hover:scale-110 transition-transform">
+                  <domain.icon size={24} />
+                </div>
+                <h4 className="text-xl font-bold text-white mb-4 font-display">{domain.title}</h4>
+                <ul className="space-y-2">
+                  {domain.skills.map((skill, j) => (
+                    <li key={j} className="flex items-center gap-2 text-sm text-gray-400 font-mono">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400/50" />
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
+
           <div className="flex justify-center mt-12">
             <motion.a
               whileHover={{ scale: 1.05 }}
