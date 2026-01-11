@@ -16,8 +16,8 @@ import {
   SiFramer, SiGit, SiMongodb, SiRedis
 } from 'react-icons/si';
 import LogoLoop from "@/components/ui/LogoLoop";
-import Logo from "@/components/ui/Logo";
 import ProjectCard from "@/components/ProjectCard";
+import Header from "@/components/Header";
 import dynamic from 'next/dynamic';
 
 // Lazy load Vanta for better performance
@@ -224,141 +224,8 @@ export default function Home() {
         />
       </div>
 
-      {/* Navigation Bar - PREMIUM REDESIGN with WOW Factor */}
-      <nav className="fixed top-4 md:top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
-        <motion.div
-          initial={{ y: -100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 200, damping: 25 }}
-          className="pointer-events-auto relative"
-        >
-          {/* Animated Gradient Border */}
-          <motion.div
-            className="absolute inset-0 rounded-full opacity-70"
-            style={{
-              backgroundImage: 'linear-gradient(90deg, #00d4ff, #14b8a6, #00ffcc, #00d4ff)',
-              backgroundSize: '300% 100%',
-              padding: '1.5px'
-            }}
-            animate={{
-              backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: 'linear'
-            }}
-          />
-
-          {/* Floating Glow Effect */}
-          <motion.div
-            className="absolute -inset-4 bg-cyan-400/20 rounded-full blur-2xl"
-            animate={{
-              opacity: [0.3, 0.6, 0.3],
-              scale: [0.8, 1.1, 0.8]
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: 'easeInOut'
-            }}
-          />
-
-          {/* Main Nav Container */}
-          <div className="relative flex items-center justify-between w-full max-w-screen-xl gap-2 p-2 pr-2.5 md:pr-3 bg-[#0a0a0c]/95 backdrop-blur-2xl border border-white/20 rounded-full shadow-[0_8px_32px_rgba(0,212,255,0.15),0_0_1px_rgba(255,255,255,0.1)]">
-
-            {/* Logo - Enhanced with Glow */}
-            <motion.a
-              href="#"
-              className="relative flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full group overflow-hidden"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="Home"
-            >
-              {/* Logo Glow Background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 to-teal-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full blur-md" />
-
-              <div className="relative z-10">
-                <Logo className="w-10 h-10 md:w-11 md:h-11 drop-shadow-[0_0_8px_rgba(0,212,255,0.5)]" />
-              </div>
-            </motion.a>
-
-            {/* Nav Links - Hidden on mobile */}
-            <div className="hidden md:flex items-center gap-1.5 mx-3">
-              {[
-                { name: 'Projects', href: '#projects' },
-                { name: 'About', href: '#about' },
-                { name: 'Experience', href: '#experience' }
-              ].map((item) => (
-                <motion.a
-                  key={item.name}
-                  href={item.href}
-                  className="relative px-5 py-2.5 text-sm font-medium text-gray-300 hover:text-white transition-all rounded-full group min-h-[44px] flex items-center overflow-hidden"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                  aria-label={`Navigate to ${item.name}`}
-                >
-                  {/* Hover Background */}
-                  <span className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
-
-                  {/* Text */}
-                  <span className="relative z-10">{item.name}</span>
-
-                  {/* Glow Dot Indicator */}
-                  <motion.span
-                    className="absolute bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-cyan-400 rounded-full shadow-[0_0_8px_rgba(0,212,255,0.8)]"
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileHover={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.2 }}
-                  />
-                </motion.a>
-              ))}
-            </div>
-
-            <div className="w-px h-7 bg-gradient-to-b from-transparent via-white/20 to-transparent mx-2 hidden md:block" />
-
-            {/* CTA Button - Premium with Glow */}
-            <motion.a
-              href="#contact"
-              className="relative px-5 md:px-7 py-2.5 md:py-3 bg-gradient-to-r from-cyan-400 to-teal-500 hover:from-cyan-500 hover:to-teal-600 text-[#0a0a0c] rounded-full text-xs md:text-sm font-bold transition-all flex items-center gap-2 md:gap-2.5 min-h-[44px] md:min-h-[48px] overflow-hidden group shadow-[0_4px_16px_rgba(0,212,255,0.2)]"
-              whileHover={{ scale: 1.05, boxShadow: '0_8px_32px_rgba(0,212,255,0.35), 0_0_40px_rgba(0,212,255,0.3)' }}
-              whileTap={{ scale: 0.98 }}
-              aria-label="Contact me"
-            >
-              {/* Animated Shine Effect */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-12"
-                animate={{
-                  x: [-200, 200]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  repeatDelay: 1,
-                  ease: 'easeInOut'
-                }}
-              />
-
-              <span className="relative z-10 hidden sm:inline">Let's Talk</span>
-              <span className="relative z-10 sm:hidden">Contact</span>
-
-              <motion.div
-                className="relative z-10"
-                animate={{
-                  x: [0, 3, 0]
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: 'easeInOut'
-                }}
-              >
-                <ArrowRight className="w-4 h-4 md:w-4.5 md:h-4.5" />
-              </motion.div>
-            </motion.a>
-          </div>
-        </motion.div>
-      </nav>
+      {/* NEW HEADER: Split HUD Design */}
+      <Header />
 
       <main className="relative z-10 flex flex-col items-center w-full bg-background-dark overflow-hidden">
         {/* Optional Vanta Waves Background */}
