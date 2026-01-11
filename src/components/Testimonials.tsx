@@ -62,8 +62,9 @@ export default function Testimonials() {
                     <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-4">
                         Endorsed by <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-400">Peers & Innovators</span>
                     </h2>
-                    <p className="text-gray-400 max-w-2xl mx-auto">
-                        Collaboration is at the heart of meaningful innovation.
+                    <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
+                        Systems are built with code. Legacies are built with people. <br className="hidden md:block" />
+                        Here represents the authentic trust earned in the trenches of development.
                     </p>
                 </motion.div>
 
