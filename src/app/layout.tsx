@@ -23,8 +23,36 @@ const rajdhani = Rajdhani({
 });
 
 export const metadata: Metadata = {
-  title: "Kimo Nexus | Hybrid AI Systems",
-  description: "Senior Full Stack Hybrid Engineer Portfolio. Design & build high-performance Hybrid AI Systems.",
+  title: "Harshan Aiyappa | Hybrid AI Engineer",
+  description: "Senior Full Stack Hybrid Engineer specializing in Generative AI, Voice Synthesis, and Distributed Systems. Explore my high-performance projects.",
+  keywords: ["AI Engineer", "Full Stack Developer", "Next.js", "React", "Portfolio", "Generative AI", "Harshan Aiyappa"],
+  authors: [{ name: "Harshan Aiyappa", url: "https://kimo-nexus.vercel.app" }],
+  creator: "Harshan Aiyappa",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://kimo-nexus.vercel.app",
+    title: "Harshan Aiyappa | Hybrid AI Engineer",
+    description: "Building the future of AI and Web. Senior Full Stack Engineer portfolio.",
+    siteName: "Kimo Nexus",
+    images: [{
+      url: "/og-image.png", // Assuming existence or placeholder
+      width: 1200,
+      height: 630,
+      alt: "Harshan Aiyappa Portfolio"
+    }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Harshan Aiyappa | Hybrid AI Engineer",
+    description: "Senior Full Stack Hybrid Engineer portfolio. Design & build high-performance Hybrid AI Systems.",
+    images: ["/og-image.png"],
+    creator: "@HarshanAiyappa",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({
@@ -43,7 +71,7 @@ export default function RootLayout({
           outfit.variable,
           jetbrainsMono.variable,
           rajdhani.variable,
-          "font-signature antialiased bg-background-dark text-white overflow-x-hidden selection:bg-primary selection:text-white font-sans"
+          "font-signature antialiased bg-background-dark text-white overflow-x-hidden selection:bg-cyan-400 selection:text-black font-sans"
         )}
       >
         {/* Background Texture from HTML */}

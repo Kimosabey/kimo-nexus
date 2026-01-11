@@ -3,6 +3,7 @@
 import { memo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import Image from 'next/image';
 import { Project } from '@/lib/projects';
 
 const ProjectCard = memo(({ project, index }: { project: Project, index: number }) => {
@@ -39,11 +40,16 @@ const ProjectCard = memo(({ project, index }: { project: Project, index: number 
             />
 
             {/* Background Image with Parallax */}
-            <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out group-hover:scale-110"
-                style={{ backgroundImage: `url('${project.image}')` }}
-            >
-                <div className="absolute inset-0 bg-gradient-to-t from-[#08080a] via-[#08080a]/85 to-[#08080a]/50 opacity-95 md:opacity-90 transition-opacity duration-500 group-hover:opacity-75" />
+            <div className="absolute inset-0 transition-transform duration-1000 ease-out group-hover:scale-110">
+                <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover opacity-95 md:opacity-90 group-hover:opacity-75 transition-opacity duration-500"
+                    priority={index < 2}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#08080a] via-[#08080a]/85 to-[#08080a]/50" />
             </div>
 
             {/* Shimmer Effect */}
