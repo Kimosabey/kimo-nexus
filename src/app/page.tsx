@@ -124,8 +124,14 @@ const techLogos = [
 ];
 
 export default function Home() {
-  const { scrollYProgress } = useScroll();
+  const { scrollY, scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+
+  // Parallax Values
+  const heroImageY = useTransform(scrollY, [0, 1000], [0, 200]);
+  const heroTextY = useTransform(scrollY, [0, 1000], [0, -100]);
+  const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
+
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -335,13 +341,14 @@ export default function Home() {
 
 
           <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center relative" style={{ perspective: '1200px' }}>
-            {/* Text Content - 3D Perspective Enhanced */}
+            {/* Text Content - Responsive Layout */}
             <motion.div
-              className="flex flex-col gap-6 md:gap-8 order-2 lg:order-1 text-center lg:text-left relative z-20 will-change-transform"
-              initial={{ opacity: 0, rotateY: -15, z: -50 }}
-              animate={{ opacity: 1, rotateY: 0, z: 0 }}
-              transition={{ delay: 0.8, duration: 1.2, ease: 'easeOut' }}
-              style={{ transformStyle: 'preserve-3d' }}
+              className="flex flex-col items-center lg:items-start text-center lg:text-left z-20 order-2 lg:order-1 relative"
+              style={{
+                transformStyle: 'preserve-3d',
+                y: heroTextY,
+                opacity: heroOpacity
+              }}
             >
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -389,6 +396,7 @@ export default function Home() {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 1.3, duration: 1.2, ease: 'easeOut' }}
+              style={{ y: heroImageY, opacity: heroOpacity }}
             >
               <div className="relative w-full max-w-[450px] lg:max-w-[550px] aspect-[4/5] flex items-center justify-center">
 
