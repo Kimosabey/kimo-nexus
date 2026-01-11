@@ -17,6 +17,7 @@ import {
 import LogoLoop from "@/components/ui/LogoLoop";
 import ProjectCard from "@/components/ProjectCard";
 import Header from "@/components/Header";
+import Experience from "@/components/Experience";
 import Testimonials from "@/components/Testimonials";
 import dynamic from 'next/dynamic';
 
@@ -670,6 +671,12 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        {/* Experience - RESTORED */}
+        <Experience />
+
+        {/* Testimonials - RESTORED */}
+        <Testimonials />
 
         {/* Footer - VALIDATED & RESPONSIVE */}
         <footer className="w-full bg-[#08080a] border-t border-white/5 pt-16 md:pt-24 lg:pt-32 pb-10 md:pb-16 lg:pb-24 relative overflow-hidden" id="contact">
