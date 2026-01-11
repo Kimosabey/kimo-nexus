@@ -17,8 +17,8 @@ const experience = [
         role: "Full Stack Engineer",
         company: "Veriteam Software Solutions",
         period: "Feb 2021 - Jul 2022",
-        description: "Delivered enterprise CMS ecosystems and scalable web platforms. Led Scrum teams and mentored 200+ junior developers/students, fostering a culture of continuous learning.",
-        skills: ["React", "Node.js", "System Design", "Mentorship", "PostgreSQL"]
+        description: "Architected scalable platforms including 'Tabedaar' (Hyperlocal Multi-vendor E-commerce & Delivery) and 'Zeus Biotech' (Enterprise CMS with RBAC). Oversaw delivery of 35+ projects while mentoring 200+ developers.",
+        skills: ["React", "Node.js", "RBAC Systems", "E-commerce Architecture", "PostgreSQL"]
     },
     {
         type: 'education',
