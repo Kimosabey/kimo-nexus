@@ -582,13 +582,13 @@ export default function Home() {
 
             <div className="space-y-6">
               <h3 className="text-2xl font-bold text-white mb-2 font-display">
-                Architecting <span className="text-cyan-400">Intelligent Systems</span>
+                Architecting <span className="text-cyan-400">Hybrid AI Ecosystems</span>
               </h3>
               <p className="text-gray-400 leading-relaxed">
-                I’m a <strong>Full Stack & AI Engineer</strong> with 4+ years of experience building scalable, intelligent, and user-focused web applications. My expertise lies in bridging the gap between robust backend architectures (Node.js, Python) and intuitive, high-performance frontends (React, Next.js).
+                With nearly <strong>5 years</strong> of engineering evolution, I specialize in fusing robust system architectures with hyper-responsive, intelligent interfaces. My expertise lies in bridging the gap between raw data and human experience—leveraging <strong>Node.js, Python, and Next.js</strong> to build scalable digital nervous systems.
               </p>
               <p className="text-gray-400 leading-relaxed">
-                Beyond code, I specialize in <strong>Voice Tech (TTS/ASR)</strong> and <strong>Generative AI</strong> integration, transforming complex algorithms into meaningful product features. I believe in building with clarity, shipping with speed, and empowering teams through mentorship and collaboration.
+                I don’t just write code; I engineer <strong>Voice-First Experiences (TTS/ASR)</strong> and <strong>Generative AI</strong> solutions that listen, think, and respond. Driven by clarity and velocity, I empower teams to ship complex features that feel effortless to the user.
               </p>
               <div className="flex items-center gap-4 pt-4">
                 <div className="flex flex-col">
