@@ -53,7 +53,7 @@ function Preloader() {
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
-      className="fixed inset-0 z-[999] bg-[#050505] flex flex-col items-center justify-center font-mono"
+      className="fixed inset-0 z-[999] bg-black/20 backdrop-blur-lg flex flex-col items-center justify-center font-mono"
     >
       <div className="w-64 space-y-2">
         <div className="flex justify-between text-xs text-cyan-400/80 uppercase tracking-widest">
@@ -117,6 +117,8 @@ export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isVantaReady, setIsVantaReady] = useState(false);
+  const [minTimeElapsed, setMinTimeElapsed] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -133,15 +135,29 @@ export default function Home() {
     }
     requestAnimationFrame(raf);
 
-    const timer = setTimeout(() => setIsLoading(false), 2200); // Reduced to 2.2s for snappier feel
+    // Minimum branding time (2s)
+    const brandingTimer = setTimeout(() => setMinTimeElapsed(true), 2000);
+
+    // Fail-safe: Force load if Vanta takes too long (5s)
+    const safetyTimer = setTimeout(() => setIsVantaReady(true), 5000);
+
     const handleMouseMove = (e: MouseEvent) => setMousePosition({ x: e.clientX, y: e.clientY });
     window.addEventListener("mousemove", handleMouseMove);
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
-      clearTimeout(timer);
+      clearTimeout(brandingTimer);
+      clearTimeout(safetyTimer);
       lenis.destroy();
     }
   }, []);
+
+  // Sync Loading State
+  useEffect(() => {
+    if (minTimeElapsed && (isVantaReady || !USE_VANTA_BACKGROUND)) {
+      setIsLoading(false);
+    }
+  }, [minTimeElapsed, isVantaReady]);
+
 
   const textVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -335,7 +351,7 @@ export default function Home() {
       <main className="relative z-10 flex flex-col items-center w-full bg-background-dark">
         {/* Optional Vanta Waves Background */}
         {USE_VANTA_BACKGROUND ? (
-          <VantaWaves>
+          <VantaWaves onLoaded={() => setIsVantaReady(true)}>
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a0a0c]/40 to-[#0a0a0c]/90 pointer-events-none" />
           </VantaWaves>
         ) : (

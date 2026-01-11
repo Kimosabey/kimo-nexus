@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-export default function VantaWaves({ children }: { children: React.ReactNode }) {
+export default function VantaWaves({ children, onLoaded }: { children: React.ReactNode, onLoaded?: () => void }) {
     const vantaRef = useRef<HTMLDivElement>(null);
     const vantaEffect = useRef<any>(null);
     const [isClient, setIsClient] = useState(false);
@@ -16,7 +16,10 @@ export default function VantaWaves({ children }: { children: React.ReactNode }) 
 
         // Check for reduced motion preference
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) return;
+        if (prefersReducedMotion) {
+            onLoaded?.();
+            return;
+        }
 
         // Dynamic import for better performance
         let VANTA: any;
@@ -51,11 +54,15 @@ export default function VantaWaves({ children }: { children: React.ReactNode }) 
                         // Performance optimizations
                         forceAnimate: true,
                     });
+                    // Signal readiness
+                    onLoaded?.();
                 }
             } catch (error) {
                 console.warn('Vanta.js failed to load:', error);
+                onLoaded?.(); // Fail safe to avoid blocking
             }
         };
+
 
         // Delay initialization slightly for better initial page load
         const timeout = setTimeout(initVanta, 100);
