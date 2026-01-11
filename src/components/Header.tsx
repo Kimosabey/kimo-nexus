@@ -26,8 +26,8 @@ export default function Header() {
         <>
             <motion.header
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-                        ? 'py-3 md:py-4 bg-[#0a0a0c]/80 backdrop-blur-xl border-b border-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.1)]'
-                        : 'py-6 md:py-8 bg-transparent border-b border-transparent'
+                    ? 'py-3 md:py-4 bg-[#0a0a0c]/80 backdrop-blur-xl border-b border-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.1)]'
+                    : 'py-6 md:py-8 bg-transparent border-b border-transparent'
                     }`}
                 initial={{ y: -100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -42,9 +42,8 @@ export default function Header() {
                             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/20 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-700" />
                             <span className="font-display font-bold text-lg text-white group-hover:text-cyan-400 transition-colors">HA</span>
                         </div>
-                        <div className="flex flex-col">
-                            <span className="text-sm font-bold text-white tracking-wide group-hover:text-cyan-400 transition-colors">HARSHAN</span>
-                            <span className="text-[10px] font-mono text-gray-500 tracking-widest uppercase group-hover:text-cyan-400/70 transition-colors">System.Arch</span>
+                        <div className="flex flex-col justify-center">
+                            <span className="text-xl md:text-2xl font-signature text-white tracking-wide group-hover:text-cyan-400 transition-colors">Harshan Aiyappa</span>
                         </div>
                     </Link>
 

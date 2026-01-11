@@ -63,6 +63,12 @@
       transform: translateY(0) scale(1);
     }
   }
+
+  /* Custom Font Classes */
+  .font-signature {
+    font-family: "Momo Signature", cursive;
+    font-weight: 400;
+  }
 }
 
 /* Utilities */
