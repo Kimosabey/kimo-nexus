@@ -15,6 +15,28 @@ export type Project = {
 export const projects: Project[] = [
     // --- Active Projects ---
     {
+        id: "vox-agent-neural",
+        title: "VoxAgent Neural",
+        category: "Neural Transcription",
+        description: "Silicon Valley-grade real-time transcription engine with sub-second TAT. Features an agentic control plane for deterministic neural inference.",
+        techStack: ["FastAPI", "Faster-Whisper", "LiveKit", "WebSockets", "React"],
+        repoUrl: "https://github.com/Kimosabey/vox-agent-neural",
+        image: "/projects/vox-agent-neural.png",
+        featured: true,
+        highlight: "Latency: Sub-Second TAT",
+    },
+    {
+        id: "live-nexus-ai",
+        title: "LiveNexus AI",
+        category: "Hybrid AI Transport",
+        description: "Real-time hybrid audio intelligence platform. CPU-optimized inference logic paired with distributed cloud transport for global scalability.",
+        techStack: ["Next.js 14", "LiveKit Cloud", "Faster-Whisper", "Docker", "Python"],
+        repoUrl: "https://github.com/Kimosabey/live-nexus-ai",
+        image: "/projects/live-nexus-ai.png",
+        featured: true,
+        highlight: "Architecture: Hybrid Cloud",
+    },
+    {
         id: "token-forge",
         title: "TokenForge",
         category: "Identity / Sec",
