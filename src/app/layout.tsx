@@ -3,7 +3,8 @@ import { Rajdhani, Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import { cn } from "@/lib/utils";
-
+import { FollowCursor } from "@/components/ui/FollowCursor";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
 
 
 const outfit = Outfit({
@@ -80,6 +81,12 @@ export default function RootLayout({
           "font-signature antialiased bg-background-dark text-white overflow-x-hidden selection:bg-cyan-400 selection:text-black font-sans"
         )}
       >
+        {/* Aceternity UI: Custom Cursor */}
+        <FollowCursor />
+
+        {/* Aceternity UI: Scroll Progress Bar */}
+        <ScrollProgress />
+
         {/* Background Texture from HTML */}
         <div className="fixed inset-0 pointer-events-none z-0">
           <div className="absolute inset-0 bg-dot-grid opacity-20"></div>

@@ -19,30 +19,15 @@ export const InfiniteMovingCards = ({
     className?: string;
 }) => {
     const containerRef = React.useRef<HTMLDivElement>(null);
-    const scrollerRef = React.useRef<HTMLUListElement>(null);
-
-    useEffect(() => {
-        addAnimation();
-    }, []);
-
     const [start, setStart] = useState(false);
 
-    function addAnimation() {
-        if (containerRef.current && scrollerRef.current) {
-            const scrollerContent = Array.from(scrollerRef.current.children);
-
-            scrollerContent.forEach((item) => {
-                const duplicatedItem = item.cloneNode(true);
-                if (scrollerRef.current) {
-                    scrollerRef.current.appendChild(duplicatedItem);
-                }
-            });
-
+    useEffect(() => {
+        if (containerRef.current) {
             getDirection();
             getSpeed();
             setStart(true);
         }
-    }
+    }, [direction, speed]);
 
     const getDirection = () => {
         if (containerRef.current) {
@@ -76,44 +61,48 @@ export const InfiniteMovingCards = ({
         <div
             ref={containerRef}
             className={cn(
-                "scroller relative z-20  max-w-7xl overflow-hidden  [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
+                "scroller relative z-20 w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
                 className
             )}
         >
             <ul
-                ref={scrollerRef}
                 className={cn(
-                    "flex min-w-full shrink-0 gap-4 py-4 w-max flex-nowrap",
+                    "flex min-w-full shrink-0 gap-6 py-12 w-max flex-nowrap",
                     start && "animate-scroll",
                     pauseOnHover && "hover:[animation-play-state:paused]"
                 )}
             >
-                {items.map((item, idx) => (
+                {/* Duplicate items array for seamless infinite loop */}
+                {[...items, ...items].map((item, idx) => (
                     <li
-                        className="w-[350px] max-w-full relative rounded-2xl border border-b-0 flex-shrink-0 border-slate-700 px-8 py-6 md:w-[450px]"
+                        className="w-[280px] md:w-[450px] lg:w-[480px] relative rounded-[2.5rem] flex-shrink-0 border border-white/5 px-6 py-8 md:px-10 md:py-12 group/card transition-all duration-500 hover:border-cyan-400/30 overflow-hidden"
                         style={{
-                            background: "linear-gradient(180deg, #1e293b, #0f172a)",
-                            border: "1px solid rgba(255,255,255,0.1)"
+                            background: "rgba(10, 10, 12, 0.6)",
+                            backdropFilter: "blur(16px)"
                         }}
-                        key={item.name}
+                        key={`testimonial-${idx}`}
                     >
+                        {/* Dynamic Rim Light */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-700" />
+
                         <blockquote>
-                            <div
-                                aria-hidden="true"
-                                className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
-                            ></div>
-                            <span className=" relative z-20 text-sm leading-[1.6] text-gray-100 font-normal">
-                                {item.quote}
-                            </span>
-                            <div className="relative z-20 mt-6 flex flex-row items-center">
-                                <span className="flex flex-col gap-1">
-                                    <span className=" text-sm leading-[1.6] text-gray-400 font-normal">
+                            <div className="relative z-30 mb-8">
+                                <span className="text-4xl md:text-6xl text-cyan-400/20 font-serif absolute -top-4 -left-2 leading-none">"</span>
+                                <p className="relative text-sm md:text-lg lg:text-xl leading-[1.7] text-gray-300 font-light italic text-balance">
+                                    {item.quote}
+                                </p>
+                            </div>
+
+                            <div className="relative z-30 mt-8 pt-8 border-t border-white/5 flex flex-row items-center gap-4">
+                                <div className="h-10 w-1 bg-gradient-to-b from-cyan-400 to-teal-500 rounded-full" />
+                                <div className="flex flex-col gap-0.5">
+                                    <span className="text-sm md:text-base lg:text-lg font-bold text-white tracking-tight">
                                         {item.name}
                                     </span>
-                                    <span className=" text-sm leading-[1.6] text-gray-400 font-normal">
+                                    <span className="text-[10px] md:text-xs font-mono font-medium text-cyan-400 uppercase tracking-widest opacity-80">
                                         {item.title}
                                     </span>
-                                </span>
+                                </div>
                             </div>
                         </blockquote>
                     </li>

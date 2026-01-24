@@ -19,11 +19,21 @@ import { Spotlight } from "@/components/ui/Spotlight";
 import { TextGenerateEffect } from "@/components/ui/TextGenerateEffect";
 import { Button as MovingBorderButton } from "@/components/ui/MovingBorder";
 import { HoverEffect } from "@/components/ui/CardHoverEffect";
-import { Sparkles } from "@/components/ui/Sparkles";
-import ProjectCard from "@/components/ProjectCard";
-import Header from "@/components/Header";
+import { FlipWords } from "@/components/ui/FlipWords";
+import { SparklesCore, Sparkles } from "@/components/ui/Sparkles";
+import { HeroParallax } from "@/components/ui/HeroParallax";
+import NumberTicker from "@/components/ui/NumberTicker";
+import { CardContainer, CardBody, CardItem } from "@/components/ui/3DCard";
+import { Carousel, Card } from "@/components/ui/AppleCardsCarousel";
+import { BackgroundGradient } from "@/components/ui/BackgroundGradient";
+import { FloatingNav } from "@/components/ui/FloatingNav";
 import Experience from "@/components/Experience";
 import Testimonials from "@/components/Testimonials";
+import { AnimatedTooltip } from "@/components/ui/AnimatedTooltip";
+import { Meteors } from "@/components/ui/Meteors";
+import { IconHome, IconUser, IconCode, IconMessage } from "@tabler/icons-react";
+import { TracingBeam } from "@/components/ui/TracingBeam";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import dynamic from 'next/dynamic';
 
 // Lazy load Vanta for better performance
@@ -32,67 +42,86 @@ const VantaWaves = dynamic(() => import('@/components/VantaWaves'), {
   loading: () => null
 });
 
-// Toggle Vanta Waves (set to false to use current mesh gradients)
-const USE_VANTA_BACKGROUND = true; // ✨ ENABLED
+// Toggle Vanta Waves (set to false to use Aceternity BackgroundBeams)
+const USE_VANTA_BACKGROUND = false; // ✨ DISABLED
 
 // --- Components ---
 
 
-function Preloader() {
-  const [ended, setEnded] = useState(false);
-  const progressTextRef = useRef<HTMLSpanElement>(null);
+import { MultiStepLoader } from "@/components/ui/MultiStepLoader";
+
+const loadingStates = [
+  { text: "Initializing Core Neural Engine" },
+  { text: "Synchronizing Data Siphons" },
+  { text: "Booting Semantic Visualizer" },
+  { text: "Calibrating Interface Nodes" },
+  { text: "Verifying System Integrity" },
+  { text: "Establishing Secure Protocol" },
+  { text: "Launching Nexus Hub" },
+];
+
+function MouseSpotlight() {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const [opacity, setOpacity] = useState(0);
 
   useEffect(() => {
-    // Animate progress without triggering React re-renders (Performance Optimization)
-    const startTime = Date.now();
-    const duration = 2000; // 2s duration matching branding timer
-
-    const updateProgress = () => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min((elapsed / duration) * 100, 100);
-
-      if (progressTextRef.current) {
-        progressTextRef.current.textContent = `${Math.floor(progress)}%`;
-      }
-
-      if (progress < 100) {
-        requestAnimationFrame(updateProgress);
+    const handlePointerMove = (e: PointerEvent) => {
+      if (e.pointerType === 'touch') {
+        setOpacity(0);
       } else {
-        setEnded(true);
+        setOpacity(1);
       }
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
     };
-
-    const animationFrame = requestAnimationFrame(updateProgress);
-    return () => cancelAnimationFrame(animationFrame);
-  }, []);
+    window.addEventListener("pointermove", handlePointerMove);
+    return () => window.removeEventListener("pointermove", handlePointerMove);
+  }, [mouseX, mouseY]);
 
   return (
     <motion.div
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5, ease: "easeInOut" }}
-      className="fixed inset-0 z-[999] bg-black/20 backdrop-blur-lg flex flex-col items-center justify-center font-mono"
-    >
-      <div className="w-64 space-y-2">
-        <div className="flex justify-between text-xs text-cyan-400/80 uppercase tracking-widest">
-          <span>Wave_Initialize</span>
-          <span ref={progressTextRef}>0%</span>
-        </div>
-        <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
-          <motion.div
-            className="h-full bg-cyan-400 shadow-[0_0_10px_#00d4ff]"
-            initial={{ width: "0%" }}
-            animate={{ width: "100%" }}
-            transition={{ duration: 2, ease: "linear" }}
-          />
-        </div>
-        <div className="text-[10px] text-cyan-300/60 pt-2 text-center">
-          ESTABLISHING SECURE CONNECTION...
-        </div>
-      </div>
-    </motion.div>
-  )
+      className="fixed pointer-events-none inset-0 z-30 transition-opacity duration-300"
+      animate={{ opacity }}
+      style={{
+        background: useMotionTemplate`radial-gradient(600px circle at ${mouseX}px ${mouseY}px, rgba(107, 123, 255, 0.04), transparent 80%)`
+      }}
+    />
+  );
 }
+
+function DescriptorHeader({ title, subtitle }: { title: string, subtitle: string }) {
+  return (
+    <div className="flex flex-col gap-1 mb-8">
+      <div className="flex items-center gap-3">
+        <div className="w-1.5 h-10 bg-gradient-to-b from-cyan-400 to-teal-500 rounded-full" />
+        <span className="text-cyan-400 font-mono text-xs md:text-sm tracking-[0.5em] uppercase font-bold text-shadow-glow">
+          {title}
+        </span>
+      </div>
+      <span className="text-gray-500 font-mono text-[10px] uppercase tracking-[0.3em] ml-4">
+        {subtitle}
+      </span>
+    </div>
+  );
+}
+
+function Preloader({ loading }: { loading: boolean }) {
+  return (
+    <AnimatePresence>
+      {loading && (
+        <motion.div
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[10000] flex items-center justify-center bg-black"
+        >
+          <MultiStepLoader loadingStates={loadingStates} loading={loading} duration={500} loop={false} />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 
 // --- Main Page ---
 
@@ -125,71 +154,56 @@ const techLogos = [
 ];
 
 export default function Home() {
-  const { scrollY, scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
-
-  // Parallax Values
-  const heroImageY = useTransform(scrollY, [0, 1000], [0, 200]);
-  const heroTextY = useTransform(scrollY, [0, 1000], [0, -100]);
-  const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
-
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isVantaReady, setIsVantaReady] = useState(false);
   const [minTimeElapsed, setMinTimeElapsed] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
 
+  const { scrollY, scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+
+  const heroImageY = useTransform(scrollY, [0, 1000], [0, 200]);
+  const heroTextY = useTransform(scrollY, [0, 1000], [0, -100]);
+  const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
+
   useEffect(() => {
-    // Minimum branding time (2s)
-    const brandingTimer = setTimeout(() => setMinTimeElapsed(true), 2000);
-
-    // Fail-safe: Force load if Vanta takes too long (5s)
+    const brandingTimer = setTimeout(() => setMinTimeElapsed(true), 2500);
     const safetyTimer = setTimeout(() => setIsVantaReady(true), 5000);
-
-    const handleMouseMove = (e: MouseEvent) => setMousePosition({ x: e.clientX, y: e.clientY });
-    window.addEventListener("mousemove", handleMouseMove);
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
       clearTimeout(brandingTimer);
       clearTimeout(safetyTimer);
-      clearTimeout(safetyTimer);
-    }
+    };
   }, []);
 
-  // Sync Loading State
   useEffect(() => {
     if (minTimeElapsed && (isVantaReady || !USE_VANTA_BACKGROUND)) {
       setIsLoading(false);
     }
   }, [minTimeElapsed, isVantaReady]);
 
-
   const textVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      transition: { delay: i * 0.03 + 3.8, duration: 0.5, ease: "easeOut" as const } // Synced with 3.5s loader + 0.3s buffer
+      transition: { delay: i * 0.03 + 3.8, duration: 0.5, ease: "easeOut" as const }
     })
   };
-
-
 
   const titleText = "Architecting".split("");
 
   return (
     <>
-      <motion.div className="fixed top-0 left-0 right-0 h-1 bg-primary z-[100] origin-left" style={{ scaleX }} />
+      <Preloader loading={isLoading} />
+      {/* Premium Progress Bar */}
+      <ScrollProgress />
 
+      {/* Ambient Noise Overlay */}
       <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-[100] mix-blend-overlay filter contrast-120 brightness-100">
         <svg className="w-full h-full"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.6" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#noiseFilter)" /></svg>
       </div>
 
-      <div
-        className="fixed pointer-events-none inset-0 z-30 transition-opacity duration-300"
-        style={{ background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(107, 123, 255, 0.03), transparent 80%)` }}
-      />
+      <MouseSpotlight />
 
       {/* Ambient Aurora Background */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
@@ -215,17 +229,52 @@ export default function Home() {
         />
       </div>
 
-      {/* NEW HEADER: Split HUD Design */}
-      <Header />
+      {/* PROFESSIONAL FLOATING NAV - Aceternity (PRIMARY NAV) */}
+      <FloatingNav
+        navItems={[
+          { name: "Home", link: "/", icon: <IconHome className="h-4 w-4" /> },
+          { name: "About", link: "#about", icon: <IconUser className="h-4 w-4" /> },
+          { name: "Projects", link: "#projects", icon: <IconCode className="h-4 w-4" /> },
+          { name: "Contact", link: "#contact", icon: <IconMessage className="h-4 w-4" /> },
+        ]}
+      />
 
-      <main className="relative z-10 flex flex-col items-center w-full bg-background-dark overflow-hidden">
-        {/* Vanta Waves Background */}
-        {USE_VANTA_BACKGROUND && (
-          <VantaWaves onReady={() => setIsVantaReady(true)} />
+      <main className="relative z-10 flex flex-col items-center w-full bg-[#050505] overflow-x-hidden">
+        {/* Aceternity Background Sparkles & Meteors */}
+        {!USE_VANTA_BACKGROUND && (
+          <div className="fixed inset-0 pointer-events-none z-0">
+            <div className="w-full absolute inset-0 h-screen">
+              <SparklesCore
+                id="tsparticlesfullpage"
+                background="transparent"
+                minSize={0.6}
+                maxSize={1.4}
+                particleDensity={100}
+                className="w-full h-full"
+                particleColor="#00d4ff"
+              />
+            </div>
+            <div className="absolute inset-0 overflow-hidden">
+              <Meteors number={25} />
+            </div>
+          </div>
         )}
 
         {/* Hero - iOS FLUX STYLE */}
-        <section ref={heroRef} className="min-h-[100dvh] w-full flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-32 lg:pt-24 pb-12 md:pb-20 relative overflow-hidden">
+        <section ref={heroRef} className="min-h-[100dvh] w-full flex flex-col justify-center items-center px-4 md:px-12 lg:px-24 pt-32 lg:pt-24 pb-12 md:pb-20 relative overflow-hidden">
+
+          {/* Internal Sparkles for Title Area */}
+          <div className="absolute inset-0 z-0 opacity-30">
+            <SparklesCore
+              id="heroSparkles"
+              background="transparent"
+              minSize={0.4}
+              maxSize={1.2}
+              particleDensity={50}
+              className="w-full h-full"
+              particleColor="#00d4ff"
+            />
+          </div>
 
           {/* Aceternity Spotlight Effect */}
           <Spotlight
@@ -349,36 +398,46 @@ export default function Home() {
               <div style={{ transform: 'translateZ(30px)' }}>
                 <TextGenerateEffect
                   words="ARCHITECTING"
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[7rem] font-black tracking-tighter text-white leading-[0.95] uppercase text-center lg:text-left"
+                  className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl 2xl:text-[7rem] font-black tracking-tighter text-white leading-[0.95] uppercase text-center lg:text-left"
                   duration={0.8}
                   filter={true}
                 />
                 <TextGenerateEffect
                   words="DIGITAL MINDS"
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[7rem] font-black tracking-tighter leading-[0.95] uppercase text-center lg:text-left bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-white to-teal-400"
+                  className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl 2xl:text-[7rem] font-black tracking-tighter leading-[0.95] uppercase text-center lg:text-left bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-white to-teal-400"
                   duration={0.8}
                   filter={true}
                 />
               </div>
 
-              <motion.p
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.6, duration: 0.8 }}
-                className="text-sm md:text-base lg:text-lg text-gray-400 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light"
-                style={{ transform: 'translateZ(25px)' }}
+                className="mt-6 flex flex-col items-center lg:items-start"
               >
-                Senior Full Stack Engineer combining <span className="text-white font-medium">5 years</span> of expertise in <span className="text-white font-medium">Generative AI</span>, Voice Synthesis, and Distributed Systems.
-              </motion.p>
+                <div className="text-xl md:text-2xl font-display text-gray-400 mb-6 h-12 flex items-center justify-center lg:justify-start gap-3">
+                  <span className="opacity-50 font-mono text-sm tracking-widest text-[#6b7bff]">DESCRIPTOR//:</span>
+                  <FlipWords words={["AI_Architect", "Full_Stack_Dev", "Systems_Designer", "Digital_Strategist"]} className="text-white font-black uppercase tracking-tight" />
+                </div>
+                <p
+                  className="text-base md:text-lg lg:text-xl text-gray-400 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light mb-10"
+                  style={{ transform: 'translateZ(25px)' }}
+                >
+                  Engineering <span className="text-white font-medium border-b border-cyan-500/30">high-performance intelligence</span> across the stack. Specializing in Generative AI, Distributed Infrastructures, and Neural Interfaces.
+                </p>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.8, duration: 0.8 }}
-                className="flex flex-col sm:flex-row gap-4 mt-2 justify-center lg:justify-start"
-                style={{ transform: 'translateZ(35px)' }}
-              >
-                <a href="#projects" className="px-8 py-4 bg-gradient-to-r from-cyan-400 to-teal-500 text-[#0a0a0c] font-bold rounded-full hover:from-cyan-500 hover:to-teal-600 transition-all flex items-center justify-center gap-2 shadow-[0_0_30px_-5px_rgba(0,212,255,0.6)] min-h-[48px] md:min-h-[56px] text-sm md:text-base" aria-label="Explore my work">Explore Work <ArrowDown className="w-4 h-4" /></a>
+                <div className="flex flex-col sm:flex-row gap-6 mt-2 justify-center lg:justify-start">
+                  <MovingBorderButton
+                    as="a"
+                    href="#projects"
+                    aria-label="View My Projects"
+                    borderRadius="0.75rem"
+                    className="bg-[#050505] text-white border-white/10 font-mono text-xs font-black tracking-[0.3em] px-10 py-5 hover:bg-cyan-500/10 transition-colors uppercase shadow-2xl"
+                  >
+                    EXPLORE_SUBSYSTEMS
+                  </MovingBorderButton>
+                </div>
               </motion.div>
             </motion.div>
 
@@ -400,347 +459,258 @@ export default function Home() {
                   }}
                 />
 
-                {/* Clean Image with Liquid Wave Fade */}
-                <div
-                  className="relative w-full h-full z-10"
-                  style={{
-                    backgroundImage: "url('/profile.webp')",
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center top',
-                    WebkitMaskImage: 'radial-gradient(ellipse at center, black 20%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0.4) 70%, transparent 85%)',
-                    maskImage: 'radial-gradient(ellipse at center, black 20%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0.4) 70%, transparent 85%)'
-                  }}
-                >
-                  {/* Subtle Cyan Rim Light (Wave reflection) */}
+                {/* Ultra-Soft Borderless Image Mask */}
+                <div className="relative w-full h-full pointer-events-none">
                   <div
-                    className="absolute inset-0 opacity-20"
+                    className="w-full h-full relative"
                     style={{
-                      background: 'radial-gradient(circle at 30% 30%, rgba(0, 255, 204, 0.15), transparent 50%)',
-                      mixBlendMode: 'screen'
+                      backgroundImage: "url('/profile.webp')",
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center top',
+                      WebkitMaskImage: 'radial-gradient(circle at center, black 15%, transparent 80%)',
+                      maskImage: 'radial-gradient(circle at center, black 15%, transparent 80%)'
                     }}
-                  />
-                </div>
-
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-
-        {/* --- Tech Stack - VALIDATED & RESPONSIVE --- */}
-        <section className="py-16 md:py-20 lg:py-24 border-t border-white/5 bg-black/20 backdrop-blur-sm relative overflow-hidden">
-          <div className="container mx-auto px-4 md:px-6 lg:px-8 mb-6 md:mb-8">
-            <motion.div
-              className="flex items-center justify-center gap-2 md:gap-3"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <div className="h-px w-8 md:w-12 bg-gradient-to-r from-transparent to-cyan-400/50" />
-              <span className="text-[10px] md:text-xs font-mono text-cyan-400 tracking-widest uppercase flex items-center gap-1.5 md:gap-2">
-                <span className="w-1 md:w-1.5 h-1 md:h-1.5 bg-cyan-400 rounded-full animate-pulse" />
-                <span className="hidden sm:inline">[ TECH_STACK::LOADED ]</span>
-                <span className="sm:hidden">[ TECH_STACK ]</span>
-              </span>
-              <div className="h-px w-8 md:w-12 bg-gradient-to-l from-transparent to-cyan-400/50" />
-            </motion.div>
-          </div>
-          <LogoLoop logos={techLogos} speed={40} direction="left" />
-        </section>
-
-
-        {/* Philosophy - VALIDATED & RESPONSIVE */}
-        <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-24 py-16 md:py-24 lg:py-32 border-t border-white/5" id="about">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
-            <div>
-              {/* Premium Section Header */}
-              <motion.div
-                className="mb-4 md:mb-6"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-              >
-                <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
-                  <motion.div
-                    className="w-1 h-6 md:h-8 bg-gradient-to-b from-cyan-400 to-teal-500 origin-top"
-                    initial={{ scaleY: 0 }}
-                    whileInView={{ scaleY: 1 }}
-                    transition={{ duration: 0.5 }}
-                  />
-                  <span className="text-cyan-400 font-mono text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] uppercase">
-                    // SECTION_01
-                  </span>
-                </div>
-                <motion.h2
-                  className="text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-tight"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <span className="text-white">Forging complexity into </span>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-gray-600">simplicity</span>
-                  <span className="text-cyan-400">.</span>
-                </motion.h2>
-              </motion.div>
-              <p className="text-gray-400 text-sm md:text-base lg:text-lg leading-relaxed mb-6 md:mb-8">
-                Senior Full Stack Engineer combining nearly 5 years of architectural depth with cutting-edge R&D in Generative AI, Voice Synthesis (TTS/ASR), and Distributed Systems.
-              </p>
-              <div className="flex gap-3 md:gap-4 mt-6 md:mt-8"><Terminal className="w-5 h-5 md:w-6 md:h-6 text-white/50" /><Code2 className="w-5 h-5 md:w-6 md:h-6 text-white/50" /><Cpu className="w-5 h-5 md:w-6 md:h-6 text-white/50" /></div>
-            </div>
-            <HoverEffect
-              items={[
-                {
-                  title: "Neural Audio",
-                  description: "Architecting next-gen TTS & ASR pipelines.",
-                  icon: (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-cyan-400">
-                      <motion.path
-                        initial={{ pathLength: 0 }}
-                        whileInView={{ pathLength: 1 }}
-                        transition={{ duration: 1.5, ease: "easeInOut" }}
-                        d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"
-                      />
-                      <motion.path
-                        initial={{ pathLength: 0 }}
-                        whileInView={{ pathLength: 1 }}
-                        transition={{ duration: 1.5, ease: "easeInOut", delay: 0.2 }}
-                        d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"
-                      />
-                    </svg>
-                  )
-                },
-                {
-                  title: "Scalable Systems",
-                  description: "Building fault-tolerant React/Node architectures.",
-                  icon: (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-cyan-400">
-                      <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
-                      <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
-                      <motion.line x1="6" y1="6" x2="6.01" y2="6" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 0.8, repeat: Infinity }} />
-                      <motion.line x1="6" y1="18" x2="6.01" y2="18" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 0.8, repeat: Infinity, delay: 0.4 }} />
-                    </svg>
-                  )
-                },
-                {
-                  title: "Data Intelligence",
-                  description: "Crafting high-performance insight dashboards.",
-                  icon: (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-cyan-400">
-                      <motion.polygon
-                        initial={{ pathLength: 0, fill: "rgba(255, 255, 255, 0)" }}
-                        whileInView={{ pathLength: 1, fill: "currentColor" }}
-                        transition={{ duration: 0.5, ease: "backOut" }}
-                        points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"
-                      />
-                    </svg>
-                  )
-                },
-                {
-                  title: "Tech Leadership",
-                  description: "Driving agile velocity & engineering mentorship.",
-                  icon: (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-cyan-400">
-                      <motion.path
-                        initial={{ pathLength: 0 }}
-                        whileInView={{ pathLength: 1 }}
-                        transition={{ duration: 1 }}
-                        d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"
-                      />
-                      <motion.circle
-                        cx="12" cy="12" r="3"
-                        initial={{ scale: 0 }}
-                        whileInView={{ scale: 1 }}
-                        transition={{ type: "spring", delay: 0.5 }}
-                      />
-                    </svg>
-                  )
-                }
-              ]}
-            />
-          </div>
-        </section>
-
-        {/* Experience / Career Trajectory - VALIDATED & RESPONSIVE */}
-        <section className="w-full max-w-5xl px-4 sm:px-6 md:px-12 py-16 md:py-24 lg:py-32 mx-auto" id="experience">
-          <div className="text-center mb-12 md:mb-16">
-            <span className="text-primary font-mono text-xs md:text-sm tracking-widest uppercase mb-2 block">Career Trajectory</span>
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-white">Professional Evolution</h2>
-          </div>
-
-          <div className="space-y-8 md:space-y-12 relative">
-            {/* Neural Spine Line - animated gradient */}
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-white/10 md:-translate-x-1/2">
-              <motion.div
-                initial={{ height: "0%" }}
-                whileInView={{ height: "100%" }}
-                transition={{ duration: 2, ease: "linear" }}
-                className="w-full bg-gradient-to-b from-primary via-purple-500 to-primary box-shadow-[0_0_20px_#6b7bff]"
-              />
-            </div>
-
-            <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-white mb-2 font-display">
-                Architecting <span className="text-cyan-400">Hybrid AI Ecosystems</span>
-              </h3>
-              <p className="text-gray-400 leading-relaxed">
-                With nearly <strong>5 years</strong> of engineering evolution, I specialize in fusing robust system architectures with hyper-responsive, intelligent interfaces. My expertise lies in bridging the gap between raw data and human experience—leveraging <strong>Node.js, Python, and Next.js</strong> to build scalable digital nervous systems.
-              </p>
-              <p className="text-gray-400 leading-relaxed">
-                I don’t just write code; I engineer <strong>Voice-First Experiences (TTS/ASR)</strong> and <strong>Generative AI</strong> solutions that listen, think, and respond. Driven by clarity and velocity, I empower teams to ship complex features that feel effortless to the user.
-              </p>
-              <div className="flex items-center gap-4 pt-4">
-                <div className="flex flex-col">
-                  <span className="text-3xl font-bold text-white font-display">200+</span>
-                  <span className="text-xs text-cyan-400 uppercase tracking-widest">Developers Mentored</span>
-                </div>
-                <div className="w-px h-10 bg-white/10" />
-                <div className="flex flex-col">
-                  <span className="text-3xl font-bold text-white font-display">35+</span>
-                  <span className="text-xs text-cyan-400 uppercase tracking-widest">Projects Delivered</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Domains of Expertise Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16 md:mt-24">
-            {[
-              {
-                title: "Frontend & User Experience",
-                icon: Palette,
-                skills: ["React / Next.js", "Shadcn / Chakra UI", "Tailwind CSS", "Framer Motion", "D3.js / Data Viz"]
-              },
-              {
-                title: "Backend & Microservices",
-                icon: Server,
-                skills: ["Node.js / Express", "FastAPI / Flask", "PostgreSQL / Mongo", "Redis / Varnish", "BullMQ / RabbitMQ"]
-              },
-              {
-                title: "AI & Innovation Strategy",
-                icon: Brain,
-                skills: ["Generative AI (LLMs)", "Voice Tech (TTS/ASR)", "LangChain / RAG", "Python Ecosystem", "System Architecture"]
-              },
-              {
-                title: "Data & Infrastructure",
-                icon: Database,
-                skills: ["Airflow / ETL Pipelines", "Kafka / Event Streaming", "Docker / Containerization", "Prometheus / Grafana", "Cloud Native / AWS"]
-              }
-            ].map((domain, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-cyan-400/30 transition-all group"
-              >
-                <div className="w-12 h-12 bg-cyan-400/10 rounded-lg flex items-center justify-center mb-4 text-cyan-400 group-hover:scale-110 transition-transform">
-                  <domain.icon size={24} />
-                </div>
-                <h4 className="text-xl font-bold text-white mb-4 font-display">{domain.title}</h4>
-                <ul className="space-y-2">
-                  {domain.skills.map((skill, j) => (
-                    <li key={j} className="flex items-center gap-2 text-sm text-gray-400 font-mono">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400/50" />
-                      {skill}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="flex justify-center mt-12">
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              href="/resume.pdf"
-              target="_blank"
-              className="px-8 py-3 bg-white text-black font-bold rounded-full flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-            >
-              <ArrowDown className="w-4 h-4" />
-              Download Resume
-            </motion.a>
-          </div>
-        </section>
-
-        {/* Projects Grid - VALIDATED & RESPONSIVE */}
-        <section className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 lg:px-24 py-16 md:py-24 lg:py-32" id="projects">
-          {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-4 md:gap-6">
-            <div className="max-w-2xl">
-              <span className="text-cyan-400 font-mono text-xs md:text-sm tracking-widest uppercase mb-3 md:mb-4 block">Portfolio</span>
-              <Sparkles className="w-full" particleDensity={20} particleColor="#00d4ff">
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white leading-tight">Selected Works</h2>
-              </Sparkles>
-            </div>
-            <div className="hidden md:block pb-2">
-              <span className="text-xs font-mono text-gray-500 tracking-widest uppercase">
-                   // EXPLORE_CASE_STUDIES
-              </span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {projects.map((project, index) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                index={index}
-              />
-            ))}
-          </div>
-        </section>
-
-        {/* Experience - RESTORED */}
-        <Experience />
-
-        {/* Testimonials - RESTORED */}
-        <Testimonials />
-
-        {/* Footer - VALIDATED & RESPONSIVE */}
-        <footer className="w-full bg-[#08080a] border-t border-white/5 pt-16 md:pt-24 lg:pt-32 pb-10 md:pb-16 lg:pb-24 relative overflow-hidden" id="contact">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[1px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[100px] bg-cyan-400/10 blur-[50px] pointer-events-none"></div>
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
-            <Sparkles className="w-full max-w-4xl mx-auto" particleDensity={40} particleColor="#00d4ff" minSize={0.6} maxSize={2}>
-              <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold text-white mb-6 md:mb-8 tracking-tight leading-tight">Let's create <br className="hidden md:block" /> the <span className="text-cyan-400 italic">future</span>.</h2>
-            </Sparkles>
-            <MovingBorderButton
-              as="a"
-              href="mailto:harshan.aiyappa@gmail.com"
-              aria-label="Email me"
-              duration={3000}
-              borderRadius="9999px"
-              className="bg-gradient-to-r from-cyan-400/10 to-teal-500/10 hover:from-cyan-400/20 hover:to-teal-500/20 min-h-[52px] md:min-h-[56px] lg:min-h-[60px] px-6 md:px-8 lg:px-10 text-sm md:text-base font-bold transition-all hover:scale-105"
-              containerClassName="inline-block"
-            >
-              <span className="hidden sm:inline text-white">harshan.aiyappa@gmail.com</span>
-              <span className="sm:hidden text-white">Email Me</span>
-            </MovingBorderButton>
-            <div className="mt-12 md:mt-16 lg:mt-24 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8 pt-6 md:pt-8 lg:pt-10 border-t border-white/5 text-gray-500 text-xs md:text-sm">
-              <p className="font-mono flex flex-wrap items-center justify-center gap-2 text-center">
-                © 2026 <span className="font-signature text-xl md:text-2xl text-white">Harshan Aiyappa</span>
-              </p>
-              <div className="flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8">
-                {[{ name: "X (Twitter)", url: "https://x.com/HarshanAiyappa", icon: Twitter }, { name: "LinkedIn", url: "https://linkedin.com/in/harshan-aiyappa", icon: Linkedin }, { name: "GitHub", url: "https://github.com/Kimosabey", icon: Github }].map((social) => (
-                  <a
-                    key={social.name}
-                    className="hover:text-cyan-300 transition-colors flex items-center gap-2 group min-h-[48px] -m-2 p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-lg"
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Visit my ${social.name} profile`}
                   >
-                    <social.icon className="w-5 h-5 md:w-6 md:h-6 group-hover:-translate-y-1 transition-transform" />
-                    <span className="hidden sm:inline text-sm">{social.name}</span>
-                  </a>
+                    {/* Subtle Internal Glow */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/5 to-transparent opacity-40" />
+
+                    {/* Subtle Cyan Rim Light */}
+                    <div
+                      className="absolute inset-0 opacity-15"
+                      style={{
+                        background: 'radial-gradient(circle at 30% 30%, rgba(0, 255, 204, 0.2), transparent 60%)',
+                        mixBlendMode: 'screen'
+                      }}
+                    />
+                  </div>
+                  {/* Outer Ambient Glow - Stronger for seamless blending */}
+                  <div className="absolute inset-0 bg-cyan-400/10 blur-[120px] -z-10 rounded-full scale-110" />
+                </div>
+
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* --- Content Ecosystem - Global Tracing Beam Wrap --- */}
+        <TracingBeam className="px-4 md:px-12">
+          <div className="relative z-10 space-y-20 md:space-y-32 pb-32 w-full">
+
+            {/* Philosophy Section - Masterpiece Specs */}
+            <section className="w-full pt-12 md:pt-16" id="about">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <div>
+                  <motion.div
+                    className="mb-10"
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                  >
+                    <div className="flex items-center gap-4 mb-8">
+                      <div className="w-1.5 h-12 bg-gradient-to-b from-cyan-400 to-teal-500 rounded-full" />
+                      <div className="flex flex-col">
+                        <span className="text-cyan-400 font-mono text-[10px] md:text-xs tracking-[0.5em] uppercase font-bold text-shadow-glow">SYSTEM_CORE: ARCHITECT</span>
+                        <span className="text-gray-500 font-mono text-[9px] uppercase tracking-[0.3em]">Revision_4.3.0</span>
+                      </div>
+                    </div>
+                    <h2 className="text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter uppercase leading-[0.85] mb-8">
+                      Forging <br /> <span className="text-cyan-400">Chaos</span> <br /> into <span className="text-teal-400 italic">Code</span>
+                    </h2>
+                  </motion.div>
+
+                  <div className="space-y-8 text-gray-400 text-lg md:text-xl leading-relaxed font-light max-w-2xl">
+                    <p>
+                      In a world of digital entropy, I architect <span className="text-white font-medium underline decoration-cyan-500/30 underline-offset-8">deterministic intelligence</span>. My work exists at the critical junction of high-performance infrastructure and human-centric design.
+                    </p>
+                    <p>
+                      Specializing in <span className="text-cyan-400 font-medium">Distributed Neural Fabrics</span> and <span className="text-teal-400 font-medium">Low-Latency Audio Flux</span>, I build for the 0.1% edge cases where conventional systems fail.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4 mt-12">
+                    {[
+                      { label: "NETWORK_UPTIME", val: "99.99%", desc: "High availability design" },
+                      { label: "DATA_VELOCITY", val: "<1ms", desc: "Batch ingestion focus" },
+                    ].map((stat, i) => (
+                      <div key={i} className="group/stat p-6 rounded-[2rem] bg-white/[0.03] border border-white/5 hover:border-cyan-400/30 transition-all duration-500 backdrop-blur-sm relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity" />
+                        <div className="text-3xl md:text-4xl font-bold text-white mb-2 relative z-10">{stat.val}</div>
+                        <div className="text-[10px] text-cyan-400 uppercase tracking-widest font-bold mb-1 relative z-10">{stat.label}</div>
+                        <div className="text-[10px] text-gray-500 relative z-10 italic">{stat.desc}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="relative group lg:pl-12">
+                  <BackgroundGradient
+                    containerClassName="rounded-[3rem]"
+                    className="rounded-[3rem] p-[1px] bg-transparent shadow-2xl overflow-hidden"
+                  >
+                    <div className="relative h-full min-h-[450px] rounded-[3rem] bg-[#050505] p-10 md:p-14 flex flex-col justify-center border border-white/5">
+                      <Terminal className="text-cyan-400 mb-10 w-16 h-16 opacity-80" strokeWidth={1} />
+                      <div className="space-y-8 font-mono text-sm md:text-lg mb-12">
+                        <div className="flex gap-4">
+                          <span className="text-purple-400">λ</span>
+                          <span className="text-gray-500 font-light italic">const</span>
+                          <span className="text-white">mission</span>
+                          <span className="text-cyan-400">=</span>
+                          <span className="text-teal-400">"Architecting the Future"</span>
+                        </div>
+                        <div className="flex gap-4">
+                          <span className="text-purple-400">λ</span>
+                          <span className="text-gray-500 font-light italic">type</span>
+                          <span className="text-white">Stack</span>
+                          <span className="text-cyan-400">=</span>
+                          <span className="text-yellow-400">AI | Infra | Scale</span>
+                        </div>
+                      </div>
+                      <div className="pt-10 border-t border-cyan-400/10">
+                        <p className="text-gray-500 text-sm md:text-base leading-relaxed italic">
+                           // Harmonizing machine intelligence with <br /> // human-scale architectural precision.
+                        </p>
+                      </div>
+                    </div>
+                  </BackgroundGradient>
+                </div>
+              </div>
+            </section>
+
+            {/* Projects Showcase - Masterpiece Specs */}
+            <section className="w-full pt-0" id="projects">
+              <div className="text-center mb-24 md:mb-32">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-cyan-400/5 border border-cyan-400/20 mb-8"
+                >
+                  <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_rgba(0,212,255,1)]" />
+                  <span className="text-[11px] font-mono font-black text-cyan-400 uppercase tracking-[0.5em] text-shadow-glow">Proprietary_Nexus_Builds</span>
+                </motion.div>
+                <h2 className="text-6xl md:text-8xl lg:text-9xl font-black text-white tracking-tightest uppercase leading-[0.75] mb-4">
+                  Digital <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-400 to-white italic">Masterpieces</span>
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12">
+                {projects.map((project) => (
+                  <motion.div
+                    key={project.id}
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.8 }}
+                  >
+                    <CardContainer className="inter-var group/card w-full">
+                      <CardBody className="bg-[#050505]/95 relative group/card-body border-white/10 w-full h-auto rounded-[3.5rem] p-8 border hover:border-cyan-400/50 transition-all duration-700 shadow-3xl overflow-hidden">
+                        <div className="absolute inset-0 bg-grid-white/[0.02] [mask-image:radial-gradient(ellipse_at_center,transparent_30%,black)] pointer-events-none" />
+
+                        <CardItem translateZ="70" className="text-2xl md:text-3xl font-black text-white mb-4 font-display relative z-10 tracking-tight">{project.title}</CardItem>
+                        <CardItem as="p" translateZ="90" className="text-gray-400 text-sm md:text-base mt-4 font-light line-clamp-2 leading-relaxed h-12 uppercase tracking-tighter">{project.description}</CardItem>
+
+                        <CardItem translateZ="140" className="w-full mt-10">
+                          <div className="relative group/img overflow-hidden rounded-[3rem] aspect-[16/11] border border-white/10 shadow-2xl">
+                            <Image src={project.image} height="1200" width="1200" className="h-full w-full object-cover transition-transform duration-1000 group-hover/img:scale-110 grayscale-[50%] group-hover/img:grayscale-0" alt={project.title} />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-700 flex items-end p-8">
+                              <div className="px-5 py-2 rounded-full bg-cyan-400/20 border border-cyan-400/40 backdrop-blur-md">
+                                <span className="text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-widest">{project.category}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </CardItem>
+
+                        <div className="flex flex-wrap gap-3 mt-10">
+                          {project.techStack.slice(0, 3).map((tech, i) => (
+                            <CardItem key={i} translateZ={40 + i * 20} className="px-5 py-2 bg-white/[0.03] border border-white/10 rounded-2xl text-[10px] font-mono font-black text-gray-500 group-hover:text-cyan-400/80 transition-colors uppercase tracking-widest">{tech}</CardItem>
+                          ))}
+                        </div>
+
+                        <div className="flex justify-between items-center mt-12 pt-8 border-t border-white/5 mx-[-2rem] px-8">
+                          <CardItem
+                            translateZ={50}
+                            as={Link}
+                            href={project.repoUrl}
+                            target="__blank"
+                            className="w-full flex items-center justify-center gap-4 py-4 rounded-[1.5rem] bg-white text-black text-[11px] font-black hover:bg-cyan-400 hover:shadow-[0_0_40px_rgba(0,212,255,0.4)] transition-all uppercase tracking-[0.3em] group/link"
+                          >
+                            <Github size={20} className="group-hover/link:scale-125 transition-transform" />
+                            ACCESS_PROJECT_CORE
+                          </CardItem>
+                        </div>
+                      </CardBody>
+                    </CardContainer>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </section>
+
+            {/* Experience Trajectory */}
+            <section className="w-full py-0" id="experience">
+              <div className="mb-16">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-0.5 bg-cyan-400" />
+                  <span className="text-cyan-400 font-mono text-xs tracking-[0.4em] uppercase font-bold">Career_Trajectory</span>
+                </div>
+                <Experience />
+              </div>
+            </section>
+
+            {/* Testimonials Hub */}
+            <section className="w-full py-0" id="testimonials">
+              <Testimonials />
+            </section>
+
+            {/* Final Call to Action - System Override Style */}
+            <section className="w-full pt-24 pb-32 px-4" id="contact">
+              <div className="max-w-5xl mx-auto text-center">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                >
+                  <Sparkles className="w-full mb-16" particleDensity={60} particleColor="#00d4ff" minSize={0.8} maxSize={2.5}>
+                    <h2 className="text-5xl md:text-9xl font-black text-white tracking-tightest uppercase leading-[0.8]">
+                      Initiate <br /> <span className="text-cyan-400 italic">Interlink</span>
+                    </h2>
+                  </Sparkles>
+
+                  <div className="flex flex-col items-center gap-12 mt-12">
+                    <MovingBorderButton
+                      as="a"
+                      href="mailto:harshan.aiyappa@gmail.com"
+                      duration={3000}
+                      borderRadius="1rem"
+                      className="bg-[#050505] border-white/10 text-white font-mono text-sm md:text-xl font-black px-8 md:px-20 py-6 md:py-8 transition-all hover:scale-105 hover:border-cyan-400/50"
+                    >
+                      harshan.aiyappa@gmail.com
+                    </MovingBorderButton>
+
+                    <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16 pt-24 border-t border-white/5 w-full justify-between mt-12">
+                      <div className="text-center md:text-left space-y-2">
+                        <p className="text-[10px] font-mono text-gray-600 tracking-[0.3em] uppercase">Built_with_Nexus_Control_Plane_V4.2</p>
+                        <p className="text-xs font-mono text-white/50 tracking-widest leading-loose">
+                          © 2026 // <span className="text-white font-black">AIYAPPA_PROTOCOL</span> // ENCRYPTED
+                        </p>
+                      </div>
+                      <div className="flex justify-center">
+                        <AnimatedTooltip
+                          items={[
+                            { id: 1, name: "X_TERMINAL", designation: "@HarshanAiyappa", icon: <a href="https://x.com/HarshanAiyappa" target="_blank" className="text-gray-500 hover:text-cyan-400 transition-colors"><Twitter size={32} strokeWidth={1.5} /></a> },
+                            { id: 2, name: "LINKEDIN_NODE", designation: "Harshan Aiyappa", icon: <a href="https://linkedin.com/in/harshan-aiyappa" target="_blank" className="text-gray-500 hover:text-cyan-400 transition-colors"><Linkedin size={32} strokeWidth={1.5} /></a> },
+                            { id: 3, name: "GIT_SOURCE", designation: "Kimosabey", icon: <a href="https://github.com/Kimosabey" target="_blank" className="text-gray-500 hover:text-cyan-400 transition-colors"><Github size={32} strokeWidth={1.5} /></a> },
+                          ]}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </section>
           </div>
-        </footer>
-      </main >
+        </TracingBeam>
+      </main>
     </>
   );
 }

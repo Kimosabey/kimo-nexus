@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Menu, X, Github, Linkedin, Mail } from 'lucide-react';
 import Link from 'next/link';
+import { AnimatedTooltip } from '@/components/ui/AnimatedTooltip';
+import { FlipWords } from '@/components/ui/FlipWords';
+import { Sparkles, SparklesCore } from '@/components/ui/Sparkles';
 
 export default function Header() {
     const [scrolled, setScrolled] = useState(false);
@@ -35,17 +38,24 @@ export default function Header() {
             >
                 <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
 
+
+
                     {/* LEFT: Identity / Logo */}
-                    <Link href="/" className="group relative flex items-center gap-3 z-50">
-                        <div className="relative w-10 h-10 flex items-center justify-center bg-white/5 rounded-xl border border-white/10 overflow-hidden group-hover:border-cyan-400/50 transition-colors duration-300">
-                            {/* Animated Scanline */}
-                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/20 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-700" />
-                            <span className="font-display font-bold text-lg text-white group-hover:text-cyan-400 transition-colors">HA</span>
+                    <div className="flex items-center gap-4">
+                        <Link href="/" className="group relative z-50">
+                            <div className="w-12 h-12 flex items-center justify-center bg-black/80 rounded-2xl border border-white/10 overflow-hidden group-hover:border-cyan-400 transition-all duration-300 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                                <SparklesCore className="absolute inset-0" particleDensity={30} particleColor="#00d4ff" />
+                                <span className="font-display font-bold text-xl text-white group-hover:text-cyan-400 transition-colors z-10 tracking-tighter">HA</span>
+                            </div>
+                        </Link>
+                        <div className="flex flex-col justify-center min-w-[200px]">
+                            <FlipWords
+                                words={["Harshan Aiyappa", "AI Architect", "Full Stack Dev", "Systems Designer"]}
+                                className="text-xl md:text-2xl font-signature text-white tracking-wide hover:text-cyan-400 transition-colors !px-0 cursor-pointer"
+                            />
                         </div>
-                        <div className="flex flex-col justify-center">
-                            <span className="text-xl md:text-2xl font-signature text-white tracking-wide group-hover:text-cyan-400 transition-colors">Harshan Aiyappa</span>
-                        </div>
-                    </Link>
+                    </div>
+
 
                     {/* CENTER: Desktop Nav (Hidden on Mobile) */}
                     <nav className="hidden md:flex items-center gap-8 bg-white/5 px-6 py-2 rounded-full border border-white/5 backdrop-blur-md">
@@ -65,13 +75,27 @@ export default function Header() {
                     <div className="flex items-center gap-4">
 
                         {/* Status Indicator (Desktop) */}
-                        <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 bg-cyan-900/10 border border-cyan-500/20 rounded-lg">
-                            <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-                            </span>
-                            <span className="text-[10px] font-mono text-cyan-400 font-bold tracking-wider">ONLINE</span>
+                        <div className="hidden lg:flex items-center">
+                            <AnimatedTooltip
+                                items={[
+                                    {
+                                        id: 1,
+                                        name: "Systems Status",
+                                        designation: "Ready for deployment",
+                                        icon: (
+                                            <div className="flex items-center gap-2 px-3 py-1.5 bg-cyan-900/10 border border-cyan-500/20 rounded-lg cursor-pointer">
+                                                <span className="relative flex h-2 w-2">
+                                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                                                </span>
+                                                <span className="text-[10px] font-mono text-cyan-400 font-bold tracking-wider">ONLINE</span>
+                                            </div>
+                                        )
+                                    }
+                                ]}
+                            />
                         </div>
+
 
                         {/* Resume Button */}
                         <a

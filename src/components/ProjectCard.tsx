@@ -5,8 +5,26 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import { Project } from '@/lib/projects';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+
 import { BackgroundGradient } from "@/components/ui/BackgroundGradient";
+import { AnimatedTooltip } from "@/components/ui/AnimatedTooltip";
+import {
+    SiNextdotjs, SiTypescript, SiTailwindcss, SiNodedotjs, SiPython,
+    SiPostgresql, SiDocker, SiOpenai, SiReact, SiMongodb
+} from 'react-icons/si';
+
+const techIconMap: Record<string, any> = {
+    "Next.js": SiNextdotjs,
+    "TypeScript": SiTypescript,
+    "Tailwind CSS": SiTailwindcss,
+    "Node.js": SiNodedotjs,
+    "Python": SiPython,
+    "PostgreSQL": SiPostgresql,
+    "Docker": SiDocker,
+    "OpenAI": SiOpenai,
+    "React": SiReact,
+    "MongoDB": SiMongodb,
+};
 
 const ProjectCard = memo(({ project, index }: { project: Project, index: number }) => {
     const [showTooltip, setShowTooltip] = useState(false);
@@ -87,45 +105,20 @@ const ProjectCard = memo(({ project, index }: { project: Project, index: number 
                     transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
                 />
 
-                {/* PREMIUM TOOLTIP via Radix UI Library */}
-                <TooltipProvider delayDuration={0}>
-                    <Tooltip open={showTooltip}>
-                        <TooltipTrigger asChild>
-                            <div className="absolute top-6 right-6 w-1 h-1 bg-transparent pointer-events-none" />
-                        </TooltipTrigger>
-
-                        <AnimatePresence>
-                            {showTooltip && (
-                                <TooltipContent
-                                    side="left"
-                                    align="start"
-                                    sideOffset={10}
-                                    className="hidden md:block bg-[#0a0a0c]/95 backdrop-blur-xl border border-cyan-400/30 rounded-2xl shadow-[0_8px_32px_rgba(0,212,255,0.25)] p-0"
-                                >
-                                    <motion.div
-                                        initial={{ opacity: 0, scale: 0.9, x: 10 }}
-                                        animate={{ opacity: 1, scale: 1, x: 0 }}
-                                        exit={{ opacity: 0, scale: 0.9, x: 10 }}
-                                        transition={{ duration: 0.2 }}
-                                        className="relative px-4 py-3"
-                                    >
-                                        {/* Content */}
-                                        <div className="flex flex-col gap-2">
-                                            <div className="flex items-center gap-2">
-                                                <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-                                                <span className="text-xs font-mono text-white font-bold">{project.techStack.length} Technologies</span>
-                                            </div>
-
-                                            <div className="text-[10px] font-mono text-gray-400">
-                                                {project.upcoming ? '🔨 In Development' : '✨ Production Ready'}
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                </TooltipContent>
-                            )}
-                        </AnimatePresence>
-                    </Tooltip>
-                </TooltipProvider>
+                {/* Animated Tooltip Area for Tech Icons */}
+                <div className="absolute top-6 right-6 z-20 flex flex-row items-center">
+                    <AnimatedTooltip
+                        items={project.techStack.slice(0, 5).map((tech, i) => {
+                            const Icon = techIconMap[tech] || SiReact;
+                            return {
+                                id: i,
+                                name: tech,
+                                designation: i === 0 ? "Core Tech" : "Integration",
+                                icon: <Icon className="w-5 h-5 text-cyan-400" />
+                            };
+                        })}
+                    />
+                </div>
 
                 <div className="relative z-10 p-5 md:p-6 lg:p-8 flex flex-col h-full justify-end">
                     <div className="mb-auto"></div>
