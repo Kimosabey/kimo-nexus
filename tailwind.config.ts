@@ -42,7 +42,28 @@ const config: Config = {
                 'neon': '0 0 10px rgba(22, 22, 156, 0.5)',
                 'glow': '0 0 15px rgba(22, 22, 156, 0.5)',
                 'card-hover': '0 0 0 1px #16169c, 0 0 15px rgba(22, 22, 156, 0.3)',
-            }
+            },
+            animation: {
+                spotlight: "spotlight 2s ease .75s 1 forwards",
+                scroll: "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
+            },
+            keyframes: {
+                spotlight: {
+                    "0%": {
+                        opacity: "0",
+                        transform: "translate(-72%, -62%) scale(0.5)",
+                    },
+                    "100%": {
+                        opacity: "1",
+                        transform: "translate(-50%,-40%) scale(1)",
+                    },
+                },
+                scroll: {
+                    to: {
+                        transform: "translate(calc(-50% - 0.5rem))",
+                    },
+                },
+            },
         },
     },
     plugins: [],

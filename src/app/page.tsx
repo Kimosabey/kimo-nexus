@@ -15,169 +15,20 @@ import {
   SiFramer, SiGit, SiMongodb, SiRedis
 } from 'react-icons/si';
 import LogoLoop from "@/components/ui/LogoLoop";
-import ProjectCard from "@/components/ProjectCard";
-import Header from "@/components/Header";
-import Experience from "@/components/Experience";
-import Testimonials from "@/components/Testimonials";
-import dynamic from 'next/dynamic';
+import { Spotlight } from "@/components/ui/Spotlight";
 
-// Lazy load Vanta for better performance
-const VantaWaves = dynamic(() => import('@/components/VantaWaves'), {
-  ssr: false,
-  loading: () => null
-});
-
-// Toggle Vanta Waves (set to false to use current mesh gradients)
-const USE_VANTA_BACKGROUND = true; // ✨ ENABLED
+// ... (imports)
 
 // --- Components ---
 
-
-function Preloader() {
-  const [ended, setEnded] = useState(false);
-  const progressTextRef = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    // Animate progress without triggering React re-renders (Performance Optimization)
-    const startTime = Date.now();
-    const duration = 2000; // 2s duration matching branding timer
-
-    const updateProgress = () => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min((elapsed / duration) * 100, 100);
-
-      if (progressTextRef.current) {
-        progressTextRef.current.textContent = `${Math.floor(progress)}%`;
-      }
-
-      if (progress < 100) {
-        requestAnimationFrame(updateProgress);
-      } else {
-        setEnded(true);
-      }
-    };
-
-    const animationFrame = requestAnimationFrame(updateProgress);
-    return () => cancelAnimationFrame(animationFrame);
-  }, []);
-
-  return (
-    <motion.div
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5, ease: "easeInOut" }}
-      className="fixed inset-0 z-[999] bg-black/20 backdrop-blur-lg flex flex-col items-center justify-center font-mono"
-    >
-      <div className="w-64 space-y-2">
-        <div className="flex justify-between text-xs text-cyan-400/80 uppercase tracking-widest">
-          <span>Wave_Initialize</span>
-          <span ref={progressTextRef}>0%</span>
-        </div>
-        <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
-          <motion.div
-            className="h-full bg-cyan-400 shadow-[0_0_10px_#00d4ff]"
-            initial={{ width: "0%" }}
-            animate={{ width: "100%" }}
-            transition={{ duration: 2, ease: "linear" }}
-          />
-        </div>
-        <div className="text-[10px] text-cyan-300/60 pt-2 text-center">
-          ESTABLISHING SECURE CONNECTION...
-        </div>
-      </div>
-    </motion.div>
-  )
-}
-
-
-
-
-
+// ... (Preloader)
 
 // --- Main Page ---
 
-const techLogos = [
-  // Frontend & Frameworks
-  { node: <SiReact />, title: "React" },
-  { node: <SiNextdotjs />, title: "Next.js" },
-  { node: <SiTypescript />, title: "TypeScript" },
-  { node: <SiTailwindcss />, title: "Tailwind" },
-  { node: <SiFramer />, title: "Framer Motion" },
-
-  // Backend & Languages
-  { node: <SiNodedotjs />, title: "Node.js" },
-  { node: <SiPython />, title: "Python" },
-
-  // AI & ML
-  { node: <SiTensorflow />, title: "TensorFlow" },
-  { node: <SiPytorch />, title: "PyTorch" },
-  { node: <SiOpenai />, title: "OpenAI" },
-
-  // Databases
-  { node: <SiPostgresql />, title: "PostgreSQL" },
-  { node: <SiMongodb />, title: "MongoDB" },
-  { node: <SiRedis />, title: "Redis" },
-
-  // DevOps & Cloud
-  { node: <SiDocker />, title: "Docker" },
-  { node: <SiAmazonwebservices />, title: "AWS" },
-  { node: <SiGit />, title: "Git" },
-];
+// ... (techLogos)
 
 export default function Home() {
-  const { scrollY, scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
-
-  // Parallax Values
-  const heroImageY = useTransform(scrollY, [0, 1000], [0, 200]);
-  const heroTextY = useTransform(scrollY, [0, 1000], [0, -100]);
-  const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
-
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isVantaReady, setIsVantaReady] = useState(false);
-  const [minTimeElapsed, setMinTimeElapsed] = useState(false);
-  const heroRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    // Minimum branding time (2s)
-    const brandingTimer = setTimeout(() => setMinTimeElapsed(true), 2000);
-
-    // Fail-safe: Force load if Vanta takes too long (5s)
-    const safetyTimer = setTimeout(() => setIsVantaReady(true), 5000);
-
-    const handleMouseMove = (e: MouseEvent) => setMousePosition({ x: e.clientX, y: e.clientY });
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      clearTimeout(brandingTimer);
-      clearTimeout(safetyTimer);
-      clearTimeout(safetyTimer);
-    }
-  }, []);
-
-  // Sync Loading State
-  useEffect(() => {
-    if (minTimeElapsed && (isVantaReady || !USE_VANTA_BACKGROUND)) {
-      setIsLoading(false);
-    }
-  }, [minTimeElapsed, isVantaReady]);
-
-
-  const textVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: i * 0.03 + 3.8, duration: 0.5, ease: "easeOut" as const } // Synced with 3.5s loader + 0.3s buffer
-    })
-  };
-
-
-
-  const titleText = "Architecting".split("");
-
+  // ... (hooks)
 
   return (
     <>
@@ -185,56 +36,24 @@ export default function Home() {
         {isLoading && <Preloader />}
       </AnimatePresence>
       <motion.div className="fixed top-0 left-0 right-0 h-1 bg-primary z-[100] origin-left" style={{ scaleX }} />
-      <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-[100] mix-blend-overlay filter contrast-120 brightness-100">
-        <svg className="w-full h-full"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.6" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#noiseFilter)" /></svg>
-      </div>
+      {/* ... noise overlay ... */}
 
-      <div
-        className="fixed pointer-events-none inset-0 z-30 transition-opacity duration-300"
-        style={{ background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(107, 123, 255, 0.03), transparent 80%)` }}
-      />
-
-      {/* Ambient Aurora Background */}
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <motion.div
-          animate={{
-            x: [0, 100, 0],
-            y: [0, -50, 0],
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3]
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-[-20%] left-[-10%] w-[40vw] h-[40vw] bg-primary/20 rounded-full blur-[120px]"
-        />
-        <motion.div
-          animate={{
-            x: [0, -100, 0],
-            y: [0, 100, 0],
-            scale: [1, 1.5, 1],
-            opacity: [0.2, 0.4, 0.2]
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear", delay: 5 }}
-          className="absolute bottom-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-purple-500/10 rounded-full blur-[100px]"
-        />
-      </div>
+      {/* ... background aurora ... */}
 
       {/* NEW HEADER: Split HUD Design */}
       <Header />
 
       <main className="relative z-10 flex flex-col items-center w-full bg-background-dark overflow-hidden">
-        {/* Optional Vanta Waves Background */}
-        {USE_VANTA_BACKGROUND ? (
-          <VantaWaves onLoaded={() => setIsVantaReady(true)}>
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a0a0c]/40 to-[#0a0a0c]/90 pointer-events-none" />
-          </VantaWaves>
-        ) : (
-          <div className="fixed inset-0 z-0 opacity-30 pointer-events-none">
-            <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
-          </div>
-        )}
+        {/* ... Vanta Waves ... */}
 
         {/* Hero - iOS FLUX STYLE */}
         <section ref={heroRef} className="min-h-[100dvh] w-full flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-32 lg:pt-24 pb-12 md:pb-20 relative overflow-hidden">
+
+          {/* Aceternity Spotlight Effect */}
+          <Spotlight
+            className="-top-40 left-0 md:left-60 md:-top-20"
+            fill="white"
+          />
 
           {/* 🔄 MESH GRADIENTS DISABLED - Uncomment entire block below to restore */}
           {/* 
