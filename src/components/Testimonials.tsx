@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Quote } from 'lucide-react';
 import Image from 'next/image';
+import { InfiniteMovingCards } from './ui/InfiniteMovingCards';
 
 const recommendations = [
     {
@@ -71,43 +72,16 @@ export default function Testimonials() {
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {recommendations.map((item, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            whileHover={{ y: -5 }}
-                            className="relative p-8 rounded-[32px] bg-[#0a0a0c]/80 backdrop-blur-xl border border-white/5 hover:border-cyan-400/30 transition-all group"
-                        >
-                            {/* Quote Icon */}
-                            <div className="absolute top-6 right-6 text-cyan-400/20 group-hover:text-cyan-400/40 transition-colors">
-                                <Quote size={40} />
-                            </div>
-
-                            <div className="relative z-10 flex flex-col h-full">
-                                <p className="text-gray-300 leading-relaxed mb-8 flex-grow">
-                                    "{item.text}"
-                                </p>
-
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-full bg-white/10 overflow-hidden relative">
-                                        {/* Placeholder Avatar - Replace with actual images */}
-                                        <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-teal-500 opacity-20" />
-                                        <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-cyan-400">
-                                            {item.name.charAt(0)}
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <h4 className="text-white font-bold text-sm tracking-wide">{item.name}</h4>
-                                        <p className="text-cyan-400 text-xs font-mono">{item.role}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    ))}
+                <div className="w-full relative">
+                    <InfiniteMovingCards
+                        items={recommendations.map(r => ({
+                            quote: r.text,
+                            name: r.name,
+                            title: r.role
+                        }))}
+                        direction="right"
+                        speed="slow"
+                    />
                 </div>
             </div>
         </section>

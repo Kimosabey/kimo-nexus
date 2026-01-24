@@ -16,31 +16,171 @@ import {
 } from 'react-icons/si';
 import LogoLoop from "@/components/ui/LogoLoop";
 import { Spotlight } from "@/components/ui/Spotlight";
+import ProjectCard from "@/components/ProjectCard";
+import Header from "@/components/Header";
+import Experience from "@/components/Experience";
+import Testimonials from "@/components/Testimonials";
+import dynamic from 'next/dynamic';
 
-// ... (imports)
+// Lazy load Vanta for better performance
+const VantaWaves = dynamic(() => import('@/components/VantaWaves'), {
+  ssr: false,
+  loading: () => null
+});
+
+// Toggle Vanta Waves (set to false to use current mesh gradients)
+const USE_VANTA_BACKGROUND = true; // ✨ ENABLED
 
 // --- Components ---
 
-// ... (Preloader)
+
+function Preloader() {
+  const [ended, setEnded] = useState(false);
+  const progressTextRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    // Animate progress without triggering React re-renders (Performance Optimization)
+    const startTime = Date.now();
+    const duration = 2000; // 2s duration matching branding timer
+
+    const updateProgress = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min((elapsed / duration) * 100, 100);
+
+      if (progressTextRef.current) {
+        progressTextRef.current.textContent = `${Math.floor(progress)}%`;
+      }
+
+      if (progress < 100) {
+        requestAnimationFrame(updateProgress);
+      } else {
+        setEnded(true);
+      }
+    };
+
+    const animationFrame = requestAnimationFrame(updateProgress);
+    return () => cancelAnimationFrame(animationFrame);
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+      className="fixed inset-0 z-[999] bg-black/20 backdrop-blur-lg flex flex-col items-center justify-center font-mono"
+    >
+      <div className="w-64 space-y-2">
+        <div className="flex justify-between text-xs text-cyan-400/80 uppercase tracking-widest">
+          <span>Wave_Initialize</span>
+          <span ref={progressTextRef}>0%</span>
+        </div>
+        <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+          <motion.div
+            className="h-full bg-cyan-400 shadow-[0_0_10px_#00d4ff]"
+            initial={{ width: "0%" }}
+            animate={{ width: "100%" }}
+            transition={{ duration: 2, ease: "linear" }}
+          />
+        </div>
+        <div className="text-[10px] text-cyan-300/60 pt-2 text-center">
+          ESTABLISHING SECURE CONNECTION...
+        </div>
+      </div>
+    </motion.div>
+  )
+}
 
 // --- Main Page ---
 
-// ... (techLogos)
+const techLogos = [
+  // Frontend & Frameworks
+  { node: <SiReact />, title: "React" },
+  { node: <SiNextdotjs />, title: "Next.js" },
+  { node: <SiTypescript />, title: "TypeScript" },
+  { node: <SiTailwindcss />, title: "Tailwind" },
+  { node: <SiFramer />, title: "Framer Motion" },
+
+  // Backend & Languages
+  { node: <SiNodedotjs />, title: "Node.js" },
+  { node: <SiPython />, title: "Python" },
+
+  // AI & ML
+  { node: <SiTensorflow />, title: "TensorFlow" },
+  { node: <SiPytorch />, title: "PyTorch" },
+  { node: <SiOpenai />, title: "OpenAI" },
+
+  // Databases
+  { node: <SiPostgresql />, title: "PostgreSQL" },
+  { node: <SiMongodb />, title: "MongoDB" },
+  { node: <SiRedis />, title: "Redis" },
+
+  // DevOps & Cloud
+  { node: <SiDocker />, title: "Docker" },
+  { node: <SiAmazonwebservices />, title: "AWS" },
+  { node: <SiGit />, title: "Git" },
+];
 
 export default function Home() {
-  // ... (hooks)
+  const { scrollY, scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+
+  // Parallax Values
+  const heroImageY = useTransform(scrollY, [0, 1000], [0, 200]);
+  const heroTextY = useTransform(scrollY, [0, 1000], [0, -100]);
+  const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
+
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isVantaReady, setIsVantaReady] = useState(false);
+  const [minTimeElapsed, setMinTimeElapsed] = useState(false);
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Minimum branding time (2s)
+    const brandingTimer = setTimeout(() => setMinTimeElapsed(true), 2000);
+
+    // Fail-safe: Force load if Vanta takes too long (5s)
+    const safetyTimer = setTimeout(() => setIsVantaReady(true), 5000);
+
+    const handleMouseMove = (e: MouseEvent) => setMousePosition({ x: e.clientX, y: e.clientY });
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      clearTimeout(brandingTimer);
+      clearTimeout(safetyTimer);
+      clearTimeout(safetyTimer);
+    }
+  }, []);
+
+  // Sync Loading State
+  useEffect(() => {
+    if (minTimeElapsed && (isVantaReady || !USE_VANTA_BACKGROUND)) {
+      setIsLoading(false);
+    }
+  }, [minTimeElapsed, isVantaReady]);
+
+
+  const textVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.03 + 3.8, duration: 0.5, ease: "easeOut" as const } // Synced with 3.5s loader + 0.3s buffer
+    })
+  };
+
+
+
+  const titleText = "Architecting".split("");
 
   return (
-    <>
-      <AnimatePresence mode="wait">
-        {isLoading && <Preloader />}
-      </AnimatePresence>
-      <motion.div className="fixed top-0 left-0 right-0 h-1 bg-primary z-[100] origin-left" style={{ scaleX }} />
-      {/* ... noise overlay ... */}
+    <motion.div className="fixed top-0 left-0 right-0 h-1 bg-primary z-[100] origin-left" style={{ scaleX }} />
+      {/* ... noise overlay ... */ }
 
-      {/* ... background aurora ... */}
+  {/* ... background aurora ... */ }
 
-      {/* NEW HEADER: Split HUD Design */}
+  {/* NEW HEADER: Split HUD Design */ }
       <Header />
 
       <main className="relative z-10 flex flex-col items-center w-full bg-background-dark overflow-hidden">
