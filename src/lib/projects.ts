@@ -13,7 +13,37 @@ export type Project = {
 };
 
 export const projects: Project[] = [
-    // --- Active Projects ---
+    // --- Active Projects (V3 Completed Assets First) ---
+    {
+        id: "logstream-ai",
+        title: "LogStream AI",
+        category: "Observability",
+        description: "High-volume log ingestion service with anomaly detection. Uses buffering and batch processing to handle traffic spikes.",
+        techStack: ["Go", "Elasticsearch", "Kibana", "Docker"],
+        repoUrl: "https://github.com/Kimosabey/logstream-ai",
+        image: "/projects/logstream-ai/hero_main.png",
+        highlight: "Ingest: Batch Buffering",
+    },
+    {
+        id: "voicesync-ai",
+        title: "VoiceSync AI",
+        category: "Privacy / AI",
+        description: "Secure, offline-first audio transcription platform. Runs Whisper models locally in the browser/electron for 100% privacy.",
+        techStack: ["Electron", "Whisper.cpp", "React", "Local First"],
+        repoUrl: "https://github.com/Kimosabey/voicesync-ai",
+        image: "/projects/voicesync-ai/hero_main.png",
+        highlight: "Privacy: 100% Local Inference",
+    },
+    {
+        id: "limit-guard",
+        title: "LimitGuard",
+        category: "Security / Infra",
+        description: "Distributed rate limiting service providing DDoS protection. Implements Token Bucket and Leaky Bucket algorithms.",
+        techStack: ["Redis/Lua", "Node.js", "Nginx", "System Design"],
+        repoUrl: "https://github.com/Kimosabey/limit-guard",
+        image: "/projects/limit-guard/hero_main.png",
+        highlight: "Algo: Token Bucket",
+    },
     {
         id: "vox-agent-neural",
         title: "VoxAgent Neural",
@@ -110,36 +140,6 @@ export const projects: Project[] = [
         highlight: "Audio: Real-time FFT",
     },
     {
-        id: "voicesync-ai",
-        title: "VoiceSync AI",
-        category: "Privacy / AI",
-        description: "Secure, offline-first audio transcription platform. Runs Whisper models locally in the browser/electron for 100% privacy.",
-        techStack: ["Electron", "Whisper.cpp", "React", "Local First"],
-        repoUrl: "https://github.com/Kimosabey/voicesync-ai",
-        image: "/projects/voicesync-ai.png",
-        highlight: "Privacy: 100% Local Inference",
-    },
-    {
-        id: "logstream-ai",
-        title: "LogStream AI",
-        category: "Observability",
-        description: "High-volume log ingestion service with anomaly detection. Uses buffering and batch processing to handle traffic spikes.",
-        techStack: ["Go", "Elasticsearch", "Kibana", "Docker"],
-        repoUrl: "https://github.com/Kimosabey/logstream-ai",
-        image: "/projects/logstream-ai.png",
-        highlight: "Ingest: Batch Buffering",
-    },
-    {
-        id: "limit-guard",
-        title: "LimitGuard",
-        category: "Security / Infra",
-        description: "Distributed rate limiting service providing DDoS protection. Implements Token Bucket and Leaky Bucket algorithms.",
-        techStack: ["Redis/Lua", "Node.js", "Nginx", "System Design"],
-        repoUrl: "https://github.com/Kimosabey/limit-guard",
-        image: "/projects/limit-guard.png",
-        highlight: "Algo: Token Bucket",
-    },
-    {
         id: "spec-lens",
         title: "SpecLens",
         category: "DevTools",
@@ -177,7 +177,7 @@ export const projects: Project[] = [
         description: "Enterprise-scale data ingestion pipeline built with Spring Boot. Streams millions of events to ClickHouse for real-time analytics.",
         techStack: ["Java (Spring)", "ClickHouse", "Kafka", "Protobuf"],
         repoUrl: "https://github.com/Kimosabey/telemetry-lakehouse",
-        image: "/projects/telemetry-lakehouse.png",
+        image: "/projects/telemetry-lakehouse/thumbnail.png",
         highlight: "Data: High Throughput",
         upcoming: true
     },
@@ -188,7 +188,7 @@ export const projects: Project[] = [
         description: "High-concurrency request router using Consistent Hashing rings. Ensures zero-rebalancing node failures for stateful workloads.",
         techStack: ["Go (Fiber)", "Consistent Hashing", "gRPC"],
         repoUrl: "https://github.com/Kimosabey/ring-route",
-        image: "/projects/ring-route.png",
+        image: "/projects/ring-route/hero_main.png",
         highlight: "Algo: Consistent Hash",
         upcoming: true
     },
