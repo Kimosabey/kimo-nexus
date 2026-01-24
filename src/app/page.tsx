@@ -16,6 +16,10 @@ import {
 } from 'react-icons/si';
 import LogoLoop from "@/components/ui/LogoLoop";
 import { Spotlight } from "@/components/ui/Spotlight";
+import { TextGenerateEffect } from "@/components/ui/TextGenerateEffect";
+import { Button as MovingBorderButton } from "@/components/ui/MovingBorder";
+import { HoverEffect } from "@/components/ui/CardHoverEffect";
+import { Sparkles } from "@/components/ui/Sparkles";
 import ProjectCard from "@/components/ProjectCard";
 import Header from "@/components/Header";
 import Experience from "@/components/Experience";
@@ -175,16 +179,50 @@ export default function Home() {
   const titleText = "Architecting".split("");
 
   return (
-    <motion.div className="fixed top-0 left-0 right-0 h-1 bg-primary z-[100] origin-left" style={{ scaleX }} />
-      {/* ... noise overlay ... */ }
+    <>
+      <motion.div className="fixed top-0 left-0 right-0 h-1 bg-primary z-[100] origin-left" style={{ scaleX }} />
 
-  {/* ... background aurora ... */ }
+      <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-[100] mix-blend-overlay filter contrast-120 brightness-100">
+        <svg className="w-full h-full"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.6" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(#noiseFilter)" /></svg>
+      </div>
 
-  {/* NEW HEADER: Split HUD Design */ }
+      <div
+        className="fixed pointer-events-none inset-0 z-30 transition-opacity duration-300"
+        style={{ background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(107, 123, 255, 0.03), transparent 80%)` }}
+      />
+
+      {/* Ambient Aurora Background */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <motion.div
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -50, 0],
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3]
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute top-[-20%] left-[-10%] w-[40vw] h-[40vw] bg-primary/20 rounded-full blur-[120px]"
+        />
+        <motion.div
+          animate={{
+            x: [0, -100, 0],
+            y: [0, 100, 0],
+            scale: [1, 1.5, 1],
+            opacity: [0.2, 0.4, 0.2]
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear", delay: 5 }}
+          className="absolute bottom-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-purple-500/10 rounded-full blur-[100px]"
+        />
+      </div>
+
+      {/* NEW HEADER: Split HUD Design */}
       <Header />
 
       <main className="relative z-10 flex flex-col items-center w-full bg-background-dark overflow-hidden">
-        {/* ... Vanta Waves ... */}
+        {/* Vanta Waves Background */}
+        {USE_VANTA_BACKGROUND && (
+          <VantaWaves onReady={() => setIsVantaReady(true)} />
+        )}
 
         {/* Hero - iOS FLUX STYLE */}
         <section ref={heroRef} className="min-h-[100dvh] w-full flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-32 lg:pt-24 pb-12 md:pb-20 relative overflow-hidden">
@@ -308,13 +346,20 @@ export default function Home() {
                 <span className="text-[10px] md:text-xs font-mono font-medium text-cyan-400/90 uppercase tracking-widest">System Online</span>
               </motion.div>
 
-              <motion.h1
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[7rem] font-black tracking-tighter text-white leading-[0.95] flex flex-col uppercase break-words"
-                style={{ transform: 'translateZ(30px)' }}
-              >
-                <motion.span initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2 }}>Architecting</motion.span>
-                <motion.span initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.4 }} className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-teal-400">Digital Minds</motion.span>
-              </motion.h1>
+              <div style={{ transform: 'translateZ(30px)' }}>
+                <TextGenerateEffect
+                  words="ARCHITECTING"
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[7rem] font-black tracking-tighter text-white leading-[0.95] uppercase text-center lg:text-left"
+                  duration={0.8}
+                  filter={true}
+                />
+                <TextGenerateEffect
+                  words="DIGITAL MINDS"
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[7rem] font-black tracking-tighter leading-[0.95] uppercase text-center lg:text-left bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-white to-teal-400"
+                  duration={0.8}
+                  filter={true}
+                />
+              </div>
 
               <motion.p
                 initial={{ opacity: 0 }}
@@ -442,82 +487,76 @@ export default function Home() {
               </p>
               <div className="flex gap-3 md:gap-4 mt-6 md:mt-8"><Terminal className="w-5 h-5 md:w-6 md:h-6 text-white/50" /><Code2 className="w-5 h-5 md:w-6 md:h-6 text-white/50" /><Cpu className="w-5 h-5 md:w-6 md:h-6 text-white/50" /></div>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-              {/* Animated Features Grid */}
-              {/* Animated Brain (Neural Audio) */}
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-cyan-400/30 hover:bg-white/10 transition-all group">
-                <div className="w-10 h-10 mb-4 bg-cyan-400/10 rounded-lg flex items-center justify-center">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-cyan-400">
-                    <motion.path
-                      initial={{ pathLength: 0 }}
-                      whileInView={{ pathLength: 1 }}
-                      transition={{ duration: 1.5, ease: "easeInOut" }}
-                      d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"
-                    />
-                    <motion.path
-                      initial={{ pathLength: 0 }}
-                      whileInView={{ pathLength: 1 }}
-                      transition={{ duration: 1.5, ease: "easeInOut", delay: 0.2 }}
-                      d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-white font-bold text-lg mb-2">Neural Audio</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">Architecting next-gen TTS & ASR pipelines.</p>
-              </div>
-
-              {/* Animated Server (Scalable Systems) */}
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-cyan-400/30 hover:bg-white/10 transition-all group">
-                <div className="w-10 h-10 mb-4 bg-cyan-400/10 rounded-lg flex items-center justify-center">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-cyan-400">
-                    <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
-                    <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
-                    <motion.line x1="6" y1="6" x2="6.01" y2="6" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 0.8, repeat: Infinity }} />
-                    <motion.line x1="6" y1="18" x2="6.01" y2="18" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 0.8, repeat: Infinity, delay: 0.4 }} />
-                  </svg>
-                </div>
-                <h3 className="text-white font-bold text-lg mb-2">Scalable Systems</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">Building fault-tolerant React/Node architectures.</p>
-              </div>
-
-              {/* Animated Zap (Data Intelligence) */}
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-cyan-400/30 hover:bg-white/10 transition-all group">
-                <div className="w-10 h-10 mb-4 bg-cyan-400/10 rounded-lg flex items-center justify-center">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-cyan-400">
-                    <motion.polygon
-                      initial={{ pathLength: 0, fill: "rgba(255, 255, 255, 0)" }}
-                      whileInView={{ pathLength: 1, fill: "currentColor" }}
-                      transition={{ duration: 0.5, ease: "backOut" }}
-                      points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-white font-bold text-lg mb-2">Data Intelligence</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">Crafting high-performance insight dashboards.</p>
-              </div>
-
-              {/* Animated Eye (Tech Leadership) */}
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-cyan-400/30 hover:bg-white/10 transition-all group">
-                <div className="w-10 h-10 mb-4 bg-cyan-400/10 rounded-lg flex items-center justify-center">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-cyan-400">
-                    <motion.path
-                      initial={{ pathLength: 0 }}
-                      whileInView={{ pathLength: 1 }}
-                      transition={{ duration: 1 }}
-                      d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"
-                    />
-                    <motion.circle
-                      cx="12" cy="12" r="3"
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      transition={{ type: "spring", delay: 0.5 }}
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-white font-bold text-lg mb-2">Tech Leadership</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">Driving agile velocity & engineering mentorship.</p>
-              </div>
-            </div>
+            <HoverEffect
+              items={[
+                {
+                  title: "Neural Audio",
+                  description: "Architecting next-gen TTS & ASR pipelines.",
+                  icon: (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-cyan-400">
+                      <motion.path
+                        initial={{ pathLength: 0 }}
+                        whileInView={{ pathLength: 1 }}
+                        transition={{ duration: 1.5, ease: "easeInOut" }}
+                        d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"
+                      />
+                      <motion.path
+                        initial={{ pathLength: 0 }}
+                        whileInView={{ pathLength: 1 }}
+                        transition={{ duration: 1.5, ease: "easeInOut", delay: 0.2 }}
+                        d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"
+                      />
+                    </svg>
+                  )
+                },
+                {
+                  title: "Scalable Systems",
+                  description: "Building fault-tolerant React/Node architectures.",
+                  icon: (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-cyan-400">
+                      <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+                      <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+                      <motion.line x1="6" y1="6" x2="6.01" y2="6" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 0.8, repeat: Infinity }} />
+                      <motion.line x1="6" y1="18" x2="6.01" y2="18" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 0.8, repeat: Infinity, delay: 0.4 }} />
+                    </svg>
+                  )
+                },
+                {
+                  title: "Data Intelligence",
+                  description: "Crafting high-performance insight dashboards.",
+                  icon: (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-cyan-400">
+                      <motion.polygon
+                        initial={{ pathLength: 0, fill: "rgba(255, 255, 255, 0)" }}
+                        whileInView={{ pathLength: 1, fill: "currentColor" }}
+                        transition={{ duration: 0.5, ease: "backOut" }}
+                        points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"
+                      />
+                    </svg>
+                  )
+                },
+                {
+                  title: "Tech Leadership",
+                  description: "Driving agile velocity & engineering mentorship.",
+                  icon: (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-cyan-400">
+                      <motion.path
+                        initial={{ pathLength: 0 }}
+                        whileInView={{ pathLength: 1 }}
+                        transition={{ duration: 1 }}
+                        d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"
+                      />
+                      <motion.circle
+                        cx="12" cy="12" r="3"
+                        initial={{ scale: 0 }}
+                        whileInView={{ scale: 1 }}
+                        transition={{ type: "spring", delay: 0.5 }}
+                      />
+                    </svg>
+                  )
+                }
+              ]}
+            />
           </div>
         </section>
 
@@ -631,7 +670,9 @@ export default function Home() {
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-4 md:gap-6">
             <div className="max-w-2xl">
               <span className="text-cyan-400 font-mono text-xs md:text-sm tracking-widest uppercase mb-3 md:mb-4 block">Portfolio</span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white leading-tight">Selected Works</h2>
+              <Sparkles className="w-full" particleDensity={20} particleColor="#00d4ff">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white leading-tight">Selected Works</h2>
+              </Sparkles>
             </div>
             <div className="hidden md:block pb-2">
               <span className="text-xs font-mono text-gray-500 tracking-widest uppercase">
@@ -662,15 +703,21 @@ export default function Home() {
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[1px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[100px] bg-cyan-400/10 blur-[50px] pointer-events-none"></div>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
-            <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold text-white mb-6 md:mb-8 tracking-tight leading-tight">Let's create <br className="hidden md:block" /> the <span className="text-cyan-400 italic">future</span>.</h2>
-            <a
-              className="inline-flex min-h-[52px] md:min-h-[56px] lg:min-h-[60px] items-center justify-center rounded-full bg-gradient-to-r from-cyan-400 to-teal-500 hover:from-cyan-500 hover:to-teal-600 px-6 md:px-8 lg:px-10 text-sm md:text-base font-bold text-[#0a0a0c] transition-all hover:scale-105 hover:shadow-[0_0_40px_-5px_rgba(0,212,255,0.6)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            <Sparkles className="w-full max-w-4xl mx-auto" particleDensity={40} particleColor="#00d4ff" minSize={0.6} maxSize={2}>
+              <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold text-white mb-6 md:mb-8 tracking-tight leading-tight">Let's create <br className="hidden md:block" /> the <span className="text-cyan-400 italic">future</span>.</h2>
+            </Sparkles>
+            <MovingBorderButton
+              as="a"
               href="mailto:harshan.aiyappa@gmail.com"
               aria-label="Email me"
+              duration={3000}
+              borderRadius="9999px"
+              className="bg-gradient-to-r from-cyan-400/10 to-teal-500/10 hover:from-cyan-400/20 hover:to-teal-500/20 min-h-[52px] md:min-h-[56px] lg:min-h-[60px] px-6 md:px-8 lg:px-10 text-sm md:text-base font-bold transition-all hover:scale-105"
+              containerClassName="inline-block"
             >
-              <span className="hidden sm:inline">harshan.aiyappa@gmail.com</span>
-              <span className="sm:hidden">Email Me</span>
-            </a>
+              <span className="hidden sm:inline text-white">harshan.aiyappa@gmail.com</span>
+              <span className="sm:hidden text-white">Email Me</span>
+            </MovingBorderButton>
             <div className="mt-12 md:mt-16 lg:mt-24 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8 pt-6 md:pt-8 lg:pt-10 border-t border-white/5 text-gray-500 text-xs md:text-sm">
               <p className="font-mono flex flex-wrap items-center justify-center gap-2 text-center">
                 © 2026 <span className="font-signature text-xl md:text-2xl text-white">Harshan Aiyappa</span>
