@@ -42,7 +42,7 @@ function TestimonialCard({ item, index }: { item: typeof recommendations[0], ind
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="group relative h-full rounded-[2rem] md:rounded-[2.5rem] border border-white/5 p-6 md:p-10 transition-all duration-500 hover:border-cyan-400/30 overflow-hidden"
+            className="group relative h-full rounded-[2rem] md:rounded-[2.5rem] border border-white/5 p-5 md:p-10 transition-all duration-500 hover:border-cyan-400/30 overflow-hidden"
             style={{
                 background: "rgba(10, 10, 12, 0.4)",
                 backdropFilter: "blur(16px)"
@@ -54,18 +54,18 @@ function TestimonialCard({ item, index }: { item: typeof recommendations[0], ind
             <div className="relative z-10 h-full flex flex-col justify-between">
                 <div>
                     <span className="text-4xl md:text-6xl text-cyan-400/20 font-serif leading-none select-none">"</span>
-                    <p className="text-sm md:text-base lg:text-lg leading-relaxed text-gray-300 font-light italic mt-2">
+                    <p className="text-sm md:text-base lg:text-lg leading-relaxed text-gray-300 font-light italic mt-1 md:mt-2">
                         {item.quote}
                     </p>
                 </div>
 
-                <div className="mt-8 pt-8 border-t border-white/5 flex items-center gap-4">
+                <div className="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-white/5 flex items-center gap-4">
                     <div className="h-10 w-1 bg-gradient-to-b from-cyan-400 to-teal-500 rounded-full shrink-0" />
                     <div className="flex flex-col gap-0.5 overflow-hidden">
-                        <span className="text-sm md:text-base font-bold text-white tracking-tight truncate">
+                        <span className="text-xs md:text-base font-bold text-white tracking-tight truncate">
                             {item.name}
                         </span>
-                        <span className="text-[10px] md:text-xs font-mono font-medium text-cyan-400 uppercase tracking-widest opacity-80 truncate">
+                        <span className="text-[9px] md:text-xs font-mono font-medium text-cyan-400 uppercase tracking-widest opacity-80 truncate">
                             {item.title}
                         </span>
                     </div>
@@ -77,25 +77,25 @@ function TestimonialCard({ item, index }: { item: typeof recommendations[0], ind
 
 export default function Testimonials() {
     return (
-        <section className="relative w-full" id="testimonials">
-            <div className="container mx-auto px-6 relative z-10">
+        <section className="relative w-full max-w-screen-3xl mx-auto" id="testimonials">
+            <div className="container mx-auto px-6 3xl:px-20 relative z-10">
                 <div className="flex flex-col gap-2 mb-12 md:mb-16">
                     <div className="flex items-center gap-3">
                         <div className="w-1.5 h-10 bg-gradient-to-b from-cyan-400 to-teal-500 rounded-full" />
                         <div className="flex flex-col">
-                            <span className="text-cyan-400 font-mono text-[9px] md:text-xs tracking-[0.5em] uppercase font-bold text-shadow-glow">SYSTEM_CORE: VALIDATION</span>
-                            <span className="text-gray-500 font-mono text-[8px] uppercase tracking-[0.3em]">Revision_4.3.5</span>
+                            <span className="text-cyan-400 font-mono text-[10px] md:text-xs 3xl:text-lg tracking-[0.5em] uppercase font-bold text-shadow-glow">SYSTEM_CORE: VALIDATION</span>
+                            <span className="text-gray-500 font-mono text-[10px] 3xl:text-sm uppercase tracking-[0.3em]">Revision_4.3.5</span>
                         </div>
                     </div>
-                    <h2 className="text-3xl md:text-6xl lg:text-7xl font-black text-white tracking-tighter uppercase leading-[0.9] mt-4 mb-4">
+                    <h2 className="text-3xl md:text-6xl lg:text-7xl 3xl:text-[9rem] font-black text-white tracking-tighter uppercase leading-[0.9] mt-4 mb-4">
                         Endorsed by <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-500 italic">Industry Peers</span>
                     </h2>
-                    <p className="text-gray-400/80 max-w-2xl text-sm md:text-lg font-light leading-relaxed">
+                    <p className="text-gray-400/80 max-w-2xl 3xl:max-w-4xl text-sm md:text-lg 3xl:text-2xl font-light leading-relaxed">
                         Authentic trust earned through architectural rigour and seamless collaboration.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-8 md:gap-10 3xl:gap-16">
                     {recommendations.map((item, i) => (
                         <TestimonialCard key={i} item={item} index={i} />
                     ))}

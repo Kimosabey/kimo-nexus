@@ -57,10 +57,10 @@ export default function Experience() {
                             <div className="absolute inset-0 bg-cyan-400/20 blur-2xl opacity-0 group-hover/exp:opacity-100 transition-opacity duration-500 pointer-events-none" />
                         </div>
                         <div className="space-y-1">
-                            <span className="font-mono text-[9px] text-cyan-400/90 bg-cyan-400/5 px-3 py-1 rounded-full border border-cyan-400/20 tracking-[0.2em] uppercase font-bold">
+                            <span className="font-mono text-[10px] text-cyan-400/90 bg-cyan-400/5 px-3 py-1 rounded-full border border-cyan-400/20 tracking-[0.2em] uppercase font-bold">
                                 {item.period}
                             </span>
-                            <h3 className="text-xl md:text-3xl font-black text-white font-display uppercase tracking-tight leading-tight group-hover/exp:text-cyan-400 transition-colors">
+                            <h3 className="text-lg md:text-3xl font-black text-white font-display uppercase tracking-tight leading-tight group-hover/exp:text-cyan-400 transition-colors">
                                 {item.role}
                             </h3>
                         </div>

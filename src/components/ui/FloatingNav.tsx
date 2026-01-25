@@ -56,7 +56,7 @@ export const FloatingNav = ({
                     duration: 0.2,
                 }}
                 className={cn(
-                    "flex max-w-[95vw] md:min-w-[70vw] lg:min-w-fit fixed top-4 md:top-10 inset-x-0 mx-auto border border-white/[0.2] rounded-full bg-[#0a0a0c]/80 backdrop-blur-xl shadow-2xl z-[5000] px-3 md:px-6 py-2 md:py-3 items-center justify-between gap-2 md:space-x-8",
+                    "flex max-w-[95vw] md:min-w-[70vw] lg:min-w-fit 3xl:min-w-[50vw] fixed top-4 md:top-10 inset-x-0 mx-auto border border-white/[0.2] rounded-full bg-[#0a0a0c]/80 backdrop-blur-xl shadow-2xl z-[5000] px-3 md:px-6 3xl:px-12 py-2 md:py-3 3xl:py-6 items-center justify-between gap-2 md:space-x-8",
                     className
                 )}
             >
@@ -86,7 +86,7 @@ export const FloatingNav = ({
                 <Link
                     href="/resume.pdf"
                     target="_blank"
-                    className="border text-[10px] md:text-xs font-bold uppercase tracking-widest relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-3 md:px-6 py-1.5 md:py-2 rounded-full hover:bg-white/10 transition-colors shrink-0 flex items-center justify-center"
+                    className="border text-[11px] sm:text-xs font-bold uppercase tracking-widest relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-3 sm:px-6 py-2 sm:py-2.5 rounded-full hover:bg-white/10 transition-colors shrink-0 flex items-center justify-center"
                 >
                     <span className="relative z-10">Resume</span>
                     <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent h-px" />

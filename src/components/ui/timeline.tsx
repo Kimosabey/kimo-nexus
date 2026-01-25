@@ -36,16 +36,16 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
             className="w-full bg-transparent font-sans md:px-10"
             ref={containerRef}
         >
-            <div className="max-w-7xl mx-auto py-20 px-4 md:px-8 lg:px-10 text-center md:text-left">
-                <h2 className="text-3xl md:text-5xl mb-4 text-white font-bold tracking-tight">
+            <div className="max-w-screen-3xl mx-auto py-20 px-4 md:px-8 lg:px-10 3xl:px-20 text-center md:text-left">
+                <h2 className="text-3xl md:text-5xl 3xl:text-7xl mb-4 text-white font-bold tracking-tight">
                     Journey Log
                 </h2>
-                <p className="text-neutral-400 text-sm md:text-base max-w-sm mx-auto md:mx-0">
+                <p className="text-neutral-400 text-sm md:text-base 3xl:text-xl max-w-sm mx-auto md:mx-0">
                     A definitive timeline of architecting systems and leading engineering breakthroughs over the last 5 years.
                 </p>
             </div>
 
-            <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
+            <div ref={ref} className="relative max-w-screen-3xl mx-auto pb-20">
                 {data.map((item, index) => (
                     <div
                         key={index}
@@ -61,7 +61,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
                         </div>
 
                         <div className="relative pl-20 pr-4 md:pl-4 w-full">
-                            <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-neutral-500/50">
+                            <h3 className="md:hidden block text-xl mb-4 text-left font-bold text-neutral-500/50">
                                 {item.title}
                             </h3>
                             {item.content}{" "}
