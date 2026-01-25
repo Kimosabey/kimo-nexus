@@ -46,7 +46,7 @@ export default function Experience() {
     const timelineData = experienceData.map((item) => ({
         title: item.year,
         content: (
-            <div className="group/exp relative p-4 xs:p-5 md:p-8 3xl:p-14 rounded-[1.5rem] xs:rounded-[2rem] 3xl:rounded-[4rem] bg-[#0a0a0c]/40 border border-white/5 hover:border-cyan-500/20 transition-all duration-700 overflow-hidden backdrop-blur-md mb-8 shadow-2xl">
+            <div className="group/exp relative p-3 xs:p-5 md:p-8 3xl:p-14 rounded-[1.2rem] xs:rounded-[2rem] 3xl:rounded-[4rem] bg-[#0a0a0c]/40 border border-white/5 hover:border-cyan-500/20 transition-all duration-700 overflow-hidden backdrop-blur-md mb-8 shadow-2xl">
                 {/* Dynamic Ambient Glow */}
                 <div className="absolute -top-32 -right-32 w-80 h-80 bg-cyan-500/5 blur-[120px] group-hover/exp:bg-cyan-500/10 transition-colors duration-700 pointer-events-none" />
 
@@ -73,7 +73,7 @@ export default function Experience() {
 
                 <div className="relative mb-10 3xl:mb-16 group/desc">
                     <div className="absolute -left-4 top-0 w-1.5 h-full bg-gradient-to-b from-cyan-500 to-transparent rounded-full opacity-20 group-hover/desc:opacity-60 transition-opacity" />
-                    <p className="text-gray-400 text-sm md:text-lg lg:text-xl 3xl:text-4xl leading-[1.7] max-w-4xl 3xl:max-w-6xl font-light italic tracking-wide group-hover/exp:text-gray-200 transition-colors">
+                    <p className="text-gray-300 text-sm md:text-lg lg:text-xl 3xl:text-4xl leading-[1.7] max-w-4xl 3xl:max-w-6xl font-light italic tracking-wide group-hover/exp:text-gray-200 transition-colors">
                         "{item.description}"
                     </p>
                 </div>
@@ -82,7 +82,7 @@ export default function Experience() {
                     {item.skills.map((skill, i) => (
                         <div key={i} className="group/skill relative">
                             <div className="absolute inset-0 bg-cyan-400/20 blur-xl opacity-0 group-hover/skill:opacity-100 transition-opacity rounded-2xl" />
-                            <div className="relative px-4 xs:px-6 3xl:px-10 py-2 xs:py-2.5 3xl:py-5 bg-black/40 border border-white/5 rounded-2xl text-[9px] xs:text-[10px] md:text-[12px] 3xl:text-xl font-mono font-black text-gray-400 group-hover:text-cyan-400 group-hover:border-cyan-400/40 transition-all duration-300 backdrop-blur-xl flex items-center gap-2 xs:gap-3 3xl:gap-5 uppercase tracking-wider xs:tracking-widest">
+                            <div className="relative p-3 pr-2 xs:px-6 3xl:px-10 py-2 xs:py-2.5 3xl:py-5 bg-black/40 border border-white/5 rounded-2xl text-[9px] xs:text-[10px] md:text-[12px] 3xl:text-xl font-mono font-black text-gray-300 group-hover:text-cyan-400 group-hover:border-cyan-400/40 transition-all duration-300 backdrop-blur-xl flex items-center gap-2 xs:gap-3 3xl:gap-5 uppercase tracking-wider xs:tracking-widest">
                                 <Code2 className="w-2.5 h-2.5 xs:w-3 xs:h-3 3xl:w-6 3xl:h-6 text-cyan-400/40 group-hover/skill:text-cyan-400" />
                                 {skill}
                             </div>

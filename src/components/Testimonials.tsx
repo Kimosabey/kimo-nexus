@@ -42,7 +42,7 @@ function TestimonialCard({ item, index }: { item: typeof recommendations[0], ind
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="group relative h-full rounded-[2rem] md:rounded-[2.5rem] 3xl:rounded-[4rem] border border-white/5 p-5 md:p-10 3xl:p-16 transition-all duration-500 hover:border-cyan-400/30 overflow-hidden"
+            className="group relative h-full rounded-[2rem] md:rounded-[2.5rem] 3xl:rounded-[4rem] border border-white/5 p-4 xs:p-5 md:p-10 3xl:p-16 transition-all duration-500 hover:border-cyan-400/30 overflow-hidden"
             style={{
                 background: "rgba(10, 10, 12, 0.4)",
                 backdropFilter: "blur(16px)"
@@ -78,7 +78,7 @@ function TestimonialCard({ item, index }: { item: typeof recommendations[0], ind
 export default function Testimonials() {
     return (
         <section className="relative w-full max-w-screen-3xl mx-auto" id="testimonials">
-            <div className="container mx-auto px-6 3xl:px-20 relative z-10">
+            <div className="container mx-auto px-4 xs:px-6 3xl:px-20 relative z-10">
                 <div className="flex flex-col gap-2 mb-12 md:mb-16">
                     <div className="flex items-center gap-3">
                         <div className="w-1.5 h-10 bg-gradient-to-b from-cyan-400 to-teal-500 rounded-full" />
@@ -90,7 +90,7 @@ export default function Testimonials() {
                     <h2 className="text-3xl md:text-6xl lg:text-7xl 3xl:text-[9rem] font-black text-white tracking-tighter uppercase leading-[0.9] mt-4 mb-4">
                         Endorsed by <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-500 italic">Industry Peers</span>
                     </h2>
-                    <p className="text-gray-400/80 max-w-2xl 3xl:max-w-4xl text-sm md:text-lg 3xl:text-2xl font-light leading-relaxed">
+                    <p className="text-gray-300/90 max-w-2xl 3xl:max-w-4xl text-sm md:text-lg 3xl:text-2xl font-light leading-relaxed">
                         Authentic trust earned through architectural rigour and seamless collaboration.
                     </p>
                 </div>
