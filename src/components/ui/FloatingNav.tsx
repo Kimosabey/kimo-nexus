@@ -73,11 +73,11 @@ export const FloatingNav = ({
                                 key={`link=${idx}`}
                                 href={navItem.link}
                                 className={cn(
-                                    "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-600 dark:hover:text-cyan-400 hover:text-neutral-500 transition-colors"
+                                    "relative text-neutral-400 items-center flex space-x-1 hover:text-cyan-400 transition-colors"
                                 )}
                             >
                                 <span className="block sm:hidden">{navItem.icon}</span>
-                                <span className="hidden sm:block text-[12px] md:text-sm font-medium">{navItem.name}</span>
+                                <span className="hidden sm:block text-[10px] xs:text-[12px] md:text-sm font-medium">{navItem.name}</span>
                             </Link>
                         ))}
                     </div>
@@ -86,7 +86,7 @@ export const FloatingNav = ({
                 <Link
                     href="/resume.pdf"
                     target="_blank"
-                    className="border text-[11px] sm:text-xs font-bold uppercase tracking-widest relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-3 sm:px-6 py-2 sm:py-2.5 rounded-full hover:bg-white/10 transition-colors shrink-0 flex items-center justify-center"
+                    className="border text-[10px] xs:text-[11px] sm:text-xs font-bold uppercase tracking-widest relative border-white/[0.2] text-white px-3 sm:px-6 py-1.5 xs:py-2 sm:py-2.5 rounded-full hover:bg-white/10 transition-colors shrink-0 flex items-center justify-center"
                 >
                     <span className="relative z-10">Resume</span>
                     <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent h-px" />

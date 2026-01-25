@@ -41,7 +41,7 @@ const ProjectCard = memo(({ project, index }: { project: Project, index: number 
                 transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
                 onMouseEnter={() => setShowTooltip(true)}
                 onMouseLeave={() => setShowTooltip(false)}
-                className="group relative flex flex-col justify-end overflow-hidden bg-[#0a0a0c] border border-white/5 hover:border-cyan-400/40 transition-all duration-700 min-h-[360px] md:min-h-[450px] lg:h-[500px] will-change-transform"
+                className="group relative flex flex-col justify-end overflow-hidden bg-[#0a0a0c] border border-white/5 hover:border-cyan-400/40 transition-all duration-700 min-h-[360px] md:min-h-[450px] lg:h-[500px] 3xl:h-[700px] will-change-transform"
                 style={{
                     borderRadius: '40px 8px 40px 8px', // Liquid Leaf / Ocean Wave Shape
                 }}
@@ -116,7 +116,7 @@ const ProjectCard = memo(({ project, index }: { project: Project, index: number 
                                 id: i,
                                 name: tech,
                                 designation: i === 0 ? "Core Tech" : "Integration",
-                                icon: <Icon className="w-5 h-5 text-cyan-400" />
+                                icon: <Icon className="w-5 h-5 3xl:w-10 3xl:h-10 text-cyan-400" />
                             };
                         })}
                     />
@@ -126,11 +126,11 @@ const ProjectCard = memo(({ project, index }: { project: Project, index: number 
                     <div className="mb-auto"></div>
 
                     <motion.div className="flex flex-col">
-                        <h3 className="text-xl md:text-2xl lg:text-3xl font-display font-bold text-white mb-2 md:mb-3 leading-tight group-hover:text-cyan-400 transition-colors duration-300">
+                        <h3 className="text-xl md:text-2xl lg:text-3xl 3xl:text-5xl font-display font-bold text-white mb-2 md:mb-3 3xl:mb-6 leading-tight group-hover:text-cyan-400 transition-colors duration-300">
                             {project.title}
                         </h3>
 
-                        <p className="text-gray-400 text-xs md:text-sm lg:text-base leading-relaxed line-clamp-2 md:line-clamp-3 mb-4 md:mb-6 max-w-lg opacity-90 md:opacity-80 md:group-hover:opacity-100 transition-opacity">
+                        <p className="text-gray-400 text-xs md:text-sm lg:text-base 3xl:text-2xl leading-relaxed line-clamp-2 md:line-clamp-3 3xl:line-clamp-4 mb-4 md:mb-6 3xl:mb-10 max-w-lg 3xl:max-w-3xl opacity-90 md:opacity-80 md:group-hover:opacity-100 transition-opacity">
                             {project.description}
                         </p>
 
@@ -140,7 +140,7 @@ const ProjectCard = memo(({ project, index }: { project: Project, index: number 
                                 {project.techStack.slice(0, 4).map((tech, i) => (
                                     <motion.span
                                         key={i}
-                                        className="px-2 md:px-2.5 py-0.5 md:py-1 text-[9px] md:text-[10px] lg:text-xs font-mono text-gray-400 bg-white/5 border border-white/10 rounded-full whitespace-nowrap hover:border-cyan-400/50 hover:text-white transition-all"
+                                        className="px-2 md:px-2.5 3xl:px-6 py-0.5 md:py-1 3xl:py-3 text-[9px] md:text-[10px] lg:text-xs 3xl:text-xl font-mono text-gray-400 bg-white/5 border border-white/10 rounded-full whitespace-nowrap hover:border-cyan-400/50 hover:text-white transition-all"
                                         initial={{ opacity: 0, y: 10 }}
                                         whileInView={{ opacity: 1, y: 0 }}
                                         transition={{ delay: i * 0.1 }}
@@ -157,7 +157,7 @@ const ProjectCard = memo(({ project, index }: { project: Project, index: number 
                                 initial={{ borderColor: 'rgba(255,255,255,0.1)' }}
                                 whileHover={{ borderColor: 'rgba(0,212,255,0.3)' }}
                             >
-                                <span className="text-[10px] md:text-xs font-mono text-cyan-400 font-bold uppercase tracking-widest">
+                                <span className="text-[10px] md:text-xs 3xl:text-xl font-mono text-cyan-400 font-bold uppercase tracking-widest">
                                     {project.highlight}
                                 </span>
                                 {!project.upcoming && (

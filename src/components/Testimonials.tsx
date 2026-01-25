@@ -42,7 +42,7 @@ function TestimonialCard({ item, index }: { item: typeof recommendations[0], ind
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="group relative h-full rounded-[2rem] md:rounded-[2.5rem] border border-white/5 p-5 md:p-10 transition-all duration-500 hover:border-cyan-400/30 overflow-hidden"
+            className="group relative h-full rounded-[2rem] md:rounded-[2.5rem] 3xl:rounded-[4rem] border border-white/5 p-5 md:p-10 3xl:p-16 transition-all duration-500 hover:border-cyan-400/30 overflow-hidden"
             style={{
                 background: "rgba(10, 10, 12, 0.4)",
                 backdropFilter: "blur(16px)"
@@ -53,19 +53,19 @@ function TestimonialCard({ item, index }: { item: typeof recommendations[0], ind
 
             <div className="relative z-10 h-full flex flex-col justify-between">
                 <div>
-                    <span className="text-4xl md:text-6xl text-cyan-400/20 font-serif leading-none select-none">"</span>
-                    <p className="text-sm md:text-base lg:text-lg leading-relaxed text-gray-300 font-light italic mt-1 md:mt-2">
+                    <span className="text-4xl md:text-6xl 3xl:text-9xl text-cyan-400/20 font-serif leading-none select-none">"</span>
+                    <p className="text-sm md:text-base lg:text-lg 3xl:text-3xl leading-relaxed text-gray-300 font-light italic mt-1 md:mt-2 3xl:mt-6">
                         {item.quote}
                     </p>
                 </div>
 
-                <div className="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-white/5 flex items-center gap-4">
-                    <div className="h-10 w-1 bg-gradient-to-b from-cyan-400 to-teal-500 rounded-full shrink-0" />
-                    <div className="flex flex-col gap-0.5 overflow-hidden">
-                        <span className="text-xs md:text-base font-bold text-white tracking-tight truncate">
+                <div className="mt-6 md:mt-8 3xl:mt-12 pt-6 md:pt-8 3xl:pt-12 border-t border-white/5 flex items-center gap-4 3xl:gap-8">
+                    <div className="h-10 3xl:h-20 w-1 3xl:w-2 bg-gradient-to-b from-cyan-400 to-teal-500 rounded-full shrink-0" />
+                    <div className="flex flex-col gap-0.5 3xl:gap-2 overflow-hidden">
+                        <span className="text-xs md:text-base 3xl:text-3xl font-bold text-white tracking-tight truncate">
                             {item.name}
                         </span>
-                        <span className="text-[9px] md:text-xs font-mono font-medium text-cyan-400 uppercase tracking-widest opacity-80 truncate">
+                        <span className="text-[9px] md:text-xs 3xl:text-lg font-mono font-medium text-cyan-400 uppercase tracking-widest opacity-80 truncate">
                             {item.title}
                         </span>
                     </div>
