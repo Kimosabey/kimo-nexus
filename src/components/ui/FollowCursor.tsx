@@ -1,13 +1,20 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 export const FollowCursor = ({ className }: { className?: string }) => {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isPointer, setIsPointer] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
+        // Detect if the device has a mouse/fine pointer
+        const hasMouse = window.matchMedia("(pointer: fine)").matches;
+        if (!hasMouse) return;
+
         const handleMouseMove = (e: MouseEvent) => {
+            if (!isVisible) setIsVisible(true);
             setMousePosition({ x: e.clientX, y: e.clientY });
 
             // Check if hovering over clickable elements
@@ -20,15 +27,24 @@ export const FollowCursor = ({ className }: { className?: string }) => {
             setIsPointer(isClickable);
         };
 
+        const handleMouseLeave = () => setIsVisible(false);
+        const handleMouseEnter = () => setIsVisible(true);
+
         window.addEventListener("mousemove", handleMouseMove);
+        document.addEventListener("mouseleave", handleMouseLeave);
+        document.addEventListener("mouseenter", handleMouseEnter);
 
         return () => {
             window.removeEventListener("mousemove", handleMouseMove);
+            document.removeEventListener("mouseleave", handleMouseLeave);
+            document.removeEventListener("mouseenter", handleMouseEnter);
         };
-    }, []);
+    }, [isVisible]);
+
+    if (!isVisible) return null;
 
     return (
-        <>
+        <div className={cn("hidden lg:block", className)}>
             {/* Main cursor dot */}
             <motion.div
                 className="fixed top-0 left-0 w-3 h-3 bg-cyan-400 rounded-full pointer-events-none z-[9999] mix-blend-screen"
@@ -60,6 +76,6 @@ export const FollowCursor = ({ className }: { className?: string }) => {
                     mass: 0.8,
                 }}
             />
-        </>
+        </div>
     );
 };

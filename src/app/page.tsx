@@ -2,9 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import {
-  ArrowDown, ArrowRight, ArrowUpRight,
-  Cpu, Eye, Zap, Server, Brain, Database, Palette,
-  Github, Linkedin, Twitter, Terminal, Code2, Globe
+  Github, Linkedin, Twitter, Terminal, Lock, Shield, BookOpen, Mail
 } from "lucide-react";
 import { motion, useScroll, useTransform, useSpring, AnimatePresence, useMotionValue, useMotionTemplate } from "framer-motion";
 import Image from "next/image";
@@ -12,7 +10,7 @@ import { projects, Project } from "@/lib/projects";
 import {
   SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiNodedotjs, SiPython,
   SiPostgresql, SiDocker, SiAmazonwebservices, SiTensorflow, SiPytorch, SiOpenai,
-  SiFramer, SiGit, SiMongodb, SiRedis
+  SiFramer, SiGit, SiMongodb, SiRedis, SiFlask, SiMysql, SiJquery, SiChakraui
 } from 'react-icons/si';
 import LogoLoop from "@/components/ui/LogoLoop";
 import { Spotlight } from "@/components/ui/Spotlight";
@@ -24,8 +22,12 @@ import { SparklesCore, Sparkles } from "@/components/ui/Sparkles";
 import { HeroParallax } from "@/components/ui/HeroParallax";
 import NumberTicker from "@/components/ui/NumberTicker";
 import { CardContainer, CardBody, CardItem } from "@/components/ui/3DCard";
+import { PinContainer } from "@/components/ui/3d-pin";
 import { Carousel, Card } from "@/components/ui/AppleCardsCarousel";
 import { BackgroundGradient } from "@/components/ui/BackgroundGradient";
+import { BackgroundBeams } from "@/components/ui/BackgroundBeams";
+import { AuroraBackground } from "@/components/ui/AuroraBackground";
+import { WavyBackground } from "@/components/ui/wavy-background";
 import { FloatingNav } from "@/components/ui/FloatingNav";
 import Experience from "@/components/Experience";
 import Testimonials from "@/components/Testimonials";
@@ -49,6 +51,7 @@ const USE_VANTA_BACKGROUND = false; // ✨ DISABLED
 
 
 import { MultiStepLoader } from "@/components/ui/MultiStepLoader";
+import { LoaderFour } from "@/components/ui/loader";
 
 const loadingStates = [
   { text: "Initializing Core Neural Engine" },
@@ -108,17 +111,7 @@ function DescriptorHeader({ title, subtitle }: { title: string, subtitle: string
 
 function Preloader({ loading }: { loading: boolean }) {
   return (
-    <AnimatePresence>
-      {loading && (
-        <motion.div
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[10000] flex items-center justify-center bg-black"
-        >
-          <MultiStepLoader loadingStates={loadingStates} loading={loading} duration={500} loop={false} />
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <LoaderFour loading={loading} />
   );
 }
 
@@ -132,6 +125,7 @@ const techLogos = [
   { node: <SiTypescript />, title: "TypeScript" },
   { node: <SiTailwindcss />, title: "Tailwind" },
   { node: <SiFramer />, title: "Framer Motion" },
+  { node: <SiChakraui />, title: "Chakra UI" },
 
   // Backend & Languages
   { node: <SiNodedotjs />, title: "Node.js" },
@@ -141,11 +135,13 @@ const techLogos = [
   { node: <SiTensorflow />, title: "TensorFlow" },
   { node: <SiPytorch />, title: "PyTorch" },
   { node: <SiOpenai />, title: "OpenAI" },
+  { node: <SiFlask />, title: "Flask" },
 
   // Databases
   { node: <SiPostgresql />, title: "PostgreSQL" },
   { node: <SiMongodb />, title: "MongoDB" },
   { node: <SiRedis />, title: "Redis" },
+  { node: <SiMysql />, title: "MySQL" },
 
   // DevOps & Cloud
   { node: <SiDocker />, title: "Docker" },
@@ -167,7 +163,7 @@ export default function Home() {
   const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
 
   useEffect(() => {
-    const brandingTimer = setTimeout(() => setMinTimeElapsed(true), 2500);
+    const brandingTimer = setTimeout(() => setMinTimeElapsed(true), 4500);
     const safetyTimer = setTimeout(() => setIsVantaReady(true), 5000);
     return () => {
       clearTimeout(brandingTimer);
@@ -240,47 +236,23 @@ export default function Home() {
       />
 
       <main className="relative z-10 flex flex-col items-center w-full bg-[#050505] overflow-x-hidden">
-        {/* Aceternity Background Sparkles & Meteors */}
-        {!USE_VANTA_BACKGROUND && (
-          <div className="fixed inset-0 pointer-events-none z-0">
-            <div className="w-full absolute inset-0 h-screen">
-              <SparklesCore
-                id="tsparticlesfullpage"
-                background="transparent"
-                minSize={0.6}
-                maxSize={1.4}
-                particleDensity={100}
-                className="w-full h-full"
-                particleColor="#00d4ff"
-              />
-            </div>
-            <div className="absolute inset-0 overflow-hidden">
-              <Meteors number={25} />
-            </div>
-          </div>
-        )}
+        <WavyBackground
+          className="fixed inset-0 z-0 h-full w-full pointer-events-none"
+          containerClassName="fixed inset-0 z-0 h-full w-full pointer-events-none"
+          colors={[
+            "#3b82f6", // Electric Blue (Primary)
+            "#f59e0b", // Warm Amber (Accent)
+            "#1d4ed8", // Deep Blue
+            "#b45309"  // Deep Amber
+          ]}
+          waveWidth={40}
+          blur={10}
+          speed="fast"
+          backgroundFill="#000000"
+        />
 
         {/* Hero - iOS FLUX STYLE */}
-        <section ref={heroRef} className="min-h-[100dvh] w-full flex flex-col justify-center items-center px-4 md:px-12 lg:px-24 pt-32 lg:pt-24 pb-12 md:pb-20 relative overflow-hidden">
-
-          {/* Internal Sparkles for Title Area */}
-          <div className="absolute inset-0 z-0 opacity-30">
-            <SparklesCore
-              id="heroSparkles"
-              background="transparent"
-              minSize={0.4}
-              maxSize={1.2}
-              particleDensity={50}
-              className="w-full h-full"
-              particleColor="#00d4ff"
-            />
-          </div>
-
-          {/* Aceternity Spotlight Effect */}
-          <Spotlight
-            className="-top-40 left-0 md:left-60 md:-top-20"
-            fill="white"
-          />
+        <section ref={heroRef} className="min-h-[100dvh] w-full flex flex-col justify-center items-center px-4 md:px-12 lg:px-24 pt-32 lg:pt-24 pb-12 md:pb-20 relative overflow-hidden z-10">
 
           {/* 🔄 MESH GRADIENTS DISABLED - Uncomment entire block below to restore */}
           {/* 
@@ -398,13 +370,13 @@ export default function Home() {
               <div style={{ transform: 'translateZ(30px)' }}>
                 <TextGenerateEffect
                   words="ARCHITECTING"
-                  className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl 2xl:text-[7rem] font-black tracking-tighter text-white leading-[0.95] uppercase text-center lg:text-left"
+                  className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl 2xl:text-[7rem] font-black tracking-tighter text-white leading-[0.95] uppercase text-center lg:text-left"
                   duration={0.8}
                   filter={true}
                 />
                 <TextGenerateEffect
                   words="DIGITAL MINDS"
-                  className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl 2xl:text-[7rem] font-black tracking-tighter leading-[0.95] uppercase text-center lg:text-left bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-white to-teal-400"
+                  className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl 2xl:text-[7rem] font-black tracking-tighter leading-[0.95] uppercase text-center lg:text-left bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-white to-teal-400"
                   duration={0.8}
                   filter={true}
                 />
@@ -416,15 +388,15 @@ export default function Home() {
                 transition={{ delay: 1.6, duration: 0.8 }}
                 className="mt-6 flex flex-col items-center lg:items-start"
               >
-                <div className="text-xl md:text-2xl font-display text-gray-400 mb-6 h-12 flex items-center justify-center lg:justify-start gap-3">
-                  <span className="opacity-50 font-mono text-sm tracking-widest text-[#6b7bff]">DESCRIPTOR//:</span>
-                  <FlipWords words={["AI_Architect", "Full_Stack_Dev", "Systems_Designer", "Digital_Strategist"]} className="text-white font-black uppercase tracking-tight" />
+                <div className="text-lg md:text-2xl font-display text-gray-400 mb-6 h-auto md:h-12 flex flex-col md:flex-row items-center justify-center lg:justify-start gap-1 md:gap-3">
+                  <span className="opacity-50 font-mono text-[10px] md:text-sm tracking-widest text-[#6b7bff]">DESCRIPTOR//:</span>
+                  <FlipWords words={["AI_Architect", "PoC_Master", "Full_Stack_Dev", "Systems_Designer", "Digital_Strategist"]} className="text-white font-black uppercase tracking-tight" />
                 </div>
                 <p
                   className="text-base md:text-lg lg:text-xl text-gray-400 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light mb-10"
                   style={{ transform: 'translateZ(25px)' }}
                 >
-                  Engineering <span className="text-white font-medium border-b border-cyan-500/30">high-performance intelligence</span> across the stack. Specializing in Generative AI, Distributed Infrastructures, and Neural Interfaces.
+                  Orchestrating <span className="text-white font-medium border-b border-cyan-500/30">high-performance neural fabrics</span> across the stack. Siphoning intelligence through Generative AI, Distributed Infrastructures, and Sentient Interfaces.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-6 mt-2 justify-center lg:justify-start">
@@ -443,7 +415,7 @@ export default function Home() {
 
             {/* HERO IMAGE - WAVE-THEMED, CLEAN & SIMPLE */}
             <motion.div
-              className="relative h-[400px] md:h-[550px] lg:h-[650px] w-full flex items-center justify-center order-1 lg:order-2"
+              className="relative h-[300px] sm:h-[400px] md:h-[550px] lg:h-[650px] w-full flex items-center justify-center order-1 lg:order-2"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 1.3, duration: 1.2, ease: 'easeOut' }}
@@ -521,58 +493,86 @@ export default function Home() {
 
                   <div className="space-y-8 text-gray-400 text-lg md:text-xl leading-relaxed font-light max-w-2xl">
                     <p>
-                      In a world of digital entropy, I architect <span className="text-white font-medium underline decoration-cyan-500/30 underline-offset-8">deterministic intelligence</span>. My work exists at the critical junction of high-performance infrastructure and human-centric design.
+                      I operate as a <span className="text-white font-medium underline decoration-cyan-500/30 underline-offset-8">Full Stack Architect</span>, specializing in the engineering of high-performance digital neural fabrics. With 4.8+ years of runtime experience, I optimize the intersection of <span className="text-cyan-400 font-medium font-mono">React</span>, <span className="text-cyan-400 font-medium font-mono">Node.js</span>, and <span className="text-cyan-400 font-medium font-mono">Python</span>.
                     </p>
                     <p>
-                      Specializing in <span className="text-cyan-400 font-medium">Distributed Neural Fabrics</span> and <span className="text-teal-400 font-medium">Low-Latency Audio Flux</span>, I build for the 0.1% edge cases where conventional systems fail.
+                      My core focus involves siphoning intelligence from complex models—utilizing <span className="text-teal-400 font-medium">TTS</span>, <span className="text-teal-400 font-medium">ASR</span>, and <span className="text-teal-400 font-medium">NLP (SpaCy)</span>—and manifesting them into low-latency, production-ready product features.
+                    </p>
+                    <p>
+                      I believe in the philosophy of <span className="text-white font-bold italic">Architectural Rigour</span>. Over my career, I have supervised the deployment of <span className="text-white font-bold tracking-widest">40+ full-scale projects</span> and mentored over <span className="text-white font-bold tracking-widest">250+ engineering students and developers</span>, ensuring system integrity from conception to scale.
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4 mt-12">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-12">
                     {[
-                      { label: "NETWORK_UPTIME", val: "99.99%", desc: "High availability design" },
-                      { label: "DATA_VELOCITY", val: "<1ms", desc: "Batch ingestion focus" },
+                      { label: "EXPERIENCE_METRIC", val: "4.8 YRS", desc: "Full Stack & AI Core" },
+                      { label: "SYSTEM_DELIVERY", val: "40+", desc: "Deployed Platforms" },
                     ].map((stat, i) => (
-                      <div key={i} className="group/stat p-6 rounded-[2rem] bg-white/[0.03] border border-white/5 hover:border-cyan-400/30 transition-all duration-500 backdrop-blur-sm relative overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity" />
-                        <div className="text-3xl md:text-4xl font-bold text-white mb-2 relative z-10">{stat.val}</div>
-                        <div className="text-[10px] text-cyan-400 uppercase tracking-widest font-bold mb-1 relative z-10">{stat.label}</div>
-                        <div className="text-[10px] text-gray-500 relative z-10 italic">{stat.desc}</div>
+                      <div key={i} className="group/stat p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:border-cyan-400/40 transition-all duration-700 backdrop-blur-xl relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 via-transparent to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity duration-700" />
+                        <div className="text-4xl md:text-6xl font-black text-white mb-3 relative z-10 font-display tracking-tight group-hover/stat:text-cyan-400 transition-colors">{stat.val}</div>
+                        <div className="text-[11px] text-cyan-400/60 uppercase tracking-[0.4em] font-black mb-1 relative z-10 group-hover/stat:text-cyan-400 transition-colors text-shadow-glow">{stat.label}</div>
+                        <div className="text-xs text-gray-500 relative z-10 italic font-light tracking-wide">{stat.desc}</div>
+                        {/* Static scanline effect on hover */}
+                        <div className="absolute inset-x-0 top-0 h-px bg-cyan-400/20 translate-y-[-100%] group-hover/stat:translate-y-[800%] transition-transform duration-[2000ms] ease-linear repeat-infinite pointer-events-none" />
                       </div>
                     ))}
                   </div>
                 </div>
 
                 <div className="relative group lg:pl-12">
-                  <BackgroundGradient
-                    containerClassName="rounded-[3rem]"
-                    className="rounded-[3rem] p-[1px] bg-transparent shadow-2xl overflow-hidden"
-                  >
-                    <div className="relative h-full min-h-[450px] rounded-[3rem] bg-[#050505] p-10 md:p-14 flex flex-col justify-center border border-white/5">
-                      <Terminal className="text-cyan-400 mb-10 w-16 h-16 opacity-80" strokeWidth={1} />
-                      <div className="space-y-8 font-mono text-sm md:text-lg mb-12">
-                        <div className="flex gap-4">
-                          <span className="text-purple-400">λ</span>
-                          <span className="text-gray-500 font-light italic">const</span>
-                          <span className="text-white">mission</span>
-                          <span className="text-cyan-400">=</span>
-                          <span className="text-teal-400">"Architecting the Future"</span>
-                        </div>
-                        <div className="flex gap-4">
-                          <span className="text-purple-400">λ</span>
-                          <span className="text-gray-500 font-light italic">type</span>
-                          <span className="text-white">Stack</span>
-                          <span className="text-cyan-400">=</span>
-                          <span className="text-yellow-400">AI | Infra | Scale</span>
+                  <div className="flex items-center justify-center w-full min-h-[25rem]">
+                    <PinContainer title="/system.core" href="#projects">
+                      <div className="flex basis-full flex-col p-4 tracking-tight text-slate-100/50 sm:basis-1/2 w-[20rem] md:w-[24rem] h-auto min-h-[20rem]">
+                        <div className="flex flex-col justify-center h-full">
+                          <Terminal className="text-blue-500 mb-6 w-12 h-12 opacity-80" strokeWidth={1} />
+                          <div className="space-y-4 font-mono text-xs md:text-sm mb-8">
+                            <div className="flex gap-2">
+                              <span className="text-purple-400">λ</span>
+                              <span className="text-gray-500 font-light italic">const</span>
+                              <span className="text-white">mission</span>
+                              <span className="text-blue-500">=</span>
+                              <span className="text-teal-400">"Architecting Future"</span>
+                            </div>
+                            <div className="flex gap-2">
+                              <span className="text-purple-400">λ</span>
+                              <span className="text-gray-500 font-light italic">type</span>
+                              <span className="text-white">Stack</span>
+                              <span className="text-blue-500">=</span>
+                              <span className="text-amber-400">AI | Infra | Scale</span>
+                            </div>
+                          </div>
+                          <div className="pt-6 border-t border-blue-500/10">
+                            <TextGenerateEffect words="// Harmonizing machine intelligence with human-scale precision." className="text-gray-500 font-light text-xs" />
+                          </div>
                         </div>
                       </div>
-                      <div className="pt-10 border-t border-cyan-400/10">
-                        <p className="text-gray-500 text-sm md:text-base leading-relaxed italic">
-                           // Harmonizing machine intelligence with <br /> // human-scale architectural precision.
-                        </p>
-                      </div>
+                    </PinContainer>
+                  </div>
+
+                  <div className="mt-32">
+                    <div className="flex items-center gap-3 mb-8 px-4">
+                      <div className="w-1.5 h-6 bg-cyan-400 rounded-full" />
+                      <span className="text-cyan-400 font-mono text-[9px] md:text-[10px] tracking-[0.3em] md:tracking-[0.6em] uppercase font-black">Technical_Filaments</span>
                     </div>
-                  </BackgroundGradient>
+                    <LogoLoop
+                      logos={[
+                        { node: <SiReact />, title: "React Core" },
+                        { node: <SiNextdotjs />, title: "Next.js 15" },
+                        { node: <SiTypescript />, title: "TypeScript" },
+                        { node: <SiNodedotjs />, title: "Node.js" },
+                        { node: <SiPython />, title: "Python AI" },
+                        { node: <SiPostgresql />, title: "PostgreSQL" },
+                        { node: <SiRedis />, title: "Redis Cache" },
+                        { node: <SiDocker />, title: "Docker Container" },
+                        { node: <SiAmazonwebservices />, title: "AWS Cloud" },
+                        { node: <SiTailwindcss />, title: "Tailwind 4" },
+                        { node: <SiMongodb />, title: "MongoDB Atlas" },
+                        { node: <SiGit />, title: "Git Source" }
+                      ]}
+                      speed={40}
+                    />
+                  </div>
                 </div>
               </div>
             </section>
@@ -587,9 +587,9 @@ export default function Home() {
                   className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-cyan-400/5 border border-cyan-400/20 mb-8"
                 >
                   <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_rgba(0,212,255,1)]" />
-                  <span className="text-[11px] font-mono font-black text-cyan-400 uppercase tracking-[0.5em] text-shadow-glow">Proprietary_Nexus_Builds</span>
+                  <span className="text-[9px] md:text-[11px] font-mono font-black text-cyan-400 uppercase tracking-[0.2em] md:tracking-[0.5em] text-shadow-glow">Proprietary_Nexus_Builds</span>
                 </motion.div>
-                <h2 className="text-6xl md:text-8xl lg:text-9xl font-black text-white tracking-tightest uppercase leading-[0.75] mb-4">
+                <h2 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-white tracking-tightest uppercase leading-[0.85] md:leading-[0.75] mb-4">
                   Digital <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-400 to-white italic">Masterpieces</span>
                 </h2>
               </div>
@@ -604,40 +604,76 @@ export default function Home() {
                     transition={{ duration: 0.8 }}
                   >
                     <CardContainer className="inter-var group/card w-full">
-                      <CardBody className="bg-[#050505]/95 relative group/card-body border-white/10 w-full h-auto rounded-[3.5rem] p-8 border hover:border-cyan-400/50 transition-all duration-700 shadow-3xl overflow-hidden">
+                      <CardBody className="bg-[#050505]/40 relative group/card-body border-white/10 w-full h-auto rounded-[2rem] md:rounded-[3.5rem] p-6 md:p-8 border hover:border-cyan-400/50 transition-all duration-700 shadow-3xl overflow-hidden backdrop-blur-md">
                         <div className="absolute inset-0 bg-grid-white/[0.02] [mask-image:radial-gradient(ellipse_at_center,transparent_30%,black)] pointer-events-none" />
 
                         <CardItem translateZ="70" className="text-2xl md:text-3xl font-black text-white mb-4 font-display relative z-10 tracking-tight">{project.title}</CardItem>
-                        <CardItem as="p" translateZ="90" className="text-gray-400 text-sm md:text-base mt-4 font-light line-clamp-2 leading-relaxed h-12 uppercase tracking-tighter">{project.description}</CardItem>
+                        <CardItem as="p" translateZ="90" className="text-gray-400 text-sm md:text-base mt-4 font-light leading-relaxed uppercase tracking-tighter">{project.description}</CardItem>
 
                         <CardItem translateZ="140" className="w-full mt-10">
-                          <div className="relative group/img overflow-hidden rounded-[3rem] aspect-[16/11] border border-white/10 shadow-2xl">
-                            <Image src={project.image} height="1200" width="1200" className="h-full w-full object-cover transition-transform duration-1000 group-hover/img:scale-110 grayscale-[50%] group-hover/img:grayscale-0" alt={project.title} />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-700 flex items-end p-8">
-                              <div className="px-5 py-2 rounded-full bg-cyan-400/20 border border-cyan-400/40 backdrop-blur-md">
-                                <span className="text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-widest">{project.category}</span>
+                          <div className="relative group/img overflow-hidden rounded-[1.5rem] md:rounded-[3rem] aspect-[16/11] border border-white/10 shadow-2xl flex items-center justify-center bg-[#0a0a0c]">
+                            {project.image ? (
+                              <>
+                                <Image src={project.image} height="1200" width="1200" className="h-full w-full object-cover transition-transform duration-1000 group-hover/img:scale-110 grayscale-[50%] group-hover/img:grayscale-0" alt={project.title} />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-700 flex items-end p-8">
+                                  <div className="px-5 py-2 rounded-full bg-cyan-400/20 border border-cyan-400/40 backdrop-blur-md">
+                                    <span className="text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-widest">{project.category}</span>
+                                  </div>
+                                </div>
+                              </>
+                            ) : (
+                              <div className="flex flex-col items-center gap-6 p-12 text-center relative z-10 w-full h-full justify-center">
+                                <div className="absolute inset-0 bg-grid-white/[0.05] [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" />
+                                <div className="h-20 w-20 rounded-full bg-cyan-400/5 border border-cyan-400/20 flex items-center justify-center group-hover/img:scale-110 transition-transform duration-500">
+                                  {project.isAcademic ? (
+                                    <BookOpen className="text-cyan-400/40 w-10 h-10 group-hover:text-cyan-400 transition-colors" />
+                                  ) : (
+                                    <Shield className="text-cyan-400/40 w-10 h-10 group-hover:text-cyan-400 transition-colors" />
+                                  )}
+                                </div>
+                                <div className="space-y-3">
+                                  <div className="text-[11px] font-mono text-cyan-400/80 uppercase tracking-[0.5em] font-black">
+                                    {project.isAcademic ? "ACADEMIC_RESEARCH" : "PROPRIETARY_SYSTEM"}
+                                  </div>
+                                  <div className="px-5 py-2 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-[10px] font-mono text-gray-400 uppercase tracking-widest leading-none font-bold">
+                                    {project.isAcademic ? "// Source_Code_Internal_to_Institution" : "// Access_Restricted_by_Veriteam_Node"}
+                                  </div>
+                                </div>
+                                <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,0,0.06))] z-20 bg-[length:100%_2px,3px_100%] pointer-events-none opacity-20" />
                               </div>
-                            </div>
+                            )}
                           </div>
                         </CardItem>
 
-                        <div className="flex flex-wrap gap-3 mt-10">
-                          {project.techStack.slice(0, 3).map((tech, i) => (
-                            <CardItem key={i} translateZ={40 + i * 20} className="px-5 py-2 bg-white/[0.03] border border-white/10 rounded-2xl text-[10px] font-mono font-black text-gray-500 group-hover:text-cyan-400/80 transition-colors uppercase tracking-widest">{tech}</CardItem>
+                        <div className="flex flex-wrap gap-2.5 mt-10">
+                          {project.techStack.slice(0, 4).map((tech, i) => (
+                            <CardItem key={i} translateZ={40 + i * 15} className="px-4 py-1.5 bg-cyan-400/5 border border-cyan-400/20 rounded-xl text-[9px] font-mono font-black text-cyan-400/60 group-hover:text-cyan-400 transition-all uppercase tracking-[0.2em]">{tech}</CardItem>
                           ))}
                         </div>
 
                         <div className="flex justify-between items-center mt-12 pt-8 border-t border-white/5 mx-[-2rem] px-8">
-                          <CardItem
-                            translateZ={50}
-                            as={Link}
-                            href={project.repoUrl}
-                            target="__blank"
-                            className="w-full flex items-center justify-center gap-4 py-4 rounded-[1.5rem] bg-white text-black text-[11px] font-black hover:bg-cyan-400 hover:shadow-[0_0_40px_rgba(0,212,255,0.4)] transition-all uppercase tracking-[0.3em] group/link"
-                          >
-                            <Github size={20} className="group-hover/link:scale-125 transition-transform" />
-                            ACCESS_PROJECT_CORE
-                          </CardItem>
+                          {project.isProprietary ? (
+                            <div className="w-full flex items-center justify-center gap-4 py-5 rounded-[1.8rem] bg-white/5 border border-white/10 text-gray-500 text-[10px] font-black uppercase tracking-[0.4em] transition-all group-hover:bg-white/[0.08] cursor-not-allowed">
+                              <Lock size={16} className="opacity-40" />
+                              PROPRIETARY_LICENSE
+                            </div>
+                          ) : project.isAcademic ? (
+                            <div className="w-full flex items-center justify-center gap-4 py-5 rounded-[1.8rem] bg-white/5 border border-white/10 text-gray-500 text-[10px] font-black uppercase tracking-[0.4em] transition-all group-hover:bg-white/[0.08] cursor-not-allowed">
+                              <BookOpen size={16} className="opacity-40" />
+                              ACADEMIC_ARCHIVE
+                            </div>
+                          ) : (
+                            <CardItem
+                              translateZ={60}
+                              as={Link}
+                              href={project.repoUrl || '#'}
+                              target="__blank"
+                              className="w-full flex items-center justify-center gap-5 py-5 rounded-[1.8rem] bg-white text-black text-[10px] font-black hover:bg-cyan-400 hover:shadow-[0_0_50px_rgba(0,212,255,0.4)] transition-all uppercase tracking-[0.4em] group/link shadow-xl"
+                            >
+                              <Github size={18} className="group-hover/link:scale-125 transition-transform" />
+                              ACCESS_PROJECT_CORE
+                            </CardItem>
+                          )}
                         </div>
                       </CardBody>
                     </CardContainer>
@@ -662,46 +698,148 @@ export default function Home() {
               <Testimonials />
             </section>
 
+            {/* Research Lab - Currently Exploring */}
+            <section className="w-full pt-16 pb-0" id="research">
+              <DescriptorHeader title="SUBSYSTEM_RESEARCH: ALPHA" subtitle="Continuous_Neural_Expansion" />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[
+                  { title: "Agentic_Orchestration", desc: "Developing multi-tool RAG pipelines and autonomous agentic collectives using LangChain." },
+                  { title: "Sentient_Interfaces", desc: "Engineering high-fidelity interactions with Framer Motion and low-level WebGL shaders." },
+                  { title: "Neural_Optimization", desc: "Fine-tuning localized model weights for edge-case inference and proprietary LLM hooks." },
+                  { title: "Fabric_Evolution", desc: "Researching Distributed Consensus (Raft/Paxos) and elastic scaling architectures." },
+                  { title: "Temporal_Audio_Flux", desc: "Manifesting sub-millisecond acoustic processing for real-time neural speech synthesis." },
+                  { title: "Cloud_Native_Foundry", desc: "Forging K8s-orchestrated microservices for global, multi-region high-density delivery." },
+                ].map((item, i) => (
+                  <div key={i} className="p-8 rounded-[2rem] bg-white/[0.02] border border-white/5 group hover:border-cyan-400/30 transition-all duration-500">
+                    <div className="text-cyan-400 font-mono text-[10px] mb-4 opacity-50 group-hover:opacity-100 transition-opacity">NODE_0{i + 1}: {item.title}</div>
+                    <p className="text-gray-400 text-sm font-light leading-relaxed">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
             {/* Final Call to Action - System Override Style */}
-            <section className="w-full pt-24 pb-32 px-4" id="contact">
-              <div className="max-w-5xl mx-auto text-center">
+            {/* Final Call to Action - System Interlink Protocol */}
+            <section className="w-full pt-32 pb-40 px-6 md:px-12 relative" id="contact">
+              <div className="absolute inset-0 bg-gradient-to-t from-cyan-500/10 via-transparent to-transparent pointer-events-none opacity-40 h-[500px] bottom-0" />
+
+              <div className="max-w-6xl mx-auto">
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, y: 100 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
+                  transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <Sparkles className="w-full mb-16" particleDensity={60} particleColor="#00d4ff" minSize={0.8} maxSize={2.5}>
-                    <h2 className="text-5xl md:text-9xl font-black text-white tracking-tightest uppercase leading-[0.8]">
-                      Initiate <br /> <span className="text-cyan-400 italic">Interlink</span>
-                    </h2>
-                  </Sparkles>
-
-                  <div className="flex flex-col items-center gap-12 mt-12">
-                    <MovingBorderButton
-                      as="a"
-                      href="mailto:harshan.aiyappa@gmail.com"
-                      duration={3000}
-                      borderRadius="1rem"
-                      className="bg-[#050505] border-white/10 text-white font-mono text-sm md:text-xl font-black px-8 md:px-20 py-6 md:py-8 transition-all hover:scale-105 hover:border-cyan-400/50"
-                    >
-                      harshan.aiyappa@gmail.com
-                    </MovingBorderButton>
-
-                    <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16 pt-24 border-t border-white/5 w-full justify-between mt-12">
-                      <div className="text-center md:text-left space-y-2">
-                        <p className="text-[10px] font-mono text-gray-600 tracking-[0.3em] uppercase">Built_with_Nexus_Control_Plane_V4.2</p>
-                        <p className="text-xs font-mono text-white/50 tracking-widest leading-loose">
-                          © 2026 // <span className="text-white font-black">AIYAPPA_PROTOCOL</span> // ENCRYPTED
-                        </p>
+                  <div className="flex flex-col md:flex-row items-end justify-between gap-12 mb-24">
+                    <div className="space-y-6">
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
+                        <span className="text-[11px] font-mono text-cyan-400 font-black tracking-[0.5em] uppercase">Ready_for_Transmission</span>
                       </div>
-                      <div className="flex justify-center">
-                        <AnimatedTooltip
-                          items={[
-                            { id: 1, name: "X_TERMINAL", designation: "@HarshanAiyappa", icon: <a href="https://x.com/HarshanAiyappa" target="_blank" className="text-gray-500 hover:text-cyan-400 transition-colors"><Twitter size={32} strokeWidth={1.5} /></a> },
-                            { id: 2, name: "LINKEDIN_NODE", designation: "Harshan Aiyappa", icon: <a href="https://linkedin.com/in/harshan-aiyappa" target="_blank" className="text-gray-500 hover:text-cyan-400 transition-colors"><Linkedin size={32} strokeWidth={1.5} /></a> },
-                            { id: 3, name: "GIT_SOURCE", designation: "Kimosabey", icon: <a href="https://github.com/Kimosabey" target="_blank" className="text-gray-500 hover:text-cyan-400 transition-colors"><Github size={32} strokeWidth={1.5} /></a> },
-                          ]}
-                        />
+                      <h2 className="text-6xl md:text-[10rem] font-black text-white tracking-tightest uppercase leading-[0.75]">
+                        Initiate <br /> <span className="text-cyan-400 italic">Interlink</span>
+                      </h2>
+                    </div>
+
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="relative group"
+                    >
+                      <div className="absolute inset-0 bg-cyan-400/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                      <a
+                        href="https://mail.google.com/mail/?view=cm&fs=1&to=harshan.aiyappa@gmail.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="relative z-10 flex flex-col items-center justify-center w-32 h-32 md:w-48 md:h-48 rounded-full bg-white text-black text-sm md:text-xl font-black uppercase tracking-tighter hover:bg-cyan-400 hover:shadow-[0_0_60px_rgba(0,212,255,0.4)] transition-all duration-500 group-hover:rotate-[15deg]"
+                      >
+                        <Mail size={40} className="mb-2 hidden md:block" />
+                        <span>REACH_CORE</span>
+                      </a>
+                    </motion.div>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 py-20 border-t border-white/10">
+                    {/* Column 1: Validated Logs */}
+                    <div className="space-y-8">
+                      <div className="flex items-center gap-3">
+                        <div className="w-1 h-6 bg-cyan-400 rounded-full" />
+                        <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-[0.4em] font-black">VALIDATED_LOGS</span>
+                      </div>
+                      <ul className="space-y-4">
+                        {[
+                          "Node.js Developer (2022)",
+                          "React Mastery Core (2021)",
+                          "MongoDB Engine Guide (2022)",
+                          "MERN Fullstack Protocol (2022)"
+                        ].map((log, i) => (
+                          <motion.li
+                            key={i}
+                            initial={{ opacity: 0, x: -10 }}
+                            whileInView={{ opacity: 0.5, x: 0 }}
+                            transition={{ delay: i * 0.1 }}
+                            className="text-[11px] font-mono text-gray-400 hover:opacity-100 transition-opacity flex items-center gap-3 uppercase cursor-default"
+                          >
+                            <span className="text-cyan-400/30 font-bold">[{i + 1}]</span>
+                            // {log}
+                          </motion.li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Column 2: Linguistic Threads */}
+                    <div className="space-y-8">
+                      <div className="flex items-center gap-3">
+                        <div className="w-1 h-6 bg-teal-400 rounded-full" />
+                        <span className="text-[10px] font-mono text-teal-400 uppercase tracking-[0.4em] font-black">LINGUISTIC_CORE</span>
+                      </div>
+                      <div className="flex flex-wrap gap-4">
+                        {["English", "Kannada", "Hindi"].map((lang) => (
+                          <div key={lang} className="px-6 py-3 bg-white/[0.02] border border-white/5 rounded-2xl text-[11px] font-mono text-white/40 hover:text-white hover:border-teal-400/30 transition-all font-black tracking-widest uppercase">
+                            {lang}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Column 3: Global Access Tokens */}
+                    <div className="space-y-8">
+                      <div className="flex items-center gap-3">
+                        <div className="w-1 h-6 bg-purple-400 rounded-full" />
+                        <span className="text-[10px] font-mono text-purple-400 uppercase tracking-[0.4em] font-black">ACCESS_TOKENS</span>
+                      </div>
+                      <div className="flex gap-4">
+                        {[
+                          { id: 1, name: "X_TERMINAL", designation: "@HarshanAiyappa", url: "https://x.com/HarshanAiyappa", icon: <Twitter size={24} /> },
+                          { id: 2, name: "LINKEDIN_NODE", designation: "Harshan Aiyappa", url: "https://linkedin.com/in/harshan-aiyappa", icon: <Linkedin size={24} /> },
+                          { id: 3, name: "GIT_SOURCE", designation: "Kimosabey", url: "https://github.com/Kimosabey", icon: <Github size={24} /> },
+                        ].map((social) => (
+                          <motion.a
+                            key={social.id}
+                            whileHover={{ y: -5 }}
+                            href={social.url}
+                            target="_blank"
+                            className="w-14 h-14 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-gray-500 hover:text-purple-400 hover:border-purple-400/30 transition-all backdrop-blur-xl"
+                          >
+                            {social.icon}
+                          </motion.a>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col lg:flex-row items-center justify-between gap-12 pt-16 border-t border-white/5">
+                    <div className="flex flex-col items-center lg:items-start gap-2">
+                      <p className="text-[10px] font-mono text-gray-700 tracking-[0.4em] uppercase font-bold">System_Runtime_V5.0 // Sentinel_Secure</p>
+                      <p className="text-[11px] font-mono text-white/30 tracking-widest">
+                        © 2026 // <span className="text-white/60 font-black">AIYAPPA_PROTOCOL</span> // HARSHAN AM
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-8">
+                      <div className="hidden lg:flex items-center gap-3 px-4 py-2 bg-cyan-400/5 rounded-xl border border-cyan-400/10">
+                        <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                        <span className="text-[10px] font-mono text-cyan-400 font-black tracking-widest uppercase">Nodes_Active: 1,204,591</span>
                       </div>
                     </div>
                   </div>
@@ -709,8 +847,8 @@ export default function Home() {
               </div>
             </section>
           </div>
-        </TracingBeam>
-      </main>
+        </TracingBeam >
+      </main >
     </>
   );
 }

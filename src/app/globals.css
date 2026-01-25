@@ -8,8 +8,8 @@
   --font-rajdhani: 'Rajdhani', sans-serif;
   --font-sacramento: 'Sacramento', cursive;
 
-  /* Colors from profile image - Grayscale Palette */
-  --color-background-dark: #131313;
+  /* Colors from profile image - Obsidian Palette */
+  --color-background-dark: #000000;
   /* cod-gray - main bg */
   --color-surface-dark: #2f2f2f;
   /* mine-shaft - cards */
@@ -24,13 +24,14 @@
   --color-seashell: #f1f1f1;
   /* seashell - primary text */
 
-  /* Accent color for UI/UX (Ocean Theme) */
-  --color-primary: #00d4ff;
-  /* cyan-400 */
-  --color-primary-light: #22d3ee;
-  /* cyan-400 */
-  --color-primary-dark: #0f766e;
-  /* teal-700 */
+  /* Accent color for UI/UX (Monochrome / Onyx Theme) - REVERTED */
+  /* Reverting to Blue & Amber Theme */
+  --color-primary: #3b82f6;
+  /* blue-500 */
+  --color-primary-light: #60a5fa;
+  /* blue-400 */
+  --color-primary-dark: #f59e0b;
+  /* amber-500 */
 
   /* Glass effect colors */
   --color-glass-surface: rgba(47, 47, 47, 0.4);
@@ -75,15 +76,15 @@
   }
 
   .glass-card {
-    background: rgba(47, 47, 47, 0.4);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(202, 202, 202, 0.08);
+    background: rgba(10, 10, 12, 0.4);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   .glass-card:hover {
     background: rgba(82, 81, 82, 0.6);
     border-color: rgba(202, 202, 202, 0.2);
-    box-shadow: 0 0 30px -10px rgba(0, 212, 255, 0.15);
+    box-shadow: 0 0 30px -10px rgba(59, 130, 246, 0.15);
   }
 
   .text-glow {
@@ -91,8 +92,12 @@
   }
 
   .bg-dot-grid {
-    background-image: radial-gradient(rgba(202, 202, 202, 0.1) 1px, transparent 1px);
-    background-size: 24px 24px;
+    background-image: radial-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .text-terminal-glow {
+    text-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
   }
 }
 
@@ -117,8 +122,8 @@
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  background: radial-gradient(circle at 50% 50%, var(--color-deep-grey) 0%, var(--color-onyx) 100%);
-  opacity: 0.8;
+  background: radial-gradient(circle at 50% 50%, #0a0a0c 0%, #000000 100%);
+  opacity: 1;
 }
 
 .grid-pattern {
@@ -146,7 +151,7 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 212, 255, 0.5);
+  background: rgba(59, 130, 246, 0.5);
 }
 
 /* Lenis Smooth Scroll */

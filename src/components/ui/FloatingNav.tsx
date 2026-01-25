@@ -56,16 +56,18 @@ export const FloatingNav = ({
                     duration: 0.2,
                 }}
                 className={cn(
-                    "flex max-w-fit md:min-w-[70vw] lg:min-w-fit fixed top-10 inset-x-0 mx-auto border border-white/[0.2] rounded-full bg-[#0a0a0c]/70 backdrop-blur-xl shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] px-6 py-3 items-center justify-between space-x-8",
+                    "flex max-w-[95vw] md:min-w-[70vw] lg:min-w-fit fixed top-4 md:top-10 inset-x-0 mx-auto border border-white/[0.2] rounded-full bg-[#0a0a0c]/80 backdrop-blur-xl shadow-2xl z-[5000] px-3 md:px-6 py-2 md:py-3 items-center justify-between gap-2 md:space-x-8",
                     className
                 )}
             >
-                <div className="flex items-center gap-4">
-                    <div className="h-8 w-8 rounded-lg bg-white/10 flex items-center justify-center border border-white/10 group hover:border-cyan-400/50 transition-all cursor-pointer">
-                        <span className="text-xs font-bold text-white tracking-widest">HA</span>
+                <div className="flex items-center gap-2 md:gap-4">
+                    <div className="h-7 w-7 md:h-8 md:w-8 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 shrink-0 group hover:border-cyan-400/50 transition-colors">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 md:w-5 md:h-5 text-white group-hover:text-cyan-400 transition-colors">
+                            <path d="M25 20V80M25 50H50M75 20L60 80M90 80L75 20" stroke="currentColor" strokeWidth="12" strokeLinecap="square" strokeLinejoin="round" />
+                        </svg>
                     </div>
                     <div className="h-4 w-px bg-white/20 hidden md:block" />
-                    <div className="flex items-center space-x-6">
+                    <div className="flex items-center space-x-4 md:space-x-6">
                         {navItems.map((navItem: any, idx: number) => (
                             <Link
                                 key={`link=${idx}`}
@@ -75,17 +77,21 @@ export const FloatingNav = ({
                                 )}
                             >
                                 <span className="block sm:hidden">{navItem.icon}</span>
-                                <span className="hidden sm:block text-sm font-medium">{navItem.name}</span>
+                                <span className="hidden sm:block text-[12px] md:text-sm font-medium">{navItem.name}</span>
                             </Link>
                         ))}
                     </div>
                 </div>
 
-                <button className="border text-xs font-bold uppercase tracking-widest relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-6 py-2 rounded-full hover:bg-white/10 transition-colors">
-                    <span>Resume</span>
+                <Link
+                    href="/resume.pdf"
+                    target="_blank"
+                    className="border text-[10px] md:text-xs font-bold uppercase tracking-widest relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-3 md:px-6 py-1.5 md:py-2 rounded-full hover:bg-white/10 transition-colors shrink-0 flex items-center justify-center"
+                >
+                    <span className="relative z-10">Resume</span>
                     <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent h-px" />
-                </button>
+                </Link>
             </motion.div>
-        </AnimatePresence>
+        </AnimatePresence >
     );
 };

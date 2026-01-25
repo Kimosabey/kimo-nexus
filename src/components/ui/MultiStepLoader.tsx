@@ -11,13 +11,9 @@ const CheckIcon = ({ className }: { className?: string }) => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className={cn("w-6 h-6", className)}
+            className={cn("w-6 h-6 text-cyan-500/50", className)}
         >
-            <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
+            <path d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
     );
 };
@@ -28,7 +24,7 @@ const CheckFilledIcon = ({ className }: { className?: string }) => {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            className={cn("w-6 h-6", className)}
+            className={cn("w-6 h-6 text-cyan-400", className)}
         >
             <path
                 fillRule="evenodd"
@@ -59,33 +55,29 @@ const LoaderCore = ({
                 return (
                     <motion.div
                         key={index}
-                        initial={{ opacity: 0, y: -(value * 40) }}
-                        animate={{ opacity: opacity, y: -(value * 40) }}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: opacity, x: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="flex gap-2 text-left mb-4"
+                        className={cn(
+                            "flex gap-2 text-left mb-4 font-mono font-bold uppercase tracking-widest text-sm",
+                            index === value ? "text-cyan-400" : "text-white/20"
+                        )}
                     >
-                        <div>
+                        <div className="w-8 flex justify-center items-center">
                             {index > value && (
-                                <CheckIcon />
+                                <span className="text-white/10">[ ]</span>
                             )}
                             {index <= value && (
-                                <CheckFilledIcon
-                                    className={
-                                        index === value
-                                            ? "text-cyan-400 opacity-100"
-                                            : "text-cyan-600 opacity-100"
-                                    }
-                                />
+                                <span className={cn(index === value ? "text-cyan-400" : "text-cyan-500/50")}>
+                                    [x]
+                                </span>
                             )}
                         </div>
-                        <span
-                            className={
-                                index === value
-                                    ? "text-cyan-400 opacity-100"
-                                    : "text-white opacity-100"
-                            }
-                        >
+                        <span className={cn(
+                            index === value && "text-shadow-glow"
+                        )}>
                             {loadingState.text}
+                            {index === value && <span className="animate-pulse">_</span>}
                         </span>
                     </motion.div>
                 );
@@ -138,7 +130,8 @@ export const MultiStepLoader = ({
                     exit={{
                         opacity: 0,
                     }}
-                    className="w-full h-full fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-2xl"
+                    transition={{ duration: 0.8, ease: "easeInOut" }}
+                    className="w-full h-full fixed inset-0 z-[10000] flex items-center justify-center bg-[#000000]"
                 >
                     <div className="h-96 relative">
                         <LoaderCore value={currentState} loadingStates={loadingStates} />

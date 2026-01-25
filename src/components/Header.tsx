@@ -36,83 +36,65 @@ export default function Header() {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, ease: 'easeOut' }}
             >
-                <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-
-
-
+                <div className="max-w-[95%] xl:max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
                     {/* LEFT: Identity / Logo */}
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-6">
                         <Link href="/" className="group relative z-50">
-                            <div className="w-12 h-12 flex items-center justify-center bg-black/80 rounded-2xl border border-white/10 overflow-hidden group-hover:border-cyan-400 transition-all duration-300 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
-                                <SparklesCore className="absolute inset-0" particleDensity={30} particleColor="#00d4ff" />
-                                <span className="font-display font-bold text-xl text-white group-hover:text-cyan-400 transition-colors z-10 tracking-tighter">HA</span>
+                            <div className="w-11 h-11 flex items-center justify-center bg-black/90 rounded-xl border border-white/10 overflow-hidden group-hover:border-cyan-400 group-hover:shadow-[0_0_25px_rgba(0,212,255,0.4)] transition-all duration-500">
+                                <SparklesCore className="absolute inset-0" particleDensity={40} particleColor="#00d4ff" />
+                                <span className="font-display font-black text-xl text-white group-hover:text-cyan-400 transition-colors z-10 tracking-tightest">HA</span>
                             </div>
+                            <div className="absolute -inset-2 bg-cyan-400/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                         </Link>
-                        <div className="flex flex-col justify-center min-w-[200px]">
+
+                        <div className="flex flex-col">
                             <FlipWords
-                                words={["Harshan Aiyappa", "AI Architect", "Full Stack Dev", "Systems Designer"]}
-                                className="text-xl md:text-2xl font-signature text-white tracking-wide hover:text-cyan-400 transition-colors !px-0 cursor-pointer"
+                                words={["Harshan Aiyappa", "AI//Architect", "FullStack//Scale", "Systems//Designer"]}
+                                className="text-sm md:text-lg font-mono font-black text-white/50 tracking-[0.2em] uppercase !px-0 bg-transparent"
                             />
+                            <div className="h-px w-full bg-gradient-to-r from-cyan-400/40 to-transparent mt-1" />
                         </div>
                     </div>
 
-
-                    {/* CENTER: Desktop Nav (Hidden on Mobile) */}
-                    <nav className="hidden md:flex items-center gap-8 bg-white/5 px-6 py-2 rounded-full border border-white/5 backdrop-blur-md">
+                    {/* CENTER: Desktop Nav */}
+                    <nav className="hidden lg:flex items-center gap-1 bg-white/[0.03] p-1.5 rounded-2xl border border-white/5 backdrop-blur-3xl relative group/nav">
                         {navLinks.map((link) => (
                             <a
                                 key={link.name}
                                 href={link.href}
-                                className="text-sm font-medium text-gray-400 hover:text-white transition-colors relative group"
+                                className="px-5 py-2 text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 hover:text-white hover:bg-white/[0.05] rounded-[0.8rem] transition-all relative"
                             >
                                 {link.name}
-                                <span className="absolute -bottom-1 left-0 w-0 h-px bg-cyan-400 transition-all duration-300 group-hover:w-full" />
                             </a>
                         ))}
+                        {/* Interactive highlights */}
+                        <div className="absolute inset-y-1.5 left-1.5 w-1 bg-cyan-400 rounded-full opacity-0 group-hover/nav:opacity-100 transition-opacity" />
                     </nav>
 
-                    {/* RIGHT: Actions + Mobile Toggle */}
-                    <div className="flex items-center gap-4">
-
-                        {/* Status Indicator (Desktop) */}
-                        <div className="hidden lg:flex items-center">
-                            <AnimatedTooltip
-                                items={[
-                                    {
-                                        id: 1,
-                                        name: "Systems Status",
-                                        designation: "Ready for deployment",
-                                        icon: (
-                                            <div className="flex items-center gap-2 px-3 py-1.5 bg-cyan-900/10 border border-cyan-500/20 rounded-lg cursor-pointer">
-                                                <span className="relative flex h-2 w-2">
-                                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-                                                </span>
-                                                <span className="text-[10px] font-mono text-cyan-400 font-bold tracking-wider">ONLINE</span>
-                                            </div>
-                                        )
-                                    }
-                                ]}
-                            />
+                    {/* RIGHT: Status & Resume */}
+                    <div className="flex items-center gap-6">
+                        <div className="hidden sm:flex items-center gap-4 px-4 py-2 bg-white/[0.02] border border-white/5 rounded-xl">
+                            <div className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                            </div>
+                            <span className="text-[9px] font-mono text-cyan-400/80 font-black tracking-[0.3em] uppercase">Status: Live_Nexus</span>
                         </div>
 
-
-                        {/* Resume Button */}
-                        <a
+                        <Link
                             href="/resume.pdf"
                             target="_blank"
-                            className="hidden md:flex items-center gap-2 px-5 py-2 bg-white text-black text-xs font-bold uppercase tracking-wider rounded-full hover:bg-cyan-400 transition-colors duration-300"
+                            className="hidden md:flex items-center justify-center h-11 px-8 bg-white text-black text-[10px] font-black uppercase tracking-[0.4em] rounded-xl hover:bg-cyan-400 hover:shadow-[0_0_40px_rgba(0,212,255,0.3)] transition-all duration-500"
                         >
-                            Resume
-                        </a>
+                            Payload//Resume
+                        </Link>
 
                         {/* Mobile Menu Toggle */}
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="md:hidden p-2 text-white hover:text-cyan-400 transition-colors z-50"
-                            aria-label="Toggle menu"
+                            className="lg:hidden w-11 h-11 flex items-center justify-center bg-white/[0.05] rounded-xl border border-white/10 text-white hover:text-cyan-400 transition-all z-50"
                         >
-                            {mobileMenuOpen ? <X /> : <Menu />}
+                            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
                         </button>
                     </div>
                 </div>

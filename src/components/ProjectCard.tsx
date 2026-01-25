@@ -66,14 +66,16 @@ const ProjectCard = memo(({ project, index }: { project: Project, index: number 
 
                 {/* Background Image with Parallax */}
                 <div className="absolute inset-0 transition-transform duration-1000 ease-out group-hover:scale-110">
-                    <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        className="object-cover object-top opacity-95 md:opacity-90 group-hover:opacity-75 transition-opacity duration-500"
-                        priority={index < 2}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
+                    {project.image && (
+                        <Image
+                            src={project.image}
+                            alt={project.title}
+                            fill
+                            className="object-cover object-top opacity-95 md:opacity-90 group-hover:opacity-75 transition-opacity duration-500"
+                            priority={index < 2}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#08080a] via-[#08080a]/85 to-[#08080a]/50" />
                 </div>
 
@@ -159,16 +161,14 @@ const ProjectCard = memo(({ project, index }: { project: Project, index: number 
                                     {project.highlight}
                                 </span>
                                 {!project.upcoming && (
-                                    <motion.a
-                                        href={project.repoUrl}
-                                        target="_blank"
-                                        onClick={(e) => e.stopPropagation()}
-                                        className="flex items-center gap-1.5 md:gap-2 text-white hover:text-cyan-400 transition-colors text-[10px] md:text-xs font-bold uppercase tracking-widest min-h-[44px] md:min-h-0 -m-2 p-2 md:m-0 md:p-0"
+                                    <motion.div
+                                        onClick={() => window.open(project.repoUrl, "_blank")}
+                                        className="flex items-center gap-1.5 md:gap-2 text-white hover:text-cyan-400 transition-colors text-[10px] md:text-xs font-bold uppercase tracking-widest min-h-[44px] md:min-h-0 -m-2 p-2 md:m-0 md:p-0 cursor-pointer z-20"
                                         aria-label={`View ${project.title} project`}
                                         whileHover={{ x: 3 }}
                                     >
                                         View <ArrowRight className="w-3 h-3 md:w-4 md:h-4" />
-                                    </motion.a>
+                                    </motion.div>
                                 )}
                             </motion.div>
                         </div>

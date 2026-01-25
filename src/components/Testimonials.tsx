@@ -42,9 +42,9 @@ function TestimonialCard({ item, index }: { item: typeof recommendations[0], ind
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="group relative h-full rounded-[2.5rem] border border-white/5 p-8 md:p-10 transition-all duration-500 hover:border-cyan-400/30 overflow-hidden"
+            className="group relative h-full rounded-[2rem] md:rounded-[2.5rem] border border-white/5 p-6 md:p-10 transition-all duration-500 hover:border-cyan-400/30 overflow-hidden"
             style={{
-                background: "rgba(10, 10, 12, 0.6)",
+                background: "rgba(10, 10, 12, 0.4)",
                 backdropFilter: "blur(16px)"
             }}
         >

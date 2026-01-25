@@ -74,10 +74,19 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
         }
     };
 
+    const [isMobileState, setIsMobileState] = useState(false);
+
+    useEffect(() => {
+        setIsMobileState(window.innerWidth < 768);
+        const handleResize = () => setIsMobileState(window.innerWidth < 768);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     const handleCardClose = (index: number) => {
         if (carouselRef.current) {
-            const cardWidth = isMobile() ? 230 : 384; // py-4
-            const gap = isMobile() ? 4 : 8;
+            const cardWidth = isMobileState ? 230 : 384; // py-4
+            const gap = isMobileState ? 4 : 8;
             const scrollPosition = (cardWidth + gap) * (index + 1);
             carouselRef.current.scrollTo({
                 left: scrollPosition - carouselRef.current.clientWidth / 2,
@@ -85,10 +94,6 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
             });
             setCurrentIndex(index);
         }
-    };
-
-    const isMobile = () => {
-        return window.innerWidth < 768;
     };
 
     return (

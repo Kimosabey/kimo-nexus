@@ -24,8 +24,9 @@ const rajdhani = Rajdhani({
 });
 
 export const metadata: Metadata = {
+  metadataBase: "https://kimo-nexus.vercel.app",
   title: "Harshan Aiyappa | Hybrid AI Engineer",
-  description: "Senior Full Stack Hybrid Engineer specializing in Generative AI, Voice Synthesis, and Distributed Systems. Explore my high-performance projects.",
+  description: "Senior Full Stack Hybrid Engineer with nearly 5 years of experience specializing in Generative AI, Voice Synthesis, and Distributed Systems.",
   keywords: ["AI Engineer", "Full Stack Developer", "Next.js", "React", "Portfolio", "Generative AI", "Harshan Aiyappa"],
   authors: [{ name: "Harshan Aiyappa", url: "https://kimo-nexus.vercel.app" }],
   creator: "Harshan Aiyappa",
@@ -69,11 +70,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </head>
       <body
+        suppressHydrationWarning
         className={cn(
           outfit.variable,
           jetbrainsMono.variable,
