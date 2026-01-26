@@ -792,7 +792,7 @@ export default function Home() {
                         <span className="text-[10px] 3xl:text-base font-mono text-teal-400 uppercase tracking-[0.4em] font-black">LINGUISTIC_CORE</span>
                       </div>
                       <div className="flex flex-wrap gap-2 xs:gap-4">
-                        {["English", "Kannada", "Hindi", "Malayalam"].map((lang) => (
+                        {["English", "Kannada", "Hindi"].map((lang) => (
                           <div key={lang} className="px-4 xs:px-6 py-2.5 xs:py-3 bg-white/[0.02] border border-white/5 rounded-2xl text-[10px] xs:text-[11px] 3xl:text-base font-mono text-white/40 hover:text-white hover:border-teal-400/30 transition-all font-black tracking-widest uppercase cursor-default">
                             {lang}
                           </div>
