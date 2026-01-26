@@ -1,24 +1,54 @@
-$dest = "G:\LearningRelated\Portfolio Project\kimo-nexus\public\projects"
-New-Item -ItemType Directory -Force -Path $dest
+$destBase = "G:\LearningRelated\Portfolio Project\kimo-nexus\public\projects"
+$rootDir = "G:\LearningRelated\Portfolio Project"
 
-# Define mapping: Source Path -> Dest Filename
-$map = @{
-    "..\chronicle-ledge\docs\images\architecture.png" = "chronicle-ledge.png"
-    "..\velocity-edge\docs\assets\sytem-flow.png" = "velocity-edge.png"
-    "..\data-quarantine\docs\assets\architecture.png" = "data-quarantine.png"
-    "..\docmind-ai\docs\images\docmind_architecture_diagram.png" = "docmind-ai.png"
-    "..\agent-core\docs\assets\architecture_diagram.png" = "agent-core.png"
-    "..\speak-flow\docs\assets\waveform.png" = "speak-flow.png"
-    "..\voicesync-ai\docs\assets\upload.png" = "voicesync-ai.png"
-    "..\logstream-ai\docs\assets\architecture.png" = "logstream-ai.png"
-    "..\limit-guard\docs\assets\architecture.png" = "limit-guard.png"
-    "..\spec-lens\docs\assets\architecture.png" = "spec-lens.png"
-    "..\inference-hub\docs\assets\architecture.png" = "inference-hub.png"
+# List of projects to sync (Folder Name -> Target ID)
+$projects = @{
+    "chronicle-ledge"  = "chronicle-ledge"
+    "data-quarantine"  = "data-quarantine"
+    "order-saga"       = "order-saga"
+    "spec-lens"        = "spec-lens"
+    "logstream-ai"     = "logstream-ai"
+    "limit-guard"      = "limit-guard"
+    "voicesync-ai"     = "voicesync-ai"
+    "velocity-edge"    = "velocity-edge"
+    "vox-agent-neural" = "vox-agent-neural"
+    "token-forge"      = "token-forge"
+    "ring-route"       = "ring-route"
+    "docmind-ai"       = "docmind-ai"
+    "agent-core"       = "agent-core"
+    "speak-flow"       = "speak-flow"
+    "inference-hub"    = "inference-hub"
+    "live-nexus-ai"    = "live-nexus-ai"
 }
 
-foreach ($key in $map.Keys) {
-    $src = Resolve-Path $key
-    $target = Join-Path $dest $map[$key]
-    Write-Host "Copying $src to $target"
-    Copy-Item -Path $src -Destination $target -Force
+Write-Host "--- Sychronizing Assets to Folder Structure ---"
+
+foreach ($projFolder in $projects.Keys) {
+    $targetId = $projects[$projFolder]
+    $sourceAssets = "$rootDir\$projFolder\docs\assets"
+    $targetDir = "$destBase\$targetId"
+
+    if (Test-Path $sourceAssets) {
+        Write-Host "Processing [$targetId]..."
+        
+        # Create unique folder for the project
+        if (-not (Test-Path $targetDir)) {
+            New-Item -ItemType Directory -Force -Path $targetDir | Out-Null
+            Write-Host "  [+] Created folder: $targetDir"
+        }
+
+        # Copy all PNG/GIF/JPG assets
+        $assets = Get-ChildItem -Path $sourceAssets -Include *.png, *.jpg, *.jpeg, *.gif, *.webp -Recurse
+        
+        foreach ($file in $assets) {
+            $destFile = Join-Path $targetDir $file.Name
+            Copy-Item -Path $file.FullName -Destination $destFile -Force
+            Write-Host "  [->] Copied $($file.Name)"
+        }
+    }
+    else {
+        Write-Host "  [!] No assets found for $projFolder (Skipping)"
+    }
 }
+
+Write-Host "--- Sync Complete ---"
