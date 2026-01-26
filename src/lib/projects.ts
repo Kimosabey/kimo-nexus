@@ -23,7 +23,7 @@ export const projects: Project[] = [
         description: "High-fidelity real-time transcription engine with sub-second latency. Features an agentic control plane for deterministic neural inference pipelines.",
         techStack: ["FastAPI", "Faster-Whisper", "LiveKit", "WebSockets", "React"],
         repoUrl: "https://github.com/Kimosabey/vox-agent-neural",
-        image: "/projects/vox-agent-neural.png",
+        image: "/projects/vox-agent-neural/thumbnail.png",
         featured: true,
         highlight: "Latency: Sub-Second TAT",
     },
@@ -34,7 +34,7 @@ export const projects: Project[] = [
         description: "Real-time hybrid audio intelligence platform. CPU-optimized inference nodes synchronized with distributed cloud transport for global vertical scaling.",
         techStack: ["Next.js 14", "LiveKit Cloud", "Faster-Whisper", "Docker", "Python"],
         repoUrl: "https://github.com/Kimosabey/live-nexus-ai",
-        image: "/projects/live-nexus-ai.png",
+        image: "/projects/live-nexus-ai/thumbnail.png",
         featured: true,
         highlight: "Architecture: Hybrid Cloud",
     },
@@ -75,7 +75,7 @@ export const projects: Project[] = [
         description: "Hardened Identity Provider (IdP) with OIDC compliance. Features Redis-backed rate limiting, multi-factor biometric hooks, and automated key rotation.",
         techStack: ["NestJS", "OIDC/OAuth2", "Redis", "MFA/TOTP", "Docker"],
         repoUrl: "https://github.com/Kimosabey/token-forge",
-        image: "/projects/token-forge.png",
+        image: "/projects/token-forge/thumbnail.png",
         highlight: "Auth: OIDC & MFA",
     },
     {
@@ -106,7 +106,7 @@ export const projects: Project[] = [
         description: "High-throughput telemetry dashboard processing 100k+ events/sec. Optimized for sub-10ms latency using binary protocols and WebSocket streams.",
         techStack: ["Next.js", "WebSockets", "D3.js", "Redis", "Go"],
         repoUrl: "https://github.com/Kimosabey/velocity-edge",
-        image: "/projects/velocity-edge.png",
+        image: "/projects/velocity-edge/thumbnail.png",
         featured: true,
         highlight: "Speed: 100k Events/Sec",
     },
@@ -138,7 +138,7 @@ export const projects: Project[] = [
         description: "Advanced RAG (Retrieval-Augmented Generation) system for complex document siphoning. Utilizes hybrid semantic search and neural re-ranking.",
         techStack: ["Python", "LangChain", "OpenAI", "Pinecone", "Next.js"],
         repoUrl: "https://github.com/Kimosabey/docmind-ai",
-        image: "/projects/docmind-ai.png",
+        image: "/projects/docmind-ai/thumbnail.png",
         highlight: "Flow: Hybrid Search",
     },
     {
@@ -148,7 +148,7 @@ export const projects: Project[] = [
         description: "Autonomous neural agent framework implementing the ReAct protocol. Capable of systematic tool use, memory persistence, and multi-step reasoning.",
         techStack: ["Python", "Ollama", "Chromadb", "Local LLMs"],
         repoUrl: "https://github.com/Kimosabey/agent-core",
-        image: "/projects/agent-core.png",
+        image: "/projects/agent-core/thumbnail.png",
         highlight: "Model: ReAct Pattern",
     },
     {
@@ -158,7 +158,7 @@ export const projects: Project[] = [
         description: "Real-time acoustic analysis tool for phonetic accuracy. Visualizes voice waveforms and scores performance using low-level browser Audio APIs.",
         techStack: ["React", "Web Audio API", "Framer Motion", "Vite"],
         repoUrl: "https://github.com/Kimosabey/speak-flow",
-        image: "/projects/speak-flow.png",
+        image: "/projects/speak-flow/thumbnail.png",
         highlight: "Audio: Real-time FFT",
     },
     {
@@ -178,7 +178,7 @@ export const projects: Project[] = [
         description: "Centralized model serving grid. Manages versioned neural deployments, A/B testing protocols, and exposes a unified inference core.",
         techStack: ["FastAPI", "Docker", "Kubernetes", "MLflow"],
         repoUrl: "https://github.com/Kimosabey/inference-hub",
-        image: "/projects/inference-hub.png",
+        image: "/projects/inference-hub/thumbnail.png",
         highlight: "Deploy: A/B Testing",
     },
 
@@ -250,7 +250,6 @@ export const projects: Project[] = [
         repoUrl: "https://github.com/Kimosabey/telemetry-lakehouse",
         image: "/projects/telemetry-lakehouse/thumbnail.png",
         highlight: "Data: High Throughput",
-        upcoming: true
     },
     {
         id: "ring-route",
@@ -261,6 +260,5 @@ export const projects: Project[] = [
         repoUrl: "https://github.com/Kimosabey/ring-route",
         image: "/projects/ring-route/hero_main.png",
         highlight: "Algo: Consistent Hash",
-        upcoming: true
     },
 ];
