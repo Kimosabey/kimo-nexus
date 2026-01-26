@@ -150,6 +150,7 @@ const techLogos = [
 ];
 
 export default function Home() {
+  const [mounted, setMounted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isVantaReady, setIsVantaReady] = useState(false);
   const [minTimeElapsed, setMinTimeElapsed] = useState(false);
@@ -163,6 +164,7 @@ export default function Home() {
   const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
 
   useEffect(() => {
+    setMounted(true);
     const brandingTimer = setTimeout(() => setMinTimeElapsed(true), 4500);
     const safetyTimer = setTimeout(() => setIsVantaReady(true), 5000);
     return () => {
@@ -172,10 +174,14 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (minTimeElapsed && (isVantaReady || !USE_VANTA_BACKGROUND)) {
+    if (mounted && minTimeElapsed && (isVantaReady || !USE_VANTA_BACKGROUND)) {
       setIsLoading(false);
     }
-  }, [minTimeElapsed, isVantaReady]);
+  }, [mounted, minTimeElapsed, isVantaReady]);
+
+  if (!mounted) {
+    return <div className="min-h-screen bg-[#050505]" />;
+  }
 
   const textVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -591,7 +597,7 @@ export default function Home() {
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 3xl:grid-cols-4 gap-6 xs:gap-10 md:gap-12 3xl:gap-16 max-w-screen-3xl mx-auto px-4 xs:px-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 xs:gap-10 md:gap-12 3xl:gap-16 max-w-screen-3xl mx-auto px-4 xs:px-6">
                 {projects.map((project) => (
                   <motion.div
                     key={project.id}
@@ -609,36 +615,18 @@ export default function Home() {
 
                         <CardItem translateZ="140" className="w-full mt-10">
                           <div className="relative group/img overflow-hidden rounded-[1.5rem] md:rounded-[3rem] aspect-[16/11] border border-white/10 shadow-2xl flex items-center justify-center bg-[#0a0a0c]">
-                            {project.image ? (
-                              <>
-                                <Image src={project.image} height="1200" width="1200" className="h-full w-full object-cover transition-transform duration-1000 group-hover/img:scale-110 grayscale-[50%] group-hover/img:grayscale-0" alt={project.title} />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-700 flex items-end p-8">
-                                  <div className="px-4 py-1.5 xs:px-5 xs:py-2 rounded-full bg-cyan-400/20 border border-cyan-400/40 backdrop-blur-md">
-                                    <span className="text-[8px] xs:text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-widest">{project.category}</span>
-                                  </div>
-                                </div>
-                              </>
-                            ) : (
-                              <div className="flex flex-col items-center gap-4 xs:gap-6 p-6 xs:p-12 text-center relative z-10 w-full h-full justify-center">
-                                <div className="absolute inset-0 bg-grid-white/[0.05] [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" />
-                                <div className="h-20 w-20 rounded-full bg-cyan-400/5 border border-cyan-400/20 flex items-center justify-center group-hover/img:scale-110 transition-transform duration-500">
-                                  {project.isAcademic ? (
-                                    <BookOpen className="text-cyan-400/40 w-10 h-10 group-hover:text-cyan-400 transition-colors" />
-                                  ) : (
-                                    <Shield className="text-cyan-400/40 w-10 h-10 group-hover:text-cyan-400 transition-colors" />
-                                  )}
-                                </div>
-                                <div className="space-y-3">
-                                  <div className="text-[11px] font-mono text-cyan-400/80 uppercase tracking-[0.5em] font-black">
-                                    {project.isAcademic ? "ACADEMIC_RESEARCH" : "PROPRIETARY_SYSTEM"}
-                                  </div>
-                                  <div className="px-4 xs:px-5 py-2 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-[9px] xs:text-[10px] font-mono text-gray-300 uppercase tracking-wider xs:tracking-widest leading-none font-bold">
-                                    {project.isAcademic ? "// Source_Code_Internal_to_Institution" : "// Access_Restricted_by_Veriteam_Node"}
-                                  </div>
-                                </div>
-                                <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,0,0.06))] z-20 bg-[length:100%_2px,3px_100%] pointer-events-none opacity-20" />
+                            <Image
+                              src={project.image!}
+                              height="1200"
+                              width="1200"
+                              className="h-full w-full object-cover transition-transform duration-1000 group-hover/img:scale-110 grayscale-[50%] group-hover/img:grayscale-0"
+                              alt={project.title}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-700 flex items-end p-8">
+                              <div className="px-4 py-1.5 xs:px-5 xs:py-2 rounded-full bg-cyan-400/20 border border-cyan-400/40 backdrop-blur-md">
+                                <span className="text-[8px] xs:text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-widest">{project.category}</span>
                               </div>
-                            )}
+                            </div>
                           </div>
                         </CardItem>
 
