@@ -349,11 +349,11 @@ export default function Home() {
           */}
 
 
-        <section ref={heroRef} className="relative w-full min-h-screen flex items-center justify-center overflow-hidden py-10 xs:py-20 lg:py-0" id="hero">
-          <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center relative" style={{ perspective: '1200px' }}>
+        <section ref={heroRef} className="relative w-full min-h-screen flex items-center justify-center overflow-hidden px-4 xs:px-5 sm:px-8 md:px-10 xl:px-14 2xl:px-20 3xl:px-28 py-16 xs:py-20 lg:py-0" id="hero">
+          <div className="max-w-screen-3xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center relative" style={{ perspective: '1200px' }}>
             {/* Text Content - Responsive Layout */}
             <motion.div
-              className="flex flex-col items-center lg:items-start text-center lg:text-left z-20 order-2 lg:order-1 relative"
+              className="flex flex-col items-center lg:items-start text-center lg:text-left z-20 order-1 lg:order-1 relative"
               style={{
                 transformStyle: 'preserve-3d',
                 y: heroTextY,
@@ -374,13 +374,13 @@ export default function Home() {
               <div style={{ transform: 'translateZ(30px)' }}>
                 <TextGenerateEffect
                   words="ARCHITECTING"
-                  className="text-[1.75rem] xs:text-[2.2rem] sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl 2xl:text-[7rem] 3xl:text-[9rem] font-black tracking-tighter text-white leading-[0.95] uppercase text-center lg:text-left"
+                  className="text-[1.75rem] xs:text-[2.25rem] sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl 2xl:text-[7.5rem] 3xl:text-[10rem] font-black tracking-tighter text-white leading-[0.95] uppercase text-center lg:text-left"
                   duration={0.8}
                   filter={true}
                 />
                 <TextGenerateEffect
                   words="DIGITAL MINDS"
-                  className="text-[1.75rem] xs:text-[2.2rem] sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl 2xl:text-[7rem] 3xl:text-[9rem] font-black tracking-tighter leading-[0.95] uppercase text-center lg:text-left bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-white to-teal-400"
+                  className="text-[1.75rem] xs:text-[2.25rem] sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl 2xl:text-[7.5rem] 3xl:text-[10rem] font-black tracking-tighter leading-[0.95] uppercase text-center lg:text-left bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-white to-teal-400"
                   duration={0.8}
                   filter={true}
                 />
@@ -419,7 +419,7 @@ export default function Home() {
 
             {/* HERO IMAGE - WAVE-THEMED, CLEAN & SIMPLE */}
             <motion.div
-              className="relative h-[300px] sm:h-[400px] md:h-[550px] lg:h-[650px] w-full flex items-center justify-center order-1 lg:order-2"
+              className="relative h-[200px] xs:h-[260px] sm:h-[340px] md:h-[480px] lg:h-[650px] w-full flex items-center justify-center order-2 lg:order-2"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 1.3, duration: 1.2, ease: 'easeOut' }}
@@ -468,8 +468,8 @@ export default function Home() {
         </section>
 
         {/* --- Content Ecosystem - Global Tracing Beam Wrap --- */}
-        <TracingBeam className="px-2 xs:px-4 md:px-12">
-          <div className="relative z-10 space-y-20 md:space-y-32 pb-32 w-full max-w-screen-3xl mx-auto">
+        <TracingBeam className="px-0">
+          <div className="relative z-10 space-y-24 md:space-y-32 pb-40 w-full max-w-screen-3xl mx-auto px-4 xs:px-5 sm:px-8 md:px-10 xl:px-14 2xl:px-20 3xl:px-28">
 
             {/* Philosophy Section - Masterpiece Specs */}
             <section className="w-full pt-12 md:pt-16" id="about">
@@ -597,41 +597,53 @@ export default function Home() {
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 xs:gap-10 md:gap-12 3xl:gap-16 max-w-screen-3xl mx-auto px-4 xs:px-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 sm:gap-8 xl:gap-10 2xl:gap-12 3xl:gap-16 w-full items-stretch">
                 {projects.map((project) => (
                   <motion.div
                     key={project.id}
+                    className="h-full"
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.8 }}
                   >
-                    <CardContainer className="inter-var group/card w-full">
-                      <CardBody className="bg-[#050505]/40 relative group/card-body border-white/10 w-full h-auto rounded-[1.8rem] md:rounded-[3.5rem] p-3 xs:p-4 md:p-8 border hover:border-cyan-400/50 transition-all duration-700 shadow-3xl overflow-hidden backdrop-blur-md">
+                    <CardContainer className="inter-var group/card w-full h-full">
+                      <CardBody className="bg-[#050505]/40 relative group/card-body border-white/10 w-full h-full flex flex-col rounded-[1.8rem] md:rounded-[3.5rem] p-3 xs:p-4 md:p-8 border hover:border-cyan-400/50 transition-all duration-700 shadow-3xl overflow-hidden backdrop-blur-md">
                         <div className="absolute inset-0 bg-grid-white/[0.02] [mask-image:radial-gradient(ellipse_at_center,transparent_30%,black)] pointer-events-none" />
 
                         <CardItem translateZ="70" className="text-2xl md:text-3xl font-black text-white mb-4 font-display relative z-10 tracking-tight">{project.title}</CardItem>
                         <CardItem as="p" translateZ="90" className="text-gray-300 text-[11px] xs:text-sm md:text-base mt-2 xs:mt-4 font-light leading-relaxed uppercase tracking-tight">{project.description}</CardItem>
 
-                        <CardItem translateZ="140" className="w-full mt-10">
-                          <div className="relative group/img overflow-hidden rounded-[1.5rem] md:rounded-[3rem] aspect-[16/11] border border-white/10 shadow-2xl flex items-center justify-center bg-[#0a0a0c]">
-                            <Image
-                              src={project.image!}
-                              height="1200"
-                              width="1200"
-                              className="h-full w-full object-cover transition-transform duration-1000 group-hover/img:scale-110 grayscale-[50%] group-hover/img:grayscale-0"
-                              alt={project.title}
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-700 flex items-end p-8">
-                              <div className="px-4 py-1.5 xs:px-5 xs:py-2 rounded-full bg-cyan-400/20 border border-cyan-400/40 backdrop-blur-md">
-                                <span className="text-[8px] xs:text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-widest">{project.category}</span>
+                        <CardItem translateZ="140" className="w-full mt-6 md:mt-10">
+                          <div className="relative group/img overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem] aspect-[16/11] border border-white/10 shadow-2xl flex items-center justify-center bg-[#0a0a0c]">
+                            {project.image ? (
+                              <>
+                                <Image
+                                  src={project.image}
+                                  height="1200"
+                                  width="1200"
+                                  className="h-full w-full object-cover transition-transform duration-1000 group-hover/img:scale-110 grayscale-[50%] group-hover/img:grayscale-0"
+                                  alt={project.title}
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-700 flex items-end p-8">
+                                  <div className="px-4 py-1.5 xs:px-5 xs:py-2 rounded-full bg-cyan-400/20 border border-cyan-400/40 backdrop-blur-md">
+                                    <span className="text-[8px] xs:text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-widest">{project.category}</span>
+                                  </div>
+                                </div>
+                              </>
+                            ) : (
+                              <div className="w-full h-full flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-white/[0.03] to-transparent">
+                                <div className="w-12 h-12 rounded-2xl border border-cyan-400/20 bg-cyan-400/5 flex items-center justify-center">
+                                  <Terminal size={22} className="text-cyan-400/40" />
+                                </div>
+                                <span className="text-[9px] font-mono text-gray-600 uppercase tracking-[0.3em]">{project.category}</span>
                               </div>
-                            </div>
+                            )}
                           </div>
                         </CardItem>
 
                         <div className="flex flex-wrap gap-2.5 mt-10">
-                          {project.techStack.slice(0, 4).map((tech, i) => (
+                          {project.techStack?.slice(0, 4).map((tech, i) => (
                             <CardItem key={i} translateZ={40 + i * 15} className="px-2 xs:px-4 py-1.5 bg-cyan-400/5 border border-cyan-400/20 rounded-xl text-[8px] xs:text-[9px] font-mono font-black text-cyan-400/60 group-hover:text-cyan-400 transition-all uppercase tracking-wider xs:tracking-[0.2em]">{tech}</CardItem>
                           ))}
                         </div>
@@ -687,7 +699,7 @@ export default function Home() {
             <section className="w-full pt-16 pb-0" id="research">
               <DescriptorHeader title="SUBSYSTEM_RESEARCH: ALPHA" subtitle="Continuous_Neural_Expansion" />
               {/* Research Nodes */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 3xl:gap-12">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 3xl:gap-16">
                 {[
                   { title: "Agentic_Orchestration", desc: "Developing multi-tool RAG pipelines and autonomous agentic collectives using LangChain." },
                   { title: "Sentient_Interfaces", desc: "Engineering high-fidelity interactions with Framer Motion and low-level WebGL shaders." },
@@ -696,9 +708,9 @@ export default function Home() {
                   { title: "Temporal_Audio_Flux", desc: "Manifesting sub-millisecond acoustic processing for real-time neural speech synthesis." },
                   { title: "Cloud_Native_Foundry", desc: "Forging K8s-orchestrated microservices for global, multi-region high-density delivery." },
                 ].map((item, i) => (
-                  <div key={i} className="p-8 3xl:p-12 rounded-[2rem] bg-white/[0.02] border border-white/5 group hover:border-cyan-400/30 transition-all duration-500">
-                    <div className="text-cyan-400 font-mono text-[10px] 3xl:text-base mb-4 opacity-50 group-hover:opacity-100 transition-opacity uppercase tracking-widest font-black">NODE_0{i + 1}: {item.title}</div>
-                    <p className="text-gray-300 text-sm md:text-base 3xl:text-xl font-light leading-relaxed">{item.desc}</p>
+                  <div key={i} className="p-8 xs:p-10 3xl:p-16 rounded-[2rem] 3xl:rounded-[4rem] bg-white/[0.02] border border-white/5 group hover:border-cyan-400/30 transition-all duration-500">
+                    <div className="text-cyan-400 font-mono text-[10px] md:text-xs 3xl:text-2xl mb-4 opacity-50 group-hover:opacity-100 transition-opacity uppercase tracking-widest font-black">NODE_0{i + 1}: {item.title}</div>
+                    <p className="text-gray-300 text-sm md:text-base lg:text-lg 3xl:text-3xl font-light leading-relaxed">{item.desc}</p>
                   </div>
                 ))}
               </div>
@@ -706,7 +718,7 @@ export default function Home() {
 
             {/* Final Call to Action - System Override Style */}
             {/* Final Call to Action - System Interlink Protocol */}
-            <section className="w-full pt-32 pb-40 px-4 xs:px-6 md:px-12 relative" id="contact">
+            <section className="w-full pt-32 pb-40 relative" id="contact">
               <div className="absolute inset-0 bg-gradient-to-t from-cyan-500/10 via-transparent to-transparent pointer-events-none opacity-40 h-[500px] bottom-0" />
 
               <div className="max-w-6xl mx-auto">
@@ -722,7 +734,7 @@ export default function Home() {
                         <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
                         <span className="text-[11px] font-mono text-cyan-400 font-black tracking-[0.5em] uppercase">Ready_for_Transmission</span>
                       </div>
-                      <h2 className="text-5xl sm:text-7xl md:text-[9rem] lg:text-[11rem] 3xl:text-[14rem] font-black text-white tracking-tightest uppercase leading-[0.75]">
+                      <h2 className="text-5xl sm:text-7xl md:text-[9rem] lg:text-[11rem] 3xl:text-[16rem] font-black text-white tracking-tightest uppercase md:leading-[0.75] leading-[0.85]">
                         Initiate <br /> <span className="text-cyan-400 italic">Interlink</span>
                       </h2>
                     </div>

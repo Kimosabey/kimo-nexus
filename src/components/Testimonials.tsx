@@ -42,7 +42,7 @@ function TestimonialCard({ item, index }: { item: typeof recommendations[0], ind
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="group relative h-full rounded-[2rem] md:rounded-[2.5rem] 3xl:rounded-[4rem] border border-white/5 p-4 xs:p-5 md:p-10 3xl:p-16 transition-all duration-500 hover:border-cyan-400/30 overflow-hidden"
+            className="group relative h-full rounded-[2rem] md:rounded-[2.5rem] 3xl:rounded-[4rem] border border-white/5 p-6 xs:p-8 md:p-12 3xl:p-20 transition-all duration-500 hover:border-cyan-400/30 overflow-hidden"
             style={{
                 background: "rgba(10, 10, 12, 0.4)",
                 backdropFilter: "blur(16px)"
@@ -78,7 +78,7 @@ function TestimonialCard({ item, index }: { item: typeof recommendations[0], ind
 export default function Testimonials() {
     return (
         <section className="relative w-full max-w-screen-3xl mx-auto" id="testimonials">
-            <div className="container mx-auto px-4 xs:px-6 3xl:px-20 relative z-10">
+            <div className="relative z-10">
                 <div className="flex flex-col gap-2 mb-12 md:mb-16">
                     <div className="flex items-center gap-3">
                         <div className="w-1.5 h-10 bg-gradient-to-b from-cyan-400 to-teal-500 rounded-full" />

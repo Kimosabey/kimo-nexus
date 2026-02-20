@@ -46,7 +46,7 @@ export default function Experience() {
     const timelineData = experienceData.map((item) => ({
         title: item.year,
         content: (
-            <div className="group/exp relative p-3 xs:p-5 md:p-8 3xl:p-14 rounded-[1.2rem] xs:rounded-[2rem] 3xl:rounded-[4rem] bg-[#0a0a0c]/40 border border-white/5 hover:border-cyan-500/20 transition-all duration-700 overflow-hidden backdrop-blur-md mb-8 shadow-2xl">
+            <div className="group/exp relative p-5 xs:p-7 md:p-10 3xl:p-16 rounded-[1.2rem] xs:rounded-[2rem] 3xl:rounded-[4rem] bg-[#0a0a0c]/40 border border-white/5 hover:border-cyan-500/20 transition-all duration-700 overflow-hidden backdrop-blur-md mb-8 shadow-2xl">
                 {/* Dynamic Ambient Glow */}
                 <div className="absolute -top-32 -right-32 w-80 h-80 bg-cyan-500/5 blur-[120px] group-hover/exp:bg-cyan-500/10 transition-colors duration-700 pointer-events-none" />
 
