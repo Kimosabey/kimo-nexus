@@ -19,8 +19,8 @@ export function IntroLoader() {
       /* ignore */
     }
     if (reduce || seen) {
-      setShow(false);
-      return;
+      const skip = requestAnimationFrame(() => setShow(false));
+      return () => cancelAnimationFrame(skip);
     }
     document.body.style.overflow = "hidden";
     const raf = requestAnimationFrame(() => {
@@ -75,13 +75,14 @@ export function IntroLoader() {
             color: "var(--accent-ink)",
             fontFamily: "var(--fd)",
             fontWeight: 700,
-            fontSize: 25,
+            fontSize: 20,
+            letterSpacing: "-.03em",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
           }}
         >
-          H
+          HA
         </span>
         <span style={{ fontFamily: "var(--fd)", fontWeight: 600, fontSize: 23, letterSpacing: "-.01em", color: "var(--ink)" }}>
           Harshan<span style={{ color: "var(--accent)" }}>.</span>

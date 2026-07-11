@@ -1,11 +1,11 @@
-"use client";
-
-import { useReducedMotion } from "framer-motion";
 import type { CSSProperties } from "react";
 
-/** Animated equalizer/waveform bars — the signature motif. Static under reduced motion. */
+/**
+ * Animated equalizer/waveform bars — the signature motif. Deterministic markup
+ * (no client-only hooks → hydration-safe); the global prefers-reduced-motion CSS
+ * neutralizes the animation for reduced-motion users.
+ */
 export function Waveform({ bars = 42, style }: { bars?: number; style?: CSSProperties }) {
-  const reduce = useReducedMotion();
   return (
     <div aria-hidden="true" style={{ display: "flex", alignItems: "flex-end", gap: 3, ...style }}>
       {Array.from({ length: bars }).map((_, i) => {
@@ -23,7 +23,7 @@ export function Waveform({ bars = 42, style }: { bars?: number; style?: CSSPrope
               background: "linear-gradient(var(--accent),color-mix(in srgb,var(--accent) 30%,transparent))",
               transformOrigin: "bottom",
               transform: "scaleY(.4)",
-              animation: reduce ? "none" : `kn-eq ${dur}s ease-in-out ${delay}s infinite`,
+              animation: `kn-eq ${dur}s ease-in-out ${delay}s infinite`,
             }}
           />
         );

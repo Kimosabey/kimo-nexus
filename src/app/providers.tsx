@@ -13,7 +13,7 @@ type ThemeContextValue = {
 };
 
 // View Transitions API (not in every TS DOM lib version).
-type ViewTransition = { ready: Promise<void> };
+type ViewTransition = { ready: Promise<void>; finished: Promise<void> };
 type ViewTransitionDocument = Document & {
   startViewTransition?: (callback: () => void) => ViewTransition;
 };
@@ -39,8 +39,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
   // The inline boot script in <head> already set the class before paint (no FOUC);
   // reflect whatever it decided into React state.
   useEffect(() => {
-    setTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
-    setMounted(true);
+    const id = requestAnimationFrame(() => {
+      setTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
+      setMounted(true);
+    });
+    return () => cancelAnimationFrame(id);
   }, []);
 
   const toggle = useCallback((origin?: { x: number; y: number }) => {
@@ -57,7 +60,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
         const root = document.documentElement;
         root.style.setProperty("--wx", `${origin.x}px`);
         root.style.setProperty("--wy", `${origin.y}px`);
-        doc.startViewTransition!(() => applyTheme(next));
+        const t = doc.startViewTransition!(() => applyTheme(next));
+        // Skipped transitions (rapid toggles / unfocused tab) reject these — swallow them.
+        t.ready.catch(() => {});
+        t.finished.catch(() => {});
       } else {
         applyTheme(next);
       }

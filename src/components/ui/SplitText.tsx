@@ -27,8 +27,7 @@ export function SplitText({
             custom={i}
             variants={lineMask}
             initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.4 }}
+            animate="show"
           >
             {accentize(line)}
           </motion.span>

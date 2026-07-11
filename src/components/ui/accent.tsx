@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ElementType, ReactNode } from "react";
 
 /** Renders a string, wrapping any {accent:…} token in the accent color. */
 export function accentize(text: string): ReactNode[] {
@@ -23,4 +23,28 @@ export function accentize(text: string): ReactNode[] {
 /** Plain-text version of a line (strips {accent:…} wrappers) — for aria-labels. */
 export function plain(text: string): string {
   return text.replace(/\{accent:([^}]*)\}/g, "$1");
+}
+
+/** Multi-line heading (line breaks between entries) with {accent:…} tokens colored. */
+export function AccentLines({
+  lines,
+  as: Tag = "h2",
+  className,
+  style,
+}: {
+  lines: readonly string[];
+  as?: ElementType;
+  className?: string;
+  style?: CSSProperties;
+}) {
+  return (
+    <Tag className={className} style={style} aria-label={lines.map(plain).join(" ")}>
+      {lines.map((line, i) => (
+        <span key={i} aria-hidden="true">
+          {i > 0 ? <br /> : null}
+          {accentize(line)}
+        </span>
+      ))}
+    </Tag>
+  );
 }

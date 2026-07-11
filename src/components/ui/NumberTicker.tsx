@@ -25,15 +25,11 @@ export function NumberTicker({
 
   useEffect(() => {
     if (!inView) return;
-    if (reduce) {
-      setDisplay(value);
-      return;
-    }
     let raf = 0;
-    const dur = 1400;
+    const dur = reduce ? 0 : 1400;
     const start = performance.now();
     const tick = (t: number) => {
-      const p = Math.min(1, (t - start) / dur);
+      const p = dur ? Math.min(1, (t - start) / dur) : 1;
       const eased = 1 - Math.pow(1 - p, 3);
       setDisplay(value * eased);
       if (p < 1) raf = requestAnimationFrame(tick);
@@ -50,6 +46,3 @@ export function NumberTicker({
     </span>
   );
 }
-
-// Legacy default export kept only so the not-yet-removed old page.tsx import resolves.
-export default NumberTicker;

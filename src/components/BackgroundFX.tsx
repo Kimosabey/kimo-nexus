@@ -120,7 +120,7 @@ export function BackgroundFX() {
           filter: "blur(24px)",
           zIndex: 0,
           pointerEvents: "none",
-          animation: reduce ? "none" : "kn-drift 26s ease-in-out infinite",
+          animation: "kn-drift 26s ease-in-out infinite",
         }}
       />
       <div
@@ -134,7 +134,7 @@ export function BackgroundFX() {
           mixBlendMode: "overlay",
           backgroundImage: "url('/noise.png')",
           backgroundSize: "180px 180px",
-          animation: reduce ? "none" : "kn-grain 8s steps(6) infinite",
+          animation: "kn-grain 8s steps(6) infinite",
         }}
       />
     </>
