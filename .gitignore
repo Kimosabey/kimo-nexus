@@ -38,4 +38,9 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# design-revamp handoff build artifacts (not source)
+*.zip
+/_handoff/
+/claude-design-handoff/assets/
 next-env.d.ts
