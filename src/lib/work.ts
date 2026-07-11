@@ -28,8 +28,10 @@ export interface Project {
 
 export const filters = ["All", "AI · Agents", "Voice · Audio", "Distributed", "Infra · Security", "Data", "Web · Product"] as const;
 
-// [id, title, category, group, desc, tech[], action, url, featured]
-type Row = [string, string, string, WorkGroup, string, string[], WorkAction, string, boolean];
+// [id, title, category, group, desc, tech[], action, url, featured, hasImage?]
+// hasImage defaults to true; set false for a repo project that has no screenshot yet
+// (renders a themed placeholder instead of a broken image).
+type Row = [string, string, string, WorkGroup, string, string[], WorkAction, string, boolean, boolean?];
 
 const P: Row[] = [
   ["nexus-swarm", "Nexus Swarm", "AI / Agents", "AI · Agents", "Stateful multi-agent system on LangGraph with human-in-the-loop review for autonomous research synthesis.", ["LangGraph", "Python", "FastAPI", "Next.js"], "repo", "https://github.com/Kimosabey/nexus-swarm", true],
@@ -49,6 +51,7 @@ const P: Row[] = [
   ["logstream-ai", "LogStream AI", "Observability", "Infra · Security", "High-volume log ingestion with automated anomaly detection and batch buffering for spikes.", ["Go", "Elasticsearch", "Kibana", "Docker"], "repo", "https://github.com/Kimosabey/logstream-ai", false],
   ["limit-guard", "LimitGuard", "Rate Limiting", "Infra · Security", "Distributed rate limiter for DDoS mitigation using token- and leaky-bucket algorithms.", ["Redis/Lua", "Node.js", "Nginx"], "repo", "https://github.com/Kimosabey/limit-guard", false],
   ["token-forge", "TokenForge", "Identity / Auth", "Infra · Security", "OIDC-compliant identity provider with MFA hooks and automated key rotation.", ["NestJS", "OIDC/OAuth2", "Redis", "Docker"], "repo", "https://github.com/Kimosabey/token-forge", false],
+  ["nexus-shield", "Nexus Shield", "AI Security · PII", "Infra · Security", "AI security gateway that masks PII in real time before requests reach downstream models.", ["NestJS", "Presidio", "Node.js", "Docker"], "repo", "https://github.com/Kimosabey/nexus-shield", false],
   ["lakehouse-pro", "Lakehouse Pro", "Big Data", "Data", "Real-time IoT lakehouse on the medallion architecture with Kafka and ClickHouse.", ["Java (Spring)", "ClickHouse", "Kafka", "Protobuf"], "repo", "https://github.com/Kimosabey/lakehouse-pro", false],
   ["spec-lens", "SpecLens", "DevTools", "Web · Product", "API-spec auditor that lints OpenAPI schemas for security and style violations.", ["TypeScript", "AST", "React", "OpenAPI"], "repo", "https://github.com/Kimosabey/spec-lens", false],
   ["tabedaar", "Tabedaar Service", "Logistics Platform", "Web · Product", "All-in-one service platform with admin, merchant, rider, and real-time order modules.", ["React", "Java", "MSSQL"], "prop", "", false],
@@ -69,7 +72,7 @@ export const projects: Project[] = P.map((r) => ({
   action: r[6],
   url: r[7],
   featured: r[8],
-  img: `/projects/${r[0]}.webp`,
+  img: r[9] === false ? "" : `/projects/${r[0]}.webp`,
   alt: `${r[1]} project thumbnail`,
 })).sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
 

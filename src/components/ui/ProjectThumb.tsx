@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { GraduationCap, Lock } from "lucide-react";
+import { GraduationCap, Lock, Shield } from "lucide-react";
 import type { Project } from "@/lib/work";
 
 /**
@@ -7,11 +7,11 @@ import type { Project } from "@/lib/work";
  * proprietary/academic projects have no shipped image, so render a themed SVG-style placeholder.
  */
 export function ProjectThumb({ project: p, sizes = "(max-width:640px) 90vw, (max-width:1200px) 45vw, 300px", grayscale = true }: { project: Project; sizes?: string; grayscale?: boolean }) {
-  if (p.action === "repo") {
+  if (p.action === "repo" && p.img) {
     return <Image src={p.img} alt={p.alt} fill sizes={sizes} className={grayscale ? "kn-thumb" : undefined} style={{ objectFit: "cover" }} />;
   }
-  const Icon = p.action === "prop" ? Lock : GraduationCap;
-  const label = p.action === "prop" ? "Proprietary" : "Academic";
+  const Icon = p.action === "prop" ? Lock : p.action === "acad" ? GraduationCap : Shield;
+  const label = p.action === "prop" ? "Proprietary" : p.action === "acad" ? "Academic" : "Security";
   return (
     <div
       aria-hidden="true"
