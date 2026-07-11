@@ -1,57 +1,55 @@
 "use client";
-import { useEffect, useRef } from "react";
-import { useInView, useMotionValue, useSpring } from "framer-motion";
-import { cn } from "@/lib/utils";
 
-export default function NumberTicker({
-    value,
-    direction = "up",
-    delay = 0,
-    className,
-    decimalPlaces = 0,
+import { useInView, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
+
+/** Counts up to `value` once when scrolled into view; respects reduced motion. */
+export function NumberTicker({
+  value,
+  dec = 0,
+  suffix = "",
+  className,
+  style,
 }: {
-    value: number;
-    direction?: "up" | "down";
-    className?: string;
-    delay?: number;
-    decimalPlaces?: number;
+  value: number;
+  dec?: number;
+  suffix?: string;
+  className?: string;
+  style?: CSSProperties;
 }) {
-    const ref = useRef<HTMLSpanElement>(null);
-    const motionValue = useMotionValue(direction === "down" ? value : 0);
-    const springValue = useSpring(motionValue, {
-        damping: 60,
-        stiffness: 100,
-    });
-    const isInView = useInView(ref, { once: true, margin: "0px" });
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.5 });
+  const reduce = useReducedMotion();
+  const [display, setDisplay] = useState(0);
 
-    useEffect(() => {
-        if (isInView) {
-            setTimeout(() => {
-                motionValue.set(direction === "down" ? 0 : value);
-            }, delay * 1000);
-        }
-    }, [motionValue, isInView, delay, value, direction]);
+  useEffect(() => {
+    if (!inView) return;
+    if (reduce) {
+      setDisplay(value);
+      return;
+    }
+    let raf = 0;
+    const dur = 1400;
+    const start = performance.now();
+    const tick = (t: number) => {
+      const p = Math.min(1, (t - start) / dur);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setDisplay(value * eased);
+      if (p < 1) raf = requestAnimationFrame(tick);
+      else setDisplay(value);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, reduce, value]);
 
-    useEffect(
-        () =>
-            springValue.on("change", (latest) => {
-                if (ref.current) {
-                    ref.current.textContent = Intl.NumberFormat("en-US", {
-                        minimumFractionDigits: decimalPlaces,
-                        maximumFractionDigits: decimalPlaces,
-                    }).format(Number(latest.toFixed(decimalPlaces)));
-                }
-            }),
-        [springValue, decimalPlaces]
-    );
-
-    return (
-        <span
-            className={cn(
-                "inline-block tabular-nums text-white tracking-wider",
-                className
-            )}
-            ref={ref}
-        />
-    );
+  return (
+    <span ref={ref} className={className} style={style}>
+      {display.toFixed(dec)}
+      {suffix}
+    </span>
+  );
 }
+
+// Legacy default export kept only so the not-yet-removed old page.tsx import resolves.
+export default NumberTicker;

@@ -1,103 +1,77 @@
 import type { Metadata, Viewport } from "next";
-import { Rajdhani, Outfit, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
-import { cn } from "@/lib/utils";
-import { FollowCursor } from "@/components/ui/FollowCursor";
-import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { Providers } from "./providers";
+import { site, socials } from "@/lib/content";
 
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-});
-
-const rajdhani = Rajdhani({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-rajdhani",
-});
+const display = Space_Grotesk({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--fd", display: "swap" });
+const body = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--fb", display: "swap" });
+const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--fm", display: "swap" });
 
 export const metadata: Metadata = {
-  metadataBase: "https://kimo-nexus.vercel.app",
-  title: "Harshan Aiyappa | Hybrid AI Engineer",
-  description: "Senior Full Stack Hybrid Engineer with nearly 5 years of experience specializing in Generative AI, Voice Synthesis, and Distributed Systems.",
-  keywords: ["AI Engineer", "Full Stack Developer", "Next.js", "React", "Portfolio", "Generative AI", "Harshan Aiyappa"],
-  authors: [{ name: "Harshan Aiyappa", url: "https://kimo-nexus.vercel.app" }],
-  creator: "Harshan Aiyappa",
+  metadataBase: new URL(site.url),
+  title: site.title,
+  description: site.description,
+  keywords: ["Harshan Aiyappa", "Fullstack Software Engineer", "AI Engineer", "Next.js", "React", "Distributed Systems", "Speech AI"],
+  authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
   openGraph: {
     type: "website",
-    locale: "en_US",
-    url: "https://kimo-nexus.vercel.app",
-    title: "Harshan Aiyappa | Hybrid AI Engineer",
-    description: "Building the future of AI and Web. Senior Full Stack Engineer portfolio.",
-    siteName: "Kimo Nexus",
-    images: [{
-      url: "/og-image.png", // Assuming existence or placeholder
-      width: 1200,
-      height: 630,
-      alt: "Harshan Aiyappa Portfolio"
-    }],
+    url: site.url,
+    siteName: site.name,
+    title: site.title,
+    description: site.ogDescription,
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: `${site.name} — portfolio` }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Harshan Aiyappa | Hybrid AI Engineer",
-    description: "Senior Full Stack Hybrid Engineer portfolio. Design & build high-performance Hybrid AI Systems.",
+    title: site.title,
+    description: site.ogDescription,
     images: ["/og-image.png"],
     creator: "@HarshanAiyappa",
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [{ url: "/favicon.ico", sizes: "any" }, { url: "/favicon-32.png", type: "image/png" }],
     apple: "/apple-touch-icon.png",
   },
+  alternates: { canonical: site.url },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0a0a0c',
-  width: 'device-width',
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0E0E10" },
+    { media: "(prefers-color-scheme: light)", color: "#F6F6F5" },
+  ],
+  width: "device-width",
   initialScale: 1,
-  maximumScale: 5,
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.name,
+  jobTitle: "Fullstack Software Engineer (AI & R&D)",
+  url: `${site.url}/`,
+  email: site.email,
+  sameAs: socials.map((s) => s.href),
+  knowsAbout: ["Artificial Intelligence", "Distributed Systems", "Full-Stack Engineering", "Speech AI", "Cloud Infrastructure"],
+};
+
+// No-FOUC theme boot: set html.dark before paint (default dark).
+const themeBoot = `(function(){try{var s=localStorage.getItem('kn-theme');var d=s?s==='dark':true;document.documentElement.classList.toggle('dark',d);}catch(e){document.documentElement.classList.add('dark');}})();`;
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+        <script dangerouslySetInnerHTML={{ __html: themeBoot }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
-      <body
-        suppressHydrationWarning
-        className={cn(
-          outfit.variable,
-          jetbrainsMono.variable,
-          rajdhani.variable,
-          "font-signature antialiased bg-background-dark text-white overflow-x-hidden selection:bg-cyan-400 selection:text-black font-sans"
-        )}
-      >
-        {/* Aceternity UI: Custom Cursor */}
-        <FollowCursor />
-
-        {/* Aceternity UI: Scroll Progress Bar */}
-        <ScrollProgress />
-
-        {/* Background Texture from HTML */}
-        <div className="fixed inset-0 pointer-events-none z-0">
-          <div className="absolute inset-0 bg-dot-grid opacity-20"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background-dark/50 to-background-dark"></div>
-        </div>
-
-        <SmoothScroll>
-          {children}
-        </SmoothScroll>
+      <body suppressHydrationWarning className={`${display.variable} ${body.variable} ${mono.variable}`}>
+        <Providers>
+          <SmoothScroll>{children}</SmoothScroll>
+        </Providers>
       </body>
     </html>
   );
