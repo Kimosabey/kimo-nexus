@@ -36,8 +36,10 @@ export function Portfolio() {
     return () => document.removeEventListener("keydown", onKey);
   }, []);
 
+  // overflow-x:clip contains the background FX horizontally WITHOUT creating a
+  // scroll container (overflow:hidden would break the sticky profile card).
   return (
-    <div style={{ position: "relative", minHeight: "100dvh", overflow: "hidden" }}>
+    <div style={{ position: "relative", minHeight: "100dvh", overflowX: "clip" }}>
       <a href="#main-content" className="kn-skip">Skip to content</a>
       <IntroLoader />
       <BackgroundFX />
