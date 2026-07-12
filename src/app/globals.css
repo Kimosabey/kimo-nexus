@@ -87,6 +87,9 @@ html.dark .kn-duotone { opacity: .07; }
    per-bar timing passed via custom props. Reduced-motion neutralized globally. */
 .kn-bar { flex: 1; min-width: 2px; max-width: 5px; height: 100%; border-radius: 3px; background: linear-gradient(var(--accent), color-mix(in srgb, var(--accent) 30%, transparent)); transform-origin: bottom; transform: scaleY(.4); animation: kn-eq var(--kn-d, 1.1s) ease-in-out var(--kn-dl, 0s) infinite; }
 
+/* inline loading spinner (contact submit) */
+.kn-spin { animation: kn-spin .8s linear infinite; }
+
 /* skip link (bypass blocks) */
 .kn-skip { position: fixed; top: 10px; left: 10px; z-index: 300; transform: translateY(-160%); background: var(--accent); color: var(--accent-ink); padding: 10px 16px; border-radius: 10px; font-weight: 600; font-family: var(--fb); transition: transform .2s ease; }
 .kn-skip:focus { transform: translateY(0); }

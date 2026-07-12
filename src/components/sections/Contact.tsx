@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Send } from "lucide-react";
+import { Mail, Send, Loader2, Check } from "lucide-react";
 import { contact, site } from "@/lib/content";
 import { Reveal } from "../ui/Reveal";
 import { AccentLines } from "../ui/accent";
@@ -13,17 +13,31 @@ const sec: React.CSSProperties = { padding: "clamp(72px,11vw,130px) 0 clamp(48px
 const label: React.CSSProperties = { display: "block", fontFamily: "var(--fm)", fontSize: 11, textTransform: "uppercase", letterSpacing: ".12em", color: "var(--muted)", marginBottom: 7 };
 const emailRe = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
+type Status = "idle" | "sending" | "sent" | "error";
+
 export function Contact() {
   const mag = useMagnetic();
   const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({});
+  const [status, setStatus] = useState<Status>("idle");
   const [note, setNote] = useState("");
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  // Fallback: hand off to the visitor's mail client (identical to the pre-API behaviour).
+  function mailtoFallback(name: string, email: string, message: string) {
+    const subject = encodeURIComponent(`Portfolio enquiry from ${name}`);
+    const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
+    window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;
+  }
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
+    if (status === "sending") return;
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     const name = String(fd.get("name") || "").trim();
     const email = String(fd.get("email") || "").trim();
     const message = String(fd.get("message") || "").trim();
+    const company = String(fd.get("company") || "").trim(); // honeypot
+
     const next: typeof errors = {};
     if (!name) next.name = "Please enter your name.";
     if (!email) next.email = "Please enter your email.";
@@ -31,14 +45,44 @@ export function Contact() {
     if (!message) next.message = "Please add a short message.";
     setErrors(next);
     if (Object.keys(next).length) {
+      setStatus("idle");
       setNote("");
       return;
     }
-    const subject = encodeURIComponent(`Portfolio enquiry from ${name}`);
-    const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
-    setNote("Opening your email client…");
-    window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;
+
+    setStatus("sending");
+    setNote("Sending…");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message, company }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok) {
+        setStatus("sent");
+        setNote("Thanks — your message is on its way. I'll reply soon.");
+        form.reset();
+        return;
+      }
+      if (data.fallback) {
+        setStatus("idle");
+        setNote("Opening your email client…");
+        mailtoFallback(name, email, message);
+        return;
+      }
+      setStatus("error");
+      setNote(data.error || "Something went wrong. Please try again.");
+    } catch {
+      // network failure → don't strand the visitor; open their mail client.
+      setStatus("idle");
+      setNote("Opening your email client…");
+      mailtoFallback(name, email, message);
+    }
   }
+
+  const sending = status === "sending";
+  const sent = status === "sent";
 
   return (
     <section id="contact" style={sec}>
@@ -78,10 +122,12 @@ export function Contact() {
               <textarea id="kn-f-msg" name="message" placeholder="A line about what you're building…" className="kn-field" aria-invalid={!!errors.message} style={errors.message ? { borderColor: "#E5484D" } : undefined} />
               <span className="kn-err" style={{ display: "block", fontSize: 11.5, color: "#E5484D", marginTop: 5, minHeight: 2 }}>{errors.message}</span>
             </div>
-            <button type="submit" {...mag} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 9, height: 52, borderRadius: 14, background: "var(--accent)", color: "var(--accent-ink)", fontWeight: 600, fontSize: 15, border: 0, cursor: "pointer", fontFamily: "inherit", transition: "transform .25s" }}>
-              Send message <Send size={16} strokeWidth={2} />
+            {/* honeypot — hidden from humans, catches bots */}
+            <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }} />
+            <button type="submit" disabled={sending} {...mag} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 9, height: 52, borderRadius: 14, background: "var(--accent)", color: "var(--accent-ink)", fontWeight: 600, fontSize: 15, border: 0, cursor: sending ? "wait" : "pointer", fontFamily: "inherit", transition: "transform .25s", opacity: sending ? 0.75 : 1 }}>
+              {sending ? (<>Sending… <Loader2 size={16} strokeWidth={2} className="kn-spin" /></>) : sent ? (<>Sent <Check size={16} strokeWidth={2.4} /></>) : (<>Send message <Send size={16} strokeWidth={2} /></>)}
             </button>
-            <p aria-live="polite" style={{ fontSize: 12.5, margin: 0, minHeight: 16, color: "var(--muted)" }}>{note}</p>
+            <p aria-live="polite" role="status" style={{ fontSize: 12.5, margin: 0, minHeight: 16, color: status === "error" ? "#E5484D" : sent ? "var(--accent)" : "var(--muted)" }}>{note}</p>
           </form>
         </Reveal>
       </div>
