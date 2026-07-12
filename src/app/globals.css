@@ -83,6 +83,10 @@ html.dark .kn-duotone { opacity: .07; }
 .kn-avail-dot { position: relative; }
 .kn-avail-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--accent); animation: kn-ping 2s cubic-bezier(0, 0, .2, 1) infinite; }
 
+/* waveform bars — CSS-driven so SSR/CSR markup matches (hydration-stable);
+   per-bar timing passed via custom props. Reduced-motion neutralized globally. */
+.kn-bar { flex: 1; min-width: 2px; max-width: 5px; height: 100%; border-radius: 3px; background: linear-gradient(var(--accent), color-mix(in srgb, var(--accent) 30%, transparent)); transform-origin: bottom; transform: scaleY(.4); animation: kn-eq var(--kn-d, 1.1s) ease-in-out var(--kn-dl, 0s) infinite; }
+
 /* skip link (bypass blocks) */
 .kn-skip { position: fixed; top: 10px; left: 10px; z-index: 300; transform: translateY(-160%); background: var(--accent); color: var(--accent-ink); padding: 10px 16px; border-radius: 10px; font-weight: 600; font-family: var(--fb); transition: transform .2s ease; }
 .kn-skip:focus { transform: translateY(0); }
