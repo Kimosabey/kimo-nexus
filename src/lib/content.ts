@@ -3,8 +3,8 @@
 
 export const site = {
   name: "Harshan Aiyappa",
-  role: "Fullstack Software Engineer · AI & R&D",
-  title: "Harshan Aiyappa — Fullstack Software Engineer (AI & R&D)",
+  role: "Full-Stack Software Engineer · AI & R&D",
+  title: "Harshan Aiyappa — Full-Stack Software Engineer (AI & R&D)",
   description:
     "I design and ship production systems across the stack — from LLM and voice pipelines to the APIs, infrastructure, and interfaces around them. ~5 years turning hard problems into simple, reliable products.",
   ogDescription: "I build production AI, end to end.",
@@ -23,7 +23,7 @@ export const socials = [
 ] as const;
 
 export const hero = {
-  eyebrow: "Fullstack Engineer — AI & R&D",
+  eyebrow: "Full-Stack Software Engineer — AI & R&D",
   // Per-line mask reveal; the token {accent} is rendered in the accent color.
   lines: ["I build", "production {accent:AI},", "end to end."],
   lead:
@@ -41,7 +41,7 @@ export const about = {
   headline: ["Engineering that stays", "simple as it {accent:scales}."],
   paragraphs: [
     "I'm a full-stack engineer working at the intersection of product and applied AI. Day to day that means React/Next.js on the front, Node.js and Python services behind it, and R&D in speech and language tech — TTS, ASR, and NLP — turned into low-latency, production features.",
-    "I care about architectural rigour: systems that are understandable, observable, and hold up under load. Over ~5 years I've delivered 40+ platforms end to end and mentored 250+ engineers and students.",
+    "I care about architectural rigor: systems that are understandable, observable, and hold up under load. Over ~5 years I've delivered 40+ platforms end to end and mentored 250+ engineers and students.",
   ],
   note: "Currently building AI/voice platforms at Lingotran. Master's in Computer Applications (MCA).",
   stats: [
@@ -79,8 +79,8 @@ export const experience = {
   eyebrow: "Experience",
   headline: "The path so far.",
   items: [
-    { role: "Fullstack Engineer — AI & R&D", org: "Lingotran Pvt Ltd", period: "Jan 2023 — Present", current: true, desc: "Build and ship AI/voice platforms end to end — real-time TTS/ASR/NLP pipelines, agentic RAG, and the APIs and dashboards around them. Design resilient services for high-throughput data and guide junior engineers on architecture." },
-    { role: "Software Engineer", org: "Veriteam Software Solutions", period: "Feb 2021 — Aug 2022", current: true, desc: "Delivered 40+ full-stack products for clients, including the Tabedaar logistics platform and the Zeus enterprise core with layered RBAC. Owned delivery lifecycles and mentored 250+ students and engineers." },
+    { role: "Full-Stack Software Engineer — AI & R&D", org: "Lingotran Pvt Ltd", period: "Jan 2023 — Present", current: true, desc: "Build and ship AI/voice platforms end to end — real-time TTS/ASR/NLP pipelines, agentic RAG, and the APIs and dashboards around them. Design resilient services for high-throughput data and guide junior engineers on architecture." },
+    { role: "Software Engineer", org: "Veriteam Software Solutions", period: "Feb 2021 — Aug 2022", current: false, desc: "Delivered 40+ full-stack products for clients, including the Tabedaar logistics platform and the Zeus enterprise core with layered RBAC. Owned delivery lifecycles and mentored 250+ students and engineers." },
     { role: "MCA — Computer Applications", org: "NIE Institute of Technology, Mysore", period: "2017 — 2020", current: false, desc: "Master's, 8.2 CGPA. Focus on algorithms, distributed systems, and concurrency." },
     { role: "BCA — Computer Applications", org: "University of Mysore", period: "2014 — 2017", current: false, desc: "Bachelor's, 71%. Foundations in computational logic, databases, and the software lifecycle." },
   ],
