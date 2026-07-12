@@ -78,8 +78,8 @@ html.dark .kn-duotone { opacity: .07; }
 }
 
 /* ---- Layout (responsive; replaces the prototype's JS applyLayout) ---- */
-.kn-container { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr; gap: 28px; max-width: 1320px; margin: 0 auto; padding: 30px clamp(18px, 4vw, 44px) 40px; }
-.kn-profile { align-self: start; }
+.kn-container { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; max-width: 1320px; margin: 0 auto; padding: 30px clamp(18px, 4vw, 44px) 40px; }
+.kn-profile { align-self: start; min-width: 0; }
 .kn-main { min-width: 0; display: flex; flex-direction: column; }
 .kn-rail { display: none; }
 .kn-burger { display: flex; }

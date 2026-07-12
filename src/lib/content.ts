@@ -10,7 +10,7 @@ export const site = {
   ogDescription: "I build production AI, end to end.",
   tagline: "I build production AI, end to end.",
   url: "https://kimo-nexus.vercel.app",
-  email: "harshan.aiyappa@gmail.com", // ⚠ confirm: gmail vs graylinx
+  email: "harshan.aiyappa@gmail.com", // personal contact (canonical)
   location: "Mysore, India · Remote",
   resume: "/resume.pdf",
   photo: "/profile.webp",
@@ -18,7 +18,7 @@ export const site = {
 
 export const socials = [
   { label: "GitHub", href: "https://github.com/Kimosabey" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/harshan-aiyappa" }, // ⚠ confirm slug
+  { label: "LinkedIn", href: "https://linkedin.com/in/harshan-aiyappa" },
   { label: "X", href: "https://x.com/HarshanAiyappa" },
 ] as const;
 
