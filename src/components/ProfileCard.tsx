@@ -55,7 +55,7 @@ export function ProfileCard({ onOpenPalette, onScrollTo }: { onOpenPalette: () =
         </div>
 
         {/* portrait */}
-        <div style={{ position: "relative", borderRadius: 18, overflow: "hidden", aspectRatio: "1/1", background: "var(--surface-2)" }}>
+        <div className="kn-avatar" style={{ borderRadius: 18, overflow: "hidden", background: "var(--surface-2)" }}>
           <Image src={site.photo} alt={`Portrait of ${site.name}`} fill sizes="(max-width:1024px) 90vw, 300px" className="kn-portrait" style={{ objectFit: "cover" }} priority />
           <div className="kn-duotone" />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, color-mix(in srgb,var(--surface) 70%, transparent), transparent 42%)" }} />

@@ -80,6 +80,9 @@ html.dark .kn-duotone { opacity: .07; }
 /* ---- Layout (responsive; replaces the prototype's JS applyLayout) ---- */
 .kn-container { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; max-width: 1320px; margin: 0 auto; padding: 30px clamp(18px, 4vw, 44px) 40px; }
 .kn-profile { align-self: start; min-width: 0; }
+/* profile portrait: square on the desktop sidebar, capped banner when stacked */
+.kn-avatar { position: relative; aspect-ratio: 1 / 1; }
+@media (max-width: 1023px) { .kn-avatar { aspect-ratio: auto; height: clamp(280px, 46vw, 440px); } }
 .kn-main { min-width: 0; display: flex; flex-direction: column; }
 .kn-rail { display: none; }
 .kn-burger { display: flex; }
