@@ -29,12 +29,17 @@ export function CommandPalette({ open, onClose, onOpenProject }: { open: boolean
 
   useEffect(() => {
     if (!open) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     const t = window.setTimeout(() => {
       setQ("");
       setHi(0);
       inputRef.current?.focus();
     }, 0);
-    return () => window.clearTimeout(t);
+    return () => {
+      window.clearTimeout(t);
+      document.body.style.overflow = prevOverflow;
+    };
   }, [open]);
   useEffect(() => {
     const row = listRef.current?.querySelectorAll<HTMLElement>(".kn-pal-row")[hi];
@@ -67,15 +72,15 @@ export function CommandPalette({ open, onClose, onOpenProject }: { open: boolean
   };
 
   return (
-    <div role="dialog" aria-modal="true" aria-label="Command palette" style={{ position: "fixed", inset: 0, zIndex: 150, display: "flex", alignItems: "flex-start", justifyContent: "center", padding: "12vh 20px 20px" }}>
-      <div onClick={onClose} aria-hidden="true" style={{ position: "absolute", inset: 0, background: "color-mix(in srgb,var(--canvas) 66%,transparent)", backdropFilter: "blur(6px)" }} />
+    <div role="dialog" aria-modal="true" aria-label="Command palette" data-lenis-prevent style={{ position: "fixed", inset: 0, zIndex: 150, display: "flex", alignItems: "flex-start", justifyContent: "center", padding: "12vh 20px 20px" }}>
+      <div onClick={onClose} aria-hidden="true" style={{ position: "absolute", inset: 0, background: "color-mix(in srgb,var(--canvas) 66%,transparent)", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)" }} />
       <div style={{ position: "relative", width: "min(560px,100%)", border: "1px solid var(--hairline)", borderRadius: 18, background: "var(--surface)", boxShadow: "var(--shadow-card)", overflow: "hidden" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "14px 16px", borderBottom: "1px solid var(--hairline)" }}>
           <span style={{ color: "var(--muted)", display: "flex" }}><Search size={18} strokeWidth={1.8} /></span>
-          <input ref={inputRef} value={q} onChange={(e) => { setQ(e.target.value); setHi(0); }} onKeyDown={onKey} type="text" role="combobox" aria-expanded aria-controls="kn-pal-list" aria-autocomplete="list" placeholder="Jump to a section or project…" style={{ flex: 1, border: 0, background: "transparent", color: "var(--ink)", fontSize: 15, fontFamily: "inherit", outline: "none" }} />
+          <input ref={inputRef} value={q} onChange={(e) => { setQ(e.target.value); setHi(0); }} onKeyDown={onKey} type="text" role="combobox" aria-expanded aria-controls="kn-pal-list" aria-autocomplete="list" placeholder="Jump to a section or project…" style={{ flex: 1, minWidth: 0, border: 0, background: "transparent", color: "var(--ink)", fontSize: 16, fontFamily: "inherit", outline: "none" }} />
           <span style={{ fontFamily: "var(--fm)", fontSize: 10.5, color: "var(--muted)", border: "1px solid var(--hairline)", borderRadius: 6, padding: "3px 7px" }}>ESC</span>
         </div>
-        <div id="kn-pal-list" ref={listRef} role="listbox" aria-label="Results" data-hidescroll style={{ maxHeight: "52vh", overflow: "auto", padding: 8 }}>
+        <div id="kn-pal-list" ref={listRef} role="listbox" aria-label="Results" data-hidescroll style={{ maxHeight: "52vh", overflow: "auto", overscrollBehavior: "contain", padding: 8 }}>
           {filtered.length === 0 ? (
             <div style={{ padding: 16, color: "var(--muted)", fontSize: 14 }}>No matches</div>
           ) : (

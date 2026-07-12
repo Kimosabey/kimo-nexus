@@ -32,10 +32,10 @@ export function ProjectModal({ project, onClose }: { project: Project | null; on
   const p = project;
 
   return (
-    <div role="dialog" aria-modal="true" aria-labelledby="kn-modal-title" style={{ position: "fixed", inset: 0, zIndex: 120, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
-      <div onClick={onClose} aria-hidden="true" style={{ position: "absolute", inset: 0, background: "color-mix(in srgb,var(--canvas) 68%,transparent)", backdropFilter: "blur(6px)" }} />
-      <div data-hidescroll style={{ position: "relative", width: "min(560px,100%)", maxHeight: "88dvh", overflow: "auto", border: "1px solid var(--hairline)", borderRadius: 22, background: "var(--surface)", boxShadow: "var(--shadow-card)" }}>
-        <button ref={closeRef} type="button" onClick={onClose} aria-label="Close" style={{ position: "absolute", top: 14, right: 14, zIndex: 3, width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 12, border: "1px solid var(--hairline)", background: "color-mix(in srgb,var(--surface) 82%,transparent)", color: "var(--ink)", cursor: "pointer" }}>
+    <div role="dialog" aria-modal="true" aria-labelledby="kn-modal-title" data-lenis-prevent style={{ position: "fixed", inset: 0, zIndex: 120, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
+      <div onClick={onClose} aria-hidden="true" style={{ position: "absolute", inset: 0, background: "color-mix(in srgb,var(--canvas) 68%,transparent)", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)" }} />
+      <div data-hidescroll style={{ position: "relative", width: "min(560px,100%)", maxHeight: "88dvh", overflow: "auto", overscrollBehavior: "contain", border: "1px solid var(--hairline)", borderRadius: 22, background: "var(--surface)", boxShadow: "var(--shadow-card)" }}>
+        <button ref={closeRef} type="button" onClick={onClose} aria-label="Close" style={{ position: "absolute", top: 14, right: 14, zIndex: 3, width: 44, height: 44, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 12, border: "1px solid var(--hairline)", background: "color-mix(in srgb,var(--surface) 82%,transparent)", backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)", color: "var(--ink)", cursor: "pointer" }}>
           <X size={18} strokeWidth={2} />
         </button>
         <div style={{ position: "relative", aspectRatio: "16/10", overflow: "hidden", background: "var(--surface-2)" }}>

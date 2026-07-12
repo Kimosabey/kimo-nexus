@@ -45,6 +45,7 @@ export const viewport: Viewport = {
   ],
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover", // lets env(safe-area-inset-*) resolve on notched iPhones
 };
 
 const jsonLd = {

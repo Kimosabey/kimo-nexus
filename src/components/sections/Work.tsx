@@ -9,7 +9,7 @@ import { AccentLines } from "../ui/accent";
 import { WorkCard } from "../ui/WorkCard";
 
 const sec: React.CSSProperties = { padding: "clamp(64px,10vw,120px) 0", borderTop: "1px solid var(--hairline)" };
-const navBtn: React.CSSProperties = { width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 11, border: "1px solid var(--hairline)", background: "var(--surface)", color: "var(--ink)", cursor: "pointer" };
+const navBtn: React.CSSProperties = { width: 44, height: 44, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 12, border: "1px solid var(--hairline)", background: "var(--surface)", color: "var(--ink)", cursor: "pointer" };
 const filterBtn: React.CSSProperties = { flex: "0 0 auto", height: 40, padding: "0 16px", borderRadius: 999, border: "1px solid var(--hairline)", background: "var(--surface)", color: "var(--muted)", fontSize: 13, fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap", transition: ".25s", fontFamily: "inherit" };
 
 export function Work({ onOpenProject }: { onOpenProject: (p: Project) => void }) {

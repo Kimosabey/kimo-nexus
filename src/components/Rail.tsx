@@ -39,7 +39,7 @@ export function Rail() {
     <aside
       className="kn-rail"
       aria-label="Section navigation"
-      style={{ position: "fixed", top: "50%", right: 18, transform: "translateY(-50%)", zIndex: 50, flexDirection: "column", gap: 6, padding: "10px 8px", border: "1px solid var(--hairline)", borderRadius: 999, background: "color-mix(in srgb, var(--surface) 78%, transparent)", backdropFilter: "blur(10px)" }}
+      style={{ position: "fixed", top: "50%", right: 18, transform: "translateY(-50%)", zIndex: 50, flexDirection: "column", gap: 6, padding: "10px 8px", border: "1px solid var(--hairline)", borderRadius: 999, background: "color-mix(in srgb, var(--surface) 78%, transparent)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)" }}
     >
       {sections.map((s) => {
         const Icon = ICON[s.id] ?? Home;
