@@ -34,18 +34,9 @@ export function WorkCard({ project: p, onOpen, featured }: { project: Project; o
     <article
       ref={ref}
       className={featured ? "kn-card kn-fcard" : "kn-card"}
-      role="button"
-      tabIndex={0}
-      aria-label={`Open details for ${p.title}`}
       onClick={(e) => {
-        if ((e.target as HTMLElement).closest("a")) return;
+        if ((e.target as HTMLElement).closest("a, button")) return;
         open();
-      }}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          open();
-        }
       }}
       onMouseMove={onMove}
       onMouseLeave={onLeave}

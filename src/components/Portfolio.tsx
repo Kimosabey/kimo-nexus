@@ -38,6 +38,7 @@ export function Portfolio() {
 
   return (
     <div style={{ position: "relative", minHeight: "100dvh", overflow: "hidden" }}>
+      <a href="#main-content" className="kn-skip">Skip to content</a>
       <IntroLoader />
       <BackgroundFX />
       <ScrollProgress />
@@ -46,7 +47,7 @@ export function Portfolio() {
 
       <div className="kn-container">
         <ProfileCard onOpenPalette={() => setPaletteOpen(true)} onScrollTo={scrollToId} />
-        <main className="kn-main">
+        <main id="main-content" tabIndex={-1} className="kn-main">
           <Hero onScrollTo={scrollToId} />
           <About />
           <Services />

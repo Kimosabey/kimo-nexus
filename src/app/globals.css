@@ -78,6 +78,10 @@ html.dark .kn-duotone { opacity: .07; }
 }
 
 /* ---- Layout (responsive; replaces the prototype's JS applyLayout) ---- */
+/* skip link (bypass blocks) */
+.kn-skip { position: fixed; top: 10px; left: 10px; z-index: 300; transform: translateY(-160%); background: var(--accent); color: var(--accent-ink); padding: 10px 16px; border-radius: 10px; font-weight: 600; font-family: var(--fb); transition: transform .2s ease; }
+.kn-skip:focus { transform: translateY(0); }
+
 .kn-container { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; max-width: 1320px; margin: 0 auto; padding: 30px clamp(18px, 4vw, 44px) 40px; }
 .kn-profile { align-self: start; min-width: 0; }
 /* profile portrait: square on the desktop sidebar, capped banner when stacked */
