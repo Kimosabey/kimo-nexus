@@ -90,7 +90,7 @@ export const testimonials = {
   eyebrow: "Peers",
   headline: ["Endorsed by the people", "I've built with."],
   items: [
-    { name: "Aniruddha Bagal", role: "SDE @ Examic Edtech · GitHub Campus Expert", quote: "He translates complex business requirements into scalable solutions. His greatest strength is mentorship — code reviews were always learning opportunities, and he foresees bottlenecks before they become issues." },
+    { name: "Aniruddha Bagal", role: "SDE @ Examic EdTech · GitHub Campus Expert", quote: "He translates complex business requirements into scalable solutions. His greatest strength is mentorship — code reviews were always learning opportunities, and he foresees bottlenecks before they become issues." },
     { name: "S Kumar Dhananjaya", role: "Associate SW Engineer @ Examic EdTech", quote: "A rare combination of technical brilliance and a positive, solution-driven mindset. His depth as a full-stack developer and eagerness to take ownership made him an incredible asset to the team." },
     { name: "Kaushik N D", role: "Database Developer & ETL Engineer", quote: "Exceptional full-stack developer who proved invaluable to our success. He architects scalable solutions and moves seamlessly between frontend and backend. A true team player with excellent communication." },
     { name: "Deepak Somayya Mathanda", role: "Digital Marketing & SEO Specialist", quote: "One of the most dedicated and versatile full-stack developers I've met. He turns complex ideas into real-world applications, and leads with empathy while mentoring generously." },
