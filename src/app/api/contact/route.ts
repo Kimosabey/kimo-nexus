@@ -30,8 +30,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "Please fill in a valid name, email, and message." }, { status: 422 });
   }
 
-  const user = process.env.GMAIL_USER;
-  const pass = process.env.GMAIL_APP_PASSWORD;
+  const user = process.env.GMAIL_USER?.trim();
+  // Google displays the 16-char App Password in 4 space-separated groups; the
+  // spaces are cosmetic, so strip all whitespace to accept either form.
+  const pass = process.env.GMAIL_APP_PASSWORD?.replace(/\s+/g, "");
 
   // Creds not configured → tell the client to fall back to mailto (never worse than before).
   if (!user || !pass) {
