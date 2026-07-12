@@ -60,7 +60,7 @@ export function ProfileCard({ onOpenPalette, onScrollTo }: { onOpenPalette: () =
           <div className="kn-duotone" />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, color-mix(in srgb,var(--surface) 70%, transparent), transparent 42%)" }} />
           <span style={{ position: "absolute", left: 12, bottom: 12, display: "inline-flex", alignItems: "center", gap: 7, fontFamily: "var(--fm)", fontSize: 11, textTransform: "uppercase", letterSpacing: ".12em", color: "var(--ink)", background: "color-mix(in srgb,var(--surface) 82%,transparent)", border: "1px solid var(--hairline)", borderRadius: 999, padding: "5px 11px" }}>
-            <span style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--accent)", boxShadow: "0 0 0 3px var(--accent-soft)" }} />
+            <span className="kn-avail-dot" style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--accent)", boxShadow: "0 0 0 3px var(--accent-soft)" }} />
             Available for select work
           </span>
         </div>

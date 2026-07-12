@@ -78,6 +78,11 @@ html.dark .kn-duotone { opacity: .07; }
 }
 
 /* ---- Layout (responsive; replaces the prototype's JS applyLayout) ---- */
+/* live "available" pulse dot */
+@keyframes kn-ping { 0% { transform: scale(1); opacity: .55; } 70%, 100% { transform: scale(2.6); opacity: 0; } }
+.kn-avail-dot { position: relative; }
+.kn-avail-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--accent); animation: kn-ping 2s cubic-bezier(0, 0, .2, 1) infinite; }
+
 /* skip link (bypass blocks) */
 .kn-skip { position: fixed; top: 10px; left: 10px; z-index: 300; transform: translateY(-160%); background: var(--accent); color: var(--accent-ink); padding: 10px 16px; border-radius: 10px; font-weight: 600; font-family: var(--fb); transition: transform .2s ease; }
 .kn-skip:focus { transform: translateY(0); }
