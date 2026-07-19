@@ -40,8 +40,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-# design-revamp handoff build artifacts (not source)
+# design-revamp handoff + agent artifacts (not source; internal tooling — keep out of public repo)
 *.zip
 /_handoff/
-/claude-design-handoff/assets/
+/claude-design-handoff/
+/.agent/
 next-env.d.ts

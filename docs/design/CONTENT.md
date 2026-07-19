@@ -77,7 +77,7 @@ Keep the existing real peer recommendations from `Testimonials.tsx` (names/roles
 ## Contact / CTA
 - **Headline:** "Let's build something."
 - **Sub:** "Open to senior full-stack / AI engineering roles and select collaborations."
-- **Email CTA:** harshan.aiyappa@gmail.com  ⚠️ *(portfolio uses gmail; session email is `harshan.aiyappa@graylinx.ai` — confirm which is the public contact)*
+- **Email CTA:** harshan.aiyappa@gmail.com
 - **Socials:** GitHub · LinkedIn · X (see links table)
 
 ---
@@ -90,7 +90,7 @@ Current code has **conflicting** values — these are the reconciled canonical s
 | GitHub | `https://github.com/Kimosabey` | `page.tsx` used `github.com/HarshanAiyappaPrabhu` (**wrong** — git remote & all repos are `Kimosabey`) |
 | LinkedIn ⚠️ | `https://linkedin.com/in/harshan-aiyappa` | `page.tsx` used `/in/harshan-aiyappa-prabhu` — confirm correct slug |
 | X / Twitter | `https://x.com/HarshanAiyappa` | variants: `twitter.com/harshan_aiyappa`, meta `@HarshanAiyappa` |
-| Email ⚠️ | `harshan.aiyappa@gmail.com` | session email `harshan.aiyappa@graylinx.ai` |
+| Email | `harshan.aiyappa@gmail.com` | — |
 | Résumé | `/resume.pdf` | present in `public/` |
 | Live site | `https://kimo-nexus.vercel.app/` | — |
 
