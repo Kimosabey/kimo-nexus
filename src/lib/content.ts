@@ -80,7 +80,7 @@ export const experience = {
   headline: "The path so far.",
   items: [
     { role: "Full-Stack Software Engineer — AI & R&D", org: "Lingotran Pvt Ltd", period: "Jan 2023 — Present", current: true, desc: "Build and ship AI/voice platforms end to end — real-time TTS/ASR/NLP pipelines, agentic RAG, and the APIs and dashboards around them. Design resilient services for high-throughput data and guide junior engineers on architecture." },
-    { role: "Software Engineer", org: "Veriteam Software Solutions", period: "Feb 2021 — Aug 2022", current: false, desc: "Delivered 40+ full-stack products for clients, including the Tabedaar logistics platform and the Zeus enterprise core with layered RBAC. Owned delivery lifecycles and mentored 250+ students and engineers." },
+    { role: "Software Engineer", org: "Veriteam Software Solutions", period: "Feb 2021 — Aug 2022", current: false, desc: "Delivered 40+ full-stack products for clients, including the Tabedaar logistics platform and Zeus Biotech — Next.js web, React Native mobile, Node.js API, and MSSQL with layered RBAC. Owned delivery lifecycles and mentored 250+ students and engineers." },
     { role: "MCA — Computer Applications", org: "NIE Institute of Technology, Mysore", period: "2017 — 2020", current: false, desc: "Master's, 8.2 CGPA. Focus on algorithms, distributed systems, and concurrency." },
     { role: "BCA — Computer Applications", org: "University of Mysore", period: "2014 — 2017", current: false, desc: "Bachelor's, 71%. Foundations in computational logic, databases, and the software lifecycle." },
   ],

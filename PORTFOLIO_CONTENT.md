@@ -49,7 +49,7 @@ Highly driven Full Stack Software Engineer with nearly 5 years of hands-on exper
 **Key Contributions:**
 - Architected and maintained 40+ full-stack projects using MVC architecture.
 - Developed "Tabedaar" (Hyperlocal Multi-vendor E-commerce & Delivery).
-- Engineered "Zeus Biotech" (Enterprise CMS with RBAC).
+- Engineered "Zeus Biotech" (full-stack enterprise platform: Next.js web admin, React Native mobile, Node.js REST API, MSSQL, RBAC).
 - Mentored over 250 students and junior developers, guiding 40+ academic projects in C, C++, Java, and Web Dev.
 - Specialized in JSP/Servlets, Node.js, and React-based dashboards.
 
@@ -78,7 +78,7 @@ Highly driven Full Stack Software Engineer with nearly 5 years of hands-on exper
 | :--- | :--- | :--- | :--- | :--- |
 | **Tabedaar Service** | E-Commerce / Logistics | React, Java, MSSQL, REST | Multi-node CMS modules. | Restricted |
 | **Canada Bizzsp** | Media Architecture | React, React Native, Java | Short-video ecosystem. | Restricted |
-| **Zeus Biotech** | Enterprise CMS | React, Node.js, MSSQL | Internal biz-flow sync. | Restricted |
+| **Zeus Biotech** | Enterprise Platform | Next.js, React Native, Node.js, MSSQL | Full-stack web + mobile + API for orders, distributors, and internal workflows. | Restricted |
 | **Captcha as Graphical Password** | Cybersecurity (MCA) | C#, Python, .NET 4.0 | Graphical auth mechanism. | 2019-2020 |
 | **Early Reviewer Predictor** | Data Mining (BCA) | C#, MySQL | Predictive e-comm telemetry. | 2018-2019 |
 | **Chit Fund Sys** | Legacy Fintech | JSP/Servlets, SQL Server | Complex interest engines. | Restricted |
