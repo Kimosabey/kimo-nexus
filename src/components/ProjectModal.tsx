@@ -38,8 +38,8 @@ export function ProjectModal({ project, onClose }: { project: Project | null; on
         <button ref={closeRef} type="button" onClick={onClose} aria-label="Close" style={{ position: "absolute", top: 14, right: 14, zIndex: 3, width: 44, height: 44, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 12, border: "1px solid var(--hairline)", background: "color-mix(in srgb,var(--surface) 82%,transparent)", backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)", color: "var(--ink)", cursor: "pointer" }}>
           <X size={18} strokeWidth={2} />
         </button>
-        <div style={{ position: "relative", aspectRatio: "16/10", overflow: "hidden", background: "var(--surface-2)" }}>
-          <ProjectThumb project={p} sizes="560px" grayscale={false} />
+        <div className="kn-thumb-wrap">
+          <ProjectThumb project={p} sizes="(max-width: 640px) 100vw, 560px" grayscale={false} />
         </div>
         <div style={{ padding: 26 }}>
           <p style={{ fontFamily: "var(--fm)", fontSize: 11, textTransform: "uppercase", letterSpacing: ".14em", color: "var(--accent)", margin: "0 0 8px" }}>{p.category}</p>

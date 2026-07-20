@@ -42,11 +42,14 @@ export function WorkCard({ project: p, onOpen, featured }: { project: Project; o
       onMouseLeave={onLeave}
       style={featured ? { flex: "0 0 clamp(260px,72vw,320px)" } : undefined}
     >
-      <div style={{ position: "relative", aspectRatio: "16/10", overflow: "hidden", background: "var(--surface-2)" }}>
+      <div className="kn-thumb-wrap">
         {p.featured ? (
           <span style={{ position: "absolute", top: 10, left: 10, zIndex: 2, display: "inline-flex", alignItems: "center", gap: 5, fontFamily: "var(--fm)", fontSize: 10, textTransform: "uppercase", letterSpacing: ".1em", fontWeight: 600, color: "var(--accent-ink)", background: "var(--accent)", borderRadius: 999, padding: "4px 9px" }}>Featured</span>
         ) : null}
-        <ProjectThumb project={p} />
+        <ProjectThumb
+          project={p}
+          sizes={featured ? "(max-width: 640px) 72vw, 320px" : "(max-width: 640px) 92vw, (max-width: 1200px) 50vw, 640px"}
+        />
         <span ref={sheenRef} className="kn-sheen" />
       </div>
       <div style={{ padding: 18 }}>

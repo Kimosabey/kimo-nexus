@@ -19,9 +19,17 @@ const DOMAIN: Record<string, ComponentType<{ size?: number; strokeWidth?: number
  * (grayscale → color on hover). Projects without an image (proprietary/academic, or a
  * repo awaiting a screenshot) render a distinct, designed vector cover instead.
  */
-export function ProjectThumb({ project: p, sizes = "(max-width:640px) 90vw, (max-width:1200px) 45vw, 300px", grayscale = true }: { project: Project; sizes?: string; grayscale?: boolean }) {
+export function ProjectThumb({ project: p, sizes = "(max-width: 640px) 92vw, (max-width: 1200px) 50vw, 640px", grayscale = true }: { project: Project; sizes?: string; grayscale?: boolean }) {
   if (p.action === "repo" && p.img) {
-    return <Image src={p.img} alt={p.alt} fill sizes={sizes} className={grayscale ? "kn-thumb" : undefined} style={{ objectFit: "cover" }} />;
+    return (
+      <Image
+        src={p.img}
+        alt={p.alt}
+        fill
+        sizes={sizes}
+        className={grayscale ? "kn-thumb" : "kn-thumb kn-thumb--color"}
+      />
+    );
   }
   const Icon = DOMAIN[p.id] ?? (p.action === "prop" ? Lock : p.action === "acad" ? GraduationCap : Shield);
   return (
