@@ -28,6 +28,7 @@ const REGISTRY = {
   "nexus-shield": { primary: "#B6F400", accent: "#9CA3AF", motif: "shield" },
   "vox-agent-neural": { primary: "#3B82F6", accent: "#14B8A6", motif: "live-wave" },
   "speak-flow": { primary: "#B6F400", accent: "#93C5FD", motif: "waveform" },
+  "edge-matrix": { primary: "#F97316", accent: "#6B7280", motif: "shard-matrix" },
 };
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
@@ -198,6 +199,19 @@ function motifGroup(key, primary, accent) {
         <line x1="48" y1="-28" x2="0" y2="0" stroke="${accent}" stroke-width="2"/>
         <line x1="0" y1="0" x2="0" y2="36" stroke="${accent}" stroke-width="2"/>
       `);
+    case "shard-matrix":
+      return g(`
+        <rect x="-72" y="-72" width="44" height="44" rx="8" fill="url(#primaryGrad)"/>
+        <rect x="-14" y="-72" width="44" height="44" rx="8" fill="${primary}" opacity="0.78"/>
+        <rect x="44" y="-72" width="44" height="44" rx="8" fill="${accent}" opacity="0.85"/>
+        <rect x="-72" y="-14" width="44" height="44" rx="8" fill="${accent}" opacity="0.62"/>
+        <rect x="-14" y="-14" width="44" height="44" rx="8" fill="url(#primaryGrad)" opacity="0.92"/>
+        <rect x="44" y="-14" width="44" height="44" rx="8" fill="${primary}" opacity="0.58"/>
+        <rect x="-72" y="44" width="44" height="44" rx="8" fill="${primary}" opacity="0.48"/>
+        <rect x="-14" y="44" width="44" height="44" rx="8" fill="${accent}" opacity="0.72"/>
+        <rect x="44" y="44" width="44" height="44" rx="8" fill="url(#primaryGrad)" opacity="0.68"/>
+        <path d="M -28,-72 L -28,88 M 30,-72 L 30,88 M -72,-28 L 88,-28 M -72,30 L 88,30" stroke="${accent}" stroke-width="1.5" opacity="0.35"/>
+      `);
     case "pipeline":
     default:
       return g(`
@@ -239,11 +253,16 @@ function generateSVGString(primary, accent, motif) {
   </svg>`;
 }
 
+const onlyArg = process.argv.find((a) => a.startsWith("--only="));
+const ONLY = onlyArg ? onlyArg.slice("--only=".length).split(",") : null;
+
 async function rebuildAssets() {
   const report = { pngMasters: [], webps: [], errors: [] };
   fs.mkdirSync(WEBSITE_DIR, { recursive: true });
 
-  for (const [id, cfg] of Object.entries(REGISTRY)) {
+  const entries = Object.entries(REGISTRY).filter(([id]) => !ONLY || ONLY.includes(id));
+
+  for (const [id, cfg] of entries) {
     const localAssetsDir = path.join(WORKSPACE, id, "docs/assets");
     fs.mkdirSync(localAssetsDir, { recursive: true });
 
