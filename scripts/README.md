@@ -7,6 +7,7 @@ Sync PNG masters from workspace repos to the site and regenerate grid WebP thumb
 ## Commands
 
 ```bash
+node kimo-nexus/scripts/generate-asset-briefs.mjs   # refresh docs/asset-brief.md for all 23 built projects
 node kimo-nexus/scripts/sync-portfolio-assets.mjs   # copy PNGs + rebuild <id>.webp @ 1280×640
 node kimo-nexus/scripts/audit-portfolio-assets.mjs  # missing/broken assets, dimension drift
 node kimo-nexus/scripts/doc-audit.mjs               # brief coverage vs work.ts + registry
