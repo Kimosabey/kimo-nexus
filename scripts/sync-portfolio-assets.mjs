@@ -14,7 +14,6 @@ const WORKSPACE = path.join(ROOT, "kimo-portfolio-workspace");
 const PROJECTS_PUBLIC = path.join(ROOT, "kimo-nexus/public/projects");
 
 const GRID = { w: 1280, h: 640 };
-const STANDARDS = ["thumbnail.png", "hero_main.png", "workflow.png", "dashboard.png", "architecture.png"];
 
 const PROJECT_IDS = [
   "nexus-swarm", "vox-agent-neural", "live-nexus-ai", "edge-matrix", "chronicle-ledge",
@@ -78,7 +77,6 @@ for (const id of PROJECT_IDS) {
     }
   }
 
-  // Pick best thumbnail source for grid webp
   let thumbSrc = null;
   for (const candidate of THUMB_FALLBACK) {
     const p = path.join(pubDir, candidate);
