@@ -119,7 +119,7 @@ Big name + role, one CTA, socials, and the portrait as the dominant device.
 ```
 - **Card redesign:** calmer than the current HUD 3D card — hairline card, thumbnail with hover un-desaturate + cursor sheen, title (Space Grotesk), category eyebrow, ≤4 tech chips, one action (GitHub ↗ / 🔒 Proprietary / 🎓 Academic).
 - **Filter** by normalized category group (map the 20 ad-hoc categories → ~6 groups: AI/Agents, Voice/Audio, Distributed, Infra/Security, Data, Web/Product). Featured projects first.
-- **Wire the 6 orphaned** proprietary/academic thumbnails (`_proprietary/*`, `_academic/*`) into `projects.ts`.
+- **Wire the 6 proprietary/academic projects** — already in `src/lib/work.ts`; grid images at `/projects/<id>.webp` (1280×640 WebP from `_proprietary/` / `_academic/` PNG sources). See [`IMAGE_ASSET_GUIDE.md`](../../../kimo-master-blueprint-2026/IMAGE_ASSET_GUIDE.md) §8–§9.
 - Optional desktop **pinned horizontal gallery** for featured items.
 
 ---

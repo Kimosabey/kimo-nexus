@@ -25,7 +25,7 @@ A faithful, personalized take on the **Drake reference**: a **dark charcoal canv
 | **Icons** | Modern line icons (**Lucide**), consistent 1.5–2px stroke; circular outlined social icons + rail icons, as in the reference. No emoji as UI icons. |
 | **Surface** | Flat + hairline borders. One soft shadow for raised cards. Rounded but restrained radii (10–24px), not blobby. |
 | **Texture** | One subtle device only: a masked hero grid (or 3% grain) — never both, never full-bleed noise. |
-| **Imagery** | The personal portrait, theme-graded (higher-contrast B/W-leaning in light; lifted-black graded in dark). Project thumbnails desaturated at rest, color on hover. |
+| **Imagery** | The personal portrait, theme-graded (higher-contrast B/W-leaning in light; lifted-black graded in dark). Project thumbnails desaturated at rest, color on hover. **Asset colors** follow per-project signatures in [`IMAGE_ASSET_GUIDE.md`](../../../kimo-master-blueprint-2026/IMAGE_ASSET_GUIDE.md) — distinct primaries per project; Lime `#B6F400` cluster for Nexus Shield / Agent Core / SpeakFlow. |
 | **Motion** | Editorial and quiet: text-mask reveals, staggered fade-ups, magnetic CTAs, cursor-aware tilt, animated theme wipe. Signature, not busy. |
 | **Voice** | Plain, senior, specific. No sci-fi HUD jargon. |
 

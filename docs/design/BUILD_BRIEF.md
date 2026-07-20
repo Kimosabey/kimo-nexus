@@ -82,12 +82,15 @@ Use signal/latency-style mono eyebrows (a small accent dot + label), NOT generic
 ---
 
 ## 📎 Assets to attach / use
-Everything already lives in `kimo-nexus/public/`:
-- **Hero + About portrait:** `/profile.webp` (3072²; optimize to responsive sizes; theme-aware grade — higher-contrast B/W-leaning in light, lifted-black in dark).
-- **Project thumbnails (19, wire from `src/lib/projects.ts`):** `/projects/<id>/thumbnail.png` for nexus-swarm, vox-agent-neural, live-nexus-ai, logstream-ai, voicesync-ai, edge-matrix, limit-guard, token-forge, chronicle-ledge, order-saga, velocity-edge, data-quarantine, docmind-ai, agent-core, speak-flow, spec-lens, inference-hub, lakehouse-pro, ring-route. *(Note: these `.png` files are actually JPEG — fine for `next/image`.)*
-- **Proprietary/academic thumbnails (currently unused — wire them in):** `/projects/_proprietary/{tabedaar,canada-bizzsp,zeus-biotech,chit-fund-sys}/thumbnail.png`, `/projects/_academic/{graphical-captcha,early-reviewer-predict}/thumbnail.png`.
+Everything lives in `kimo-nexus/public/`. **Full spec:** [`kimo-master-blueprint-2026/IMAGE_ASSET_GUIDE.md`](../../../kimo-master-blueprint-2026/IMAGE_ASSET_GUIDE.md) (Senior-5 sizes, color registry, visual tiers, sync commands).
+
+- **Hero + About portrait:** `/profile.webp` (theme-aware grade — higher-contrast B/W-leaning in light, lifted-black in dark).
+- **Project grid cards (`src/lib/work.ts`):** `/projects/<id>.webp` — **1280×640 WebP**, derived from each repo's `docs/assets/thumbnail.png`. Regenerate via `node kimo-nexus/scripts/sync-portfolio-assets.mjs`.
+- **Per-project PNG masters:** `/projects/<id>/` — synced from `kimo-portfolio-workspace/<repo>/docs/assets/` (thumbnail, hero_main, workflow, dashboard, architecture + domain extras).
+- **Color / theme briefs:** each repo's `docs/asset-brief.md` — primary/accent hex, motif, infographic vs minimal illustration tier.
+- **Proprietary/academic:** grid WebPs at `/projects/<id>.webp`; PNG sources under `/projects/_proprietary/` and `/projects/_academic/`.
 - **Résumé:** `/resume.pdf`.
-- **Generate (missing today):** `/favicon.ico`, `/apple-touch-icon.png`, `/og-image.png` (1200×630, from graded portrait + name/role).
+- **Site chrome:** `/favicon.ico`, `/apple-touch-icon.png`, `/og-image.png`, `/noise.png`.
 
 ## 🔧 Fixes to carry into the build
 1. GitHub link → `Kimosabey` (old `page.tsx` linked the non-existent `HarshanAiyappaPrabhu` → 404).

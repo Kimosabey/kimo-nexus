@@ -42,7 +42,7 @@
 ### `src/lib` / hooks
 | File | Verdict | Notes |
 |---|---|---|
-| `lib/projects.ts` | **KEEP (extend)** | Add `image` for 6 proprietary/academic; add normalized `group` for filtering; drop unused `demoUrl`/`upcoming` or populate. |
+| `lib/work.ts` | **KEEP (current)** | Project grid dataset — `img: /projects/<id>.webp` (1280×640). Proprietary/academic IDs included. Legacy `lib/projects.ts` removed at page swap. |
 | `lib/utils.ts` (`cn`) | **KEEP** | Used everywhere. |
 | `hooks/useOutsideClick.ts` | **REMOVE** | Only for orphaned carousel. |
 
@@ -91,6 +91,6 @@ components/
   sections/ Hero About Services Skills Work Experience Testimonials Contact
   ui/ Button Reveal SplitText Eyebrow ThemeToggle Chip SectionHeader
       3DCard LogoLoop timeline TracingBeam ScrollProgress NumberTicker loader
-lib/ content.ts  motion.ts  projects.ts  utils.ts
+lib/ content.ts  motion.ts  work.ts  utils.ts
 ```
 Net effect: ~20 files removed, ~12 focused files added, one coherent system.
