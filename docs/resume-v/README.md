@@ -51,19 +51,26 @@ perfect on screen:
 - `float:right` dates painted out of document order, making the first extracted line
   **"Jan 2023 – Present"**.
 
-## Name
+## Name — two legitimate forms, used deliberately
 
-The résumé carries **`Harshan A M` only** — the official name, which is what background
-checks and offer letters match.
+Both names are his. This is not an alias or a pen name.
 
-`Harshan Aiyappa` is the family-name form used on LinkedIn, GitHub, the website, and in
-current employer records at Lingotran. It is deliberately **not** printed as an alias, by
-preference; it still reaches a recruiter through the contact line, since both the LinkedIn
-URL (`linkedin.com/in/harshan-aiyappa`) and the email carry it.
+| Form | Where it belongs | Why |
+|---|---|---|
+| **Harshan A M** | Résumé, offer letters, background checks, anything an employer verifies | The documentary name, as on his birth records and official documents. |
+| **Harshan Aiyappa** | Website, LinkedIn, GitHub, platform accounts | The Kodava (Coorgi) full-name form. Standard regional naming, where `A M` stands in for the family/ancestral house name. |
 
-Worth knowing rather than acting on: a reference check placed under "Harshan A M" may not
-resolve immediately at Lingotran, where the record is under the other form. If that ever
-causes friction, adding a one-line alias under the name fixes it.
+So the split is intentional, and already in place:
+
+- the résumé prints **Harshan A M only** — it is the document that gets verified;
+- `src/lib/content.ts` carries **Harshan Aiyappa** for the site, matching LinkedIn and GitHub;
+- the résumé's contact line bridges the two on its own, since `linkedin.com/in/harshan-aiyappa`
+  and `harshan.aiyappa@gmail.com` both appear on it.
+
+Nothing further is needed. An earlier draft of this file warned that a reference check
+under "Harshan A M" might not resolve at Lingotran — that was overcautious. Initials
+standing in for a Kodava house name are a normal convention in Karnataka, and the
+contact line already carries the other form, so a recruiter has both.
 
 ## Facts must match the live site
 
