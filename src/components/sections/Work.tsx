@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { projects, featuredProjects, filters, type Project } from "@/lib/work";
 import { Reveal } from "../ui/Reveal";
@@ -12,8 +12,8 @@ const sec: React.CSSProperties = { padding: "clamp(64px,10vw,120px) 0", borderTo
 const navBtn: React.CSSProperties = { width: 44, height: 44, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 12, border: "1px solid var(--hairline)", background: "var(--surface)", color: "var(--ink)", cursor: "pointer" };
 const filterBtn: React.CSSProperties = { flex: "0 0 auto", height: 40, padding: "0 16px", borderRadius: 999, border: "1px solid var(--hairline)", background: "var(--surface)", color: "var(--muted)", fontSize: 13, fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap", transition: ".25s", fontFamily: "inherit" };
 
-export function Work({ onOpenProject }: { onOpenProject: (p: Project) => void }) {
-  const [filter, setFilter] = useState<string>("All");
+// Filter state lives in Portfolio so the assistant can drive it too.
+export function Work({ onOpenProject, filter, onFilterChange }: { onOpenProject: (p: Project) => void; filter: string; onFilterChange: (f: string) => void }) {
   const stripRef = useRef<HTMLDivElement>(null);
   const filtered = useMemo(() => (filter === "All" ? projects : projects.filter((p) => p.group === filter)), [filter]);
 
@@ -54,7 +54,7 @@ export function Work({ onOpenProject }: { onOpenProject: (p: Project) => void })
       <Reveal>
         <div data-hidescroll style={{ display: "flex", gap: 9, overflowX: "auto", paddingBottom: 6, marginBottom: 30 }}>
           {filters.map((f) => (
-            <button key={f} type="button" className="kn-filter" data-active={filter === f} onClick={() => setFilter(f)} style={filterBtn}>{f}</button>
+            <button key={f} type="button" className="kn-filter" data-active={filter === f} onClick={() => onFilterChange(f)} style={filterBtn}>{f}</button>
           ))}
         </div>
       </Reveal>

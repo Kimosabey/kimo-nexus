@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import type { Project } from "@/lib/work";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { projects, type Project } from "@/lib/work";
 import { scrollToId } from "@/lib/scroll";
+import type { SiteAction } from "@/lib/assistant/prompt";
 import { BackgroundFX } from "./BackgroundFX";
 import { IntroLoader } from "./IntroLoader";
 import { ScrollProgress } from "./ScrollProgress";
@@ -24,6 +25,11 @@ import { Contact } from "./sections/Contact";
 export function Portfolio() {
   const [modalProject, setModalProject] = useState<Project | null>(null);
   const [paletteOpen, setPaletteOpen] = useState(false);
+  // Lifted out of Work so the assistant can filter the grid.
+  const [workFilter, setWorkFilter] = useState("All");
+  // Both overlays lock body scroll and sit above the page, so navigation the
+  // assistant proposes is staged here and runs once the palette is out of the way.
+  const pendingRef = useRef<{ scroll?: string; project?: Project } | null>(null);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -34,6 +40,37 @@ export function Portfolio() {
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
+  const handleAction = useCallback((a: SiteAction) => {
+    if (a.kind === "filter_work") {
+      setWorkFilter(a.value); // applies now; visible as soon as the palette closes
+      pendingRef.current = { scroll: "#work" };
+    } else if (a.kind === "scroll_to") {
+      pendingRef.current = { scroll: `#${a.value}` };
+    } else if (a.kind === "open_project") {
+      const p = projects.find((x) => x.id === a.value);
+      if (p) pendingRef.current = { project: p };
+    }
+  }, []);
+
+  // An explicit pick (a Jump result, a citation chip) outranks whatever the
+  // assistant staged — otherwise the staged nav would fire a frame later and win.
+  const openProject = useCallback((p: Project) => {
+    pendingRef.current = null;
+    setModalProject(p);
+  }, []);
+
+  const closePalette = useCallback(() => {
+    setPaletteOpen(false);
+    const pending = pendingRef.current;
+    pendingRef.current = null;
+    if (!pending) return;
+    // Next frame: the palette's scroll lock is released by then.
+    requestAnimationFrame(() => {
+      if (pending.project) setModalProject(pending.project);
+      else if (pending.scroll) scrollToId(pending.scroll);
+    });
   }, []);
 
   // overflow-x:clip contains the background FX horizontally WITHOUT creating a
@@ -54,7 +91,7 @@ export function Portfolio() {
           <About />
           <Services />
           <Skills />
-          <Work onOpenProject={setModalProject} />
+          <Work onOpenProject={setModalProject} filter={workFilter} onFilterChange={setWorkFilter} />
           <Experience />
           <Testimonials />
           <Contact />
@@ -63,7 +100,7 @@ export function Portfolio() {
       </div>
 
       <ProjectModal project={modalProject} onClose={() => setModalProject(null)} />
-      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} onOpenProject={(p) => setModalProject(p)} />
+      <CommandPalette open={paletteOpen} onClose={closePalette} onOpenProject={openProject} onAction={handleAction} />
     </div>
   );
 }

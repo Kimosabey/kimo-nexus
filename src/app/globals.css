@@ -154,6 +154,24 @@ html.dark .kn-duotone { opacity: .07; }
 textarea.kn-field { resize: vertical; min-height: 110px; }
 .kn-pal-row:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 
+/* ---- Assistant (⌘K → Ask) ---- */
+/* 16px again — iOS Safari zooms the viewport on focus below that. */
+.kn-ask-input { flex: 1; min-width: 0; font-family: inherit; font-size: 16px; color: var(--ink); background: var(--surface-2); border: 1px solid var(--hairline); border-radius: 10px; padding: 9px 12px; outline: none; transition: border-color .2s ease; }
+.kn-ask-input:focus { border-color: var(--accent); }
+
+.kn-ask-q { margin: 0; align-self: flex-end; max-width: 85%; font-size: 14px; line-height: 1.55; color: var(--accent-ink); background: var(--accent); border-radius: 13px 13px 4px 13px; padding: 9px 13px; }
+.kn-ask-a { font-size: 14.5px; line-height: 1.65; color: var(--ink-2); white-space: pre-wrap; }
+
+.kn-ask-sugg { text-align: left; font-family: inherit; font-size: 13px; color: var(--ink-2); background: var(--surface-2); border: 1px solid var(--hairline); border-radius: 999px; padding: 7px 13px; cursor: pointer; transition: border-color .2s, color .2s; }
+.kn-ask-sugg:hover:not(:disabled) { border-color: color-mix(in srgb, var(--accent) 45%, var(--hairline)); color: var(--ink); }
+.kn-ask-sugg:disabled { opacity: .5; cursor: default; }
+
+.kn-ask-chip { font-family: var(--fm); font-size: 11px; letter-spacing: .02em; color: var(--ink); background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); border-radius: 7px; padding: 5px 9px; cursor: pointer; transition: border-color .2s; }
+.kn-ask-chip:hover { border-color: var(--accent); }
+
+.kn-ask-go { display: inline-flex; align-items: center; gap: 6px; margin-top: 11px; font-family: inherit; font-size: 12.5px; font-weight: 500; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; }
+.kn-ask-go:hover { text-decoration: underline; text-underline-offset: 3px; }
+
 /* ---- Lenis smooth scroll ---- */
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }

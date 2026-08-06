@@ -109,6 +109,30 @@ export const footer = {
   builtWith: "Built with Next.js · Tailwind · Framer Motion",
 } as const;
 
+// Copy for the in-page assistant (⌘K → Ask). Grounded strictly in the data above,
+// so the wording promises nothing the assistant can't deliver.
+export const assistant = {
+  tabs: { jump: "Jump", ask: "Ask" },
+  placeholder: "Ask about the work, the stack, the experience…",
+  intro: "Ask anything about his work. Answers come from this page's own data — if it isn't here, it says so.",
+  suggestions: [
+    "What's his experience with Kafka?",
+    "Show me his voice and audio work",
+    "What has he built with LangGraph?",
+    "Is he a fit for a senior AI engineering role?",
+  ],
+  micHint: "Dictation uses your browser's built-in speech service.",
+  micDenied: "Microphone blocked — allow access in your browser, or just type.",
+  micError: "Dictation didn't catch that. Try again, or type.",
+  listening: "Listening…",
+  thinking: "Thinking…",
+  send: "Send question",
+  clear: "Clear conversation",
+  networkError: "Couldn't reach the assistant. Check your connection and try again.",
+  freeLabel: "cost $0",
+  localLabel: "local mode",
+} as const;
+
 // Section nav order (rail + mobile menu + scroll-spy).
 export const sections = [
   { id: "hero", label: "Home" },
