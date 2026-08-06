@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Harshan A M — Résumé (ATS)</title>
+<!--
+  ATS-first variant of resume-v4.html. Same facts, deliberately plain:
+
+  - Single column, no grid/flex layout, no tables — parsers read top-to-bottom.
+  - System fonts only (no webfonts): the text layer embeds with a clean ToUnicode
+    map, so extraction never degrades to glyph soup.
+  - Contact details as plain text, not SVG icons — an icon carries no text.
+  - Conventional uppercase headings (SUMMARY / EXPERIENCE / SKILLS / EDUCATION)
+    that keyword screens are built to recognise.
+  - No colour beyond near-black, no cards, no decorative characters.
+
+  Keep in step with Harshan_AM_Resume_v4.md — that file is the content source.
+-->
+<style>
+  @page { size: A4; margin: 12mm 14mm; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    /* Sized to land the whole résumé in 3 pages; going smaller would trade
+       readability for a page count no screener actually rewards. */
+    font-size: 9.8pt;
+    line-height: 1.36;
+    color: #111;
+    background: #fff;
+  }
+  h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 19pt;
+    letter-spacing: .01em;
+    margin: 0 0 2mm;
+    text-transform: uppercase;
+  }
+  .tagline { font-family: Arial, Helvetica, sans-serif; font-size: 10pt; margin: 0 0 1.5mm; }
+  .contact { font-size: 9.6pt; margin: 0 0 1mm; }
+  .contact a { color: #111; text-decoration: none; }
+  h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10.6pt;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin: 4mm 0 1.2mm;
+    padding-bottom: 0.8mm;
+    border-bottom: 1px solid #111;
+  }
+  h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10.1pt;
+    margin: 2.4mm 0 0.5mm;
+  }
+  /* Deliberately NOT float:right. A floated date is painted out of document order
+     in the PDF text layer — extraction surfaced "Jan 2023 – Present" as the very
+     first line, which a parser would take for the candidate's name. Inline keeps
+     the reading order honest at the cost of the flush-right alignment. */
+  h3 .dates { font-weight: normal; font-size: 9.6pt; }
+  h3 .dates::before { content: " — "; }
+  .role { font-style: italic; margin: 0 0 1mm; font-size: 9.8pt; }
+  h4 { font-family: Arial, Helvetica, sans-serif; font-size: 9.8pt; margin: 2.5mm 0 0.5mm; }
+  ul { margin: 0 0 0 5mm; padding: 0; }
+  li { margin: 0.9mm 0; }
+  p { margin: 0 0 1.5mm; }
+  .skills p { margin: 0 0 1.2mm; }
+  .note { font-size: 9.4pt; font-style: italic; margin: 3mm 0 1.5mm; }
+  h3, h4, li { break-inside: avoid; }
+  h2, h3, h4 { break-after: avoid; }
+</style>
+</head>
+<body>
+
+<!-- Official name only, by preference. The family-name form (Harshan Aiyappa) still
+     reaches a recruiter via the LinkedIn and email addresses in the contact line. -->
+<h1>Harshan A M</h1>
+<p class="tagline">Full Stack AI Engineer — On-Prem &amp; Agentic AI, RAG, NLP, Voice AI, Real-Time &amp; IoT Systems</p>
+<p class="contact">
+  +91 99454 72285 | harshan.aiyappa@gmail.com | Bangalore &amp; Mysore, India | Open to Remote
+</p>
+<p class="contact">
+  linkedin.com/in/harshan-aiyappa | github.com/Kimosabey | kimo-nexus.vercel.app
+</p>
+
+<h2>Summary</h2>
+<p>
+  Full Stack AI Engineer with 5.5 years shipping AI-powered, real-time, and scalable systems across
+  EdTech, Industrial IoT, AgriTech, and enterprise tooling for aerospace manufacturing. Depth in LLM
+  systems and RAG (naive to agentic), on-premise and air-gapped agentic AI (LangGraph, PydanticAI, MCP,
+  local LLMs), NLP, Voice AI (ASR/TTS), and data-intensive architectures (Kafka, TimescaleDB,
+  time-series). Strong end-to-end ownership, from UX/UI and system design through production, in
+  JavaScript, TypeScript, and Python.
+</p>
+
+<h2>Experience</h2>
+
+<h3>Software Engineer — Full Stack &amp; AI Systems <span class="dates">Jan 2023 – Present</span></h3>
+<p class="role">Lingotran, Rangsons Group — Mysore, India</p>
+
+<h4>Core platform — EdTech AI</h4>
+<ul>
+  <li>Built LLM-powered AI tutor and recommendation systems (OpenAI, Gemini, Ollama) serving learners across multiple language tracks.</li>
+  <li>Designed production RAG pipelines (LangChain, LangGraph, Chroma) using HyDE, RAPTOR, and reranking (BGE-M3, Cohere) to lift retrieval precision over naive baselines.</li>
+  <li>Built real-time conversational AI on LiveKit and WebSockets, with ASR/TTS via Whisper, Deepgram, and Kokoro TTS, and pronunciation scoring (Soundex, Levenshtein).</li>
+  <li>Automated AI-generated learner performance reports and built gamified learning modules with real-time feedback; added dynamic CMS audio via ElevenLabs.</li>
+  <li>Instrumented LangFuse observability (prompt tracing, cost, evaluation), built MCP server integrations, and delivered NLP (SpaCy) across Portuguese, Spanish, and French.</li>
+  <li>Owned delivery as Scrum Leader; trained interns and contributed to hiring.</li>
+</ul>
+
+<p class="note">Selected platforms delivered across the group. Proprietary work; no public repositories.</p>
+
+<h4>Graylinx — OMNYX and THERMYNX (Industrial IoT, On-Premise Agentic AI)</h4>
+<ul>
+  <li>Architected OMNYX, an on-premise air-gapped Industrial IoT platform: BACnet to Kafka to a dual database core (PostgreSQL 16 and TimescaleDB) with zero cloud data egress.</li>
+  <li>Owned the agentic AI layer: Planner, Executor, and Validator agents on a local LLM (Ollama, vLLM) with pgvector RAG and Keycloak-modelled agent authorization.</li>
+  <li>Built THERMYNX, the shipping HVAC vertical (FastAPI and React), turning chiller telemetry into explainable insight via 5 autonomous tool-calling agents with SSE-streamed reasoning traces.</li>
+  <li>Architected Digital-Twin fault detection and Remaining-Useful-Life prediction, plus reinforcement-learning efficiency optimization with a safe shadow-to-live rollout.</li>
+  <li>Stood up the on-premise stack (Docker, Keycloak, Grafana, Prometheus) and stress-tested the Kafka pipeline toward approximately 100x scale (around 1,100 controllers) to size hardware.</li>
+  <li>Designed the analytics data warehouse and metadata-driven Airflow ETL, and authored the platform HLD and LLD specifications.</li>
+</ul>
+
+<h4>Nesso — Farm-to-Fork Traceability Platform (AgriTech)</h4>
+<ul>
+  <li>Architected an offline-first traceability platform on a TypeScript monorepo (NestJS 10, Next.js 15, Expo, MongoDB, Redis) with SQLite-outbox offline sync and GPS polygon farm mapping.</li>
+  <li>Delivered public QR traceability, 12-language internationalization, WCAG 2.2 AA accessibility, and 17-role RBAC across mobile, web, and QR portal (approximately 99 screens).</li>
+</ul>
+
+<h4>Rangsons Aerospace (RAPL) — Enterprise Tools (Full-Stack, Front-End, UI/UX)</h4>
+<ul>
+  <li>Built a 7-role Customer RFQ to Quotation platform with gated approvals (12 steps, 8 states, 4 gates), revision history, and ECharts reporting, on React 18, Node.js, Express, and MongoDB.</li>
+  <li>Built a Manufacturing Execution System handling shift and task tracking, dynamic sequence enforcement, and lockout and orphan-task concurrency controls.</li>
+  <li>Owned front-end and UI/UX: a shared design system (light and dark) reused across RFQ, MES, and an IT Helpdesk console (kanban board with SLA indicators).</li>
+  <li>Delivered an on-site AI hardware suitability evaluation.</li>
+</ul>
+
+<h4>IRIS — B2B Connected Fragrance-Diffuser Platform (IoT)</h4>
+<ul>
+  <li>Delivered a BLE fleet-operations platform: React 19 admin and Expo React Native field app communicating with hardware over Bluetooth, on Express, Socket.IO, and MongoDB on Azure, covering app development, multi-generation BLE device integration, and UI/UX.</li>
+  <li>Built the core loop: onboarding, commissioning, consumption-ledger dry-out prediction, and refill dispatch, with offline-capable field calculations.</li>
+  <li>Authored the v1 to v2 system redesign: stateless Redis-backed Socket.IO, a BullMQ worker tier, an MQTT to time-series telemetry pipeline, Key Vault, OpenTelemetry, CI/CD, and offline-first sync, taking readiness from pilot to enterprise-grade.</li>
+</ul>
+
+<h4>Neural-Nexus — Hybrid RAG Knowledge Engine (Health)</h4>
+<ul>
+  <li>Built a hybrid RAG engine over Neo4j (graph) and PostgreSQL (relational) with async FastAPI, parallel multi-source retrieval, and custom merge and rank scoring.</li>
+  <li>Enforced strict grounding to minimize hallucinations, with SSE streaming for progressive delivery and Redis/Valkey caching for high-frequency graph queries.</li>
+</ul>
+
+<h4>Examic — AI Code Generation Platform</h4>
+<ul>
+  <li>Built CodeMint: natural language and PRD to code to GitHub to Vercel/Azure deployment automation; integrated OpenHands agent workflows; contributed to team formation and hiring.</li>
+</ul>
+
+<h3>Freelance Software Developer <span class="dates">Aug 2022 – Dec 2022</span></h3>
+<ul>
+  <li>Delivered full-stack applications, dashboards, and legacy-system improvements for clients end to end, bridging directly into the Lingotran role.</li>
+</ul>
+
+<h3>Software Engineer — Full Stack <span class="dates">Feb 2021 – Aug 2022</span></h3>
+<p class="role">Veriteam Software Solutions</p>
+<ul>
+  <li>Delivered 40+ production applications across CMS, CRM, and e-commerce using Java (Spring, Hibernate), JSP, JavaScript, and Python.</li>
+  <li>Integrated Stripe, Razorpay, OAuth, JWT, and RBAC; modernized legacy PHP and .NET codebases.</li>
+  <li>Mentored 250+ students and interns across full-stack development.</li>
+</ul>
+
+<h2>Projects</h2>
+<ul>
+  <li><b>Nexus Swarm</b> (github.com/Kimosabey/nexus-swarm) — Stateful multi-agent research and synthesis engine on LangGraph using a Manager-Worker pattern (Orchestrator, Researcher, Writer, Reviewer), with human-in-the-loop breakpoints and PostgreSQL-checkpointed recovery. FastAPI and Next.js 14, Pydantic V2 typed state.</li>
+  <li><b>Grounded Voice Assistant</b> (github.com/Kimosabey/kimo-nexus; live demo at kimo-nexus.vercel.app) — Retrieval-grounded assistant with voice input/output and page-level tool-calling. NDJSON token streaming from a Next.js route handler, browser-native speech-to-text and text-to-speech via the Web Speech API (no vendor, no per-request cost), per-IP token bucket with a daily budget guard, 3-model provider fallback so a retired model cannot take it down, and a deterministic no-LLM retrieval path so it degrades instead of failing. Answers are constrained to a fixed knowledge base to prevent fabricated claims.</li>
+  <li><b>DocMind AI</b> (github.com/Kimosabey/docmind-ai) — Hybrid RAG (dense and sparse) over uploaded documents using FastAPI, ChromaDB, and Llama 3, with multi-document ingestion, semantic chunking, and query-time reranking.</li>
+  <li><b>LiveNexus AI</b> (github.com/Kimosabey/live-nexus-ai) — Real-time speech intelligence: WebRTC to LiveKit SFU to a Faster-Whisper worker with WebRTCVAD silence gating and adaptive model selection under CPU load, with a double-buffered live transcription interface.</li>
+  <li><b>InferenceHub</b> (github.com/Kimosabey/inference-hub) — Polyglot inference gateway: Node.js for I/O, Zod validation, and auth, with Python for PyTorch and Scikit-learn inference over gRPC and Protocol Buffers using shared .proto contracts, fully containerized.</li>
+  <li><b>VoiceSync AI</b> (github.com/Kimosabey/voicesync-ai) — Privacy-first offline transcription: React to pre-signed MinIO upload to FastAPI webhook to Faster-Whisper, fully air-gapped.</li>
+</ul>
+
+<h2>Skills</h2>
+<div class="skills">
+  <p><b>AI, GenAI, and NLP:</b> LLMs (OpenAI, Claude, Gemini, Ollama, vLLM for local and on-premise), RAG (naive to agentic), LangChain, LangGraph, PydanticAI, CrewAI, AutoGen, HyDE, RAPTOR, reranking (BGE-M3), MCP server development, tool-calling agents, RAGAS, SpaCy, HuggingFace</p>
+  <p><b>Voice AI:</b> Whisper, Faster-Whisper, Deepgram, ElevenLabs, Kokoro TTS, WebRTCVAD, LiveKit, SRT streaming, Web Speech API</p>
+  <p><b>Languages:</b> JavaScript, TypeScript, Python, SQL (exposure: Java, Golang)</p>
+  <p><b>Frontend:</b> React, Next.js 15, TailwindCSS, shadcn/ui, Radix, Framer Motion, Zustand, React Query, TanStack Table, ECharts (exposure: React Native, Expo, Three.js)</p>
+  <p><b>Backend and APIs:</b> Node.js (Express, NestJS), FastAPI, Django, REST, GraphQL, gRPC, microservices, modular monolith</p>
+  <p><b>Data and Streaming:</b> PostgreSQL, TimescaleDB, MongoDB, Redis, Valkey, Neo4j, ClickHouse, MySQL, Kafka, Airflow, WebSockets, SSE, Protocol Buffers, BACnet, MQTT, metadata-driven ETL, offline-first sync</p>
+  <p><b>Vector Stores:</b> Chroma and pgvector in production; Qdrant, Weaviate, and Pinecone familiar</p>
+  <p><b>DevOps and Cloud:</b> Docker, CI/CD (GitHub Actions), Turborepo, pnpm, AWS, Azure, Vercel, Kubernetes, Linux</p>
+  <p><b>Observability and Auth:</b> Grafana, Prometheus, OpenTelemetry, LangFuse, Keycloak, JWT, OAuth, RBAC</p>
+  <p><b>Core Concepts:</b> System design, distributed systems, RAG architecture, LLM evaluation, accessibility (WCAG 2.2 AA)</p>
+  <p><b>Domains:</b> Industrial IoT and building management, manufacturing execution (MES), AgriTech traceability, EdTech, voice and real-time systems</p>
+</div>
+
+<h2>Education</h2>
+<p><b>Master of Computer Applications (MCA)</b> — NIE Institute of Technology, Mysore, 2017–2020, 8.2 CGPA</p>
+<p><b>Bachelor of Computer Applications (BCA)</b> — Vidya Vikas College, University of Mysore, 2014–2017, 71%</p>
+
+<h2>Leadership and Activities</h2>
+<ul>
+  <li>Tech Lead and Organizer for a 24-hour hackathon at MIT College, Mysore, including problem design and mentoring.</li>
+  <li>Trained interns across full-stack and AI/ML development; led developer hiring for the Examic team.</li>
+</ul>
+
+</body>
+</html>
