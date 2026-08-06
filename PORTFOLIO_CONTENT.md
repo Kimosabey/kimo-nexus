@@ -1,12 +1,19 @@
-# Portfolio Content Manifest: Harshan AM
+# Portfolio Content Notes: Harshan A M
 
-This document serves as the authoritative source of truth for the digital portfolio content, consolidated from LinkedIn, current/past resumes, and professional summaries.
+> Legal name: **Harshan A M** — use on the résumé and anything an employer verifies.
+> Public/professional name: **Harshan Aiyappa** — use on the site, LinkedIn, GitHub.
+
+> **Working notes — not authoritative.** The live site's single source of truth is
+> [`src/lib/content.ts`](src/lib/content.ts); the résumé's is
+> [`docs/resume-v/Harshan_AM_Resume_v4.md`](docs/resume-v/Harshan_AM_Resume_v4.md). Both are read by the
+> shipped ⌘K → Ask assistant and by recruiters, so they must agree. This file is raw material gathered
+> from LinkedIn and past résumés; where it disagrees with `content.ts`, `content.ts` wins.
 
 ---
 
 ## 👨‍💻 Professional Summary
 **Role focus:** Fullstack Software Engineer (AI & R&D)
-**Experience:** 4.8+ Years
+**Experience:** 5.5 Years (Feb 2021 → present)
 **Core Philosophy:** Engineering high-performance intelligence across the stack. Specializing in Generative AI, Distributed Infrastructures, and Neural Interfaces.
 
 **Summary Narrative:**

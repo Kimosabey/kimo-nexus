@@ -6,12 +6,12 @@ export const site = {
   role: "Full-Stack Software Engineer · AI & R&D",
   title: "Harshan Aiyappa — Full-Stack Software Engineer (AI & R&D)",
   description:
-    "I design and ship production systems across the stack — from LLM and voice pipelines to the APIs, infrastructure, and interfaces around them. ~5 years turning hard problems into simple, reliable products.",
+    "I design and ship production systems across the stack — from LLM and voice pipelines to the APIs, infrastructure, and interfaces around them. 5+ years turning hard problems into simple, reliable products.",
   ogDescription: "I build production AI, end to end.",
   tagline: "I build production AI, end to end.",
   url: "https://kimo-nexus.vercel.app",
   email: "harshan.aiyappa@gmail.com", // personal contact (canonical)
-  location: "Mysore, India · Remote",
+  location: "Bangalore · Mysore, India · Remote",
   resume: "/resume.pdf",
   photo: "/profile.webp",
 } as const;
@@ -27,10 +27,11 @@ export const hero = {
   // Per-line mask reveal; the token {accent} is rendered in the accent color.
   lines: ["I build", "production {accent:AI},", "end to end."],
   lead:
-    "I design and ship production systems across the stack — from LLM and voice pipelines to the APIs, infrastructure, and interfaces around them. ~5 years turning hard problems into simple, reliable products.",
+    "I design and ship production systems across the stack — from LLM and voice pipelines to the APIs, infrastructure, and interfaces around them. 5+ years turning hard problems into simple, reliable products.",
   primaryCta: { label: "View Work", href: "#work" },
   stats: [
-    { value: 4.8, dec: 1, suffix: "", label: "Years experience" },
+    // Computed from Feb 2021 (first role) — keep in step with the résumé, not hardcoded from memory.
+    { value: 5.5, dec: 1, suffix: "", label: "Years experience" },
     { value: 40, dec: 0, suffix: "+", label: "Platforms delivered" },
     { value: 250, dec: 0, suffix: "+", label: "Engineers mentored" },
   ],
@@ -41,11 +42,11 @@ export const about = {
   headline: ["Engineering that stays", "simple as it {accent:scales}."],
   paragraphs: [
     "I'm a full-stack engineer working at the intersection of product and applied AI. Day to day that means React/Next.js on the front, Node.js and Python services behind it, and R&D in speech and language tech — TTS, ASR, and NLP — turned into low-latency, production features.",
-    "I care about architectural rigor: systems that are understandable, observable, and hold up under load. Over ~5 years I've delivered 40+ platforms end to end and mentored 250+ engineers and students.",
+    "I care about architectural rigor: systems that are understandable, observable, and hold up under load. Over 5+ years I've delivered 40+ platforms end to end and mentored 250+ engineers and students.",
   ],
   note: "Currently building AI/voice platforms at Lingotran. Master's in Computer Applications (MCA).",
   stats: [
-    { value: 4.8, dec: 1, suffix: "", label: "Years shipping" },
+    { value: 5.5, dec: 1, suffix: "", label: "Years shipping" },
     { value: 40, dec: 0, suffix: "+", label: "Platforms" },
     { value: 250, dec: 0, suffix: "+", label: "Mentored" },
   ],
@@ -80,9 +81,11 @@ export const experience = {
   headline: "The path so far.",
   items: [
     { role: "Full-Stack Software Engineer — AI & R&D", org: "Lingotran Pvt Ltd", period: "Jan 2023 — Present", current: true, desc: "Build and ship AI/voice platforms end to end — real-time TTS/ASR/NLP pipelines, agentic RAG, and the APIs and dashboards around them. Design resilient services for high-throughput data and guide junior engineers on architecture." },
+    // Bridges Veriteam to Lingotran — without it the timeline shows a Sep–Dec 2022 gap that isn't real.
+    { role: "Freelance Software Developer", org: "Independent", period: "Aug 2022 — Dec 2022", current: false, desc: "Delivered full-stack applications, dashboards, and legacy-system improvements for clients end to end, up to joining Lingotran." },
     { role: "Software Engineer", org: "Veriteam Software Solutions", period: "Feb 2021 — Aug 2022", current: false, desc: "Delivered 40+ full-stack products for clients, including the Tabedaar logistics platform and Zeus Biotech — Next.js web, React Native mobile, Node.js API, and MSSQL with layered RBAC. Owned delivery lifecycles and mentored 250+ students and engineers." },
     { role: "MCA — Computer Applications", org: "NIE Institute of Technology, Mysore", period: "2017 — 2020", current: false, desc: "Master's, 8.2 CGPA. Focus on algorithms, distributed systems, and concurrency." },
-    { role: "BCA — Computer Applications", org: "University of Mysore", period: "2014 — 2017", current: false, desc: "Bachelor's, 71%. Foundations in computational logic, databases, and the software lifecycle." },
+    { role: "BCA — Computer Applications", org: "Vidya Vikas College, University of Mysore", period: "2014 — 2017", current: false, desc: "Bachelor's, 71%. Foundations in computational logic, databases, and the software lifecycle." },
   ],
 } as const;
 
