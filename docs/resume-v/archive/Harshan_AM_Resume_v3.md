@@ -1,3 +1,13 @@
+# ⚠️ SUPERSEDED — DO NOT SEND
+
+> **Use `Harshan_AM_Resume_v4.md` instead.** This draft is kept only for reference. It contains facts
+> that are now known to be wrong: `~4.5 yrs` (actual: 5.5), `45+` apps (actual: 40+), `Veriteam …– Jul
+> 2022` (actual: Aug 2022), `NIE College` / `Vidya Vikas College, Mysore` (missing the university and
+> grades), and unbenchmarked latency claims ("sub-200ms", "drops 70% of silence packets") that must not
+> be quoted without a benchmark. It also lacks the RAPL and IRIS platforms entirely.
+
+---
+
 # HARSHAN A M
 **Full Stack AI Engineer  ·  LLM Systems  ·  RAG Pipelines  ·  NLP  ·  Voice AI  ·  Real-Time Systems**
 

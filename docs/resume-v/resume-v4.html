@@ -146,12 +146,58 @@
     }
     body{padding:0}
     .toolbar,.bg,.cta,.eqbar{display:none !important}
-    .wrap{grid-template-columns:300px 1fr; gap:22px; padding:0; max-width:none}
-    .profile{position:static}
+    /* The two-column screen layout is wrong for paper: the sidebar only fills the
+       first page, so every later page carried an empty 186px column while the text
+       squeezed into ~390px — which is what stretched this to 8 pages. On paper the
+       profile becomes a full-width header band and the body gets the whole 188mm,
+       at full scale so the type stays readable. */
+    .wrap{display:block; padding:0; max-width:none}
+    .profile{position:static; margin-bottom:14px}
     .pcard,.card{box-shadow:none}
     .reveal{animation:none}
-    .card,.job,.proj,section{break-inside:avoid}
+    .card,.job,.proj,.edu,.sg{break-inside:avoid}
     a{color:var(--ink)!important}
+
+    /* profile as a header band */
+    .pcard{padding:13px 15px; border-radius:9px;
+      display:grid; grid-template-columns:1fr; gap:2px; align-items:start}
+    /* The monogram is decorative, and being first in the DOM it became the first
+       line of the PDF text layer — a parser read the candidate's name as "HA". */
+    .monogram{display:none}
+    .name{font-size:20px; margin:0}
+    .role{font-size:11.4px}
+    .pcard>.mono{margin-top:2px !important}
+    .contact{grid-column:1/-1; margin:9px 0 0; padding:9px 0 0;
+      grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px 14px}
+    .contact li{font-size:9.6px; gap:6px}
+    .contact svg{width:11px; height:11px; flex:0 0 11px}
+    .focus{grid-column:1/-1; margin-top:9px; padding-top:9px}
+    .chip{font-size:9px; padding:2px 7px}
+
+    /* main column */
+    section{margin-top:16px}
+    .eyebrow{margin-bottom:8px}
+    .eyebrow h2{font-size:16px}
+    .lead{font-size:11.4px; max-width:none}
+    .job{margin-top:12px}
+    .job .co{font-size:13.5px}
+    .job .meta{font-size:9.6px}
+    .job .title{font-size:11px; margin-bottom:5px}
+    ul.bul{margin:5px 0 0}
+    ul.bul li{font-size:11.4px; margin:3.5px 0; padding-left:13px; line-height:1.45}
+    ul.bul li::before{width:4px; height:4px; top:7px}
+    .subhead{font-size:11.6px; margin:9px 0 1px; gap:7px}
+    .tag{font-size:8.6px; padding:1px 6px}
+    .xp-cards{gap:8px; margin-top:8px}
+    .card{padding:10px 12px; border-radius:8px}
+    .proj{padding:8px 0}
+    .proj .pn{font-size:12.4px}
+    .proj .pn a{font-size:9.6px}
+    .proj p{font-size:10.9px; line-height:1.45}
+    .skillgrid{grid-template-columns:1fr 1fr; gap:9px}
+    .sg .k{font-size:9.2px; margin-bottom:4px}
+    .edu b{font-size:11.6px}
+    .edu span{font-size:9.8px}
   }
   @media (prefers-reduced-motion:reduce){ *{animation:none!important; transition:none!important} }
 </style>
@@ -175,7 +221,12 @@
   <aside class="profile">
     <div class="pcard reveal">
       <div class="monogram">HA</div>
-      <div class="name">Harshan<br/>A M</div>
+      <!-- Legal name — this is the document background checks are matched against.
+           The public/professional name (Harshan Aiyappa) is carried by the LinkedIn
+           and site URLs below, which is what ties the two together for a recruiter.
+           No <br/> here: it renders no whitespace into the PDF text layer, so
+           extraction read the name as one run-together token. -->
+      <div class="name">Harshan A M</div>
       <div class="role"><b>Full-Stack AI</b> Engineer</div>
       <div class="mono" style="margin-top:6px">On-Prem &amp; Agentic AI · IoT · Voice</div>
 
@@ -184,7 +235,7 @@
       <ul class="contact">
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.4 1.8.7 2.6a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.5-1.2a2 2 0 012.1-.5c.8.3 1.7.6 2.6.7a2 2 0 011.7 2z"/></svg><span>+91 99454 72285</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg><a href="mailto:harshan.aiyappa@gmail.com">harshan.aiyappa@gmail.com</a></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Bangalore, India</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Bangalore · Mysore, India · Remote</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M16 8a6 6 0 016 6v6h-4v-6a2 2 0 00-4 0v6h-4v-10h4v1.5A4 4 0 0116 8z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg><a href="https://linkedin.com/in/harshan-aiyappa">linkedin.com/in/harshan-aiyappa</a></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 00-1-2.6c3-.3 6-1.5 6-6.6a5.1 5.1 0 00-1.4-3.6 4.8 4.8 0 00-.1-3.6s-1.1-.3-3.6 1.4a12.4 12.4 0 00-6.6 0C6.7 1.3 5.6 1.6 5.6 1.6a4.8 4.8 0 00-.1 3.6A5.1 5.1 0 004 8.8c0 5 3 6.3 6 6.6a3.4 3.4 0 00-1 2.6V22"/></svg><a href="https://github.com/Kimosabey">github.com/Kimosabey</a></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20 15 15 0 010-20"/></svg><a href="https://kimo-nexus.vercel.app">kimo-nexus.vercel.app</a></li>
@@ -209,9 +260,9 @@
   <!-- ===== MAIN ===== -->
   <main class="main">
     <section class="reveal">
-      <div class="eyebrow"><span class="num">00</span><h2>Profile</h2><span class="rule"></span></div>
-      <p class="lead">Full-Stack AI Engineer (~4.5 yrs) shipping AI-powered, real-time, and scalable systems across
-        <b>EdTech, Industrial IoT, Aerospace, and AgriTech</b>. Depth in LLM systems and <b>RAG (naive → agentic)</b>,
+      <div class="eyebrow"><span class="num">00</span><h2>Summary</h2><span class="rule"></span></div>
+      <p class="lead">Full-Stack AI Engineer with <b>5.5 years</b> shipping AI-powered, real-time, and scalable systems across
+        EdTech, Industrial IoT, AgriTech, and enterprise tooling for aerospace manufacturing. Depth in LLM systems and <b>RAG (naive → agentic)</b>,
         on-prem / air-gapped <b>agentic AI</b> (LangGraph, PydanticAI, MCP, local LLMs), NLP, Voice AI (ASR/TTS),
         and data-intensive architectures (Kafka, TimescaleDB, time-series). End-to-end ownership — UX/UI and system
         design through production — in JavaScript, TypeScript, and Python.</p>
@@ -228,39 +279,47 @@
         <ul class="bul">
           <li>Built LLM-powered AI tutor &amp; recommendation systems (OpenAI, Gemini, Ollama) across multiple language tracks</li>
           <li>Designed production <b>RAG</b> pipelines (LangChain, LangGraph, Chroma) with HyDE, RAPTOR, reranking (BGE-M3, Cohere)</li>
-          <li>Real-time conversational AI (LiveKit + WebSockets, sub-second); ASR/TTS via Whisper, Deepgram, Kokoro; pronunciation scoring</li>
+          <li>Real-time conversational AI (LiveKit + WebSockets); ASR/TTS via Whisper, Deepgram, Kokoro; pronunciation scoring</li>
+          <li>Automated AI-generated learner performance reports; gamified modules with real-time feedback; dynamic CMS audio via ElevenLabs</li>
           <li>LangFuse observability, MCP server integrations, SpaCy NLP (PT/ES/FR); Scrum leader &amp; intern mentoring</li>
         </ul>
       </div>
 
-      <div class="mono" style="margin:20px 0 2px"><span class="tick">◆</span> Cross-product platforms · Rangsons Group</div>
+      <div class="mono" style="margin:20px 0 2px"><span class="tick">◆</span> Selected platforms delivered across the group · proprietary, no public repositories</div>
       <div class="xp-cards">
         <div class="card">
           <div class="subhead">Graylinx — OMNYX &amp; THERMYNX <span class="tag">Industrial IoT · Agentic AI</span></div>
           <ul class="bul">
-            <li>Designed &amp; architected <b>OMNYX</b>, an on-prem, air-gapped IoT platform — <b>BACnet → Kafka → dual-DB (PostgreSQL 16 + TimescaleDB)</b>, <b>zero cloud data egress</b>, agentic-AI layer (Planner/Executor/Validator) on a <b>local LLM</b> (Ollama/vLLM) + pgvector RAG</li>
-            <li>Built <b>THERMYNX</b> (shipping HVAC vertical): FastAPI + React, <b>5 autonomous tool-calling agents</b> with SSE-streamed reasoning; architected Digital-Twin FDD/RUL + RL optimization (shadow → live)</li>
-            <li>On-prem stack (Docker, Keycloak, Grafana/Prometheus); <b>Kafka stress-tested toward ~100× scale (~1,100 controllers)</b>; analytics DWH + Airflow ETL</li>
+            <li>Architected <b>OMNYX</b>, an on-prem air-gapped IoT platform: BACnet → Kafka → dual-DB (PostgreSQL 16 + TimescaleDB) with <b>zero cloud data egress</b></li>
+            <li>Owned its agentic-AI layer — Planner/Executor/Validator on a local LLM (Ollama/vLLM) with pgvector RAG and Keycloak-modelled agent authorization</li>
+            <li>Built <b>THERMYNX</b>, the shipping HVAC vertical (FastAPI + React): 5 autonomous tool-calling agents with SSE-streamed reasoning traces</li>
+            <li>Architected Digital-Twin FDD/RUL and RL efficiency optimization with a safe shadow → live rollout</li>
+            <li>Stood up the on-prem stack (Docker, Keycloak, Grafana/Prometheus) and stress-tested Kafka toward ~100× scale (~1,100 controllers) to size hardware</li>
+            <li>Designed the analytics data warehouse plus metadata-driven Airflow ETL; authored the platform HLD/LLD specs</li>
           </ul>
         </div>
         <div class="card">
           <div class="subhead">Nesso — Farm-to-Fork Traceability <span class="tag">AgriTech</span></div>
           <ul class="bul">
-            <li>Architected an <b>offline-first</b> platform (NestJS 10 + Next.js 15 + Expo monorepo, MongoDB/Redis) — SQLite-outbox sync, GPS polygon mapping, public <b>QR traceability</b>, <b>12-language</b> i18n, WCAG 2.2 AA, <b>17-role RBAC</b> (~99 screens, 4 surfaces)</li>
+            <li>Architected an <b>offline-first</b> platform (NestJS 10 + Next.js 15 + Expo monorepo, MongoDB/Redis) with SQLite-outbox sync and GPS polygon farm mapping</li>
+            <li>Delivered public QR traceability, 12-language i18n, WCAG 2.2 AA, and 17-role RBAC across mobile, web, and QR portal (~99 screens)</li>
           </ul>
         </div>
         <div class="card">
           <div class="subhead">Rangsons Aerospace (RAPL) — Enterprise Tools <span class="tag">Full-Stack · FE/UI-UX</span></div>
           <ul class="bul">
-            <li>Designed &amp; built a 7-role <b>Customer RFQ→Quotation</b> platform (gated approvals: 12 steps/8 states/4 gates, revision history, ECharts) and a <b>Manufacturing Execution System</b> (shift/task tracking, dynamic sequence enforcement, concurrency controls) — React 18 + Node/Express + MongoDB</li>
-            <li>Owned <b>front-end &amp; UI/UX</b> — a shared "Calm Enterprise" design system (light/dark) reused across RFQ, MES, and an <b>IT Helpdesk</b> console (kanban + SLA); delivered an on-site AI-hardware evaluation</li>
+            <li>Built a 7-role <b>Customer RFQ→Quotation</b> platform with gated approvals (12 steps / 8 states / 4 gates), revision history, and ECharts reporting — React 18 + Node/Express + MongoDB</li>
+            <li>Built a <b>Manufacturing Execution System</b>: shift/task tracking, dynamic sequence enforcement, lockout/orphan-task concurrency controls</li>
+            <li>Owned front-end and UI/UX — a shared "Calm Enterprise" design system (light/dark) reused across RFQ, MES, and an IT Helpdesk console (kanban + SLA)</li>
+            <li>Delivered an on-site AI-hardware suitability evaluation</li>
           </ul>
         </div>
         <div class="card">
           <div class="subhead">IRIS — B2B Connected Fragrance-Diffuser Platform <span class="tag">System Design · App · BLE · UI/UX</span></div>
           <ul class="bul">
-            <li>Supported a <b>BLE fragrance-diffuser fleet-ops platform</b> (React 19 admin + Expo/RN field app speaking to hardware over Bluetooth + Express/Socket.IO/MongoDB on Azure) — app development, <b>multi-generation BLE device integration</b>, UI/UX</li>
-            <li>Authored the <b>v1→v2 system redesign</b> — stateless <b>Redis-backed Socket.IO</b>, <b>BullMQ</b> workers, <b>MQTT→time-series</b> telemetry, Key Vault / OpenTelemetry / CI-CD, offline-first sync — pilot → enterprise-grade</li>
+            <li>Delivered a <b>BLE fleet-ops platform</b> — React 19 admin + Expo/RN field app talking to hardware over Bluetooth, on Express/Socket.IO/MongoDB (Azure) — covering app development, multi-generation BLE device integration, and UI/UX</li>
+            <li>Built the core loop: onboard → commission → consumption-ledger dry-out prediction → refill dispatch, with offline-capable field math</li>
+            <li>Authored the <b>v1→v2 system redesign</b> — stateless Redis-backed Socket.IO, BullMQ workers, MQTT→time-series telemetry, Key Vault / OpenTelemetry / CI-CD, offline-first sync — pilot → enterprise-grade</li>
           </ul>
         </div>
         <div class="card">
@@ -280,14 +339,14 @@
       <div class="job" style="margin-top:22px">
         <div class="co">Freelance Software Developer</div>
         <div class="meta">AUG 2022 – DEC 2022</div>
-        <ul class="bul"><li>Delivered full-stack apps, dashboards, and legacy-system improvements for clients end-to-end</li></ul>
+        <ul class="bul"><li>Delivered full-stack apps, dashboards, and legacy-system improvements for clients end-to-end, bridging directly into the Lingotran role</li></ul>
       </div>
       <div class="job">
         <div class="co">Veriteam Software Solutions</div>
-        <div class="meta">FEB 2021 – JUL 2022</div>
+        <div class="meta">FEB 2021 – AUG 2022</div>
         <div class="title">Software Engineer — Full Stack</div>
         <ul class="bul">
-          <li>Delivered 45+ production apps (CMS, CRM, e-commerce) — Java (Spring, Hibernate), JSP, JavaScript, Python</li>
+          <li>Delivered 40+ production apps (CMS, CRM, e-commerce) — Java (Spring, Hibernate), JSP, JavaScript, Python</li>
           <li>Integrated Stripe, Razorpay, OAuth, JWT, RBAC; modernized legacy PHP/.NET; mentored 250+ students &amp; interns</li>
         </ul>
       </div>
@@ -297,6 +356,8 @@
       <div class="eyebrow"><span class="num">02</span><h2>Open-Source Projects</h2><span class="rule"></span></div>
       <div class="proj"><div class="pn">Nexus Swarm <a href="https://github.com/Kimosabey/nexus-swarm">↗ repo</a></div>
         <p>Stateful multi-agent engine on LangGraph (Manager-Worker) with Human-in-the-Loop breakpoints, PostgreSQL-checkpointed recovery; FastAPI + Next.js 14; Pydantic V2 typed state.</p></div>
+      <div class="proj"><div class="pn">Grounded Voice Assistant <a href="https://github.com/Kimosabey/kimo-nexus">↗ repo</a> <a href="https://kimo-nexus.vercel.app">↗ live demo (⌘K → Ask)</a></div>
+        <p>Retrieval-grounded assistant with voice I/O and page-level tool-calling. NDJSON token streaming from a Next.js route handler; browser-native STT/TTS via the Web Speech API (no vendor, no per-request cost); per-IP token bucket plus a daily budget guard; 3-model provider fallback so a retired model can't take it down; deterministic no-LLM retrieval path so it degrades instead of failing. Answers constrained to a fixed knowledge base to prevent fabricated claims.</p></div>
       <div class="proj"><div class="pn">DocMind AI <a href="https://github.com/Kimosabey/docmind-ai">↗ repo</a></div>
         <p>Hybrid RAG (dense + sparse) — FastAPI, ChromaDB, Llama3; multi-doc ingestion, semantic chunking, query-time reranking.</p></div>
       <div class="proj"><div class="pn">LiveNexus AI <a href="https://github.com/Kimosabey/live-nexus-ai">↗ repo</a></div>
@@ -314,7 +375,7 @@
         <div class="sg"><div class="k">Frontend</div><div class="chips"><span class="chip">React</span><span class="chip">Next.js 15</span><span class="chip">Tailwind</span><span class="chip">shadcn/ui</span><span class="chip">Framer Motion</span><span class="chip">Zustand</span><span class="chip">ECharts</span></div></div>
         <div class="sg"><div class="k">Backend &amp; APIs</div><div class="chips"><span class="chip">Node (Express, NestJS)</span><span class="chip">FastAPI</span><span class="chip">Django</span><span class="chip">REST</span><span class="chip">GraphQL</span><span class="chip">gRPC</span><span class="chip">Microservices</span></div></div>
         <div class="sg"><div class="k">AI / GenAI / NLP</div><div class="chips"><span class="chip">OpenAI</span><span class="chip">Claude</span><span class="chip">Gemini</span><span class="chip">Ollama / vLLM</span><span class="chip">RAG (→ Agentic)</span><span class="chip">LangGraph</span><span class="chip">PydanticAI</span><span class="chip">MCP</span><span class="chip">SpaCy</span><span class="chip">Tool-Calling Agents</span></div></div>
-        <div class="sg"><div class="k">Voice AI</div><div class="chips"><span class="chip">Whisper</span><span class="chip">Faster-Whisper</span><span class="chip">Deepgram</span><span class="chip">ElevenLabs</span><span class="chip">Kokoro TTS</span><span class="chip">LiveKit</span><span class="chip">WebRTCVAD</span></div></div>
+        <div class="sg"><div class="k">Voice AI</div><div class="chips"><span class="chip">Whisper</span><span class="chip">Faster-Whisper</span><span class="chip">Deepgram</span><span class="chip">ElevenLabs</span><span class="chip">Kokoro TTS</span><span class="chip">LiveKit</span><span class="chip">WebRTCVAD</span><span class="chip">Web Speech API</span></div></div>
         <div class="sg"><div class="k">Data &amp; Streaming</div><div class="chips"><span class="chip">Kafka</span><span class="chip">Airflow</span><span class="chip">WebSockets</span><span class="chip">SSE</span><span class="chip">Protobuf</span><span class="chip">BACnet</span><span class="chip">Offline-First Sync</span></div></div>
         <div class="sg"><div class="k">Databases &amp; Vectors</div><div class="chips"><span class="chip">PostgreSQL</span><span class="chip">TimescaleDB</span><span class="chip">MongoDB</span><span class="chip">MySQL</span><span class="chip">Redis</span><span class="chip">Neo4j</span><span class="chip">ClickHouse</span><span class="chip">pgvector</span></div></div>
         <div class="sg"><div class="k">DevOps · Observability · Auth</div><div class="chips"><span class="chip">Docker</span><span class="chip">GitHub Actions</span><span class="chip">AWS</span><span class="chip">Azure</span><span class="chip">Kubernetes</span><span class="chip">Grafana</span><span class="chip">Prometheus</span><span class="chip">OpenTelemetry</span><span class="chip">Keycloak</span></div></div>
@@ -325,8 +386,8 @@
       <div class="grid2">
         <div>
           <div class="eyebrow"><span class="num">04</span><h2>Education</h2><span class="rule"></span></div>
-          <div class="edu"><b>MCA</b> — NIE College, Mysore · <span>2020</span></div>
-          <div class="edu"><b>BCA</b> — Vidya Vikas College, Mysore · <span>2017</span></div>
+          <div class="edu"><b>MCA</b> — NIE Institute of Technology, Mysore · <span>2017–2020 · 8.2 CGPA</span></div>
+          <div class="edu"><b>BCA</b> — Vidya Vikas College, University of Mysore · <span>2014–2017 · 71%</span></div>
         </div>
         <div>
           <div class="eyebrow"><span class="num">05</span><h2>Leadership</h2><span class="rule"></span></div>
