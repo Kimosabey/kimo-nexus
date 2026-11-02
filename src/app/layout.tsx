@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: site.title,
   description: site.description,
-  keywords: ["Harshan Aiyappa", "Full-Stack Software Engineer", "AI Engineer", "Next.js", "React", "Distributed Systems", "Speech AI"],
+  keywords: ["Harshan Aiyappa", "Full-Stack AI Engineer", "AI Engineer", "Next.js", "React", "Distributed Systems", "Speech AI"],
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
   openGraph: {
@@ -52,7 +52,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: site.name,
-  jobTitle: "Full-Stack Software Engineer (AI & R&D)",
+  jobTitle: "Full-Stack AI Engineer",
   url: `${site.url}/`,
   email: site.email,
   sameAs: socials.map((s) => s.href),
