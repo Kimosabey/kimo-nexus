@@ -3,8 +3,8 @@
 
 export const site = {
   name: "Harshan Aiyappa",
-  role: "Full-Stack Software Engineer · AI & R&D",
-  title: "Harshan Aiyappa — Full-Stack Software Engineer (AI & R&D)",
+  role: "Full-Stack AI Engineer",
+  title: "Harshan Aiyappa — Full-Stack AI Engineer",
   description:
     "I design and ship production systems across the stack — from LLM and voice pipelines to the APIs, infrastructure, and interfaces around them. 5+ years turning hard problems into simple, reliable products.",
   ogDescription: "I build production AI, end to end.",
@@ -23,7 +23,7 @@ export const socials = [
 ] as const;
 
 export const hero = {
-  eyebrow: "Full-Stack Software Engineer — AI & R&D",
+  eyebrow: "Full-Stack AI Engineer",
   // Per-line mask reveal; the token {accent} is rendered in the accent color.
   lines: ["I build", "production {accent:AI},", "end to end."],
   lead:
@@ -80,7 +80,8 @@ export const experience = {
   eyebrow: "Experience",
   headline: "The path so far.",
   items: [
-    { role: "Full-Stack Software Engineer — AI & R&D", org: "Lingotran Pvt Ltd", period: "Jan 2023 — Present", current: true, desc: "Build and ship AI/voice platforms end to end — real-time TTS/ASR/NLP pipelines, agentic RAG, and the APIs and dashboards around them. Design resilient services for high-throughput data and guide junior engineers on architecture." },
+    { role: "Full-Stack AI Engineer", org: "Lingotran Pvt Ltd", period: "Oct 2026 — Present", current: true, desc: "Build and ship AI/voice platforms end to end — real-time TTS/ASR/NLP pipelines, agentic RAG, and the APIs and dashboards around them. Design resilient services for high-throughput data and guide junior engineers on architecture." },
+    { role: "Software Engineer — Full Stack", org: "Lingotran Pvt Ltd", period: "Jan 2023 — Oct 2026", current: false, desc: "Joined as a full-stack engineer and built the AI and voice platforms above; promoted to Full-Stack AI Engineer in October 2026." },
     // Bridges Veriteam to Lingotran — without it the timeline shows a Sep–Dec 2022 gap that isn't real.
     { role: "Freelance Software Developer", org: "Independent", period: "Aug 2022 — Dec 2022", current: false, desc: "Delivered full-stack applications, dashboards, and legacy-system improvements for clients end to end, up to joining Lingotran." },
     { role: "Software Engineer", org: "Veriteam Software Solutions", period: "Feb 2021 — Aug 2022", current: false, desc: "Delivered 40+ full-stack products for clients, including the Tabedaar logistics platform and Zeus Biotech — Next.js web, React Native mobile, Node.js API, and MSSQL with layered RBAC. Owned delivery lifecycles and mentored 250+ students and engineers." },
