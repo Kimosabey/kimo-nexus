@@ -1,4 +1,5 @@
 # Kimo Nexus — Content & Copy (single source of truth)
+> **Superseded (Nov 2026):** stale (says ~4.8 yrs, old title). `src/lib/content.ts` is now the only content source; edits there trace to `profile/resume.pdf`.
 
 > All display copy + the canonical link set. `src/lib/content.ts` is generated from this. Copy is **de-jargonized** — senior and clear, not "siphoning neural fabrics." Items marked ⚠️ need the user to confirm.
 
