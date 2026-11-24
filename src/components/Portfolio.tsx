@@ -5,15 +5,14 @@ import { projects, type Project } from "@/lib/work";
 import { scrollToId } from "@/lib/scroll";
 import type { SiteAction } from "@/lib/assistant/prompt";
 import { BackgroundFX } from "./BackgroundFX";
+import { IslandNav } from "./IslandNav";
+import { Cursor } from "./Cursor";
 import { IntroLoader } from "./IntroLoader";
-import { ScrollProgress } from "./ScrollProgress";
-import { Rail } from "./Rail";
-import { MobileNav } from "./MobileNav";
-import { ProfileCard } from "./ProfileCard";
 import { Footer } from "./Footer";
 import { ProjectModal } from "./ProjectModal";
-import { CommandPalette } from "./CommandPalette";
+import { CommandPalette, type Mode } from "./CommandPalette";
 import { Hero } from "./sections/Hero";
+import { Ticker } from "./sections/Ticker";
 import { About } from "./sections/About";
 import { Services } from "./sections/Services";
 import { Skills } from "./sections/Skills";
@@ -22,20 +21,27 @@ import { Experience } from "./sections/Experience";
 import { Testimonials } from "./sections/Testimonials";
 import { Contact } from "./sections/Contact";
 
+type PaletteState = { open: boolean; mode: Mode; question?: string };
+
 export function Portfolio() {
   const [modalProject, setModalProject] = useState<Project | null>(null);
-  const [paletteOpen, setPaletteOpen] = useState(false);
+  const [palette, setPalette] = useState<PaletteState>({ open: false, mode: "jump" });
   // Lifted out of Work so the assistant can filter the grid.
   const [workFilter, setWorkFilter] = useState("All");
+  // The hero headline holds its reveal until the intro has lifted (or was skipped).
+  const [introDone, setIntroDone] = useState(false);
+  const markIntroDone = useCallback(() => setIntroDone(true), []);
   // Both overlays lock body scroll and sit above the page, so navigation the
   // assistant proposes is staged here and runs once the palette is out of the way.
   const pendingRef = useRef<{ scroll?: string; project?: Project } | null>(null);
+
+  const openAsk = useCallback((question?: string) => setPalette({ open: true, mode: "ask", question }), []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && (e.key === "k" || e.key === "K")) {
         e.preventDefault();
-        setPaletteOpen((o) => !o);
+        setPalette((p) => (p.open ? { ...p, open: false } : { open: true, mode: "jump" }));
       }
     };
     document.addEventListener("keydown", onKey);
@@ -45,7 +51,7 @@ export function Portfolio() {
   const handleAction = useCallback((a: SiteAction) => {
     if (a.kind === "filter_work") {
       setWorkFilter(a.value); // applies now; visible as soon as the palette closes
-      pendingRef.current = { scroll: "#work" };
+      pendingRef.current = { scroll: "#archive" };
     } else if (a.kind === "scroll_to") {
       pendingRef.current = { scroll: `#${a.value}` };
     } else if (a.kind === "open_project") {
@@ -62,7 +68,7 @@ export function Portfolio() {
   }, []);
 
   const closePalette = useCallback(() => {
-    setPaletteOpen(false);
+    setPalette((p) => ({ ...p, open: false, question: undefined }));
     const pending = pendingRef.current;
     pendingRef.current = null;
     if (!pending) return;
@@ -74,33 +80,30 @@ export function Portfolio() {
   }, []);
 
   // overflow-x:clip contains the background FX horizontally WITHOUT creating a
-  // scroll container (overflow:hidden would break the sticky profile card).
+  // scroll container (overflow:hidden would break position:sticky in Work/Experience).
   return (
     <div style={{ position: "relative", minHeight: "100dvh", overflowX: "clip" }}>
       <a href="#main-content" className="kn-skip">Skip to content</a>
-      <IntroLoader />
+      <IntroLoader onDone={markIntroDone} />
       <BackgroundFX />
-      <ScrollProgress />
-      <MobileNav />
-      <Rail />
+      <IslandNav onAsk={() => openAsk()} />
+      <Cursor />
 
-      <div className="kn-container">
-        <ProfileCard onOpenPalette={() => setPaletteOpen(true)} onScrollTo={scrollToId} />
-        <main id="main-content" tabIndex={-1} className="kn-main">
-          <Hero onScrollTo={scrollToId} />
-          <About />
-          <Services />
-          <Skills />
-          <Work onOpenProject={setModalProject} filter={workFilter} onFilterChange={setWorkFilter} />
-          <Experience />
-          <Testimonials />
-          <Contact />
-          <Footer />
-        </main>
-      </div>
+      <main id="main-content" tabIndex={-1} style={{ outline: "none" }}>
+        <Hero onScrollTo={scrollToId} onAsk={openAsk} ready={introDone} />
+        <Ticker />
+        <About />
+        <Work onOpenProject={setModalProject} filter={workFilter} onFilterChange={setWorkFilter} />
+        <Services />
+        <Skills />
+        <Experience />
+        <Testimonials />
+        <Contact />
+      </main>
+      <Footer />
 
       <ProjectModal project={modalProject} onClose={() => setModalProject(null)} />
-      <CommandPalette open={paletteOpen} onClose={closePalette} onOpenProject={openProject} onAction={handleAction} />
+      <CommandPalette open={palette.open} initialMode={palette.mode} initialQuestion={palette.question} onClose={closePalette} onOpenProject={openProject} onAction={handleAction} />
     </div>
   );
 }
