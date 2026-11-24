@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Menu, Moon, Sparkles, Sun, X } from "lucide-react";
+import { Download, Menu, Moon, Sparkles, Sun, X } from "lucide-react";
 import { navLinks, sections, site } from "@/lib/content";
 import { scrollToId } from "@/lib/scroll";
 import { useTheme } from "@/app/providers";
@@ -21,6 +21,7 @@ export function IslandNav({ onAsk }: { onAsk: () => void }) {
   const [active, setActive] = useState("hero");
   const [open, setOpen] = useState(false);
   const ringRef = useRef<SVGCircleElement>(null);
+  const burgerRef = useRef<HTMLButtonElement>(null);
 
   // Scroll progress → ring (direct DOM write; no re-render per scroll frame).
   useEffect(() => {
@@ -50,11 +51,15 @@ export function IslandNav({ onAsk }: { onAsk: () => void }) {
     if (!open) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const burger = burgerRef.current;
+    // Move focus into the sheet; give it back to the burger on close.
+    requestAnimationFrame(() => document.querySelector<HTMLElement>("#kn-sheet .kn-sheet-link")?.focus());
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     document.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = prev;
       document.removeEventListener("keydown", onKey);
+      burger?.focus();
     };
   }, [open]);
 
@@ -93,6 +98,9 @@ export function IslandNav({ onAsk }: { onAsk: () => void }) {
           Ask
           <kbd aria-hidden="true">⌘K</kbd>
         </button>
+        <a href={site.resume} download className="kn-island-icon" aria-label="Download résumé (PDF)" title="Résumé">
+          <Download size={18} strokeWidth={1.8} />
+        </a>
         <button
           type="button"
           className="kn-island-icon"
@@ -102,7 +110,7 @@ export function IslandNav({ onAsk }: { onAsk: () => void }) {
         >
           {mounted && !dark ? <Moon size={18} strokeWidth={1.8} /> : <Sun size={18} strokeWidth={1.8} />}
         </button>
-        <button type="button" className="kn-island-icon kn-island-burger" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="kn-sheet" onClick={() => setOpen((o) => !o)}>
+        <button ref={burgerRef} type="button" className="kn-island-icon kn-island-burger" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="kn-sheet" onClick={() => setOpen((o) => !o)}>
           {open ? <X size={20} strokeWidth={2} /> : <Menu size={20} strokeWidth={2} />}
         </button>
       </nav>
@@ -112,6 +120,9 @@ export function IslandNav({ onAsk }: { onAsk: () => void }) {
           <motion.div
             id="kn-sheet"
             className="kn-sheet"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menu"
             data-lenis-prevent
             initial={{ clipPath: "inset(0 0 100% 0)" }}
             animate={{ clipPath: "inset(0 0 0% 0)" }}
@@ -134,9 +145,14 @@ export function IslandNav({ onAsk }: { onAsk: () => void }) {
                 </motion.button>
               ))}
             </nav>
-            <p className="kn-label" style={{ marginTop: 28 }}>
-              {site.email}
-            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 28 }}>
+              <a href={site.resume} download className="kn-btn kn-btn--accent">
+                Résumé <Download size={16} strokeWidth={1.8} />
+              </a>
+              <a href={`mailto:${site.email}`} className="kn-btn kn-btn--ghost">
+                Email
+              </a>
+            </div>
           </motion.div>
         ) : null}
       </AnimatePresence>

@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+import { Pause, Play } from "lucide-react";
 import { testimonials } from "@/lib/content";
 import { SectionHead } from "../ui/SectionHead";
 import { Marquee } from "../ui/Marquee";
@@ -19,29 +23,38 @@ function Quote({ t }: { t: T }) {
   );
 }
 
-/** Two counter-scrolling rows; each row holds all quotes so the loop never shows a gap. */
+/**
+ * Two counter-scrolling rows with different quotes in each (no quote appears twice on
+ * screen). Each row tiles its three quotes twice so a copy is wider than any viewport.
+ */
 export function Testimonials() {
+  const [paused, setPaused] = useState(false);
   const items = testimonials.items;
-  const reversed = [...items].reverse();
+  const half = Math.ceil(items.length / 2);
+  const rows = [items.slice(0, half), items.slice(half)];
   return (
     <section id="testimonials" className="kn-sec" aria-labelledby="testimonials-title">
       <div className="kn-wrap">
-        <SectionHead id="testimonials" label={testimonials.eyebrow} lines={testimonials.headline} />
+        <SectionHead
+          id="testimonials"
+          label={testimonials.eyebrow}
+          lines={testimonials.headline}
+          aside={
+            <button type="button" className="kn-marquee-ctl" aria-pressed={paused} onClick={() => setPaused((p) => !p)}>
+              {paused ? <Play size={13} strokeWidth={2} /> : <Pause size={13} strokeWidth={2} />}
+              {paused ? "Play" : "Pause"}
+            </button>
+          }
+        />
       </div>
-      <div className="kn-peers kn-marquee-host">
-        <Marquee duration={70}>
-          {items.map((t) => (
-            <Quote key={t.name} t={t} />
-          ))}
-        </Marquee>
-        {/* The second row repeats the same quotes for motion only — hidden from assistive tech. */}
-        <div aria-hidden="true">
-          <Marquee duration={80} reverse>
-            {reversed.map((t) => (
+      <div className="kn-peers kn-marquee-host" data-paused={paused}>
+        {rows.map((row, r) => (
+          <Marquee key={r} duration={r ? 62 : 54} reverse={r === 1} repeat={2}>
+            {row.map((t) => (
               <Quote key={t.name} t={t} />
             ))}
           </Marquee>
-        </div>
+        ))}
       </div>
     </section>
   );

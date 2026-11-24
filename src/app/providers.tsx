@@ -47,28 +47,28 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }, []);
 
   const toggle = useCallback((origin?: { x: number; y: number }) => {
-    setTheme((prev) => {
-      const next: Theme = prev === "dark" ? "light" : "dark";
-      try {
-        localStorage.setItem("kn-theme", next);
-      } catch {
-        /* ignore */
-      }
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const doc = document as ViewTransitionDocument;
-      if (!reduce && origin && typeof doc.startViewTransition === "function") {
-        const root = document.documentElement;
-        root.style.setProperty("--wx", `${origin.x}px`);
-        root.style.setProperty("--wy", `${origin.y}px`);
-        const t = doc.startViewTransition!(() => applyTheme(next));
-        // Skipped transitions (rapid toggles / unfocused tab) reject these — swallow them.
-        t.ready.catch(() => {});
-        t.finished.catch(() => {});
-      } else {
-        applyTheme(next);
-      }
-      return next;
-    });
+    // Read the current theme from the DOM (source of truth after the boot script) and do all
+    // side effects here — never inside a setState updater, which React may run twice.
+    const next: Theme = document.documentElement.classList.contains("dark") ? "light" : "dark";
+    try {
+      localStorage.setItem("kn-theme", next);
+    } catch {
+      /* ignore */
+    }
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const doc = document as ViewTransitionDocument;
+    if (!reduce && origin && typeof doc.startViewTransition === "function") {
+      const root = document.documentElement;
+      root.style.setProperty("--wx", `${origin.x}px`);
+      root.style.setProperty("--wy", `${origin.y}px`);
+      const t = doc.startViewTransition(() => applyTheme(next));
+      // Skipped transitions (rapid toggles / unfocused tab) reject these — swallow them.
+      t.ready.catch(() => {});
+      t.finished.catch(() => {});
+    } else {
+      applyTheme(next);
+    }
+    setTheme(next);
   }, []);
 
   return (
