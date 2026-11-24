@@ -1,16 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Send, Loader2, Check } from "lucide-react";
-import { contact, site } from "@/lib/content";
+import { ArrowUpRight, Check, Copy, Loader2, Send } from "lucide-react";
+import { contact, sectionIndex, site } from "@/lib/content";
 import { Reveal } from "../ui/Reveal";
-import { AccentLines } from "../ui/accent";
-import { Waveform } from "../ui/Waveform";
+import { SplitText } from "../ui/SplitText";
 import { Socials } from "../Socials";
 import { useMagnetic } from "../ui/useMagnetic";
-
-const sec: React.CSSProperties = { padding: "clamp(72px,11vw,130px) 0 clamp(48px,7vw,80px)", borderTop: "1px solid var(--hairline)" };
-const label: React.CSSProperties = { display: "block", fontFamily: "var(--fm)", fontSize: 11, textTransform: "uppercase", letterSpacing: ".12em", color: "var(--muted)", marginBottom: 7 };
 const emailRe = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -20,6 +16,17 @@ export function Contact() {
   const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({});
   const [status, setStatus] = useState<Status>("idle");
   const [note, setNote] = useState("");
+  const [copied, setCopied] = useState(false);
+
+  async function copyEmail() {
+    try {
+      await navigator.clipboard.writeText(site.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1600);
+    } catch {
+      window.location.href = `mailto:${site.email}`;
+    }
+  }
 
   // Fallback: hand off to the visitor's mail client (identical to the pre-API behaviour).
   function mailtoFallback(name: string, email: string, message: string) {
@@ -83,49 +90,59 @@ export function Contact() {
 
   const sending = status === "sending";
   const sent = status === "sent";
+  const err = (m?: string) => <span style={{ display: "block", fontSize: 12, color: "#E5484D", marginTop: 6, minHeight: 2 }}>{m}</span>;
 
   return (
-    <section id="contact" style={sec}>
-      <Waveform bars={56} style={{ height: 26, marginBottom: 30, opacity: 0.7 }} />
+    <section id="contact" className="kn-sec kn-wrap" aria-labelledby="contact-title" style={{ paddingBottom: "clamp(56px,8vw,96px)" }}>
+      <Reveal className="kn-head-meta" style={{ marginBottom: 28 }}>
+        <span className="kn-idx">({sectionIndex("contact")})</span>
+        <span className="kn-label">Contact</span>
+      </Reveal>
+      <SplitText lines={contact.headline} trigger="view" className="kn-cta-title" id="contact-title" />
+
       <div className="kn-contact-grid">
         <div>
           <Reveal>
-            <AccentLines lines={contact.headline} style={{ fontFamily: "var(--fd)", fontWeight: 700, fontSize: "clamp(2.2rem,6vw,4.4rem)", letterSpacing: "-.03em", lineHeight: 1, margin: "0 0 22px" }} />
+            <p className="kn-sub" style={{ fontSize: "clamp(16px,1.4vw,19px)", marginBottom: 34 }}>{contact.sub}</p>
           </Reveal>
           <Reveal>
-            <p style={{ color: "var(--ink-2)", fontSize: 17, maxWidth: "52ch", margin: "0 0 34px" }}>{contact.sub}</p>
-          </Reveal>
-          <Reveal style={{ display: "flex", flexWrap: "wrap", gap: 14, alignItems: "center" }}>
-            <a href={`mailto:${site.email}`} {...mag} style={{ display: "inline-flex", alignItems: "center", gap: 11, height: 58, padding: "0 26px", borderRadius: 16, background: "var(--accent)", color: "var(--accent-ink)", fontWeight: 600, fontSize: 16, transition: "transform .25s" }}>
-              <Mail size={18} strokeWidth={1.9} />
-              {site.email}
+            <a href={`mailto:${site.email}`} className="kn-mailbig" data-cursor="Email">
+              {site.email} <ArrowUpRight size={26} strokeWidth={1.6} aria-hidden="true" />
             </a>
-            <Socials size={52} />
+          </Reveal>
+          <Reveal style={{ display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center", marginTop: 24 }}>
+            <button type="button" className="kn-copy" onClick={copyEmail} aria-live="polite">
+              {copied ? <Check size={14} strokeWidth={2.2} /> : <Copy size={14} strokeWidth={1.8} />}
+              {copied ? "Copied" : "Copy email"}
+            </button>
+            <Socials size={48} />
           </Reveal>
         </div>
 
         <Reveal>
-          <form onSubmit={onSubmit} noValidate style={{ border: "1px solid var(--hairline)", borderRadius: 20, background: "var(--surface)", padding: 24, display: "flex", flexDirection: "column", gap: 15 }}>
-            <p style={{ fontFamily: "var(--fd)", fontWeight: 600, fontSize: 16, margin: "0 0 2px" }}>Send a message</p>
+          <form onSubmit={onSubmit} noValidate className="kn-panel" style={{ padding: "clamp(22px,2.6vw,34px)", display: "flex", flexDirection: "column", gap: 20 }}>
+            <p style={{ fontFamily: "var(--fd)", fontWeight: 500, fontSize: 20, letterSpacing: "-.02em", margin: 0 }}>
+              Or send a <span className="kn-serif kn-accent">message</span>
+            </p>
             <div>
-              <label htmlFor="kn-f-name" style={label}>Name</label>
+              <label htmlFor="kn-f-name" className="kn-form-label">Name</label>
               <input id="kn-f-name" name="name" type="text" autoComplete="name" placeholder="Your name" className="kn-field" aria-invalid={!!errors.name} style={errors.name ? { borderColor: "#E5484D" } : undefined} />
-              <span className="kn-err" style={{ display: "block", fontSize: 11.5, color: "#E5484D", marginTop: 5, minHeight: 2 }}>{errors.name}</span>
+              {err(errors.name)}
             </div>
             <div>
-              <label htmlFor="kn-f-email" style={label}>Email</label>
+              <label htmlFor="kn-f-email" className="kn-form-label">Email</label>
               <input id="kn-f-email" name="email" type="email" autoComplete="email" placeholder="you@company.com" className="kn-field" aria-invalid={!!errors.email} style={errors.email ? { borderColor: "#E5484D" } : undefined} />
-              <span className="kn-err" style={{ display: "block", fontSize: 11.5, color: "#E5484D", marginTop: 5, minHeight: 2 }}>{errors.email}</span>
+              {err(errors.email)}
             </div>
             <div>
-              <label htmlFor="kn-f-msg" style={label}>Message</label>
+              <label htmlFor="kn-f-msg" className="kn-form-label">Message</label>
               <textarea id="kn-f-msg" name="message" placeholder="A line about what you're building…" className="kn-field" aria-invalid={!!errors.message} style={errors.message ? { borderColor: "#E5484D" } : undefined} />
-              <span className="kn-err" style={{ display: "block", fontSize: 11.5, color: "#E5484D", marginTop: 5, minHeight: 2 }}>{errors.message}</span>
+              {err(errors.message)}
             </div>
             {/* honeypot — hidden from humans, catches bots */}
             <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }} />
-            <button type="submit" disabled={sending} {...mag} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 9, height: 52, borderRadius: 14, background: "var(--accent)", color: "var(--accent-ink)", fontWeight: 600, fontSize: 15, border: 0, cursor: sending ? "wait" : "pointer", fontFamily: "inherit", transition: "transform .25s", opacity: sending ? 0.75 : 1 }}>
-              {sending ? (<>Sending… <Loader2 size={16} strokeWidth={2} className="kn-spin" /></>) : sent ? (<>Sent <Check size={16} strokeWidth={2.4} /></>) : (<>Send message <Send size={16} strokeWidth={2} /></>)}
+            <button type="submit" disabled={sending} {...mag} className="kn-btn kn-btn--accent" style={{ width: "100%", cursor: sending ? "wait" : "pointer", opacity: sending ? 0.75 : 1 }}>
+              {sending ? (<>Sending… <Loader2 size={16} strokeWidth={2} className="kn-spin" /></>) : sent ? (<>Sent <Check size={16} strokeWidth={2.4} /></>) : (<>Send message <Send size={16} strokeWidth={2} className="kn-arrow" /></>)}
             </button>
             <p aria-live="polite" role="status" style={{ fontSize: 12.5, margin: 0, minHeight: 16, color: status === "error" ? "#E5484D" : sent ? "var(--accent)" : "var(--muted)" }}>{note}</p>
           </form>
