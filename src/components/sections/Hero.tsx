@@ -71,26 +71,32 @@ export function Hero({ onScrollTo, onAsk, ready = true }: { onScrollTo: (id: str
           </Reveal>
         </div>
 
-        <motion.figure
-          className="kn-portrait-card"
-          style={{ clipPath: cardClip, margin: 0 }}
-          initial={{ scale: 1.04 }}
-          animate={ready ? { scale: 1 } : undefined}
-          transition={{ duration: 1.1, ease: ease.out, delay: 0.2 }}
-        >
-          <motion.div style={{ position: "absolute", inset: "-6% 0", y: imgY }}>
-            <Image src={site.photo} alt={`Portrait of ${site.name}`} fill priority sizes="(max-width:719px) 92vw, (max-width:1023px) 40vw, 400px" className="kn-portrait" style={{ objectFit: "cover", objectPosition: "50% 30%" }} />
+        {/* The "Now" tag lives outside the clipped photo so it never covers the face:
+            it hangs off the card's corner on tablet/desktop and sits under it on phones. */}
+        <div className="kn-portrait-wrap">
+          <motion.div
+            className="kn-portrait-card"
+            style={{ clipPath: cardClip }}
+            initial={{ scale: 1.04 }}
+            animate={ready ? { scale: 1 } : undefined}
+            transition={{ duration: 1.1, ease: ease.out, delay: 0.2 }}
+          >
+            <motion.div style={{ position: "absolute", inset: "-6% 0", y: imgY }}>
+              <Image src={site.photo} alt={`Portrait of ${site.name}`} fill priority sizes="(max-width:719px) 92vw, (max-width:1023px) 40vw, 400px" className="kn-portrait" style={{ objectFit: "cover", objectPosition: "50% 28%" }} />
+            </motion.div>
+            <div className="kn-duotone" />
+            <div className="kn-portrait-fade" />
           </motion.div>
-          <div className="kn-duotone" />
-          <div className="kn-portrait-fade" />
-          <figcaption className="kn-float">
-            <Waveform bars={14} style={{ height: 26, width: 56, flexShrink: 0 }} />
+          <Reveal className="kn-now" play={ready} delay={0.8}>
+            <Waveform bars={12} style={{ height: 24, width: 46, flexShrink: 0 }} />
             <p>
-              <small>Now</small>
-              {about.note.split(".")[0]}.
+              <small>
+                <span className="kn-avail-dot" aria-hidden="true" /> Now
+              </small>
+              {about.note.split(".")[0].replace(/^Currently /, "").replace(/^./, (c) => c.toUpperCase())}
             </p>
-          </figcaption>
-        </motion.figure>
+          </Reveal>
+        </div>
       </div>
 
       <Reveal className="kn-hero-foot" play={ready} delay={0.65}>
