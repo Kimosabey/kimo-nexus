@@ -1,4 +1,4 @@
-# Kimo Nexus — 2027 Revamp ("Signal")
+# Kimo Nexus — 2027 Revamp ("Ember")
 
 > Supersedes the Drake-template layout in `UX_REVAMP.md` (kept for history). Tokens and motion
 > rules here override `DESIGN_SYSTEM.md` where they disagree. Copy still comes only from
@@ -17,7 +17,7 @@ right, hero, then the same card grid section after section. Once a reviewer has 
   touches.
 - **The sidebar takes 334px of width** on every scroll position, which squeezes the work, the
   part that matters most.
-- **The loader delays LCP by about 1.5s** on first visit, for a monogram.
+- **The loader delays LCP by about 1.5s** on first visit, for a monogram, and replays it on every session.
 
 ## Persona panel
 
@@ -28,13 +28,13 @@ people who **use** it. Each one has a brief and a veto.
 
 | Persona | Owns | Calls made |
 |---|---|---|
-| **Art director** (Awwwards, Godly, CSS Design Awards) | Identity, type, colour | Grotesk + italic serif pairing (Geist / Instrument Serif / Geist Mono). Keep the lime signal colour for brand continuity, now in OKLCH with a P3 boost. Warmer near-black canvas. A giant outlined wordmark closes the page. |
+| **Art director** (Awwwards, Godly, CSS Design Awards) | Identity, type, colour | Grotesk + italic serif pairing (Geist / Instrument Serif / Geist Mono). New palette, "Ember" (see Tokens). A giant outlined wordmark closes the page. |
 | **Motion designer** (Codrops, Awwwards SOTD) | Signature motion, rhythm | Five signatures only: line-mask headline reveal, scroll-pinned horizontal gallery, cursor-following preview on the archive list, scroll-linked timeline fill, magnetic CTAs. Everything else is a 0.7s fade-up. A custom cursor on fine pointers only. |
 | **UX / IA strategist** (Mobbin, One Page Love) | Flow, scan path, nav | Drop the sidebar. One floating "island" nav carries the monogram + scroll-progress ring, section links, Ask and the theme switch. Featured work moves up to straight after About. The 10-second scan has to answer: who, what, proof, how to contact. |
 | **Layout / product designer** (BentoGrids, Land-book, Dribbble, Behance) | Section composition | About becomes a bento (statement, portrait, stats, "now", local time, résumé, education). Services become an editorial numbered index. Work splits into a featured *gallery* plus a dense *archive* table. Each section gets a distinct shape. |
 | **Content strategist** | Copy, proof | No new claims. Every number and role comes from `content.ts`. Italic serif marks the one word per headline that carries meaning. |
 | **Accessibility specialist** | WCAG 2.2 AA | Body contrast ≥ 4.5:1 in both themes. Every motion gated by `prefers-reduced-motion`, with marquee, pin, cursor and magnetic all off. The custom cursor never hides the system cursor for keyboard or touch users. Marquee duplicates are `aria-hidden`. Focus rings stay visible. Skip link kept. |
-| **Performance engineer** | Core Web Vitals | Loader removed (LCP). Dot-grid canvas removed (main-thread rAF on every scroll), replaced by CSS gradients + static grain. Animate transform/opacity/clip-path only. No WebGL, no new runtime deps. Images stay `next/image`. |
+| **Performance engineer** | Core Web Vitals | Loader rebuilt as a short first-visit intro: about 1.6s, once per session, skippable, and it never paints on repeat visits, under reduced motion or with JS off. The page renders underneath it. Dot-grid canvas removed (main-thread rAF on every scroll) in favour of CSS gradients + grain. Animate transform/opacity/clip-path only. No WebGL, no new runtime deps. |
 
 ### User-side personas (who the page must convince)
 
@@ -66,14 +66,44 @@ Work moves ahead of Services because the user personas came for proof, not a ser
 
 ## Tokens
 
-- **Colour (OKLCH):** canvas `oklch(0.15 0.006 260)` dark / `oklch(0.975 0.004 95)` light. One
-  accent: lime `#b6f400` (dark) / `#4d7c0f` (light), upgraded to `color(display-p3 …)` where
-  supported. Accent is for the italic word, links, focus, the primary CTA and live dots.
-- **Type:** Geist (display + body), Instrument Serif italic (accent words), Geist Mono (labels).
-  Display sizes are fluid `clamp()`: hero `clamp(3rem, 9.5vw, 9.5rem)`, section `clamp(2.2rem, 5.2vw, 4.6rem)`.
-- **Shape:** radius 28px for panels, 999px for pills. Surfaces use a 1px hairline plus an inner
-  highlight (`inset 0 1px 0 rgb(255 255 255 / .04)`) instead of a drop shadow.
-- **Glass:** only the island nav and the floating hero chip use `backdrop-filter`. Nowhere else.
+### Colour: "Ember"
+
+Picked for this person specifically. Voice and real-time AI is the strongest proven work,
+and ember orange is the on-air light, the colour that means "live signal". It also breaks
+from the blue, purple and neon-green that nearly every AI-engineer portfolio uses (the old
+lime included). The neutrals are warm, paper in light mode and off-white ink in dark mode, so
+the page reads editorial and human rather than terminal-cold.
+
+| Token | Light | Dark | Contrast vs canvas (light / dark) |
+|---|---|---|---|
+| canvas | `#f4f1ea` | `#0b0b0d` | — |
+| surface | `#fffdf8` | `#141417` | — |
+| ink | `#141210` | `#f2efe9` | 16.6 / 17.1 |
+| ink-2 | `#3a3631` | `#c8c4bc` | 10.6 / 11.3 |
+| muted | `#67625a` | `#8f8b84` | 5.4 / 5.8 |
+| accent (ember) | `#c2410c` | `#ff5a1f` (P3 `1 .38 .13`) | 4.6 / 6.3 |
+| accent-ink on accent | `#ffffff` | `#160700` | 5.2 / 6.3 |
+| danger | `#c5262e` | `#ff6b6b` | 5.0 / 7.1 |
+
+The accent marks the italic word, links, focus, the primary CTA and live dots. The hero glow
+pairs ember with a faint violet so the dark canvas has depth without a second UI colour.
+
+### Type, shape, glass
+
+- **Type:** Geist (display + body), Instrument Serif italic (one accent word per headline),
+  Geist Mono (labels). Hero `clamp(3rem, min(7.4vw, 13vh), 8.2rem)`, section `clamp(2.2rem, 5.2vw, 4.6rem)`.
+- **Shape:** 28px panel radius and 999px pills. Surfaces use a 1px hairline plus an inner
+  highlight in place of a drop shadow.
+- **Glass:** only the island nav, the Ask bar and the hero chip use `backdrop-filter`.
+- **Mobile-first:** base styles are single-column phone layouts, and `min-width` breakpoints
+  add tablet (720/900) and desktop (1024/1100). Pinning, the cursor and hover previews switch
+  on only for `(min-width:1024px) and (hover:hover) and (pointer:fine)`.
+
+### States
+- **Intro, "Tuning in":** an ember oscilloscope trace settles from noise into a clean sine
+  while a 000→100 counter runs and the name rises. Then the panel lifts and the hero headline reveals.
+- **Skeletons:** image wells shimmer until the image paints (with a bounded iteration count),
+  and the Ask answer shows skeleton lines until the first token.
 
 ## Motion system
 
@@ -95,4 +125,9 @@ Easing `cubic-bezier(.22,1,.36,1)` for enter. Stagger 60–90ms. Only `transform
 - No horizontal overflow at 390px and 1440px, in either theme.
 - No console errors. The Ask flow still works from the hero bar (it opens the palette in Ask
   mode with the question asked).
-- Reduced-motion: no pinning, no marquee movement, no custom cursor.
+- Reduced-motion: no pinning, no marquee movement, no custom cursor, no intro.
+- Content: every figure traces to `profile/resume.pdf`; every project card matches its repo's
+  code (audit 2026-11-24). Years of experience are computed from 2021-02-01 at build time,
+  floored to the half-year.
+- E2E suite (43 checks: nav, palette, Ask, archive, gallery, modal, theme, form, mobile,
+  reduced motion, axe WCAG 2.2 AA in both themes): all pass.
