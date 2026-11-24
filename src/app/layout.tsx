@@ -1,13 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import { Providers } from "./providers";
 import { site, socials } from "@/lib/content";
 
-const display = Space_Grotesk({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--fd", display: "swap" });
-const body = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--fb", display: "swap" });
-const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--fm", display: "swap" });
+// 2027 type system: one variable grotesk for display + UI, an italic serif for the single
+// accent word per headline, and a mono for labels. See docs/design/REVAMP_2027.md.
+const sans = Geist({ subsets: ["latin"], variable: "--fb", display: "swap" });
+const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--fs", display: "swap" });
+const mono = Geist_Mono({ subsets: ["latin"], variable: "--fm", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -40,8 +42,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0E0E10" },
-    { media: "(prefers-color-scheme: light)", color: "#F6F6F5" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0b0d" },
+    { media: "(prefers-color-scheme: light)", color: "#f4f1ea" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -69,7 +71,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script dangerouslySetInnerHTML={{ __html: themeBoot }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
-      <body suppressHydrationWarning className={`${display.variable} ${body.variable} ${mono.variable}`}>
+      <body suppressHydrationWarning className={`${sans.variable} ${serif.variable} ${mono.variable}`}>
         <Providers>
           <SmoothScroll>{children}</SmoothScroll>
         </Providers>
