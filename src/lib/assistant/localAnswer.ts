@@ -108,6 +108,22 @@ export function localAnswer(question: string): LocalAnswer {
     return { text: `His résumé is at ${site.url}${site.resume}, and the Experience section below covers the same ground.`, projectIds: [], action: { kind: "scroll_to", value: "experience" } };
   }
 
+  // Fit / suitability: lay out the evidence from structured data; never pass the verdict
+  // itself (that judgement belongs to the person hiring).
+  if (any(q, ["fit for", "a fit", "good fit", "suitable", "qualified", "right for", "why should", "senior"])) {
+    const ai = projects.filter((p) => p.featured && (p.group === "AI · Agents" || p.group === "Voice · Audio")).slice(0, 4);
+    const remit = current ? current.desc.split(". ")[0].replace(/^./, (c) => c.toLowerCase()) : "";
+    const text = [
+      `The evidence on this page: ${site.name} is a ${site.role} with ${about.stats[0].value} years of experience.`,
+      current ? `As ${current.role} at ${current.org} (${current.period}), the remit is to ${remit}.` : "",
+      ai.length ? `On the open-source side, the AI and voice work includes ${list(ai.map((p) => p.title))}.` : "",
+      `Whether that fits depends on the role. The fastest way to check is to email him at ${site.email}.`,
+    ]
+      .filter(Boolean)
+      .join(" ");
+    return { text, projectIds: ai.map((p) => p.id), action: { kind: "filter_work", value: "AI · Agents" } };
+  }
+
   // --- These two are generic enough to shadow a real match ("tell me about his
   //     Kafka work", "experience with LangGraph?"), so they only apply when the
   //     question named nothing concrete. ---

@@ -1,13 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import { Providers } from "./providers";
 import { site, socials } from "@/lib/content";
 
-const display = Space_Grotesk({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--fd", display: "swap" });
-const body = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--fb", display: "swap" });
-const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--fm", display: "swap" });
+// 2027 type system: one variable grotesk for display + UI, an italic serif for the single
+// accent word per headline, and a mono for labels. See docs/design/REVAMP_2027.md.
+const sans = Geist({ subsets: ["latin"], variable: "--fb", display: "swap" });
+const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--fs", display: "swap" });
+const mono = Geist_Mono({ subsets: ["latin"], variable: "--fm", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -40,8 +42,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0E0E10" },
-    { media: "(prefers-color-scheme: light)", color: "#F6F6F5" },
+    { media: "(prefers-color-scheme: dark)", color: "#070b08" },
+    { media: "(prefers-color-scheme: light)", color: "#f3f7f1" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -61,15 +63,23 @@ const jsonLd = {
 
 // No-FOUC theme boot: set html.dark before paint (default dark).
 const themeBoot = `(function(){try{var s=localStorage.getItem('kn-theme');var d=s?s==='dark':true;document.documentElement.classList.toggle('dark',d);}catch(e){document.documentElement.classList.add('dark');}})();`;
+// Intro boot: repeat visits in a session and reduced-motion users never paint the intro
+// overlay at all (it's server-rendered so first visits don't flash the page underneath).
+const introBoot = `(function(){try{if(sessionStorage.getItem('kn-intro')==='1'||matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.setAttribute('data-intro','skip');}catch(e){}})();`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBoot }} />
+        <script dangerouslySetInnerHTML={{ __html: introBoot }} />
+        {/* Without JS the intro could never lift, so it must never show. */}
+        <noscript>
+          <style>{`.kn-intro{display:none!important}.kn-min{transform:none!important}`}</style>
+        </noscript>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
-      <body suppressHydrationWarning className={`${display.variable} ${body.variable} ${mono.variable}`}>
+      <body suppressHydrationWarning className={`${sans.variable} ${serif.variable} ${mono.variable}`}>
         <Providers>
           <SmoothScroll>{children}</SmoothScroll>
         </Providers>

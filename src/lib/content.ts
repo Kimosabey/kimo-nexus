@@ -1,12 +1,21 @@
 // Single source of truth for all site copy + links, lifted verbatim from the approved
 // prototype (Portfolio.dc.html). De-jargonized set. Components read from here — no hardcoded copy.
 
+// Career start = first role (Veriteam, Feb 2021). The timeline is continuous from there
+// (freelance bridges Aug–Dec 2022), so years of experience is simply time since this date.
+// Computed at build time and floored to the half-year, so it never overstates, matches the
+// résumé's own "5.5 years" wording, and steps up by itself on the next deploy after each Feb/Aug.
+export const CAREER_START = "2021-02-01";
+const BUILT_AT = Number(process.env.KN_BUILD_TS) || Date.parse("2026-11-24");
+export const yearsExperience = Math.floor(((BUILT_AT - Date.parse(CAREER_START)) / (365.25 * 24 * 3600 * 1000)) * 2) / 2;
+const yrs = `${yearsExperience}`;
+
 export const site = {
   name: "Harshan Aiyappa",
   role: "Full-Stack AI Engineer",
   title: "Harshan Aiyappa — Full-Stack AI Engineer",
   description:
-    "I design and ship production systems across the stack — from LLM and voice pipelines to the APIs, infrastructure, and interfaces around them. 5+ years turning hard problems into simple, reliable products.",
+    `I design and ship production systems across the stack — from LLM and voice pipelines to the APIs, infrastructure, and interfaces around them. ${yrs} years turning hard problems into simple, reliable products.`,
   ogDescription: "I build production AI, end to end.",
   tagline: "I build production AI, end to end.",
   url: "https://kimo-nexus.vercel.app",
@@ -14,6 +23,10 @@ export const site = {
   location: "Bangalore · Mysore, India · Remote",
   resume: "/resume.pdf",
   photo: "/profile.webp",
+  // Live local-time chip in the hero + About bento.
+  city: "Bangalore",
+  timeZone: "Asia/Kolkata",
+  availability: "Available for select work",
 } as const;
 
 export const socials = [
@@ -27,34 +40,33 @@ export const hero = {
   // Per-line mask reveal; the token {accent} is rendered in the accent color.
   lines: ["I build", "production {accent:AI},", "end to end."],
   lead:
-    "I design and ship production systems across the stack — from LLM and voice pipelines to the APIs, infrastructure, and interfaces around them. 5+ years turning hard problems into simple, reliable products.",
+    `I design and ship production systems across the stack — from LLM and voice pipelines to the APIs, infrastructure, and interfaces around them. ${yrs} years turning hard problems into simple, reliable products.`,
   primaryCta: { label: "View Work", href: "#work" },
   stats: [
-    // Computed from Feb 2021 (first role) — keep in step with the résumé, not hardcoded from memory.
-    { value: 5.5, dec: 1, suffix: "", label: "Years experience" },
-    { value: 40, dec: 0, suffix: "+", label: "Platforms delivered" },
-    { value: 250, dec: 0, suffix: "+", label: "Engineers mentored" },
+    { value: yearsExperience, dec: 1, suffix: "", label: "Years experience" },
+    { value: 40, dec: 0, suffix: "+", label: "Production apps shipped" },
+    { value: 250, dec: 0, suffix: "+", label: "Students & interns mentored" },
   ],
 } as const;
 
 export const about = {
   eyebrow: "About",
-  headline: ["Engineering that stays", "simple as it {accent:scales}."],
+  headline: ["Engineering that stays", "simple as it scales."],
   paragraphs: [
     "I'm a full-stack engineer working at the intersection of product and applied AI. Day to day that means React/Next.js on the front, Node.js and Python services behind it, and R&D in speech and language tech — TTS, ASR, and NLP — turned into low-latency, production features.",
-    "I care about architectural rigor: systems that are understandable, observable, and hold up under load. Over 5+ years I've delivered 40+ platforms end to end and mentored 250+ engineers and students.",
+    `I care about architectural rigor: systems that are understandable, observable, and hold up under load. Over ${yrs} years I've shipped 40+ production apps and mentored 250+ students and interns.`,
   ],
   note: "Currently building AI/voice platforms at Lingotran. Master's in Computer Applications (MCA).",
   stats: [
-    { value: 5.5, dec: 1, suffix: "", label: "Years shipping" },
-    { value: 40, dec: 0, suffix: "+", label: "Platforms" },
+    { value: yearsExperience, dec: 1, suffix: "", label: "Years shipping" },
+    { value: 40, dec: 0, suffix: "+", label: "Production apps" },
     { value: 250, dec: 0, suffix: "+", label: "Mentored" },
   ],
 } as const;
 
 export const services = {
   eyebrow: "What I do",
-  headline: ["Four things, done", "to a production standard."],
+  headline: ["Four things, done to a", "production standard."],
   items: [
     { icon: "cpu", title: "AI & Agents", desc: "LangGraph and agentic pipelines, RAG, LLM integration, and voice (TTS/ASR) and NLP built for production." },
     { icon: "network", title: "Distributed Systems", desc: "Event-driven services, Kafka, gRPC, sagas, and high-throughput data flows that stay consistent under load." },
@@ -63,28 +75,30 @@ export const services = {
   ],
 } as const;
 
+// Every tool here is on the résumé or proven in a linked repo's code (audit 2026-11-24).
 export const skills = {
   eyebrow: "Stack",
-  headline: "Tools I reach for.",
+  headline: ["Tools I reach for."],
   groups: [
-    { label: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind", "Framer Motion", "Radix / shadcn"] },
-    { label: "Backend", items: ["Node.js", "Express", "Python", "FastAPI", "Flask", "NestJS", "Java"] },
-    { label: "AI / ML", items: ["LangChain", "OpenAI API", "Whisper", "SpaCy", "TensorFlow", "PyTorch"] },
-    { label: "Data", items: ["PostgreSQL", "MongoDB", "MySQL", "Redis", "Kafka", "SQL Server"] },
-    { label: "DevOps / Cloud", items: ["Docker", "AWS", "Kubernetes", "Git", "Serverless", "Go · GraphQL"] },
+    { label: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind", "shadcn/ui", "Framer Motion", "Zustand", "ECharts", "Vite"] },
+    { label: "Backend", items: ["Node.js", "Express", "NestJS", "Python", "FastAPI", "Java", "Rust", "gRPC", "Protobuf"] },
+    { label: "AI / LLM", items: ["LangGraph", "LangChain", "PydanticAI", "MCP", "RAG", "OpenAI", "Claude", "Gemini", "Ollama", "vLLM", "ChromaDB", "SpaCy", "Presidio", "NumPy"] },
+    { label: "Voice & Realtime", items: ["Faster-Whisper", "LiveKit", "Deepgram", "ElevenLabs", "Kokoro", "WebRTC", "Web Speech API", "WebSockets", "SSE"] },
+    { label: "Data", items: ["PostgreSQL", "pgvector", "TimescaleDB", "MongoDB", "MySQL", "Redis", "Kafka", "ClickHouse", "CockroachDB", "Neo4j", "NATS", "RabbitMQ", "MinIO", "Airflow"] },
+    { label: "DevOps / Cloud", items: ["Docker", "AWS", "Azure", "Kubernetes", "GitHub Actions", "Git", "Keycloak", "Varnish", "Grafana", "Prometheus", "OpenTelemetry", "Go · GraphQL"] },
   ],
-  marquee: ["React", "Next.js", "TypeScript", "Node.js", "Python", "FastAPI", "LangChain", "OpenAI", "Whisper", "Kafka", "Docker", "AWS", "Kubernetes", "PostgreSQL", "Redis", "Go", "gRPC", "TensorFlow"],
+  marquee: ["React", "Next.js", "TypeScript", "Node.js", "Python", "FastAPI", "LangChain", "Claude", "Faster-Whisper", "Kafka", "Docker", "AWS", "Kubernetes", "PostgreSQL", "Redis", "Go", "gRPC", "LangGraph", "LiveKit"],
 } as const;
 
 export const experience = {
   eyebrow: "Experience",
-  headline: "The path so far.",
+  headline: ["The path so far."],
   items: [
     { role: "Full-Stack AI Engineer", org: "Lingotran Pvt Ltd", period: "Oct 2026 — Present", current: true, desc: "Build and ship AI/voice platforms end to end — real-time TTS/ASR/NLP pipelines, agentic RAG, and the APIs and dashboards around them. Design resilient services for high-throughput data and guide junior engineers on architecture." },
     { role: "Software Engineer — Full Stack", org: "Lingotran Pvt Ltd", period: "Jan 2023 — Oct 2026", current: false, desc: "Joined as a full-stack engineer and built the AI and voice platforms above; promoted to Full-Stack AI Engineer in October 2026." },
     // Bridges Veriteam to Lingotran — without it the timeline shows a Sep–Dec 2022 gap that isn't real.
     { role: "Freelance Software Developer", org: "Independent", period: "Aug 2022 — Dec 2022", current: false, desc: "Delivered full-stack applications, dashboards, and legacy-system improvements for clients end to end, up to joining Lingotran." },
-    { role: "Software Engineer", org: "Veriteam Software Solutions", period: "Feb 2021 — Aug 2022", current: false, desc: "Delivered 40+ full-stack products for clients, including the Tabedaar logistics platform and Zeus Biotech — Next.js web, React Native mobile, Node.js API, and MSSQL with layered RBAC. Owned delivery lifecycles and mentored 250+ students and engineers." },
+    { role: "Software Engineer", org: "Veriteam Software Solutions", period: "Feb 2021 — Aug 2022", current: false, desc: "Delivered 40+ production apps for clients, including the Tabedaar logistics platform and Zeus Biotech — Next.js web, React Native mobile, Node.js API, and MSSQL with layered RBAC. Owned delivery lifecycles and mentored 250+ students and interns." },
     { role: "MCA — Computer Applications", org: "NIE Institute of Technology, Mysore", period: "2017 — 2020", current: false, desc: "Master's, 8.2 CGPA. Focus on algorithms, distributed systems, and concurrency." },
     { role: "BCA — Computer Applications", org: "Vidya Vikas College, University of Mysore", period: "2014 — 2017", current: false, desc: "Bachelor's, 71%. Foundations in computational logic, databases, and the software lifecycle." },
   ],
@@ -104,7 +118,7 @@ export const testimonials = {
 } as const;
 
 export const contact = {
-  headline: ["Let's build", "something{accent:.}"],
+  headline: ["Let's build", "{accent:something}."],
   sub: "Open to senior full-stack / AI engineering roles and select collaborations. The fastest way to reach me is email.",
   email: site.email,
 } as const;
@@ -138,13 +152,23 @@ export const assistant = {
 } as const;
 
 // Section nav order (rail + mobile menu + scroll-spy).
+// Work sits straight after About: visitors come for proof (docs/design/REVAMP_2027.md).
 export const sections = [
   { id: "hero", label: "Home" },
   { id: "about", label: "About" },
+  { id: "work", label: "Work" },
   { id: "services", label: "Services" },
   { id: "skills", label: "Stack" },
-  { id: "work", label: "Work" },
   { id: "experience", label: "Experience" },
   { id: "testimonials", label: "Peers" },
   { id: "contact", label: "Contact" },
 ] as const;
+
+// The island nav shows only the destinations people actually jump to; ⌘K reaches the rest.
+export const navLinks = ["work", "about", "experience", "contact"] as const;
+
+// Section index labels — "(02) About" — in page order.
+export const sectionIndex = (id: string) => {
+  const i = sections.findIndex((s) => s.id === id);
+  return i < 0 ? "" : String(i).padStart(2, "0");
+};

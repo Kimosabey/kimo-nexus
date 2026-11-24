@@ -1,39 +1,38 @@
 import { skills } from "@/lib/content";
+import { projects } from "@/lib/work";
 import { Reveal } from "../ui/Reveal";
-import { Eyebrow } from "../ui/Eyebrow";
-import { Chip } from "../ui/Chip";
+import { SectionHead } from "../ui/SectionHead";
 
-const sec: React.CSSProperties = { padding: "clamp(64px,10vw,120px) 0", borderTop: "1px solid var(--hairline)" };
+// Evidence count per tool: how many projects in the archive use it. Tools with none are
+// résumé skills from client/employer work, shown without a count.
+const usage = new Map<string, number>();
+for (const p of projects) for (const t of p.tech) usage.set(t, (usage.get(t) ?? 0) + 1);
 
 export function Skills() {
-  const loop = [...skills.marquee, ...skills.marquee];
   return (
-    <section id="skills" style={sec}>
-      <Reveal>
-        <Eyebrow style={{ marginBottom: 20 }}>{skills.eyebrow}</Eyebrow>
-      </Reveal>
-      <Reveal>
-        <h2 style={{ fontFamily: "var(--fd)", fontWeight: 700, fontSize: "clamp(1.8rem,3.4vw,2.7rem)", letterSpacing: "-.02em", margin: "0 0 32px", lineHeight: 1.1 }}>{skills.headline}</h2>
-      </Reveal>
-      <Reveal style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "22px 40px" }}>
+    <section id="skills" className="kn-sec kn-wrap" aria-labelledby="skills-title" style={{ paddingTop: 0 }}>
+      <SectionHead id="skills" label={skills.eyebrow} lines={skills.headline} sub="The number beside a tool is how many projects in the archive use it." />
+      <div className="kn-stack">
         {skills.groups.map((g) => (
-          <div key={g.label}>
-            <h4 style={{ fontFamily: "var(--fm)", fontSize: 11.5, textTransform: "uppercase", letterSpacing: ".16em", color: "var(--accent)", margin: "0 0 12px" }}>{g.label}</h4>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {g.items.map((t) => (
-                <Chip key={t}>{t}</Chip>
-              ))}
+          <Reveal key={g.label} className="kn-stack-row">
+            <h3>
+              {g.label}
+              <small>{String(g.items.length).padStart(2, "0")}</small>
+            </h3>
+            <div className="kn-stack-chips">
+              {g.items.map((t) => {
+                const n = usage.get(t) ?? 0;
+                return (
+                  <span key={t} className="kn-chip" title={n ? `Used in ${n} project${n > 1 ? "s" : ""} in the archive` : undefined}>
+                    {t}
+                    {n ? <sup className="kn-chip-n" aria-label={`, ${n} project${n > 1 ? "s" : ""}`}>{n}</sup> : null}
+                  </span>
+                );
+              })}
             </div>
-          </div>
+          </Reveal>
         ))}
-      </Reveal>
-      <Reveal className="kn-marquee-wrap" style={{ marginTop: 38, borderTop: "1px solid var(--hairline)", borderBottom: "1px solid var(--hairline)", padding: "20px 0", overflow: "hidden", position: "relative" }}>
-        <div className="kn-marquee" style={{ display: "flex", gap: 44, width: "max-content", whiteSpace: "nowrap", animation: "kn-marquee 32s linear infinite" }}>
-          {loop.map((t, i) => (
-            <span key={i} style={{ fontFamily: "var(--fd)", fontWeight: 600, fontSize: 17, color: "var(--muted)" }}>{t}</span>
-          ))}
-        </div>
-      </Reveal>
+      </div>
     </section>
   );
 }

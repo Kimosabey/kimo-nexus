@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { ArrowUpRight, BookOpen, Lock, X } from "lucide-react";
+import { ease } from "@/lib/motion";
 import type { Project } from "@/lib/work";
 import { ProjectThumb } from "./ui/ProjectThumb";
+import { RepoCover } from "./ui/RepoCover";
 
 const chip: React.CSSProperties = { fontFamily: "var(--fm)", fontSize: 11, color: "var(--ink-2)", border: "1px solid var(--hairline)", borderRadius: 999, padding: "3px 10px" };
 
@@ -33,13 +36,13 @@ export function ProjectModal({ project, onClose }: { project: Project | null; on
 
   return (
     <div role="dialog" aria-modal="true" aria-labelledby="kn-modal-title" data-lenis-prevent style={{ position: "fixed", inset: 0, zIndex: 120, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
-      <div onClick={onClose} aria-hidden="true" style={{ position: "absolute", inset: 0, background: "color-mix(in srgb,var(--canvas) 68%,transparent)", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)" }} />
-      <div data-hidescroll style={{ position: "relative", width: "min(560px,100%)", maxHeight: "88dvh", overflow: "auto", overscrollBehavior: "contain", border: "1px solid var(--hairline)", borderRadius: 22, background: "var(--surface)", boxShadow: "var(--shadow-card)" }}>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} onClick={onClose} aria-hidden="true" style={{ position: "absolute", inset: 0, background: "color-mix(in srgb,var(--canvas) 68%,transparent)", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)" }} />
+      <motion.div initial={{ opacity: 0, y: 28, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.45, ease: ease.out }} data-hidescroll style={{ position: "relative", width: "min(560px,100%)", maxHeight: "88dvh", overflow: "auto", overscrollBehavior: "contain", border: "1px solid var(--hairline)", borderRadius: 22, background: "var(--surface)", boxShadow: "var(--shadow-card)" }}>
         <button ref={closeRef} type="button" onClick={onClose} aria-label="Close" style={{ position: "absolute", top: 14, right: 14, zIndex: 3, width: 44, height: 44, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 12, border: "1px solid var(--hairline)", background: "color-mix(in srgb,var(--surface) 82%,transparent)", backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)", color: "var(--ink)", cursor: "pointer" }}>
           <X size={18} strokeWidth={2} />
         </button>
         <div className="kn-thumb-wrap">
-          <ProjectThumb project={p} sizes="(max-width: 640px) 100vw, 560px" grayscale={false} />
+          {p.action === "repo" ? <RepoCover project={p} /> : <ProjectThumb project={p} sizes="(max-width: 640px) 100vw, 560px" grayscale={false} />}
         </div>
         <div style={{ padding: 26 }}>
           <p style={{ fontFamily: "var(--fm)", fontSize: 11, textTransform: "uppercase", letterSpacing: ".14em", color: "var(--accent)", margin: "0 0 8px" }}>{p.category}</p>
@@ -64,7 +67,7 @@ export function ProjectModal({ project, onClose }: { project: Project | null; on
             </span>
           )}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

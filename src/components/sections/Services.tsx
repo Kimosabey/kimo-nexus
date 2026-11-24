@@ -2,35 +2,35 @@ import { Cpu, Layers, Network, Server } from "lucide-react";
 import type { ComponentType } from "react";
 import { services } from "@/lib/content";
 import { Reveal } from "../ui/Reveal";
-import { Eyebrow } from "../ui/Eyebrow";
-import { AccentLines } from "../ui/accent";
+import { SectionHead } from "../ui/SectionHead";
 
-const sec: React.CSSProperties = { padding: "clamp(64px,10vw,120px) 0", borderTop: "1px solid var(--hairline)" };
 const ICONS: Record<string, ComponentType<{ size?: number; strokeWidth?: number }>> = { cpu: Cpu, network: Network, layers: Layers, server: Server };
 
+/** Editorial numbered index — big titles, the description sits beside, a signal wash on hover. */
 export function Services() {
   return (
-    <section id="services" style={sec}>
-      <Reveal>
-        <Eyebrow style={{ marginBottom: 20 }}>{services.eyebrow}</Eyebrow>
-      </Reveal>
-      <Reveal>
-        <AccentLines lines={services.headline} style={{ fontFamily: "var(--fd)", fontWeight: 700, fontSize: "clamp(1.8rem,3.4vw,2.7rem)", letterSpacing: "-.02em", margin: "0 0 36px", lineHeight: 1.1 }} />
-      </Reveal>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))", gap: 16 }}>
-        {services.items.map((s) => {
+    // Full-bleed inverted band: the one section in the opposite theme, for rhythm.
+    <div className="kn-band">
+    <section id="services" className="kn-sec kn-wrap" aria-labelledby="services-title">
+      <SectionHead id="services" label={services.eyebrow} lines={services.headline} />
+      <ol className="kn-svc-list">
+        {services.items.map((s, i) => {
           const Icon = ICONS[s.icon] ?? Layers;
           return (
-            <Reveal key={s.title} className="kn-svc" style={{ border: "1px solid var(--hairline)", borderRadius: 18, padding: 24, background: "var(--surface)" }}>
-              <span style={{ display: "flex", width: 46, height: 46, alignItems: "center", justifyContent: "center", borderRadius: 13, background: "var(--accent-soft)", color: "var(--accent)", marginBottom: 18 }}>
-                <Icon size={22} strokeWidth={1.7} />
-              </span>
-              <h3 style={{ fontFamily: "var(--fd)", fontWeight: 600, fontSize: 18, margin: "0 0 8px" }}>{s.title}</h3>
-              <p style={{ color: "var(--muted)", fontSize: 14, margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
+            <Reveal key={s.title} as="li" className="kn-svc">
+                <span className="kn-svc-no">{String(i + 1).padStart(2, "0")}</span>
+                <h3 className="kn-svc-title">
+                  <span className="kn-svc-icon" aria-hidden="true">
+                    <Icon size={22} strokeWidth={1.6} />
+                  </span>
+                  {s.title}
+                </h3>
+                <p className="kn-svc-desc">{s.desc}</p>
             </Reveal>
           );
         })}
-      </div>
+      </ol>
     </section>
+    </div>
   );
 }

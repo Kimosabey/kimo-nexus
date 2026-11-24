@@ -1,24 +1,15 @@
-# Kimo Nexus | Stealth Portfolio
-## High-Performance Digital Identity System
+# Kimo Nexus — Harshan Aiyappa's portfolio
 
-<div align="center">
+Full-Stack AI Engineer portfolio with a grounded in-page assistant (⌘K → Ask) that answers
+only from the site's own data and can drive the page: filter the work archive, open a
+project, jump to a section.
 
-![Status](https://img.shields.io/badge/Status-Production_Ready-success?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
+Live: [kimo-nexus.vercel.app](https://kimo-nexus.vercel.app)
 
-**Tech Stack**
-
-![Next.js](https://img.shields.io/badge/Next.js-15-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Tailwind](https://img.shields.io/badge/Tailwind-CSS_4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
-![Framer Motion](https://img.shields.io/badge/Motion-Framer-0055FF?style=for-the-badge&logo=framer&logoColor=white)
-
-**Aesthetics**
-
-![Design](https://img.shields.io/badge/Design-Stealth_Minimalism-121212?style=flat-square)
-![Color](https://img.shields.io/badge/Theme-Onyx_&_Chrome-A0A0A0?style=flat-square)
-
-</div>
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=flat-square&logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-19-149ECA?style=flat-square&logo=react&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind-v4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-0055FF?style=flat-square&logo=framer&logoColor=white)
 
 ---
 
@@ -42,24 +33,40 @@ npm run build
 
 ---
 
-## ✨ Design System (Stealth)
+## ✨ Design system: "Ember" (2027 revamp)
 
-A high-performance, high-contrast, professional portfolio designed for a Senior Full Stack Hybrid Engineer.
+Full rationale, personas and tokens are in [`docs/design/REVAMP_2027.md`](docs/design/REVAMP_2027.md).
 
-### 🎨 Visual Language
-- **Background**: Onyx Black (`#000000`) with Graphite (`#0A0A0A`) transitions.
-- **Surface**: Charcoal Glass (`#121212` @ 40%) with backdrop blur.
-- **Accents**: Silver Chrome (`#E5E5E5`) for strict 1px borders.
-- **Typography**: Space Grotesk (Google Fonts).
-- **Texture**: 3% Noise Grain + Subtle Mesh Gradients.
+- **Colour:** one signal colour, ember orange (the "on-air" light of voice AI), on warm
+  near-black or warm paper. Every text pair is ≥ 4.5:1 in both themes, with a P3 boost on
+  wide-gamut screens.
+- **Type:** Geist (display + UI), Instrument Serif italic (one accent word per headline),
+  Geist Mono (labels).
+- **Layout:** mobile-first. A floating island nav, a bento About, a scroll-pinned featured
+  gallery, a filterable archive index and a scroll-filled experience timeline.
+- **Motion:** line-mask reveals, pinned horizontal gallery, cursor-follow previews, a context
+  cursor, magnetic CTAs, marquees, a View Transitions theme wipe and a "Tuning in" first-visit
+  intro. Every motion has a static fallback under `prefers-reduced-motion`.
 
 ---
+
+## 🗂️ Repo layout
+
+| Path | What |
+|---|---|
+| `src/app` | App Router: layout, global styles (design tokens), `api/ask` (assistant), `api/contact` |
+| `src/components` | Shell (`IslandNav`, `IntroLoader`, `Cursor`, `SignalThread`), `sections/*`, `ui/*` primitives, `assistant/*` |
+| `src/lib` | `content.ts` and `work.ts` (the only copy and data sources), `assistant/*`, `repoLanguages.json` |
+| `scripts` | Asset and data scripts (see `scripts/README.md`) |
+| `docs` | Design system, résumé source, archive (see `docs/README.md`) |
+| `public` | Portrait, résumé PDF, share image, icons, project art |
 
 ## 🏗️ Architecture
 
 - `src/app`: App Router pages and layouts.
-- `src/components`: Reusable UI components (Magnetic Buttons, Glass Cards).
-- `src/lib`: Utilities (Tailwind merge, specialized hooks).
+- `src/components`: shell (`IslandNav`, `IntroLoader`, `Cursor`), `sections/*` and `ui/*` primitives.
+- `src/lib/content.ts` / `work.ts`: the only source of copy and project data (the assistant reads these too).
+- `src/lib/assistant`: grounded Ask (local answers with no key, OpenRouter model when configured).
 
 ---
 
@@ -67,7 +74,7 @@ A high-performance, high-contrast, professional portfolio designed for a Senior 
 
 | Component | Technology | Purpose |
 | :--- | :--- | :--- |
-| **Framework** | Next.js 15+ | App Router, Server Components |
+| **Framework** | Next.js 16 | App Router, static page + API routes (`/api/ask`, `/api/contact`) |
 | **Styling** | Tailwind CSS v4 | High-performance utility CSS |
 | **Motion** | Framer Motion | Complex enter/exit animations |
 | **Scroll** | Lenis | Smooth scrolling normalization |
@@ -89,4 +96,4 @@ Senior Full-Stack Engineer
 
 ---
 
-**Designed to signal seniority and technical depth.**
+

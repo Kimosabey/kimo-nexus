@@ -1,6 +1,6 @@
 import type { CSSProperties, ElementType, ReactNode } from "react";
 
-/** Renders a string, wrapping any {accent:…} token in the accent color. */
+/** Renders a string, wrapping any {accent:…} token in the italic-serif accent style. */
 export function accentize(text: string): ReactNode[] {
   const out: ReactNode[] = [];
   const re = /\{accent:([^}]*)\}/g;
@@ -10,7 +10,8 @@ export function accentize(text: string): ReactNode[] {
   while ((m = re.exec(text)) !== null) {
     if (m.index > last) out.push(text.slice(last, m.index));
     out.push(
-      <span key={`a${key++}`} style={{ color: "var(--accent)" }}>
+      // 2027: the one meaningful word per headline is set in italic serif + signal colour.
+      <span key={`a${key++}`} className="kn-serif kn-accent">
         {m[1]}
       </span>,
     );

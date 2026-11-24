@@ -1,47 +1,103 @@
+"use client";
+
 import Image from "next/image";
-import { about, site } from "@/lib/content";
+import { ArrowDown, GraduationCap, Radio } from "lucide-react";
+import { about, experience, site, skills } from "@/lib/content";
+import { projects } from "@/lib/work";
 import { Reveal } from "../ui/Reveal";
-import { Eyebrow } from "../ui/Eyebrow";
-import { AccentLines } from "../ui/accent";
+import { SectionHead } from "../ui/SectionHead";
 import { NumberTicker } from "../ui/NumberTicker";
+import { Waveform } from "../ui/Waveform";
+import { useLocalTime } from "../ui/useLocalTime";
 
-const sec: React.CSSProperties = { padding: "clamp(64px,10vw,120px) 0", borderTop: "1px solid var(--hairline)" };
+const current = experience.items.find((e) => e.current);
+const masters = experience.items.find((e) => e.role.startsWith("MCA"));
 
+// The hero already shows years / apps / mentored; the bento counts what the site itself holds.
+const bentoStats = [
+  { value: projects.filter((p) => p.action === "repo").length, label: "Open-source repos" },
+  { value: projects.length, label: "Projects in the archive" },
+  { value: new Set(skills.groups.flatMap((g) => g.items)).size, label: "Tools in the stack" },
+];
+
+/** About as a bento: statement · portrait · now · stats · local time · résumé · education. */
 export function About() {
+  const time = useLocalTime(site.timeZone);
+  const [lead, ...rest] = about.paragraphs;
+
   return (
-    <section id="about" style={sec}>
-      <Reveal>
-        <Eyebrow style={{ marginBottom: 20 }}>{about.eyebrow}</Eyebrow>
-      </Reveal>
-      <div className="kn-about-grid">
-        <Reveal style={{ position: "relative", borderRadius: 20, overflow: "hidden", border: "1px solid var(--hairline)", aspectRatio: "4/5", maxWidth: 340, background: "var(--surface-2)" }}>
-          <Image src={site.photo} alt={site.name} fill sizes="(max-width:760px) 90vw, 300px" className="kn-portrait" style={{ objectFit: "cover" }} />
-          <div className="kn-duotone" />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, color-mix(in srgb,var(--canvas) 55%, transparent), transparent 32%)" }} />
-        </Reveal>
-        <div>
-          <Reveal>
-            <AccentLines lines={about.headline} style={{ fontFamily: "var(--fd)", fontWeight: 700, fontSize: "clamp(1.9rem,3.6vw,2.9rem)", lineHeight: 1.08, letterSpacing: "-.02em", margin: "0 0 24px" }} />
-          </Reveal>
-          {about.paragraphs.map((p, i) => (
-            <Reveal key={i}>
-              <p style={{ color: "var(--ink-2)", fontSize: 16, margin: "0 0 16px", maxWidth: "62ch" }}>{p}</p>
-            </Reveal>
+    <section id="about" className="kn-sec kn-wrap" aria-labelledby="about-title">
+      <SectionHead id="about" label={about.eyebrow} lines={about.headline} />
+
+      <div className="kn-bento">
+        <Reveal className="kn-tile kn-tile--statement">
+          <p className="kn-big">{lead.split(". ")[0]}.</p>
+          <p>{lead.split(". ").slice(1).join(". ")}</p>
+          {rest.map((p) => (
+            <p key={p.slice(0, 24)}>{p}</p>
           ))}
-          <Reveal>
-            <p style={{ color: "var(--muted)", fontSize: 15, margin: "0 0 30px", maxWidth: "62ch" }}>{about.note}</p>
+        </Reveal>
+
+        <Reveal className="kn-tile kn-tile--photo">
+          <Image src={site.photo} alt="" fill sizes="(max-width:720px) 92vw, (max-width:1100px) 46vw, 330px" className="kn-portrait" style={{ objectFit: "cover", objectPosition: "50% 30%" }} />
+          <div className="kn-duotone" />
+          <div className="kn-portrait-fade" />
+          <span className="kn-label" style={{ position: "absolute", left: 22, bottom: 20, color: "var(--ink)" }}>
+            {site.name}
+          </span>
+        </Reveal>
+
+        <Reveal className="kn-tile kn-tile--now">
+          <div className="kn-tile-label">
+            <Radio size={15} strokeWidth={1.8} style={{ color: "var(--accent)" }} aria-hidden="true" />
+            <span className="kn-label">Now</span>
+          </div>
+          <h3 style={{ fontSize: "clamp(22px,2vw,28px)", lineHeight: 1.12 }}>{current?.role}</h3>
+          <p style={{ color: "var(--accent)", fontSize: 14, margin: "6px 0 18px" }}>{current?.org}</p>
+          <p style={{ color: "var(--ink-2)", fontSize: 14.5, margin: 0 }}>{current?.desc}</p>
+          <Waveform bars={28} style={{ height: 40, marginTop: 24 }} />
+        </Reveal>
+
+        {bentoStats.map((s) => (
+          <Reveal key={s.label} className="kn-tile kn-tile--stat">
+            <div className="kn-stat-n">
+              <NumberTicker value={s.value} />
+            </div>
+            <div className="kn-stat-l">{s.label}</div>
           </Reveal>
-          <Reveal style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(120px,1fr))", gap: 14 }}>
-            {about.stats.map((s) => (
-              <div key={s.label} style={{ border: "1px solid var(--hairline)", borderRadius: 16, padding: 18, background: "var(--surface)" }}>
-                <div style={{ fontFamily: "var(--fd)", fontWeight: 700, fontSize: 30, color: "var(--accent)", letterSpacing: "-.02em" }}>
-                  <NumberTicker value={s.value} dec={s.dec} suffix={s.suffix} />
-                </div>
-                <div style={{ fontSize: 12.5, color: "var(--muted)", marginTop: 4 }}>{s.label}</div>
-              </div>
-            ))}
-          </Reveal>
-        </div>
+        ))}
+
+        <Reveal className="kn-tile kn-tile--clock">
+          <div className="kn-tile-label">
+            <span className="kn-avail-dot" aria-hidden="true" />
+            <span className="kn-label">Local time · {site.city}</span>
+          </div>
+          <div className="kn-clock" suppressHydrationWarning>
+            {time ?? "--:--"}
+          </div>
+          <p style={{ color: "var(--muted)", fontSize: 13.5, margin: "10px 0 0" }}>{site.location}</p>
+        </Reveal>
+
+        <Reveal className="kn-tile kn-tile--edu">
+          <div className="kn-tile-label">
+            <GraduationCap size={16} strokeWidth={1.8} style={{ color: "var(--accent)" }} aria-hidden="true" />
+            <span className="kn-label">Education</span>
+          </div>
+          <h3 style={{ fontSize: 22 }}>{masters?.role}</h3>
+          <p style={{ color: "var(--muted)", fontSize: 13.5, margin: "6px 0 0" }}>
+            {masters?.org} · {masters?.period}
+          </p>
+        </Reveal>
+
+        <Reveal className="kn-tile kn-tile--cv" style={{ padding: 0 }}>
+          <a href={site.resume} download data-cursor="Download" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 22, height: "100%", padding: "clamp(22px,2.4vw,32px)", color: "inherit" }}>
+            <span className="kn-label">PDF · Résumé</span>
+            <span style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 12 }}>
+              <h3>Download résumé</h3>
+              <ArrowDown size={30} strokeWidth={1.6} aria-hidden="true" />
+            </span>
+          </a>
+        </Reveal>
       </div>
     </section>
   );

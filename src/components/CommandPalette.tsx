@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { Search, Sparkles } from "lucide-react";
 import { assistant, sections } from "@/lib/content";
 import { projects, type Project } from "@/lib/work";
@@ -9,7 +10,7 @@ import type { SiteAction } from "@/lib/assistant/prompt";
 import { AskPanel } from "./assistant/AskPanel";
 
 type Item = { type: "Section"; label: string; target: string } | { type: "Project"; label: string; category: string; project: Project };
-type Mode = "jump" | "ask";
+export type Mode = "jump" | "ask";
 
 const tabBtn = (active: boolean): React.CSSProperties => ({
   height: 30,
@@ -32,11 +33,17 @@ export function CommandPalette({
   onClose,
   onOpenProject,
   onAction,
+  initialMode = "jump",
+  initialQuestion,
 }: {
   open: boolean;
   onClose: () => void;
   onOpenProject: (p: Project) => void;
   onAction: (a: SiteAction) => void;
+  /** Which tab to land on when opened (the hero Ask bar opens straight into Ask). */
+  initialMode?: Mode;
+  /** A question to ask as soon as the Ask tab mounts. */
+  initialQuestion?: string;
 }) {
   const [mode, setMode] = useState<Mode>("jump");
   const [q, setQ] = useState("");
@@ -62,7 +69,7 @@ export function CommandPalette({
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const t = window.setTimeout(() => {
-      setMode("jump");
+      setMode(initialMode);
       setQ("");
       setHi(0);
       inputRef.current?.focus();
@@ -71,7 +78,7 @@ export function CommandPalette({
       window.clearTimeout(t);
       document.body.style.overflow = prevOverflow;
     };
-  }, [open]);
+  }, [open, initialMode]);
   useEffect(() => {
     const row = listRef.current?.querySelectorAll<HTMLElement>(".kn-pal-row")[hi];
     row?.scrollIntoView({ block: "nearest" });
@@ -118,7 +125,7 @@ export function CommandPalette({
       style={{ position: "fixed", inset: 0, zIndex: 150, display: "flex", alignItems: "flex-start", justifyContent: "center", padding: "12vh 20px 20px" }}
     >
       <div onClick={onClose} aria-hidden="true" style={{ position: "absolute", inset: 0, background: "color-mix(in srgb,var(--canvas) 66%,transparent)", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)" }} />
-      <div style={{ position: "relative", width: mode === "ask" ? "min(620px,100%)" : "min(560px,100%)", border: "1px solid var(--hairline)", borderRadius: 18, background: "var(--surface)", boxShadow: "var(--shadow-card)", overflow: "hidden", display: "flex", flexDirection: "column", minHeight: 0 }}>
+      <motion.div initial={{ opacity: 0, y: -14, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }} style={{ position: "relative", width: mode === "ask" ? "min(620px,100%)" : "min(560px,100%)", border: "1px solid var(--hairline)", borderRadius: 24, background: "var(--surface)", boxShadow: "var(--shadow-card), var(--inner)", overflow: "hidden", display: "flex", flexDirection: "column", minHeight: 0 }}>
         {/* mode switch */}
         <div role="tablist" aria-label="Palette mode" style={{ display: "flex", alignItems: "center", gap: 6, padding: "10px 12px", borderBottom: "1px solid var(--hairline)" }}>
           <button type="button" role="tab" aria-selected={mode === "jump"} onClick={() => setMode("jump")} style={tabBtn(mode === "jump")}>
@@ -159,9 +166,10 @@ export function CommandPalette({
             }}
             onAction={onAction}
             onClose={onClose}
+            initialQuestion={initialQuestion}
           />
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }

@@ -49,7 +49,7 @@ const iconBtn: React.CSSProperties = {
 
 const metaText: React.CSSProperties = { fontFamily: "var(--fm)", fontSize: 10.5, color: "var(--muted)", letterSpacing: ".04em" };
 
-export function AskPanel({ onOpenProject, onAction, onClose }: { onOpenProject: (p: Project) => void; onAction: (a: SiteAction) => void; onClose: () => void }) {
+export function AskPanel({ onOpenProject, onAction, onClose, initialQuestion }: { onOpenProject: (p: Project) => void; onAction: (a: SiteAction) => void; onClose: () => void; initialQuestion?: string }) {
   const [turns, setTurns] = useState<Turn[]>([]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
@@ -198,6 +198,15 @@ export function AskPanel({ onOpenProject, onAction, onClose }: { onOpenProject: 
     askRef.current = ask;
   }, [ask]);
 
+  // Opened from the hero Ask bar with a question already chosen: ask it once on mount.
+  // Runs after the ref effect above, so askRef already points at the live `ask`.
+  const askedInitial = useRef(false);
+  useEffect(() => {
+    if (!initialQuestion || askedInitial.current) return;
+    askedInitial.current = true;
+    askRef.current(initialQuestion);
+  }, [initialQuestion]);
+
   const micLabel = dictation.listening ? "Stop dictation" : "Ask by voice";
   const micNote = dictation.state === "denied" ? assistant.micDenied : dictation.state === "error" ? assistant.micError : "";
 
@@ -233,7 +242,16 @@ export function AskPanel({ onOpenProject, onAction, onClose }: { onOpenProject: 
           ) : (
             <div key={i}>
               <div className="kn-ask-a" aria-live={i === turns.length - 1 ? "polite" : undefined} aria-atomic="false">
-                {t.text || (busy ? <span style={{ color: "var(--muted)" }}>{assistant.thinking}</span> : null)}
+                {t.text ||
+                  (busy ? (
+                    // Skeleton while the first token is in flight; the label stays for screen readers.
+                    <span className="kn-skel-lines" role="status">
+                      <span className="kn-sr">{assistant.thinking}</span>
+                      <i className="kn-skel" style={{ width: "92%" }} />
+                      <i className="kn-skel" style={{ width: "78%" }} />
+                      <i className="kn-skel" style={{ width: "54%" }} />
+                    </span>
+                  ) : null)}
               </div>
 
               {t.projectIds?.length ? (

@@ -1,4 +1,10 @@
-# Portfolio asset scripts
+# Portfolio scripts
+
+> The site's project covers are built from **real data** (`sync-repo-languages.mjs`). The repo PNGs
+> below are AI-generated illustrations (see each repo's `docs/asset-brief.md`), so they're
+> used as README art only, never as proof-of-work screenshots.
+
+## Asset scripts
 
 Sync PNG masters from workspace repos to the site and regenerate grid WebP thumbnails.
 
@@ -11,6 +17,7 @@ node kimo-nexus/scripts/generate-asset-briefs.mjs   # refresh docs/asset-brief.m
 node kimo-nexus/scripts/sync-portfolio-assets.mjs   # copy PNGs + rebuild <id>.webp @ 1280×640
 node kimo-nexus/scripts/audit-portfolio-assets.mjs  # missing/broken assets, dimension drift
 node kimo-nexus/scripts/doc-audit.mjs               # brief coverage vs work.ts + registry
+node kimo-nexus/scripts/sync-repo-languages.mjs     # snapshot real GitHub language %s → src/lib/repoLanguages.json (project covers)
 ```
 
 ## Conventions
