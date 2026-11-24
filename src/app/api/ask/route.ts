@@ -139,13 +139,13 @@ export async function POST(req: Request) {
     : [];
 
   const key = process.env.OPENROUTER_API_KEY?.trim();
-  if (!key) return serveLocal(question, "Running in local mode — no model configured.", started);
+  if (!key) return serveLocal(question, "Answered instantly from this page's own data.", started);
 
   const verdict = take(clientIp(req));
   if (!verdict.ok && verdict.reason === "throttled") {
     return json({ ok: false, throttled: true, retryAfterSec: verdict.retryAfterSec, error: `One moment — try again in ${verdict.retryAfterSec}s.` }, 429);
   }
-  if (!verdict.ok) return serveLocal(question, "Today's free-model budget is used up — answering from the site's own data.", started);
+  if (!verdict.ok) return serveLocal(question, "Answered from this page's own data (today's AI budget is used up).", started);
 
   const model = DEFAULT_MODEL;
   let res: Response;
@@ -177,14 +177,14 @@ export async function POST(req: Request) {
   } catch (err) {
     console.error("[ask] provider unreachable:", err);
     refund();
-    return serveLocal(question, "Model unreachable — answering from the site's own data.", started);
+    return serveLocal(question, "Answered from this page's own data (the AI model didn't respond).", started);
   }
 
   // 401 bad key · 402 out of credit · 429 provider rate limit · 404 model retired.
   if (!res.ok || !res.body) {
     console.error("[ask] provider rejected:", res.status, await res.text().catch(() => ""));
     refund();
-    return serveLocal(question, "Model unavailable — answering from the site's own data.", started);
+    return serveLocal(question, "Answered from this page's own data (the AI model is unavailable).", started);
   }
 
   const remaining = verdict.remaining;
