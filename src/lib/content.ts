@@ -51,7 +51,7 @@ export const hero = {
 
 export const about = {
   eyebrow: "About",
-  headline: ["Engineering that stays", "simple as it {accent:scales}."],
+  headline: ["Engineering that stays", "simple as it scales."],
   paragraphs: [
     "I'm a full-stack engineer working at the intersection of product and applied AI. Day to day that means React/Next.js on the front, Node.js and Python services behind it, and R&D in speech and language tech — TTS, ASR, and NLP — turned into low-latency, production features.",
     `I care about architectural rigor: systems that are understandable, observable, and hold up under load. Over ${yrs} years I've shipped 40+ production apps and mentored 250+ students and interns.`,
@@ -66,7 +66,7 @@ export const about = {
 
 export const services = {
   eyebrow: "What I do",
-  headline: ["Four things, done to a", "production {accent:standard}."],
+  headline: ["Four things, done to a", "production standard."],
   items: [
     { icon: "cpu", title: "AI & Agents", desc: "LangGraph and agentic pipelines, RAG, LLM integration, and voice (TTS/ASR) and NLP built for production." },
     { icon: "network", title: "Distributed Systems", desc: "Event-driven services, Kafka, gRPC, sagas, and high-throughput data flows that stay consistent under load." },
@@ -75,22 +75,24 @@ export const services = {
   ],
 } as const;
 
+// Every tool here is on the résumé or proven in a linked repo's code (audit 2026-11-24).
 export const skills = {
   eyebrow: "Stack",
-  headline: ["Tools I {accent:reach} for."],
+  headline: ["Tools I reach for."],
   groups: [
-    { label: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind", "Framer Motion", "Radix / shadcn"] },
-    { label: "Backend", items: ["Node.js", "Express", "Python", "FastAPI", "NestJS", "Java", "gRPC", "WebSockets"] },
-    { label: "AI / ML", items: ["LangGraph", "LangChain", "RAG", "OpenAI API", "Ollama", "Faster-Whisper", "LiveKit", "SpaCy"] },
-    { label: "Data", items: ["PostgreSQL", "MongoDB", "MySQL", "Redis", "Kafka", "ClickHouse"] },
-    { label: "DevOps / Cloud", items: ["Docker", "AWS", "Kubernetes", "Git", "Go · GraphQL"] },
+    { label: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind", "shadcn/ui", "Framer Motion", "Zustand", "ECharts", "Vite"] },
+    { label: "Backend", items: ["Node.js", "Express", "NestJS", "Python", "FastAPI", "Java", "Rust", "gRPC", "Protobuf"] },
+    { label: "AI / LLM", items: ["LangGraph", "LangChain", "PydanticAI", "MCP", "RAG", "OpenAI", "Claude", "Gemini", "Ollama", "vLLM", "ChromaDB", "SpaCy", "Presidio", "NumPy"] },
+    { label: "Voice & Realtime", items: ["Faster-Whisper", "LiveKit", "Deepgram", "ElevenLabs", "Kokoro", "WebRTC", "Web Speech API", "WebSockets", "SSE"] },
+    { label: "Data", items: ["PostgreSQL", "pgvector", "TimescaleDB", "MongoDB", "MySQL", "Redis", "Kafka", "ClickHouse", "CockroachDB", "Neo4j", "NATS", "RabbitMQ", "MinIO", "Airflow"] },
+    { label: "DevOps / Cloud", items: ["Docker", "AWS", "Azure", "Kubernetes", "GitHub Actions", "Git", "Keycloak", "Varnish", "Grafana", "Prometheus", "OpenTelemetry", "Go · GraphQL"] },
   ],
-  marquee: ["React", "Next.js", "TypeScript", "Node.js", "Python", "FastAPI", "LangChain", "OpenAI", "Whisper", "Kafka", "Docker", "AWS", "Kubernetes", "PostgreSQL", "Redis", "Go", "gRPC", "LangGraph", "LiveKit"],
+  marquee: ["React", "Next.js", "TypeScript", "Node.js", "Python", "FastAPI", "LangChain", "Claude", "Faster-Whisper", "Kafka", "Docker", "AWS", "Kubernetes", "PostgreSQL", "Redis", "Go", "gRPC", "LangGraph", "LiveKit"],
 } as const;
 
 export const experience = {
   eyebrow: "Experience",
-  headline: ["The path {accent:so far}."],
+  headline: ["The path so far."],
   items: [
     { role: "Full-Stack AI Engineer", org: "Lingotran Pvt Ltd", period: "Oct 2026 — Present", current: true, desc: "Build and ship AI/voice platforms end to end — real-time TTS/ASR/NLP pipelines, agentic RAG, and the APIs and dashboards around them. Design resilient services for high-throughput data and guide junior engineers on architecture." },
     { role: "Software Engineer — Full Stack", org: "Lingotran Pvt Ltd", period: "Jan 2023 — Oct 2026", current: false, desc: "Joined as a full-stack engineer and built the AI and voice platforms above; promoted to Full-Stack AI Engineer in October 2026." },
@@ -104,7 +106,7 @@ export const experience = {
 
 export const testimonials = {
   eyebrow: "Peers",
-  headline: ["Endorsed by the people", "I've {accent:built} with."],
+  headline: ["Endorsed by the people", "I've built with."],
   items: [
     { name: "Aniruddha Bagal", role: "SDE @ Examic EdTech · GitHub Campus Expert", quote: "He translates complex business requirements into scalable solutions. His greatest strength is mentorship — code reviews were always learning opportunities, and he foresees bottlenecks before they become issues." },
     { name: "S Kumar Dhananjaya", role: "Associate SW Engineer @ Examic EdTech", quote: "A rare combination of technical brilliance and a positive, solution-driven mindset. His depth as a full-stack developer and eagerness to take ownership made him an incredible asset to the team." },

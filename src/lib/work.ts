@@ -71,7 +71,7 @@ export const projects: Project[] = P.map((r) => ({
   category: r[2],
   group: r[3],
   desc: r[4],
-  tech: r[5].slice(0, 4),
+  tech: r[5], // full stack: cards preview the first 3, the modal shows everything
   action: r[6],
   url: r[7],
   featured: r[8],

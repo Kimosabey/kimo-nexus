@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { ArrowDown, GraduationCap, Radio } from "lucide-react";
-import { about, experience, site } from "@/lib/content";
+import { about, experience, site, skills } from "@/lib/content";
+import { projects } from "@/lib/work";
 import { Reveal } from "../ui/Reveal";
 import { SectionHead } from "../ui/SectionHead";
 import { NumberTicker } from "../ui/NumberTicker";
@@ -11,6 +12,13 @@ import { useLocalTime } from "../ui/useLocalTime";
 
 const current = experience.items.find((e) => e.current);
 const masters = experience.items.find((e) => e.role.startsWith("MCA"));
+
+// The hero already shows years / apps / mentored; the bento counts what the site itself holds.
+const bentoStats = [
+  { value: projects.filter((p) => p.action === "repo").length, label: "Open-source repos" },
+  { value: projects.length, label: "Projects in the archive" },
+  { value: new Set(skills.groups.flatMap((g) => g.items)).size, label: "Tools in the stack" },
+];
 
 /** About as a bento: statement · portrait · now · stats · local time · résumé · education. */
 export function About() {
@@ -50,11 +58,10 @@ export function About() {
           <Waveform bars={28} style={{ height: 40, marginTop: 24 }} />
         </Reveal>
 
-        {about.stats.map((s) => (
+        {bentoStats.map((s) => (
           <Reveal key={s.label} className="kn-tile kn-tile--stat">
             <div className="kn-stat-n">
-              <NumberTicker value={s.value} dec={s.dec} />
-              {s.suffix ? <span className="kn-accent">{s.suffix}</span> : null}
+              <NumberTicker value={s.value} />
             </div>
             <div className="kn-stat-l">{s.label}</div>
           </Reveal>
