@@ -10,29 +10,11 @@ const ICONS = { GitHub: GithubIcon, LinkedIn: LinkedinIcon, X: XIcon } as const;
 export function Socials({ size = 44 }: { size?: number }) {
   const mag = useMagnetic();
   return (
-    <div style={{ display: "flex", gap: size >= 52 ? 10 : 10 }}>
+    <div style={{ display: "flex", gap: 10 }}>
       {socials.map((s) => {
         const Icon = ICONS[s.label as keyof typeof ICONS];
         return (
-          <a
-            key={s.label}
-            href={s.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={s.label}
-            {...mag}
-            style={{
-              width: size,
-              height: size,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: "50%",
-              border: "1px solid var(--hairline)",
-              color: "var(--ink)",
-              transition: "transform .25s, border-color .25s, color .25s",
-            }}
-          >
+          <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label} className="kn-social" {...mag} style={{ width: size, height: size }}>
             <Icon size={size >= 52 ? 20 : 18} />
           </a>
         );
