@@ -49,7 +49,7 @@ const iconBtn: React.CSSProperties = {
 
 const metaText: React.CSSProperties = { fontFamily: "var(--fm)", fontSize: 10.5, color: "var(--muted)", letterSpacing: ".04em" };
 
-export function AskPanel({ onOpenProject, onAction, onClose }: { onOpenProject: (p: Project) => void; onAction: (a: SiteAction) => void; onClose: () => void }) {
+export function AskPanel({ onOpenProject, onAction, onClose, initialQuestion }: { onOpenProject: (p: Project) => void; onAction: (a: SiteAction) => void; onClose: () => void; initialQuestion?: string }) {
   const [turns, setTurns] = useState<Turn[]>([]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
@@ -197,6 +197,15 @@ export function AskPanel({ onOpenProject, onAction, onClose }: { onOpenProject: 
   useEffect(() => {
     askRef.current = ask;
   }, [ask]);
+
+  // Opened from the hero Ask bar with a question already chosen: ask it once on mount.
+  // Runs after the ref effect above, so askRef already points at the live `ask`.
+  const askedInitial = useRef(false);
+  useEffect(() => {
+    if (!initialQuestion || askedInitial.current) return;
+    askedInitial.current = true;
+    askRef.current(initialQuestion);
+  }, [initialQuestion]);
 
   const micLabel = dictation.listening ? "Stop dictation" : "Ask by voice";
   const micNote = dictation.state === "denied" ? assistant.micDenied : dictation.state === "error" ? assistant.micError : "";
