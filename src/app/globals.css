@@ -78,6 +78,7 @@ img { display: block; max-width: 100%; }
 @keyframes kn-marquee-rev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 @keyframes kn-ping { 0% { transform: scale(1); opacity: .55; } 70%, 100% { transform: scale(2.6); opacity: 0; } }
 @keyframes kn-caret { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@keyframes kn-skel { from { background-position: 150% 0; } to { background-position: -50% 0; } }
 @keyframes kn-shine { from { background-position: 200% 0; } to { background-position: -200% 0; } }
 
 /* ================================================================
@@ -442,6 +443,18 @@ textarea.kn-field { resize: vertical; min-height: 110px; }
 .kn-ask-chip:hover { border-color: var(--accent); }
 .kn-ask-go { display: inline-flex; align-items: center; gap: 6px; margin-top: 11px; font-family: inherit; font-size: 12.5px; font-weight: 500; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; }
 .kn-ask-go:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Skeletons — image wells shimmer until the (opaque) image paints over them; the
+   assistant shows shimmering lines until its first token. Static under reduced motion. */
+.kn-skel, .kn-gcard-media, .kn-portrait-card, .kn-tile--photo, .kn-preview, .kn-thumb-wrap {
+  background-color: var(--surface-2);
+  background-image: linear-gradient(100deg, transparent 30%, color-mix(in srgb, var(--ink) 7%, transparent) 50%, transparent 70%);
+  background-size: 200% 100%;
+  animation: kn-skel 1.6s var(--ease) 5; /* bounded: images cover it long before */
+}
+.kn-skel { animation-iteration-count: infinite; display: block; height: 11px; border-radius: 6px; }
+.kn-skel-lines { display: grid; gap: 9px; padding: 4px 0; }
+.kn-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* ================================================================
    Theme wipe (View Transitions)

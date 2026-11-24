@@ -242,7 +242,16 @@ export function AskPanel({ onOpenProject, onAction, onClose, initialQuestion }: 
           ) : (
             <div key={i}>
               <div className="kn-ask-a" aria-live={i === turns.length - 1 ? "polite" : undefined} aria-atomic="false">
-                {t.text || (busy ? <span style={{ color: "var(--muted)" }}>{assistant.thinking}</span> : null)}
+                {t.text ||
+                  (busy ? (
+                    // Skeleton while the first token is in flight; the label stays for screen readers.
+                    <span className="kn-skel-lines" role="status">
+                      <span className="kn-sr">{assistant.thinking}</span>
+                      <i className="kn-skel" style={{ width: "92%" }} />
+                      <i className="kn-skel" style={{ width: "78%" }} />
+                      <i className="kn-skel" style={{ width: "54%" }} />
+                    </span>
+                  ) : null)}
               </div>
 
               {t.projectIds?.length ? (
