@@ -7,6 +7,7 @@ import type { SiteAction } from "@/lib/assistant/prompt";
 import { BackgroundFX } from "./BackgroundFX";
 import { IslandNav } from "./IslandNav";
 import { Cursor } from "./Cursor";
+import { SignalThread } from "./SignalThread";
 import { IntroLoader } from "./IntroLoader";
 import { Footer } from "./Footer";
 import { ProjectModal } from "./ProjectModal";
@@ -86,6 +87,7 @@ export function Portfolio() {
       <a href="#main-content" className="kn-skip">Skip to content</a>
       <IntroLoader onDone={markIntroDone} />
       <BackgroundFX />
+      <SignalThread />
       <IslandNav onAsk={() => openAsk()} />
       <Cursor />
 

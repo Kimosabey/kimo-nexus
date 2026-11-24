@@ -9,6 +9,8 @@ const ICONS: Record<string, ComponentType<{ size?: number; strokeWidth?: number 
 /** Editorial numbered index — big titles, the description sits beside, a signal wash on hover. */
 export function Services() {
   return (
+    // Full-bleed inverted band: the one section in the opposite theme, for rhythm.
+    <div className="kn-band">
     <section id="services" className="kn-sec kn-wrap" aria-labelledby="services-title">
       <SectionHead id="services" label={services.eyebrow} lines={services.headline} />
       <ol className="kn-svc-list">
@@ -29,5 +31,6 @@ export function Services() {
         })}
       </ol>
     </section>
+    </div>
   );
 }
