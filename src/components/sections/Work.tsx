@@ -2,13 +2,14 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
-import { ArrowDown, ArrowUpRight, BookOpen, Lock } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, Lock } from "lucide-react";
 import { projects, featuredProjects, filters, type Project } from "@/lib/work";
 import { scrollToId } from "@/lib/scroll";
 import { ease } from "@/lib/motion";
 import { Reveal } from "../ui/Reveal";
 import { SectionHead } from "../ui/SectionHead";
 import { ProjectThumb } from "../ui/ProjectThumb";
+import { RepoCover } from "../ui/RepoCover";
 import { FINE_POINTER, useMedia } from "../ui/useMedia";
 
 const GALLERY = featuredProjects.slice(0, 6);
@@ -25,7 +26,7 @@ function GalleryCard({ p, i, onOpen, wide }: { p: Project; i: number; onOpen: (p
   return (
     <button type="button" className="kn-gcard" onClick={() => onOpen(p)} data-cursor="Open" style={wide ? { flex: "0 0 clamp(380px, 38vw, 580px)" } : undefined} aria-label={`${p.title} — ${p.category}. Open details`}>
       <div className="kn-gcard-media">
-        <ProjectThumb project={p} sizes="(max-width: 1024px) 82vw, 580px" />
+        <RepoCover project={p} index={i} />
       </div>
       <div className="kn-gcard-body">
         <h3>{p.title}</h3>
@@ -106,12 +107,26 @@ function PinnedGallery({ onOpen }: { onOpen: (p: Project) => void }) {
 }
 
 function StripGallery({ onOpen }: { onOpen: (p: Project) => void }) {
+  const stripRef = useRef<HTMLDivElement>(null);
+  const page = (dir: number) => {
+    const el = stripRef.current;
+    const card = el?.querySelector<HTMLElement>(".kn-gcard");
+    if (el && card) el.scrollBy({ left: dir * (card.offsetWidth + 14), behavior: "smooth" });
+  };
   return (
     <div className="kn-wrap">
       <div className="kn-gallery-head">
-        <span className="kn-label">Featured · swipe</span>
+        <span className="kn-label">Featured · {GALLERY.length} of {featuredProjects.length}</span>
+        <div className="kn-strip-nav">
+          <button type="button" className="kn-strip-btn" aria-label="Previous project" onClick={() => page(-1)}>
+            <ArrowLeft size={18} strokeWidth={1.8} />
+          </button>
+          <button type="button" className="kn-strip-btn" aria-label="Next project" onClick={() => page(1)}>
+            <ArrowRight size={18} strokeWidth={1.8} />
+          </button>
+        </div>
       </div>
-      <div className="kn-gallery-strip" data-hidescroll>
+      <div ref={stripRef} className="kn-gallery-strip" data-hidescroll>
         {GALLERY.map((p, i) => (
           <GalleryCard key={p.id} p={p} i={i} onOpen={onOpen} />
         ))}
@@ -167,16 +182,23 @@ function Archive({ onOpen, filter, onFilterChange }: { onOpen: (p: Project) => v
 
       <ul
         className="kn-rows"
+        onPointerEnter={(e) => {
+          if (!preview) return;
+          sx.jump(e.clientX + 32);
+          sy.jump(e.clientY - 110);
+          mx.jump(e.clientX + 32);
+          my.jump(e.clientY - 110);
+        }}
         onPointerMove={(e) => {
           if (!preview) return;
-          mx.set(e.clientX + 24);
-          my.set(e.clientY - 100);
+          mx.set(e.clientX + 32);
+          my.set(e.clientY - 110);
         }}
         onPointerLeave={() => setHovered(null)}
       >
         {visible.map((p, i) => (
-          <li key={p.id} className="kn-row" onPointerEnter={() => preview && setHovered(p.img ? p : null)}>
-            <button type="button" className="kn-row-btn" onClick={() => onOpen(p)} data-cursor={preview && p.img ? undefined : "View"}>
+          <li key={p.id} className="kn-row" onPointerEnter={() => preview && setHovered(p)}>
+            <button type="button" className="kn-row-btn" onClick={() => onOpen(p)} data-cursor={preview ? undefined : "View"}>
               <span className="kn-row-no">{pad(i + 1)}</span>
               <span className="kn-row-title">{p.title}</span>
               <span className="kn-row-cat">{p.category}</span>
@@ -203,22 +225,22 @@ function Archive({ onOpen, filter, onFilterChange }: { onOpen: (p: Project) => v
       ) : null}
 
       {preview ? (
-        <AnimatePresence>
-          {hovered ? (
-            <motion.div
-              key={hovered.id}
-              className="kn-preview"
-              aria-hidden="true"
-              style={{ x: sx, y: sy }}
-              initial={{ opacity: 0, scale: 0.85, rotate: -3 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.35, ease: ease.out }}
-            >
-              <ProjectThumb project={hovered} sizes="320px" grayscale={false} />
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
+        <motion.div
+          className="kn-preview"
+          aria-hidden="true"
+          style={{ x: sx, y: sy }}
+          initial={false}
+          animate={hovered ? { opacity: 1, scale: 1, rotate: 0 } : { opacity: 0, scale: 0.9, rotate: -2 }}
+          transition={{ duration: 0.3, ease: ease.out }}
+        >
+          <AnimatePresence initial={false}>
+            {hovered ? (
+              <motion.div key={hovered.id} style={{ position: "absolute", inset: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+                {hovered.action === "repo" ? <RepoCover project={hovered} compact /> : <ProjectThumb project={hovered} sizes="320px" grayscale={false} />}
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+        </motion.div>
       ) : null}
     </div>
   );
