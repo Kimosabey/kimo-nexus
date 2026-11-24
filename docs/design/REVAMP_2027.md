@@ -1,4 +1,4 @@
-# Kimo Nexus — 2027 Revamp ("Ember")
+# Kimo Nexus — 2027 Revamp ("Parrot")
 
 > Supersedes the Drake-template layout in `UX_REVAMP.md` (kept for history). Tokens and motion
 > rules here override `DESIGN_SYSTEM.md` where they disagree. Copy still comes only from
@@ -28,7 +28,7 @@ people who **use** it. Each one has a brief and a veto.
 
 | Persona | Owns | Calls made |
 |---|---|---|
-| **Art director** (Awwwards, Godly, CSS Design Awards) | Identity, type, colour | Grotesk + italic serif pairing (Geist / Instrument Serif / Geist Mono). New palette, "Ember" (see Tokens). A giant outlined wordmark closes the page. |
+| **Art director** (Awwwards, Godly, CSS Design Awards) | Identity, type, colour | Grotesk + italic serif pairing (Geist / Instrument Serif / Geist Mono). New palette, "Parrot", derived from Harshan's favourite colour (see Tokens). A giant outlined wordmark closes the page. |
 | **Motion designer** (Codrops, Awwwards SOTD) | Signature motion, rhythm | Five signatures only: line-mask headline reveal, scroll-pinned horizontal gallery, cursor-following preview on the archive list, scroll-linked timeline fill, magnetic CTAs. Everything else is a 0.7s fade-up. A custom cursor on fine pointers only. |
 | **UX / IA strategist** (Mobbin, One Page Love) | Flow, scan path, nav | Drop the sidebar. One floating "island" nav carries the monogram + scroll-progress ring, section links, Ask and the theme switch. Featured work moves up to straight after About. The 10-second scan has to answer: who, what, proof, how to contact. |
 | **Layout / product designer** (BentoGrids, Land-book, Dribbble, Behance) | Section composition | About becomes a bento (statement, portrait, stats, "now", local time, résumé, education). Services become an editorial numbered index. Work splits into a featured *gallery* plus a dense *archive* table. Each section gets a distinct shape. |
@@ -66,27 +66,31 @@ Work moves ahead of Services because the user personas came for proof, not a ser
 
 ## Tokens
 
-### Colour: "Ember"
+### Colour: "Parrot"
 
-Picked for this person specifically. Voice and real-time AI is the strongest proven work,
-and ember orange is the on-air light, the colour that means "live signal". It also breaks
-from the blue, purple and neon-green that nearly every AI-engineer portfolio uses (the old
-lime included). The neutrals are warm, paper in light mode and off-white ink in dark mode, so
-the page reads editorial and human rather than terminal-cold.
+Derived from one colour Harshan chose: **parrot green**. Every other colour comes from that
+one hue, so the palette reads as a brand. Two earlier rounds were dropped: lime (template-feel)
+and Ember orange (not his colour).
+
+- **Neutrals are green-tinted.** Dark mode is a green-black canvas, light mode a pale leaf-paper.
+- **Parrot green is the only interactive colour:** CTAs, links, focus, the "available" dot and the
+  progress ring. Green always means you can act on it.
+- **The expressive word** (italic serif, three headlines only: hero, work, contact) runs a
+  gradient from parrot to yellow-green, the way a parrot's feathers shade.
+- **Deep forest** is the background atmosphere (hero glow, "Now" tile, cover washes).
+- **Red appears only for form errors**, because it's a usability signal and not decoration.
 
 | Token | Light | Dark | Contrast vs canvas (light / dark) |
 |---|---|---|---|
-| canvas | `#f4f1ea` | `#0b0b0d` | — |
-| surface | `#fffdf8` | `#141417` | — |
-| ink | `#141210` | `#f2efe9` | 16.6 / 17.1 |
-| ink-2 | `#3a3631` | `#c8c4bc` | 10.6 / 11.3 |
-| muted | `#67625a` | `#8f8b84` | 5.4 / 5.8 |
-| accent (ember) | `#c2410c` | `#ff5a1f` (P3 `1 .38 .13`) | 4.6 / 6.3 |
-| accent-ink on accent | `#ffffff` | `#160700` | 5.2 / 6.3 |
-| danger | `#c5262e` | `#ff6b6b` | 5.0 / 7.1 |
-
-The accent marks the italic word, links, focus, the primary CTA and live dots. The hero glow
-pairs ember with a faint violet so the dark canvas has depth without a second UI colour.
+| canvas | `#f3f7f1` | `#070b08` | — |
+| surface | `#ffffff` | `#0f1611` | — |
+| ink | `#0b1a0f` | `#eef6ef` | 16.6 / 18.0 |
+| ink-2 | `#2c3d31` | `#c2d2c5` | 10.7 / 12.6 |
+| muted | `#57685b` | `#86998a` | 5.5 / 6.5 |
+| accent (parrot) | `#167a32` | `#52e05f` (P3 `.38 .89 .42`) | 5.0 / 11.5 |
+| gradient end (yellow-green) | `#4f7a0a` | `#c8f26a` | 4.7 / 15.4 |
+| accent-ink on accent | `#ffffff` | `#031207` | 5.4 / 11.1 |
+| danger (errors only) | `#c5262e` | `#ff6b6b` | 5.3 / 7.1 |
 
 ### Type, shape, glass
 
@@ -95,6 +99,11 @@ pairs ember with a faint violet so the dark canvas has depth without a second UI
 - **Shape:** 28px panel radius and 999px pills. Surfaces use a 1px hairline plus an inner
   highlight in place of a drop shadow.
 - **Glass:** only the island nav, the Ask bar and the hero chip use `backdrop-filter`.
+- **Portrait:** a 1px parrot-gradient frame on the hero card, a face-centred crop, and a
+  gradient-ring avatar beside the name on phones. On tablets the portrait sits beside the headline.
+- **Project covers:** typographic spec sheets built from real data (title plus the repo's GitHub
+  language breakdown, `scripts/sync-repo-languages.mjs`). The repos' own images are
+  AI-generated illustrations, so they are not shown as proof of work.
 - **Mobile-first:** base styles are single-column phone layouts, and `min-width` breakpoints
   add tablet (720/900) and desktop (1024/1100). Pinning, the cursor and hover previews switch
   on only for `(min-width:1024px) and (hover:hover) and (pointer:fine)`.
@@ -129,5 +138,7 @@ Easing `cubic-bezier(.22,1,.36,1)` for enter. Stagger 60–90ms. Only `transform
 - Content: every figure traces to `profile/resume.pdf`; every project card matches its repo's
   code (audit 2026-11-24). Years of experience are computed from 2021-02-01 at build time,
   floored to the half-year.
+- Responsive sweep: 11 widths (320–1920) × 2 themes, no overflow, clipped text or small targets, and desktop hero stats above the fold.
+- Gap verification (14 checks): no retracted claims, years consistent, résumé byte-identical, every Stack tool traced, all repo links public, metadata, no keys in bundles.
 - E2E suite (43 checks: nav, palette, Ask, archive, gallery, modal, theme, form, mobile,
   reduced motion, axe WCAG 2.2 AA in both themes): all pass.
