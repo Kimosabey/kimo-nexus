@@ -74,7 +74,7 @@ export function Hero({ onScrollTo, onAsk, ready = true }: { onScrollTo: (id: str
           {/* AI-native entry: the assistant is the hero's primary interaction. */}
           <Reveal>
             <div className="kn-ask" role="group" aria-label="Ask about my work">
-              <button type="button" onClick={() => onAsk()} style={{ all: "unset", flex: 1, minWidth: 0, display: "flex", alignItems: "center", gap: 12, cursor: "text" }} aria-label="Ask the portfolio assistant anything">
+              <button type="button" onClick={() => onAsk()} style={{ all: "unset", flex: 1, minWidth: 0, minHeight: 44, alignSelf: "stretch", display: "flex", alignItems: "center", gap: 12, cursor: "text", borderRadius: 999 }} aria-label="Ask the portfolio assistant anything">
                 <span className="kn-ask-spark" aria-hidden="true">
                   <Sparkles size={18} strokeWidth={1.8} />
                 </span>

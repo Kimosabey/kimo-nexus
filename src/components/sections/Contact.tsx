@@ -90,7 +90,7 @@ export function Contact() {
 
   const sending = status === "sending";
   const sent = status === "sent";
-  const err = (m?: string) => <span style={{ display: "block", fontSize: 12, color: "#E5484D", marginTop: 6, minHeight: 2 }}>{m}</span>;
+  const err = (m?: string) => <span style={{ display: "block", fontSize: 12, color: "var(--danger)", marginTop: 6, minHeight: 2 }}>{m}</span>;
 
   return (
     <section id="contact" className="kn-sec kn-wrap" aria-labelledby="contact-title" style={{ paddingBottom: "clamp(56px,8vw,96px)" }}>
@@ -126,17 +126,17 @@ export function Contact() {
             </p>
             <div>
               <label htmlFor="kn-f-name" className="kn-form-label">Name</label>
-              <input id="kn-f-name" name="name" type="text" autoComplete="name" placeholder="Your name" className="kn-field" aria-invalid={!!errors.name} style={errors.name ? { borderColor: "#E5484D" } : undefined} />
+              <input id="kn-f-name" name="name" type="text" autoComplete="name" placeholder="Your name" className="kn-field" aria-invalid={!!errors.name} style={errors.name ? { borderColor: "var(--danger)" } : undefined} />
               {err(errors.name)}
             </div>
             <div>
               <label htmlFor="kn-f-email" className="kn-form-label">Email</label>
-              <input id="kn-f-email" name="email" type="email" autoComplete="email" placeholder="you@company.com" className="kn-field" aria-invalid={!!errors.email} style={errors.email ? { borderColor: "#E5484D" } : undefined} />
+              <input id="kn-f-email" name="email" type="email" autoComplete="email" placeholder="you@company.com" className="kn-field" aria-invalid={!!errors.email} style={errors.email ? { borderColor: "var(--danger)" } : undefined} />
               {err(errors.email)}
             </div>
             <div>
               <label htmlFor="kn-f-msg" className="kn-form-label">Message</label>
-              <textarea id="kn-f-msg" name="message" placeholder="A line about what you're building…" className="kn-field" aria-invalid={!!errors.message} style={errors.message ? { borderColor: "#E5484D" } : undefined} />
+              <textarea id="kn-f-msg" name="message" placeholder="A line about what you're building…" className="kn-field" aria-invalid={!!errors.message} style={errors.message ? { borderColor: "var(--danger)" } : undefined} />
               {err(errors.message)}
             </div>
             {/* honeypot — hidden from humans, catches bots */}
@@ -144,7 +144,7 @@ export function Contact() {
             <button type="submit" disabled={sending} {...mag} className="kn-btn kn-btn--accent" style={{ width: "100%", cursor: sending ? "wait" : "pointer", opacity: sending ? 0.75 : 1 }}>
               {sending ? (<>Sending… <Loader2 size={16} strokeWidth={2} className="kn-spin" /></>) : sent ? (<>Sent <Check size={16} strokeWidth={2.4} /></>) : (<>Send message <Send size={16} strokeWidth={2} className="kn-arrow" /></>)}
             </button>
-            <p aria-live="polite" role="status" style={{ fontSize: 12.5, margin: 0, minHeight: 16, color: status === "error" ? "#E5484D" : sent ? "var(--accent)" : "var(--muted)" }}>{note}</p>
+            <p aria-live="polite" role="status" style={{ fontSize: 12.5, margin: 0, minHeight: 16, color: status === "error" ? "var(--danger)" : sent ? "var(--accent)" : "var(--muted)" }}>{note}</p>
           </form>
         </Reveal>
       </div>

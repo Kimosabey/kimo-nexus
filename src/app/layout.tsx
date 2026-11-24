@@ -63,12 +63,20 @@ const jsonLd = {
 
 // No-FOUC theme boot: set html.dark before paint (default dark).
 const themeBoot = `(function(){try{var s=localStorage.getItem('kn-theme');var d=s?s==='dark':true;document.documentElement.classList.toggle('dark',d);}catch(e){document.documentElement.classList.add('dark');}})();`;
+// Intro boot: repeat visits in a session and reduced-motion users never paint the intro
+// overlay at all (it's server-rendered so first visits don't flash the page underneath).
+const introBoot = `(function(){try{if(sessionStorage.getItem('kn-intro')==='1'||matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.setAttribute('data-intro','skip');}catch(e){}})();`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBoot }} />
+        <script dangerouslySetInnerHTML={{ __html: introBoot }} />
+        {/* Without JS the intro could never lift, so it must never show. */}
+        <noscript>
+          <style>{`.kn-intro{display:none!important}.kn-min{transform:none!important}`}</style>
+        </noscript>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body suppressHydrationWarning className={`${sans.variable} ${serif.variable} ${mono.variable}`}>

@@ -25,7 +25,7 @@
    ================================================================ */
 :root {
   --canvas: #f4f1ea; --surface: #fffdf8; --surface-2: #ebe7dd; --ink: #141210; --ink-2: #3a3631;
-  --muted: #67625a; --hairline: #e0dacd; --accent: #c2410c; --accent-ink: #ffffff; --accent-soft: rgba(194, 65, 12, .09);
+  --muted: #67625a; --hairline: #e0dacd; --accent: #c2410c; --accent-ink: #ffffff; --accent-soft: rgba(194, 65, 12, .09); --danger: #c5262e;
   --glow: rgba(234, 88, 12, .16); --glow-2: rgba(124, 58, 237, .08); --grain-op: .05; --inner: inset 0 1px 0 rgba(255, 255, 255, .8);
   --shadow-card: 0 1px 2px rgba(40, 25, 10, .05), 0 18px 40px -12px rgba(40, 25, 10, .16);
   --glass: color-mix(in srgb, var(--surface) 72%, transparent);
@@ -36,7 +36,7 @@
 }
 html.dark {
   --canvas: #0b0b0d; --surface: #141417; --surface-2: #1b1a1e; --ink: #f2efe9; --ink-2: #c8c4bc;
-  --muted: #8f8b84; --hairline: #242328; --accent: #ff5a1f; --accent-ink: #160700; --accent-soft: rgba(255, 90, 31, .12);
+  --muted: #8f8b84; --hairline: #242328; --accent: #ff5a1f; --accent-ink: #160700; --accent-soft: rgba(255, 90, 31, .12); --danger: #ff6b6b;
   --glow: rgba(255, 90, 31, .16); --glow-2: rgba(139, 92, 246, .10); --grain-op: .06; --inner: inset 0 1px 0 rgba(255, 255, 255, .045);
   --shadow-card: 0 1px 2px rgba(0, 0, 0, .5), 0 24px 60px -20px rgba(0, 0, 0, .7);
 }
@@ -151,7 +151,7 @@ img { display: block; max-width: 100%; }
 .kn-island-link[data-active="true"] { color: var(--ink); }
 .kn-island-pill { position: absolute; inset: 0; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--hairline); z-index: -1; }
 .kn-island-ask { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 8px 0 14px; border-radius: 999px; border: 0; background: var(--accent); color: var(--accent-ink); font-size: 14px; font-weight: 500; cursor: pointer; white-space: nowrap; }
-.kn-island-ask kbd { font-family: var(--fm); font-size: 11px; padding: 2px 7px; border-radius: 999px; background: color-mix(in srgb, var(--accent-ink) 14%, transparent); }
+.kn-island-ask kbd { font-family: var(--fm); font-size: 11px; padding: 1px 7px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--accent-ink) 45%, transparent); }
 .kn-island-icon { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; border: 0; background: transparent; color: var(--ink); cursor: pointer; transition: background .25s; flex-shrink: 0; }
 .kn-island-icon:hover { background: var(--surface-2); }
 .kn-island-burger { display: grid; }
@@ -169,6 +169,7 @@ img { display: block; max-width: 100%; }
 /* ================================================================
    Intro — "Tuning in"
    ================================================================ */
+html[data-intro="skip"] .kn-intro { display: none; }
 .kn-intro { position: fixed; inset: 0; z-index: 500; background: var(--canvas); display: grid; place-items: center; cursor: pointer; }
 .kn-intro-inner { width: min(560px, calc(100vw - 2 * var(--gutter))); }
 .kn-intro-top { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--fm); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
@@ -269,7 +270,7 @@ html.dark .kn-portrait { filter: grayscale(1) contrast(1.04) brightness(1.04); }
 .kn-tile--clock .kn-clock { font-family: var(--fd); font-weight: 500; font-size: clamp(40px, 4.4vw, 64px); letter-spacing: -.05em; line-height: 1; font-variant-numeric: tabular-nums; }
 .kn-tile--cv { display: flex; flex-direction: column; justify-content: space-between; gap: 22px; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); cursor: pointer; }
 .kn-tile--cv:hover { border-color: var(--accent); }
-.kn-tile--cv .kn-tile-label, .kn-tile--cv .kn-label { color: color-mix(in srgb, var(--accent-ink) 70%, transparent); }
+.kn-tile--cv .kn-tile-label, .kn-tile--cv .kn-label { color: var(--accent-ink); }
 .kn-tile--cv h3 { font-size: clamp(26px, 2.6vw, 34px); }
 .kn-tile--cv svg { transition: transform .4s var(--ease); }
 .kn-tile--cv:hover svg { transform: translateY(3px); }
