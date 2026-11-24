@@ -50,6 +50,17 @@ Full rationale, personas and tokens are in [`docs/design/REVAMP_2027.md`](docs/d
 
 ---
 
+## 🗂️ Repo layout
+
+| Path | What |
+|---|---|
+| `src/app` | App Router: layout, global styles (design tokens), `api/ask` (assistant), `api/contact` |
+| `src/components` | Shell (`IslandNav`, `IntroLoader`, `Cursor`, `SignalThread`), `sections/*`, `ui/*` primitives, `assistant/*` |
+| `src/lib` | `content.ts` and `work.ts` (the only copy and data sources), `assistant/*`, `repoLanguages.json` |
+| `scripts` | Asset and data scripts (see `scripts/README.md`) |
+| `docs` | Design system, résumé source, archive (see `docs/README.md`) |
+| `public` | Portrait, résumé PDF, share image, icons, project art |
+
 ## 🏗️ Architecture
 
 - `src/app`: App Router pages and layouts.

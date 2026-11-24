@@ -1,7 +1,7 @@
 # Kimo Nexus — 2027 Revamp ("Parrot")
 
-> Supersedes the Drake-template layout in `UX_REVAMP.md` (kept for history). Tokens and motion
-> rules here override `DESIGN_SYSTEM.md` where they disagree. Copy still comes only from
+> Supersedes the Drake-template layout in `docs/archive/design/UX_REVAMP.md` (kept for history). Tokens and motion
+> rules here override `docs/archive/design/DESIGN_SYSTEM.md` where they disagree. Copy still comes only from
 > `src/lib/content.ts` / `src/lib/work.ts`. No new claims were added for the redesign.
 
 ## Why revamp
