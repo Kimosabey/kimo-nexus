@@ -14,6 +14,10 @@ export const site = {
   location: "Bangalore · Mysore, India · Remote",
   resume: "/resume.pdf",
   photo: "/profile.webp",
+  // Live local-time chip in the hero + About bento.
+  city: "Bangalore",
+  timeZone: "Asia/Kolkata",
+  availability: "Available for select work",
 } as const;
 
 export const socials = [
@@ -54,7 +58,7 @@ export const about = {
 
 export const services = {
   eyebrow: "What I do",
-  headline: ["Four things, done", "to a production standard."],
+  headline: ["Four things, done to a", "production {accent:standard}."],
   items: [
     { icon: "cpu", title: "AI & Agents", desc: "LangGraph and agentic pipelines, RAG, LLM integration, and voice (TTS/ASR) and NLP built for production." },
     { icon: "network", title: "Distributed Systems", desc: "Event-driven services, Kafka, gRPC, sagas, and high-throughput data flows that stay consistent under load." },
@@ -65,7 +69,7 @@ export const services = {
 
 export const skills = {
   eyebrow: "Stack",
-  headline: "Tools I reach for.",
+  headline: ["Tools I {accent:reach} for."],
   groups: [
     { label: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind", "Framer Motion", "Radix / shadcn"] },
     { label: "Backend", items: ["Node.js", "Express", "Python", "FastAPI", "Flask", "NestJS", "Java"] },
@@ -78,7 +82,7 @@ export const skills = {
 
 export const experience = {
   eyebrow: "Experience",
-  headline: "The path so far.",
+  headline: ["The path {accent:so far}."],
   items: [
     { role: "Full-Stack AI Engineer", org: "Lingotran Pvt Ltd", period: "Oct 2026 — Present", current: true, desc: "Build and ship AI/voice platforms end to end — real-time TTS/ASR/NLP pipelines, agentic RAG, and the APIs and dashboards around them. Design resilient services for high-throughput data and guide junior engineers on architecture." },
     { role: "Software Engineer — Full Stack", org: "Lingotran Pvt Ltd", period: "Jan 2023 — Oct 2026", current: false, desc: "Joined as a full-stack engineer and built the AI and voice platforms above; promoted to Full-Stack AI Engineer in October 2026." },
@@ -92,7 +96,7 @@ export const experience = {
 
 export const testimonials = {
   eyebrow: "Peers",
-  headline: ["Endorsed by the people", "I've built with."],
+  headline: ["Endorsed by the people", "I've {accent:built} with."],
   items: [
     { name: "Aniruddha Bagal", role: "SDE @ Examic EdTech · GitHub Campus Expert", quote: "He translates complex business requirements into scalable solutions. His greatest strength is mentorship — code reviews were always learning opportunities, and he foresees bottlenecks before they become issues." },
     { name: "S Kumar Dhananjaya", role: "Associate SW Engineer @ Examic EdTech", quote: "A rare combination of technical brilliance and a positive, solution-driven mindset. His depth as a full-stack developer and eagerness to take ownership made him an incredible asset to the team." },
@@ -104,7 +108,7 @@ export const testimonials = {
 } as const;
 
 export const contact = {
-  headline: ["Let's build", "something{accent:.}"],
+  headline: ["Let's build", "{accent:something}."],
   sub: "Open to senior full-stack / AI engineering roles and select collaborations. The fastest way to reach me is email.",
   email: site.email,
 } as const;
@@ -138,13 +142,23 @@ export const assistant = {
 } as const;
 
 // Section nav order (rail + mobile menu + scroll-spy).
+// Work sits straight after About: visitors come for proof (docs/design/REVAMP_2027.md).
 export const sections = [
   { id: "hero", label: "Home" },
   { id: "about", label: "About" },
+  { id: "work", label: "Work" },
   { id: "services", label: "Services" },
   { id: "skills", label: "Stack" },
-  { id: "work", label: "Work" },
   { id: "experience", label: "Experience" },
   { id: "testimonials", label: "Peers" },
   { id: "contact", label: "Contact" },
 ] as const;
+
+// The island nav shows only the destinations people actually jump to; ⌘K reaches the rest.
+export const navLinks = ["work", "about", "experience", "contact"] as const;
+
+// Section index labels — "(02) About" — in page order.
+export const sectionIndex = (id: string) => {
+  const i = sections.findIndex((s) => s.id === id);
+  return i < 0 ? "" : String(i).padStart(2, "0");
+};
