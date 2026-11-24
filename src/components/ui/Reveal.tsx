@@ -11,16 +11,19 @@ export function Reveal({
   style,
   delay = 0,
   as = "div",
+  play,
 }: {
   children: ReactNode;
   className?: string;
   style?: CSSProperties;
   delay?: number;
   as?: "div" | "li";
+  /** When set, plays on this flag instead of on scroll-in (above-the-fold hero choreography). */
+  play?: boolean;
 }) {
   const Tag = as === "li" ? motion.li : motion.div;
   return (
-    <Tag className={className} style={style} variants={reveal} initial="hidden" whileInView="show" viewport={revealViewport} transition={{ delay }}>
+    <Tag className={className} style={style} variants={reveal} initial="hidden" {...(play === undefined ? { whileInView: "show", viewport: revealViewport } : { animate: play ? "show" : "hidden" })} transition={{ delay }}>
       {children}
     </Tag>
   );
